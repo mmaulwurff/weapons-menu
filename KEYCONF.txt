@@ -1,0 +1,43 @@
+addkeysection "Weapon Menu Keys" WeaponMenuKeys
+
+addmenukey "Open/close menu" toggle_menu
+alias toggle_menu "pukename ToggleWeaponMenu"
+defaultbind m toggle_menu
+
+addmenukey "Next weapon" next_weapon_menu
+alias next_weapon_menu "pukename scrollnextweapon"
+defaultbind n next_weapon_menu
+
+addmenukey "Previous weapon" prev_weapon_menu
+alias prev_weapon_menu "pukename scrollpreviousweapon"
+defaultbind p prev_weapon_menu
+
+addmenukey "Smart selection weapon 1" smart_select_1
+alias smart_select_1 "pukename SmartWeaponSelection 1"
+
+addmenukey "Smart selection weapon 2" smart_select_2
+alias smart_select_2 "pukename SmartWeaponSelection 2"
+
+addmenukey "Smart selection weapon 3" smart_select_3
+alias smart_select_3 "pukename SmartWeaponSelection 3"
+
+addmenukey "Smart selection weapon 4" smart_select_4
+alias smart_select_4 "pukename SmartWeaponSelection 4"
+
+addmenukey "Smart selection weapon 5" smart_select_5
+alias smart_select_5 "pukename SmartWeaponSelection 5"
+
+addmenukey "Smart selection weapon 6" smart_select_6
+alias smart_select_6 "pukename SmartWeaponSelection 6"
+
+addmenukey "Smart selection weapon 7" smart_select_7
+alias smart_select_7 "pukename SmartWeaponSelection 7"
+
+addmenukey "Smart selection weapon 8" smart_select_8
+alias smart_select_8 "pukename SmartWeaponSelection 8"
+
+addmenukey "Smart selection weapon 9" smart_select_9
+alias smart_select_9 "pukename SmartWeaponSelection 9"
+
+addmenukey "Smart selection weapon 0" smart_select_0
+alias smart_select_0 "pukename SmartWeaponSelection 0"

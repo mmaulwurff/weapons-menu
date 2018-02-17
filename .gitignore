@@ -1,0 +1,15 @@
+# Ignore everything
+*
+
+# Except txt
+!*.txt
+!.gitignore
+
+!source
+source/*
+!source/*.acs
+
+!acs
+acs/*
+!acs/*.o
+
