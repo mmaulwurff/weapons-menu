@@ -44,6 +44,8 @@ Features:
 
 Author: m8f (mmaulwurff@gmail.com)
 
+GitHub: https://github.com/mmaulwurff/weapons-menu
+
 License: CC BY 4.0
 
 Version: 0.4
