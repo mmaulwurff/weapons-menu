@@ -47,19 +47,26 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.5
+Version: 0.6
 
 Changelog:
 0.1 - initial version.
+
 0.2 - changes:
       added automatic selected weapon detecting no level start;
       added getPrintableWeaponName function for external weapon names.
       added weapon set checking, disable menu if weapons are unknown.
       added smart slot selection.
+
 0.3 - changes:
       added player class detection;
       added some weapon sets support.
+
 0.4 - changes:
       added support for dropping weapons and pistol starter scripts.
+
 0.5 - changes:
       added all 6 Final Doomer weapon sets.
+
+0.6 - changes:
+      added handling situation when a weapon can not be selected because it has no ammo.
