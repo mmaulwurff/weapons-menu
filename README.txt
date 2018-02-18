@@ -27,10 +27,9 @@ Features:
 - built-in support for:
   1. Original weapons
   2. PerK's Smoother Weapon Animations Enhanced
-  3. Eriguns1 Standard
-  4. Eriguns1 Extended
-  5. Eriguns2
-  6. Beautiful Doom
+  3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
+  4. Beautiful Doom
+  5. Final Doomer
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
