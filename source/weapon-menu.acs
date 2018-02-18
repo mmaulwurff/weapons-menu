@@ -258,6 +258,10 @@ script "ShowWeaponMenu" ENTER
 script "ToggleWeaponMenu" (void)
 {
   ToggleWeaponMenuFunction();
+  if (menuIsOpened)
+  {
+    SetSelected();
+  }
 }
 
 function void ToggleWeaponMenuFunction(void)
