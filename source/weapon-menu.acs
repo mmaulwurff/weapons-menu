@@ -337,11 +337,13 @@ script "ScrollPreviousWeapon" (void)
 
 function void SetWeaponByNumber(int weaponNumber)
 {
-  bool success = SetWeapon(GetWeaponName(weaponNumber));
+  str weaponName = GetWeaponName(weaponNumber);
+  bool success = SetWeapon(weaponName);
 
   if (!success)
   {
-    print(s:"No ammo.");
+    str printableWeaponName = GetPrintableWeaponName(weaponNumber);
+    print(s:printableWeaponName, s:": no ammo.");
   }
 }
 
