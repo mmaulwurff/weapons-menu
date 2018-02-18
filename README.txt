@@ -47,7 +47,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.6
+Version: 0.7
 
 Changelog:
 0.1 - initial version.
@@ -70,3 +70,6 @@ Changelog:
 
 0.6 - changes:
       added handling situation when a weapon can not be selected because it has no ammo.
+
+0.7 - changes:
+      added weapon name to 'no ammo' message.
