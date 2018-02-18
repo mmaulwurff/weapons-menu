@@ -279,19 +279,29 @@ script "ScrollNextWeapon" (void)
 {
   int weaponCount = weaponCounts[currentSet];
 
-  do
+  if (menuIsOpened)
   {
-    selectedWeapon += 1;
-    if (selectedWeapon >= weaponCount)
+    do
     {
-      selectedWeapon = 0;
+      selectedWeapon += 1;
+      if (selectedWeapon >= weaponCount)
+      {
+        selectedWeapon = 0;
+      }
     }
+    while (!CheckInventory(GetWeaponName(selectedWeapon)));
   }
-  while (!CheckInventory(GetWeaponName(selectedWeapon)));
-
-  if (!menuIsOpened)
+  else
   {
-    SetWeaponByNumber(selectedWeapon);
+    do
+    {
+      selectedWeapon += 1;
+      if (selectedWeapon >= weaponCount)
+      {
+        selectedWeapon = 0;
+      }
+    }
+    while (!SetWeapon(GetWeaponName(selectedWeapon)));
   }
 }
 
@@ -299,25 +309,40 @@ script "ScrollPreviousWeapon" (void)
 {
   int weaponCount = weaponCounts[currentSet];
 
-  do
+  if (menuIsOpened)
   {
-    selectedWeapon -= 1;
-    if (selectedWeapon < 0)
+    do
     {
-      selectedWeapon = weaponCount;
+      selectedWeapon -= 1;
+      if (selectedWeapon < 0)
+      {
+        selectedWeapon = weaponCount;
+      }
     }
+    while (!CheckInventory(GetWeaponName(selectedWeapon)));
   }
-  while (!CheckInventory(GetWeaponName(selectedWeapon)));
-
-  if (!menuIsOpened)
+  else
   {
-    SetWeaponByNumber(selectedWeapon);
+    do
+    {
+      selectedWeapon -= 1;
+      if (selectedWeapon < 0)
+      {
+        selectedWeapon = weaponCount;
+      }
+    }
+    while (!SetWeapon(GetWeaponName(selectedWeapon)));
   }
 }
 
 function void SetWeaponByNumber(int weaponNumber)
 {
-  SetWeapon(GetWeaponName(weaponNumber));
+  bool success = SetWeapon(GetWeaponName(weaponNumber));
+
+  if (!success)
+  {
+    print(s:"No ammo.");
+  }
 }
 
 function void SetSelectedIfAvailable(int newSelected)
