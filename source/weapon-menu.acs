@@ -11,22 +11,27 @@
 // 3 - Eriguns1 Extended
 // 4 - Eriguns2
 // 5 - Beautiful Doom
-#define SETS_NUMBER (12)
+#define SETS_NUMBER (13)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
   "DoomPlayer",
   "PerkDPlayer",
+
   "EriPlayer",
   "AltPlayer",
   "HellPlayer",
+
   "BD_DoomPlayer",
+
   "FDPlutPlayer",
   "FDTNTPlayer",
   "FDDoom2Player",
   "FDAliensPlayer",
   "FDJPCPPlayer",
   "FDBTSXPlayer",
+
+  "FasPlayer",
 };
 
 int weaponCounts[SETS_NUMBER] = {
@@ -50,6 +55,9 @@ int weaponCounts[SETS_NUMBER] = {
   9,
   9,
   8,
+  9,
+
+  // Faspons
   9,
 };
 
@@ -75,6 +83,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
   { 1, 2, 3, 3, 4, 5, 6, 7 },
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+
+  // Faspons
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -93,21 +104,28 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { "FDAliensChainsaw", "FDAliensFist", "FDAliensPistol", "FDAliensSuperShotgun", "FDAliensShotgun", "FDAliensChaingun", "FDAliensRocketLauncher", "FDAliensPlasmaRifle", "FDAliensBFG9000" },
   { "FDJPCPFist", "FDJPCPPistol", "FDJPCPSuperShotgun", "FDJPCPShotgun", "FDJPCPChaingun", "FDJPCPRocketLauncher", "FDJPCPPlasmaRifle", "FDJPCPBFG9000" },
   { "FDBTSXChainsaw", "FDBTSXFist", "FDBTSXPistol", "FDBTSXSuperShotgun", "FDBTSXShotgun", "FDBTSXChaingun", "FDBTSXRocketLauncher", "FDBTSXPlasmaRifle", "FDBTSXBFG9000" },
+
+  { "Motorsaw", "Knuckles", "CombatRifle", "DoubleBarrel", "Riotgun", "Minigun", "RPG", "PulseRifle", "BFG" },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
   { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+
   { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
   { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Auto Shotgun", "3. Super Shotgun", "3. Shotgun", "4. Gatling Gun", "4. Machinegun", "5. Missile Launcher", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000", "8. Grenade Launcher" },
   { "1. Vorpal Blade", "1. Fist", "2. Super Immolator", "2. Immolator", "3. Bloodbane", "4. Nailgun", "5. Mauler", "6. Hellforge", "6. Irebolt", "7. Soul Caster", "8. Hydra", "8. Basilisk", "9. Soul Reaver" },
+
   { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+
   { "1. Power Saw", "1. Melee", "2. Ol' Faithful", "3. Super Shotgun", "3. Scoped Shotgun", "4. Machine Gun", "5. Grenade Launcher", "6. Heavy Machine Gun", "7. Quantum Accelerator" },
   { "1. Halderman Device", "1. Melee", "2. Prototype Pistol", "3. Burst Shotgun", "3. Tactical Shotgun", "4. Dual Uzis", "5. Missile Launcher", "6. Maser", "7. Incursion Annihilator" },
   { "1. Chainsaw", "1. Melee", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG 9000" },
   { "1. Stasis Bow", "1. Trench Knife", "2. Ancient Pistol", "3. Hybrid SSG", "3. Ancient Shotgun", "4. Ancient AK", "5. Photon Scepter", "6. Alien Elite Weapon", "7. Illuminator" },
   { "1. Katana", "2. Silenced Pistol", "3. Neutron Cascader", "3. Neutron Pulser", "4. Burst Needler", "5. Prism Cannon", "6. Ofuda Caster", "7. Onmyou Devastator" },
   { "1. NanoCore", "1. Power Fist", "2. Charge Pistol", "3. Machreaper", "3. Arc Blaster", "4. Pulse Rifle", "5. Pulse Cannon", "6. Plasma Vulcan", "7. X-Spark Cannon" },
+
+  { "1. Chainsaw", "1. Knuckles", "2. Combat Rifle", "3. Double Barrel Shotgun", "3. Riotgun", "4. Minigun", "5. RPG", "6. Pulse Rifle", "7. BFG9000" },
 };
 
 bool menuIsOpened   = false;
