@@ -15,48 +15,48 @@
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
-	"DoomPlayer",
-	"PerkDPlayer",
-	"EriPlayer",
-	"AltPlayer",
-	"HellPlayer",
-	"BD_DoomPlayer",
+  "DoomPlayer",
+  "PerkDPlayer",
+  "EriPlayer",
+  "AltPlayer",
+  "HellPlayer",
+  "BD_DoomPlayer",
 };
 
 int weaponCounts[SETS_NUMBER] = {
-	9,
-	9,
-	9,
-	13,
-	13,
-	9,
+  9,
+  9,
+  9,
+  13,
+  13,
+  9,
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
-	{ 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-	{ 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-	{ 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-	{ 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8 },
-	{ 1, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 8, 9 },
-	{ 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8 },
+  { 1, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 8, 9 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
-	{	"Chainsaw", "Fist", "Pistol", "SuperShotgun", "Shotgun", "Chaingun", "RocketLauncher", "PlasmaRifle", "BFG9000" },
-	{ "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
-	{	"EriChainsaw", "EriFist", "EriPistol", "EriSuperShotgun", "EriShotgun", "EriMachinegun", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000" },
-	{	"EriChainsaw", "EriFist", "AltPistol", "EriAutoShotgun", "AltSuperShotgun", "EriShotgun", "EriGatlingGun", "EriMachinegun", "EriMissileLauncher", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000", "EriGrenadeLauncher" },
-	{ "EriBlade", "EriFist", "EriSuperImmolator", "EriImmolator", "EriBloodbane", "EriNailgun", "EriMauler", "EriHellforge", "EriIrebolt", "EriCaster", "EriHydra", "EriBasilisk", "EriSoulreaver" },
-	{	"BD_Chainsaw", "BD_Fist", "BD_Pistol", "BD_SuperShotgun", "BD_Shotgun", "BD_Chaingun", "BD_RocketLauncher", "BD_PlasmaRifle", "BD_BFG9000" },
+  { "Chainsaw", "Fist", "Pistol", "SuperShotgun", "Shotgun", "Chaingun", "RocketLauncher", "PlasmaRifle", "BFG9000" },
+  { "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
+  { "EriChainsaw", "EriFist", "EriPistol", "EriSuperShotgun", "EriShotgun", "EriMachinegun", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000" },
+  { "EriChainsaw", "EriFist", "AltPistol", "EriAutoShotgun", "AltSuperShotgun", "EriShotgun", "EriGatlingGun", "EriMachinegun", "EriMissileLauncher", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000", "EriGrenadeLauncher" },
+  { "EriBlade", "EriFist", "EriSuperImmolator", "EriImmolator", "EriBloodbane", "EriNailgun", "EriMauler", "EriHellforge", "EriIrebolt", "EriCaster", "EriHydra", "EriBasilisk", "EriSoulreaver" },
+  { "BD_Chainsaw", "BD_Fist", "BD_Pistol", "BD_SuperShotgun", "BD_Shotgun", "BD_Chaingun", "BD_RocketLauncher", "BD_PlasmaRifle", "BD_BFG9000" },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
-	{	"1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
-	{	"1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
-	{	"1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
-	{	"1. Chainsaw", "1. Fist", "2. Pistol", "3. Auto Shotgun", "3. Super Shotgun", "3. Shotgun", "4. Gatling Gun", "4. Machinegun", "5. Missile Launcher", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000", "8. Grenade Launcher" },
-	{ "1. Vorpal Blade", "1. Fist", "2. Super Immolator", "2. Immolator", "3. Bloodbane", "4. Nailgun", "5. Mauler", "6. Hellforge", "6. Irebolt", "7. Soul Caster", "8. Hydra", "8. Basilisk", "9. Soul Reaver" },
-	{	"1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Auto Shotgun", "3. Super Shotgun", "3. Shotgun", "4. Gatling Gun", "4. Machinegun", "5. Missile Launcher", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000", "8. Grenade Launcher" },
+  { "1. Vorpal Blade", "1. Fist", "2. Super Immolator", "2. Immolator", "3. Bloodbane", "4. Nailgun", "5. Mauler", "6. Hellforge", "6. Irebolt", "7. Soul Caster", "8. Hydra", "8. Basilisk", "9. Soul Reaver" },
+  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
 };
 
 bool menuIsOpened   = false;
@@ -65,242 +65,242 @@ int  currentSet     = -1;
 
 function int getWeaponSlot(int weaponNumber)
 {
-	if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
-	{
-		return slots[currentSet][weaponNumber];
-	}
+  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  {
+    return slots[currentSet][weaponNumber];
+  }
 
-	return 0;
+  return 0;
 }
 
 function str getWeaponName(int weaponNumber)
 {
-	if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
-	{
-		return names[currentSet][weaponNumber];
-	}
+  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  {
+    return names[currentSet][weaponNumber];
+  }
 
-	return "UnknownWeapon";
+  return "UnknownWeapon";
 }
 
 function str getPrintableWeaponName(int weaponNumber)
 {
-	if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
-	{
-		return printableNames[currentSet][weaponNumber];
-	}
+  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  {
+    return printableNames[currentSet][weaponNumber];
+  }
 
-	return "Unknown weapon";
+  return "Unknown weapon";
 }
 
 // Returns weaponNumber of next weapon in this slot, or -1 if there is no
 function int getWeaponSibling(int weaponNumber)
 {
-	int thisWeaponSlot = getWeaponSlot(weaponNumber);
-	int weaponCount    = weaponCounts[currentSet];
+  int thisWeaponSlot = getWeaponSlot(weaponNumber);
+  int weaponCount    = weaponCounts[currentSet];
 
-	for (int i = 0; i < weaponCount; ++i)
-	{
-		int w = (weaponNumber + i) % weaponCount;
-		if (w != weaponNumber && getWeaponSlot(w) == thisWeaponSlot)
-		{
-			return w;
-		}
-	}
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    int w = (weaponNumber + i) % weaponCount;
+    if (w != weaponNumber && getWeaponSlot(w) == thisWeaponSlot)
+    {
+      return w;
+    }
+  }
 
-	return -1;
+  return -1;
 }
 
 function int getWeaponBySlot(int slotNumber)
 {
-	int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[currentSet];
 
-	for (int i = 0; i < weaponCount; ++i)
-	{
-		if (slotNumber == getWeaponSlot(i) && CheckInventory(GetWeaponName(i)))
-		{
-			return i;
-		}
-	}
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    if (slotNumber == getWeaponSlot(i) && CheckInventory(GetWeaponName(i)))
+    {
+      return i;
+    }
+  }
 
-	return -1;
+  return -1;
 }
 
 function void printHudWeapon(int weaponNumber, int color)
 {
-	int id = messageIdStart + weaponNumber;
-	int x  = 0;
-	int step = 0.05;
-	int y  = (weaponCounts[currentSet] - 1 - weaponNumber) * step;
-	HudMessage(s:getPrintableWeaponName(weaponNumber); HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
+  int id = messageIdStart + weaponNumber;
+  int x  = 0;
+  int step = 0.05;
+  int y  = (weaponCounts[currentSet] - 1 - weaponNumber) * step;
+  HudMessage(s:getPrintableWeaponName(weaponNumber); HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
 
 function void SetSelected(void)
 {
-	int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[currentSet];
 
-	for (int s = 0; s < weaponCount; ++s)
-	{
-		if (checkWeapon(GetWeaponName(s)))
-		{
-			selectedWeapon = s;
-			break;
-		}
-	}
+  for (int s = 0; s < weaponCount; ++s)
+  {
+    if (checkWeapon(GetWeaponName(s)))
+    {
+      selectedWeapon = s;
+      break;
+    }
+  }
 }
 
 script "ShowWeaponMenu" ENTER
 {
   // check if player class is known
-	for (int c = 0; c < SETS_NUMBER; ++c)
-	{
-		if (CheckActorClass(0, playerClassNames[c]))
-		{
-			currentSet = c;
-			break;
-		}
-	}
-	bool menuEnabled = (currentSet != -1);
+  for (int c = 0; c < SETS_NUMBER; ++c)
+  {
+    if (CheckActorClass(0, playerClassNames[c]))
+    {
+      currentSet = c;
+      break;
+    }
+  }
+  bool menuEnabled = (currentSet != -1);
 
-	if (!menuEnabled)
-	{
-		log(s:"Weapon Menu: unknown player class: ", s:GetActorClass(0), s:", menu is disabled.");
-	}
+  if (!menuEnabled)
+  {
+    log(s:"Weapon Menu: unknown player class: ", s:GetActorClass(0), s:", menu is disabled.");
+  }
 
-	int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[currentSet];
 
-	if (menuEnabled)
-	{
-		SetSelected();
-	}
+  if (menuEnabled)
+  {
+    SetSelected();
+  }
 
-	while (menuEnabled)
-	{
-		if (menuIsOpened)
-		{
-			// can happen if player drops weapon, or pistol starter script is in action
-			if (!CheckInventory(GetWeaponName(selectedWeapon)))
-			{
-				SetSelected();
-			}
+  while (menuEnabled)
+  {
+    if (menuIsOpened)
+    {
+      // can happen if player drops weapon, or pistol starter script is in action
+      if (!CheckInventory(GetWeaponName(selectedWeapon)))
+      {
+        SetSelected();
+      }
 
-			for (int i = 0; i < weaponCount; ++i)
-			{
-				if (CheckInventory(GetWeaponName(i)))
-				{
-					printHudWeapon(i, CR_BLUE);
-				}
-				else
-				{
-					printHudWeapon(i, CR_GRAY);
-				}
-			}
+      for (int i = 0; i < weaponCount; ++i)
+      {
+        if (CheckInventory(GetWeaponName(i)))
+        {
+          printHudWeapon(i, CR_BLUE);
+        }
+        else
+        {
+          printHudWeapon(i, CR_GRAY);
+        }
+      }
 
-			printHudWeapon(selectedWeapon, CR_CYAN);
+      printHudWeapon(selectedWeapon, CR_CYAN);
 
-		}
+    }
 
-		Delay(1);
-	}
+    Delay(1);
+  }
 }
 
 script "ToggleWeaponMenu" (void)
 {
-	ToggleWeaponMenuFunction();
+  ToggleWeaponMenuFunction();
 }
 
 function void ToggleWeaponMenuFunction(void)
 {
-	menuIsOpened = !menuIsOpened;
+  menuIsOpened = !menuIsOpened;
 
-	// on close - select weapon in menu.
-	if (!menuIsOpened)
-	{
-		SetWeaponByNumber(selectedWeapon);
-	}
+  // on close - select weapon in menu.
+  if (!menuIsOpened)
+  {
+    SetWeaponByNumber(selectedWeapon);
+  }
 }
 
 script "ScrollNextWeapon" (void)
 {
-	int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[currentSet];
 
-	do
-	{
-		selectedWeapon += 1;
-		if (selectedWeapon >= weaponCount)
-		{
-			selectedWeapon = 0;
-		}
-	}
-	while (!CheckInventory(GetWeaponName(selectedWeapon)));
+  do
+  {
+    selectedWeapon += 1;
+    if (selectedWeapon >= weaponCount)
+    {
+      selectedWeapon = 0;
+    }
+  }
+  while (!CheckInventory(GetWeaponName(selectedWeapon)));
 
-	if (!menuIsOpened)
-	{
-		SetWeaponByNumber(selectedWeapon);
-	}
+  if (!menuIsOpened)
+  {
+    SetWeaponByNumber(selectedWeapon);
+  }
 }
 
 script "ScrollPreviousWeapon" (void)
 {
-	int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[currentSet];
 
-	do
-	{
-		selectedWeapon -= 1;
-		if (selectedWeapon < 0)
-		{
-			selectedWeapon = weaponCount;
-		}
-	}
-	while (!CheckInventory(GetWeaponName(selectedWeapon)));
+  do
+  {
+    selectedWeapon -= 1;
+    if (selectedWeapon < 0)
+    {
+      selectedWeapon = weaponCount;
+    }
+  }
+  while (!CheckInventory(GetWeaponName(selectedWeapon)));
 
-	if (!menuIsOpened)
-	{
-		SetWeaponByNumber(selectedWeapon);
-	}
+  if (!menuIsOpened)
+  {
+    SetWeaponByNumber(selectedWeapon);
+  }
 }
 
 function void SetWeaponByNumber(int weaponNumber)
 {
-	SetWeapon(GetWeaponName(weaponNumber));
+  SetWeapon(GetWeaponName(weaponNumber));
 }
 
 function void SetSelectedIfAvailable(int newSelected)
 {
-	if (CheckInventory(GetWeaponName(newSelected)))
-	{
-		selectedWeapon = newSelected;
-	}
+  if (CheckInventory(GetWeaponName(newSelected)))
+  {
+    selectedWeapon = newSelected;
+  }
 }
 
 script "SmartWeaponSelection" (int slotNumber)
 {
-	if (slotNumber < weaponCounts[currentSet])
-	{
+  if (slotNumber < weaponCounts[currentSet])
+  {
 
-		if (!menuIsOpened)
-		{
-			SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
-			ToggleWeaponMenuFunction(); // open menu
-		}
-		else
-		{
-			int currentSlot = getWeaponSlot(selectedWeapon);
-			bool sameSlot = (slotNumber == currentSlot);
+    if (!menuIsOpened)
+    {
+      SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
+      ToggleWeaponMenuFunction(); // open menu
+    }
+    else
+    {
+      int currentSlot = getWeaponSlot(selectedWeapon);
+      bool sameSlot = (slotNumber == currentSlot);
 
-			if (sameSlot)
-			{
-				int sibling = getWeaponSibling(selectedWeapon);
-				if (sibling != -1)
-				{
-					SetSelectedIfAvailable(sibling);
-				}
-			}
-			else
-			{
-				SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
-			}
-		}
+      if (sameSlot)
+      {
+        int sibling = getWeaponSibling(selectedWeapon);
+        if (sibling != -1)
+        {
+          SetSelectedIfAvailable(sibling);
+        }
+      }
+      else
+      {
+        SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
+      }
+    }
 
-	}
+  }
 }
