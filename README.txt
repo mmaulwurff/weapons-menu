@@ -48,7 +48,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.4
+Version: 0.5
 
 Changelog:
 0.1 - initial version.
@@ -62,3 +62,5 @@ Changelog:
       added some weapon sets support.
 0.4 - changes:
       added support for dropping weapons and pistol starter scripts.
+0.5 - changes:
+      added all 6 Final Doomer weapon sets.
