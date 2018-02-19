@@ -30,6 +30,8 @@ Features:
   3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
   4. Beautiful Doom
   5. Final Doomer
+  6. Faspons
+  7. HXRTC Project
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
