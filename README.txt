@@ -47,7 +47,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.7
+Version: 0.8
 
 Changelog:
 0.1 - initial version.
@@ -73,3 +73,7 @@ Changelog:
 
 0.7 - changes:
       added weapon name to 'no ammo' message.
+
+0.8 - changes:
+      added Faspons support.
+      added HXRTC Project Final Edition (Revised 17 feb 2018) support.

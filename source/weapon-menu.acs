@@ -11,7 +11,7 @@
 // 3 - Eriguns1 Extended
 // 4 - Eriguns2
 // 5 - Beautiful Doom
-#define SETS_NUMBER (13)
+#define SETS_NUMBER (14)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
@@ -32,6 +32,8 @@ str playerClassNames[SETS_NUMBER] = {
   "FDBTSXPlayer",
 
   "FasPlayer",
+
+  "HXRTCPlayer",
 };
 
 int weaponCounts[SETS_NUMBER] = {
@@ -59,6 +61,9 @@ int weaponCounts[SETS_NUMBER] = {
 
   // Faspons
   9,
+
+  // HXRTC Project!
+  50,
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -86,6 +91,20 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
 
   // Faspons
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+
+  // HXRTC Project
+  {
+    1, 1, 1, 1, 1, 1,
+    2, 2, 2, 2, 2, 2,
+    3, 3, 3, 3, 3,
+    4, 4, 4, 4, 4, 4,
+    5, 5, 5, 5, 5,
+    6, 6, 6, 6, 6,
+    7, 7, 7, 7, 7,
+    8, 8, 8, 8, 8,
+    9, 9, 9, 9, 9,
+    0, 0
+  },
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -106,6 +125,19 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { "FDBTSXChainsaw", "FDBTSXFist", "FDBTSXPistol", "FDBTSXSuperShotgun", "FDBTSXShotgun", "FDBTSXChaingun", "FDBTSXRocketLauncher", "FDBTSXPlasmaRifle", "FDBTSXBFG9000" },
 
   { "Motorsaw", "Knuckles", "CombatRifle", "DoubleBarrel", "Riotgun", "Minigun", "RPG", "PulseRifle", "BFG" },
+
+  {
+    "Z-Gun", "DoomChainsaw", "Axe", "Knife", "DoubleKnuckles", "OmicronRaygun",
+    "LightMachinegun", "MP40", "DualColt1911", "Colt1911", "DualBerettas", "Beretta",
+    "W-Shotgun", "AutoShotgun", "QuadShotgun", "CoachGun", "RiotShotgun",
+    "HeavyChaingun", "M134Minigun", "DemonkillerCarbine", "M24SniperRifle", "DualCombatRifles", "CombatRifle",
+    "MultiElementalCannon", "CryogenicRepeater", "NapalmLauncher", "SawThrower", "Saturn-V",
+    "GatlingLasergun", "DualPulseRifles", "PulseRifle", "DualPlasmaZappers", "PlasmaZapper",
+    "BlackHoleMaker", "BFG-X", "RailgunV20", "NeedleBuster", "ProtoBlaster",
+    "ChillyIceBombard", "FlameCannon", "ChillerCrossbow", "NightmareDoubleRaygun", "HellMissileLauncher",
+    "AcidArbalest", "ToxicWand", "EvilWarriorShield", "UACChemicalSpray", "BlowGun",
+    "LandMineWeapon", "HandGrenadeWeapon",
+  },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -126,6 +158,19 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { "1. NanoCore", "1. Power Fist", "2. Charge Pistol", "3. Machreaper", "3. Arc Blaster", "4. Pulse Rifle", "5. Pulse Cannon", "6. Plasma Vulcan", "7. X-Spark Cannon" },
 
   { "1. Chainsaw", "1. Knuckles", "2. Combat Rifle", "3. Double Barrel Shotgun", "3. Riotgun", "4. Minigun", "5. RPG", "6. Pulse Rifle", "7. BFG9000" },
+
+  {
+    "1. Z-Gun", "1. Chainsaw", "1. Hatchet", "1. Knife", "1. Double Knuckles", "1. Omicron Raygun",
+    "2. Light Machinegun", "2. MP40", "2. Dual Colt 1911", "2. Colt 1911", "2. Dual Berettas", "2. Beretta",
+    "3. W-Shotgun", "3. Auto Shotgun", "3. Quad Shotgun", "3. Coach Gun", "3. Riot Shotgun",
+    "4. Heavy Chaingun", "4. M134 Minigun", "4. Demonkiller Carbine", "4. M24 Sniper Rifle", "4. Dual Combat Rifles", "4. Combat Rifle",
+    "5. Multi-Elemental Cannon", "5. Cryogenic Repeater", "5. Napalm Launcher", "5. Saw Thrower", "5. Saturn-V",
+    "6. Gatling Lasergun", "6. Dual Pulse Rifles", "6. Pulse Rifle", "6. Dual Plasma Zappers", "6. Plasma Zapper",
+    "7. Black Hole Maker", "7. BFG-X", "7. Railgun 2.0", "7. Needle Buster", "7. Proto Blaster",
+    "8. Chilly Mancubus' Ice Bombard", "8. Mancubi's Flame Cannon", "8. Arctic Archer's Chiller Crossbow", "8. Nightmare Reaper's Double Raygun", "8. Skeleton's Hell Missile Launcher",
+    "9. Acid Arbalest", "9. Toxic Wand", "9. Evil Warrior's Shield", "9. UAC Chemical Spray", "9. Poison Dart Blowgun",
+    "0. Land Mine", "0. Hand Grenade",
+  },
 };
 
 bool menuIsOpened   = false;
@@ -199,7 +244,15 @@ function void printHudWeapon(int weaponNumber, int color)
 {
   int id = messageIdStart + weaponNumber;
   int x  = 0;
-  int step = 0.05;
+  int step;
+  if (weaponCounts[currentSet] < 20)
+  {
+    step = 0.05;
+  }
+  else
+  {
+    step = 0.02;
+  }
   int y  = (weaponCounts[currentSet] - 1 - weaponNumber) * step;
   HudMessage(s:getPrintableWeaponName(weaponNumber); HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
@@ -390,10 +443,15 @@ script "SmartWeaponSelection" (int slotNumber)
 
       if (sameSlot)
       {
-        int sibling = getWeaponSibling(selectedWeapon);
+        int sibling = selectedWeapon;
+        do
+        {
+          sibling = getWeaponSibling(sibling);
+        }
+        while (sibling != -1 && !CheckInventory(GetWeaponName(sibling)));
         if (sibling != -1)
         {
-          SetSelectedIfAvailable(sibling);
+          selectedWeapon = sibling;
         }
       }
       else
