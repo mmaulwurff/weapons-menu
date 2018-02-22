@@ -11,7 +11,16 @@
 // 3 - Eriguns1 Extended
 // 4 - Eriguns2
 // 5 - Beautiful Doom
-#define SETS_NUMBER (14)
+// 6 - Final Doomer - Plutonia
+// 7 - Final Doomer - TNT
+// 8 - Final Doomer - Doom 2
+// 9 - Final Doomer - Ancient Aliens
+// 10 - Final Doomer - JPCP
+// 11 - Final Doomer - BTSX
+// 12 - Faspons
+// 13 - HXRTC Project
+// 14 - Kriegsland
+#define SETS_NUMBER (15)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
@@ -34,6 +43,8 @@ str playerClassNames[SETS_NUMBER] = {
   "FasPlayer",
 
   "HXRTCPlayer",
+
+  "FKPlayer",
 };
 
 int weaponCounts[SETS_NUMBER] = {
@@ -64,6 +75,9 @@ int weaponCounts[SETS_NUMBER] = {
 
   // HXRTC Project!
   50,
+
+  // Kriegsland
+  22 + 5
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -105,6 +119,19 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     9, 9, 9, 9, 9,
     0, 0
   },
+
+  // Kriegsland
+  {
+    1, 1, 1,
+    2, 2, 2,
+    3, 3,
+    4, 4,
+    5, 5, 5,
+    6, 6, 6,
+    7, 7, 7,
+    8, 8, 8,
+    9, 9, 9, 9, 9, // cross akimbos
+  }
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -138,6 +165,18 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "AcidArbalest", "ToxicWand", "EvilWarriorShield", "UACChemicalSpray", "BlowGun",
     "LandMineWeapon", "HandGrenadeWeapon",
   },
+
+  { // Kriegsland
+    "HDGrenades", "HDChainsaw", "HDKnife",
+    "HDBlaster", "HDHandgun", "HDPistol",
+    "HDSuperShotgun", "HDShotgun",
+    "HDChaingun", "HDMachinegun",
+    "HDPanzerfaust", "HDFlareGun", "HDRocketLauncher",
+    "HDSonicGun", "HDLightningGun", "HDPlasmaRifle",
+    "HDLaserGun", "HDLurdinha", "HDBFG9000",
+    "HDCarbine", "HDGewehr", "HDRifle",
+    "HDCrossAkimbo5", "HDCrossAkimbo4", "HDCrossAkimbo3", "HDCrossAkimbo2", "HDCrossAkimbo1",
+  }
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -171,6 +210,18 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "9. Acid Arbalest", "9. Toxic Wand", "9. Evil Warrior's Shield", "9. UAC Chemical Spray", "9. Poison Dart Blowgun",
     "0. Land Mine", "0. Hand Grenade",
   },
+
+  { // Kriegsland
+    "1. Stielhandgranate-68", "1. Elektroshocker", "1. Kampfmesser 84",
+    "2. DL-44 FuturPistole-Blaster", "2. Mauser M972-S2", "2. Luger P-58",
+    "3. Jadtfaust Wunderfilnte-8", "3. Luftwaffe DP-65",
+    "4. MP-86s", "4. StG-60",
+    "5. Panzerkreuz Mk. III", "5. Kampfpistole", "5. Lawine-6",
+    "6. Schallkraftwerk", "6. Blitzgewehr", "6. Flammenfaust",
+    "7. Ekelhaftwaffe", "7. MG-92", "7. VFR-245 Puls-Kanone",
+    "8. Bombenschuss", "8. Gewehr-1953", "8. KAR 82a-2K",
+    "9. Cross Thermals", "9. Cross Launchers", "9. Cross Machineguns", "9. Cross Shotguns", "9. Cross Pistols",
+  }
 };
 
 bool menuIsOpened   = false;

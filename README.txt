@@ -32,6 +32,7 @@ Features:
   5. Final Doomer
   6. Faspons
   7. HXRTC Project
+  8. Kriegsland: Blutordnung (2.3 04/02/18)
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
@@ -49,7 +50,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.8
+Version: 0.9
 
 Changelog:
 0.1 - initial version.
@@ -79,3 +80,6 @@ Changelog:
 0.8 - changes:
       added Faspons support.
       added HXRTC Project Final Edition (Revised 17 feb 2018) support.
+
+0.9:
+      added Kriegsland: Blutordnung support
