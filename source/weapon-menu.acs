@@ -22,8 +22,9 @@
 // 14 - Kriegsland
 // 15 - Complex Doom V27a3
 // 16 - Weapons of Saturn - October 31, 2017
+// 17 - Hard-Doom v8.1.1
 
-#define SETS_NUMBER (17)
+#define SETS_NUMBER (18)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
@@ -37,6 +38,7 @@ str playerClassNames[SETS_NUMBER] = {
   "FKPlayer",          // Kriegsland
   "ComplexDoomPlayer", // Complex Doom
   "SaturnPlayer",      // Weapons of Saturn
+  "DoomMarine",        // Hard-Doom
 };
 
 int weaponCounts[SETS_NUMBER] = {
@@ -50,6 +52,7 @@ int weaponCounts[SETS_NUMBER] = {
   22 + 5, // Kriegsland
   20, // Complex Doom
   11, // Weapons of Saturn
+  14, // Hard-Doom
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -111,6 +114,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   },
 
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
+
+  { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -179,6 +184,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "NovaRifle",
     "TITAN",
   },
+
+  { // Hard-Doom
+    "Chainsaw~", "Fist~",
+    "Pistol~",
+    "Quad-Shotgun", "SuperShotgun~", "Shotgun~",
+    "Minigun~", "Chaingun~",
+    "GrenadeLauncher~", "RocketLauncher~",
+    "PlasmaRifle~", "Sonic Railgun",
+    "BFG10K~", "BFG9000~",
+  },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -246,6 +261,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "5. Saturn V",
     "6. Nova Rifle",
     "7. Titan",
+  },
+
+  { // Hard-Doom
+    "1. Chainsaw", "1. Fist",
+    "2. Pistol",
+    "3. Quad-Shotgun", "3. Super Shotgun", "3. Shotgun",
+    "4. Minigun", "4. Chaingun",
+    "5. Grenade Launcher", "5. Rocket Launcher",
+    "6. Plasma Rifle", "6. Sonic Railgun",
+    "7. BFG10K", "7. BFG9000",
   },
 };
 
