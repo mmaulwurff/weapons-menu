@@ -21,86 +21,48 @@
 // 13 - HXRTC Project
 // 14 - Kriegsland
 // 15 - Complex Doom V27a3
+// 16 - Weapons of Saturn - October 31, 2017
 
-#define SETS_NUMBER (16)
+#define SETS_NUMBER (17)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] = {
-  "DoomPlayer",
-  "PerkDPlayer",
-
-  "EriPlayer",
-  "AltPlayer",
-  "HellPlayer",
-
-  "BD_DoomPlayer",
-
-  "FDPlutPlayer",
-  "FDTNTPlayer",
-  "FDDoom2Player",
-  "FDAliensPlayer",
-  "FDJPCPPlayer",
-  "FDBTSXPlayer",
-
-  "FasPlayer",
-
-  "HXRTCPlayer",
-
-  "FKPlayer",
-
-  "ComplexDoomPlayer",
+  "DoomPlayer",        // Standard
+  "PerkDPlayer",       // PerK's Smoother Weapon Animations Enhanced
+  "EriPlayer", "AltPlayer", "HellPlayer", // Eriguns
+  "BD_DoomPlayer",     // Beautiful Doom
+  "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player", "FDAliensPlayer", "FDJPCPPlayer", "FDBTSXPlayer", // Final Doomer
+  "FasPlayer",         // Faspons
+  "HXRTCPlayer",       // HXRTC Project
+  "FKPlayer",          // Kriegsland
+  "ComplexDoomPlayer", // Complex Doom
+  "SaturnPlayer",      // Weapons of Saturn
 };
 
 int weaponCounts[SETS_NUMBER] = {
-  // Standard
-  9,
-
-  // PerK's Smoother Weapon Animations Enhanced
-  9,
-
-  // Eriguns
-  9,
-  13,
-  13,
-
-  // Beautiful Doom
-  9,
-
-  // Final Doomer
-  9,
-  9,
-  9,
-  9,
-  8,
-  9,
-
-  // Faspons
-  9,
-
-  // HXRTC Project!
-  50,
-
-  // Kriegsland
-  22 + 5,
-
-  // Complex Doom
-  20,
+  9,  // Standard
+  9,  // PerK's Smoother Weapon Animations Enhanced
+  9, 13, 13, // Eriguns
+  9,  // Beautiful Doom
+  9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
+  9,  // Faspons
+  50, // HXRTC Project!
+  22 + 5, // Kriegsland
+  20, // Complex Doom
+  11, // Weapons of Saturn
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
-  // Standard
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
 
-  // PerK's Smoother Weapon Animations Enhanced
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // PerK's Smoother Weapon Animations Enhanced
 
   // Eriguns
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8 },
   { 1, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 8, 9 },
 
-  // Beautiful Doom
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Beautiful Doom
 
   // Final Doomer
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
@@ -110,11 +72,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { 1, 2, 3, 3, 4, 5, 6, 7 },
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
 
-  // Faspons
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Faspons
 
-  // HXRTC Project
-  {
+  { // HXRTC Project
     1, 1, 1, 1, 1, 1,
     2, 2, 2, 2, 2, 2,
     3, 3, 3, 3, 3,
@@ -127,8 +87,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     0, 0
   },
 
-  // Kriegsland
-  {
+  { // Kriegsland
     1, 1, 1,
     2, 2, 2,
     3, 3,
@@ -140,8 +99,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     9, 9, 9, 9, 9, // cross akimbos
   },
 
-  // Complex Doom
-  {
+  { // Complex Doom
     1, 1, 1, 1,
     2,
     3, 3, 3, 3,
@@ -151,6 +109,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     7, 7, 7,
     8,
   },
+
+  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -207,7 +167,18 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "Railgun ", "Demon Tech Rifle", "Plasma Rifle",
     "Demon Tech BFG10K", "BFG10K ", "BFG9500",
     "MP40",
- },
+  },
+
+  // Weapons of Saturn
+  {
+    "Motorsaw", "Knuckles",
+    "1911", "Beretta",
+    "Coachgun", "Riotgun",
+    "Minigun", "MachineRifle",
+    "SaturnV",
+    "NovaRifle",
+    "TITAN",
+  },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
@@ -264,7 +235,18 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "6. Railgun", "6. Demon Tech Rifle", "6. Plasma Rifle",
     "7. Demon Tech BFG10K", "7. BFG10K", "7. BFG9500",
     "8. MP40",
- },
+  },
+
+  // Weapons of Saturn
+  {
+    "1. Chain Saw", "1. Knuckles",
+    "2. 1911", "2. Beretta",
+    "3. Coach Gun", "3. Riot Gun",
+    "4. Rotary Cannon", "4. Machine Rifle",
+    "5. Saturn V",
+    "6. Nova Rifle",
+    "7. Titan",
+  },
 };
 
 bool menuIsOpened   = false;

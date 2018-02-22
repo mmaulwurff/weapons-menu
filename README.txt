@@ -21,7 +21,7 @@ Usage:
 
 Features:
 - provides ability to fast weapon selection without using numbers row.
-
+- with menu, you see what you are about to select. No more blind weapon choices!
 - colors in menu: red - no weapon, blue - available weapon, green - selected.
 
 - built-in support for:
@@ -34,6 +34,7 @@ Features:
   7. HXRTC Project
   8. Kriegsland: Blutordnung (2.3 04/02/18)
   9. Complex Doom V27a3
+  10. Weapons of Saturn (October 31, 2017)
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
@@ -87,3 +88,6 @@ Changelog:
 
 0.10:
       added Complex Doom V27a3 support
+
+0.11:
+      added Weapons of Saturn support.
