@@ -38,12 +38,12 @@ Features:
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
-  1. Increment SETS_NUMBER,
-  2. Then add new player class to playerClassNames array,
-  3. Then add number of weapons in this weapon set to weaponCounts array,
-  4. Then add weapon slot list tot slots array,
-  5. Then add list of weapon classes to names array,
-  6. Then add list of printable weapon names to printableNames array.
+  1. Increment SETS_NUMBER constant,
+  2. Then add new player class to "playerClassNames" array,
+  3. Then add number of weapons in this weapon set to "weaponCounts" array,
+  4. Then add weapon slot list to "slots" array,
+  5. Then add list of weapon classes to "names" array,
+  6. Then add list of printable weapon names to "printableNames" array.
   7. Compile ACS.
 
 Author: m8f (mmaulwurff@gmail.com)
