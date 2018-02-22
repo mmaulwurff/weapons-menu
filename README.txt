@@ -33,6 +33,7 @@ Features:
   6. Faspons
   7. HXRTC Project
   8. Kriegsland: Blutordnung (2.3 04/02/18)
+  9. Complex Doom V27a3
 
 - weapon sets are detected by player class. So support for other weapon sets can
   be easily added by modifying weapon-menu.acs:
@@ -83,3 +84,6 @@ Changelog:
 
 0.9:
       added Kriegsland: Blutordnung support
+
+0.10:
+      added Complex Doom V27a3 support
