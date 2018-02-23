@@ -20,8 +20,9 @@ Features:
 - provides ability to fast weapon selection without using numbers row.
 - with menu, you see what you are about to select. No more blind weapon choices!
 - configurable colors and position.
+- will work with any HUD.
 
-- built-in support for:
+Built-in support for:
   1. Original weapons
   2. PerK's Smoother Weapon Animations Enhanced
   3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
@@ -34,8 +35,8 @@ Features:
   10. Weapons of Saturn (October 31, 2017)
   11. Hard-Doom v8.1.1
 
-- weapon sets are detected by player class. So support for other weapon sets can
-  be easily added by modifying weapon-menu.acs:
+Weapon sets are detected by player class. So support for other weapon sets can
+be easily added by modifying weapon-menu.acs:
   1. Increment SETS_NUMBER constant,
   2. Then add new player class to "playerClassNames" array,
   3. Then add number of weapons in this weapon set to "weaponCounts" array,
@@ -54,12 +55,10 @@ Version: 0.13
 
 Changelog:
 0.1: initial version.
-0.2:
-      added automatic selected weapon detecting no level start;
-      added getPrintableWeaponName function for external weapon names.
-      added weapon set checking, disable menu if weapons are unknown.
-      added smart slot selection.
-
+0.2: added automatic selected weapon detecting on level start
+added getPrintableWeaponName function for external weapon names.
+added weapon set checking, disable menu if weapons are unknown.
+added smart slot selection.
 0.3: added player class detection; added some weapon sets support.
 0.4: added support for dropping weapons and pistol starter scripts.
 0.5: added all 6 Final Doomer weapon sets.
