@@ -341,11 +341,11 @@ function int getWeaponBySlot(int slotNumber)
   return -1;
 }
 
-function void printHudWeapon(int weaponNumber, int color)
+function void printHudWeapon(int weaponNumber, int color, int xStart, int yStart, bool highToLow)
 {
   int playerN = PlayerNumber();
   int id = messageIdStart + weaponNumber;
-  int x  = getUserCVar(playerN, "M8FWeaponMenuXStart");
+
   int step;
   if (weaponCounts[currentSet] < 20)
   {
@@ -355,8 +355,17 @@ function void printHudWeapon(int weaponNumber, int color)
   {
     step = 0.02;
   }
-  int y = (weaponCounts[currentSet] - 1 - weaponNumber) * step +
-          getUserCVar(playerN, "M8FWeaponMenuYStart");
+
+  int x = xStart;
+  int y = yStart;
+  if (highToLow)
+  {
+    y += (weaponCounts[currentSet] - 1 - weaponNumber) * step;
+  }
+  else
+  {
+    y += weaponNumber * step;
+  }
 
   HudMessage(s:getPrintableWeaponName(weaponNumber);
              HUDMSG_PLAIN,
@@ -418,19 +427,23 @@ script "ShowWeaponMenu" ENTER
       int notAvailableWeapon = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
       int highlightedWeapon  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
 
+      int xStart = getUserCVar(playerN, "M8FWeaponMenuXStart");
+      int yStart = getUserCVar(playerN, "M8FWeaponMenuYStart");
+      bool highToLow = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
+
       for (int i = 0; i < weaponCount; ++i)
       {
         if (CheckInventory(GetWeaponName(i)))
         {
-          printHudWeapon(i, availableWeapon);
+          printHudWeapon(i, availableWeapon, xStart, yStart, highToLow);
         }
         else
         {
-          printHudWeapon(i, notAvailableWeapon);
+          printHudWeapon(i, notAvailableWeapon, xStart, yStart, highToLow);
         }
       }
 
-      printHudWeapon(selectedWeapon, highlightedWeapon);
+      printHudWeapon(selectedWeapon, highlightedWeapon, xStart, yStart, highToLow);
 
     }
 

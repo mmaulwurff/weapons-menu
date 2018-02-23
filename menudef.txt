@@ -1,9 +1,17 @@
+OptionValue "M8FWeaponsMenuSlotOrder"
+{
+  0, "From lowest to highest"
+  1, "From highest to lowest"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapons Menu Options"
   Option "Available Weapon Color", "M8FAvailableWeaponColor", "TextColors"
   Option "Not Available Weapon Color", "M8FNotAvailableWeaponColor", "TextColors"
   Option "Highlighted Weapon Color", "M8FHighlightedWeaponColor", "TextColors"
+
+  Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.1

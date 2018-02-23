@@ -51,7 +51,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.13
+Version: 0.14
 
 Changelog:
 0.1: initial version.
@@ -70,3 +70,4 @@ added smart slot selection.
 0.11: added Weapons of Saturn support.
 0.12: added Hard-Doom support.
 0.13: added menu colors and position options.
+0.14: added menu slot order option.
