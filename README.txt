@@ -2,22 +2,19 @@ Weapon Selection Menu Mod for GZDoom
 
 Usage:
 
-1. Assign keys (or mouse wheel) in Options -> Customize controls ->
-   "Weapon Menu Keys"
+1. Assign keys (or mouse wheel) in Options -> Customize controls -> "Weapon Menu Keys"
 
-2. You can open and close menu manually.
+2. Open Weapons Menu by pressing assigned Smart Selection Keys or Open/Close Menu key.
 
-3. Next/previous weapon keys behavior: when Menu is closed, as usual. When Menu
-   is opened, scroll available weapons in menu.
+3. Cycle through the Weapons Menu with Smart Selection Keys or Next/Previous weapon keys.
 
-4. Number keys behavior: open Menu (if not opened), highlight corresponding
-   weapon. Cycle weapons in slot if there is more than one (like SG/SSG).
+4. Smart Selection Keys cycle through all the weapons in one slot.
 
-5. When you close Weapons Menu, highlighted weapon is selected.
+5. If Menu is closed, Next/Previous weapon keys act as standard Next/Previous weapon Keys.
 
-6. Weapons Menu does not affect gameplay. When it is opened, you can run, shoot,
-   do whatever you want to do. New weapon will be selected only when Menu is
-   closed.
+6. Close Weapons Menu, and highlighted weapon is selected.
+
+7. Weapons Menu does not affect gameplay. When it is opened, you can run, shoot, do whatever you want to do. New weapon will be selected only when Menu is closed.
 
 Features:
 - provides ability to fast weapon selection without using numbers row.
