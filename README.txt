@@ -19,7 +19,7 @@ Usage:
 Features:
 - provides ability to fast weapon selection without using numbers row.
 - with menu, you see what you are about to select. No more blind weapon choices!
-- colors in menu: red - no weapon, blue - available weapon, green - selected.
+- configurable colors and position.
 
 - built-in support for:
   1. Original weapons
@@ -50,7 +50,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.12
+Version: 0.13
 
 Changelog:
 0.1: initial version.
@@ -70,3 +70,4 @@ Changelog:
 0.10: added Complex Doom V27a3 support.
 0.11: added Weapons of Saturn support.
 0.12: added Hard-Doom support.
+0.13: added menu colors and position options.
