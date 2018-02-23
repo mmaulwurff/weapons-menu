@@ -1,0 +1,6 @@
+user int M8FAvailableWeaponColor    = 7;
+user int M8FNotAvailableWeaponColor = 2;
+user int M8FHighlightedWeaponColor  = 21;
+
+user float M8FWeaponMenuXStart = 0.0;
+user float M8FWeaponMenuYStart = 0.0;
