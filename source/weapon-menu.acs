@@ -27,7 +27,8 @@
 #define SETS_NUMBER (18)
 #define MAX_WEAPONS_NUMBER (50)
 
-str playerClassNames[SETS_NUMBER] = {
+str playerClassNames[SETS_NUMBER] =
+{
   "DoomPlayer",        // Standard
   "PerkDPlayer",       // PerK's Smoother Weapon Animations Enhanced
   "EriPlayer", "AltPlayer", "HellPlayer", // Eriguns
@@ -41,7 +42,8 @@ str playerClassNames[SETS_NUMBER] = {
   "DoomMarine",        // Hard-Doom
 };
 
-int weaponCounts[SETS_NUMBER] = {
+int weaponCounts[SETS_NUMBER] =
+{
   9,  // Standard
   9,  // PerK's Smoother Weapon Animations Enhanced
   9, 13, 13, // Eriguns
@@ -55,7 +57,8 @@ int weaponCounts[SETS_NUMBER] = {
   14, // Hard-Doom
 };
 
-int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
+int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
+{
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // PerK's Smoother Weapon Animations Enhanced
@@ -118,7 +121,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 };
 
-str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
+str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
+{
   { "Chainsaw", "Fist", "Pistol", "SuperShotgun", "Shotgun", "Chaingun", "RocketLauncher", "PlasmaRifle", "BFG9000" },
   { "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
 
@@ -162,8 +166,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "HDCrossAkimbo5", "HDCrossAkimbo4", "HDCrossAkimbo3", "HDCrossAkimbo2", "HDCrossAkimbo1",
   },
 
-  // Complex Doom
-  {
+  { // Complex Doom
     "Land Mine", "Hand Grenade", "Chainsaw ", "Melee",
     "Handgun",
     "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
@@ -174,8 +177,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "MP40",
   },
 
-  // Weapons of Saturn
-  {
+  { // Weapons of Saturn
     "Motorsaw", "Knuckles",
     "1911", "Beretta",
     "Coachgun", "Riotgun",
@@ -240,8 +242,7 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "9. Cross Thermals", "9. Cross Launchers", "9. Cross Machineguns", "9. Cross Shotguns", "9. Cross Pistols",
   },
 
-  // Complex Doom
-  {
+  { // Complex Doom
     "1. Land Mine", "1. Hand Grenade", "1. Chainsaw", "1. Melee",
     "2. Handgun",
     "3. Quad Barrel Shotgun", "3. Double Barrel Shotgun", "3. Assault Shotgun", "3. Combat Shotgun",
@@ -252,8 +253,7 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
     "8. MP40",
   },
 
-  // Weapons of Saturn
-  {
+  { // Weapons of Saturn
     "1. Chain Saw", "1. Knuckles",
     "2. 1911", "2. Beretta",
     "3. Coach Gun", "3. Riot Gun",
