@@ -198,79 +198,80 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 };
 
-str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] = {
-  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
-  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
+{
+  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
 
-  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
-  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Auto Shotgun", "3. Super Shotgun", "3. Shotgun", "4. Gatling Gun", "4. Machinegun", "5. Missile Launcher", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000", "8. Grenade Launcher" },
-  { "1. Vorpal Blade", "1. Fist", "2. Super Immolator", "2. Immolator", "3. Bloodbane", "4. Nailgun", "5. Mauler", "6. Hellforge", "6. Irebolt", "7. Soul Caster", "8. Hydra", "8. Basilisk", "9. Soul Reaver" },
+  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { "Chainsaw", "Fist", "Pistol", "Auto Shotgun", "Super Shotgun", "Shotgun", "Gatling Gun", "Machinegun", "Missile Launcher", "Rocket Launcher", "Plasma Rifle", "BFG9000", "Grenade Launcher" },
+  { "Vorpal Blade", "Fist", "Super Immolator", "Immolator", "Bloodbane", "Nailgun", "Mauler", "Hellforge", "Irebolt", "Soul Caster", "Hydra", "Basilisk", "Soul Reaver" },
 
-  { "1. Chainsaw", "1. Fist", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG9000" },
+  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
 
-  { "1. Power Saw", "1. Melee", "2. Ol' Faithful", "3. Super Shotgun", "3. Scoped Shotgun", "4. Machine Gun", "5. Grenade Launcher", "6. Heavy Machine Gun", "7. Quantum Accelerator" },
-  { "1. Halderman Device", "1. Melee", "2. Prototype Pistol", "3. Burst Shotgun", "3. Tactical Shotgun", "4. Dual Uzis", "5. Missile Launcher", "6. Maser", "7. Incursion Annihilator" },
-  { "1. Chainsaw", "1. Melee", "2. Pistol", "3. Super Shotgun", "3. Shotgun", "4. Chaingun", "5. Rocket Launcher", "6. Plasma Rifle", "7. BFG 9000" },
-  { "1. Stasis Bow", "1. Trench Knife", "2. Ancient Pistol", "3. Hybrid SSG", "3. Ancient Shotgun", "4. Ancient AK", "5. Photon Scepter", "6. Alien Elite Weapon", "7. Illuminator" },
-  { "1. Katana", "2. Silenced Pistol", "3. Neutron Cascader", "3. Neutron Pulser", "4. Burst Needler", "5. Prism Cannon", "6. Ofuda Caster", "7. Onmyou Devastator" },
-  { "1. NanoCore", "1. Power Fist", "2. Charge Pistol", "3. Machreaper", "3. Arc Blaster", "4. Pulse Rifle", "5. Pulse Cannon", "6. Plasma Vulcan", "7. X-Spark Cannon" },
+  { "Power Saw", "Melee", "Ol' Faithful", "Super Shotgun", "Scoped Shotgun", "Machine Gun", "Grenade Launcher", "Heavy Machine Gun", "Quantum Accelerator" },
+  { "Halderman Device", "Melee", "Prototype Pistol", "Burst Shotgun", "Tactical Shotgun", "Dual Uzis", "Missile Launcher", "Maser", "Incursion Annihilator" },
+  { "Chainsaw", "Melee", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG 9000" },
+  { "Stasis Bow", "Trench Knife", "Ancient Pistol", "Hybrid SSG", "Ancient Shotgun", "Ancient AK", "Photon Scepter", "Alien Elite Weapon", "Illuminator" },
+  { "Katana", "Silenced Pistol", "Neutron Cascader", "Neutron Pulser", "Burst Needler", "Prism Cannon", "Ofuda Caster", "Onmyou Devastator" },
+  { "NanoCore", "Power Fist", "Charge Pistol", "Machreaper", "Arc Blaster", "Pulse Rifle", "Pulse Cannon", "Plasma Vulcan", "X-Spark Cannon" },
 
-  { "1. Chainsaw", "1. Knuckles", "2. Combat Rifle", "3. Double Barrel Shotgun", "3. Riotgun", "4. Minigun", "5. RPG", "6. Pulse Rifle", "7. BFG9000" },
+  { "Chainsaw", "Knuckles", "Combat Rifle", "Double Barrel Shotgun", "Riotgun", "Minigun", "RPG", "Pulse Rifle", "BFG9000" },
 
   {
-    "1. Z-Gun", "1. Chainsaw", "1. Hatchet", "1. Knife", "1. Double Knuckles", "1. Omicron Raygun",
-    "2. Light Machinegun", "2. MP40", "2. Dual Colt 1911", "2. Colt 1911", "2. Dual Berettas", "2. Beretta",
-    "3. W-Shotgun", "3. Auto Shotgun", "3. Quad Shotgun", "3. Coach Gun", "3. Riot Shotgun",
-    "4. Heavy Chaingun", "4. M134 Minigun", "4. Demonkiller Carbine", "4. M24 Sniper Rifle", "4. Dual Combat Rifles", "4. Combat Rifle",
-    "5. Multi-Elemental Cannon", "5. Cryogenic Repeater", "5. Napalm Launcher", "5. Saw Thrower", "5. Saturn-V",
-    "6. Gatling Lasergun", "6. Dual Pulse Rifles", "6. Pulse Rifle", "6. Dual Plasma Zappers", "6. Plasma Zapper",
-    "7. Black Hole Maker", "7. BFG-X", "7. Railgun 2.0", "7. Needle Buster", "7. Proto Blaster",
-    "8. Chilly Mancubus' Ice Bombard", "8. Mancubi's Flame Cannon", "8. Arctic Archer's Chiller Crossbow", "8. Nightmare Reaper's Double Raygun", "8. Skeleton's Hell Missile Launcher",
-    "9. Acid Arbalest", "9. Toxic Wand", "9. Evil Warrior's Shield", "9. UAC Chemical Spray", "9. Poison Dart Blowgun",
-    "0. Land Mine", "0. Hand Grenade",
+    "Z-Gun", "Chainsaw", "Hatchet", "Knife", "Double Knuckles", "Omicron Raygun",
+    "Light Machinegun", "MP40", "Dual Colt 1911", "Colt 1911", "Dual Berettas", "Beretta",
+    "W-Shotgun", "Auto Shotgun", "Quad Shotgun", "Coach Gun", "Riot Shotgun",
+    "Heavy Chaingun", "M134 Minigun", "Demonkiller Carbine", "M24 Sniper Rifle", "Dual Combat Rifles", "Combat Rifle",
+    "Multi-Elemental Cannon", "Cryogenic Repeater", "Napalm Launcher", "Saw Thrower", "Saturn-V",
+    "Gatling Lasergun", "Dual Pulse Rifles", "Pulse Rifle", "Dual Plasma Zappers", "Plasma Zapper",
+    "Black Hole Maker", "BFG-X", "Railgun 2.0", "Needle Buster", "Proto Blaster",
+    "Chilly Mancubus' Ice Bombard", "Mancubi's Flame Cannon", "Arctic Archer's Chiller Crossbow", "Nightmare Reaper's Double Raygun", "Skeleton's Hell Missile Launcher",
+    "Acid Arbalest", "Toxic Wand", "Evil Warrior's Shield", "UAC Chemical Spray", "Poison Dart Blowgun",
+    "Land Mine", "Hand Grenade",
   },
 
   { // Kriegsland
-    "1. Stielhandgranate-68", "1. Elektroshocker", "1. Kampfmesser 84",
-    "2. DL-44 FuturPistole-Blaster", "2. Mauser M972-S2", "2. Luger P-58",
-    "3. Jadtfaust Wunderfilnte-8", "3. Luftwaffe DP-65",
-    "4. MP-86s", "4. StG-60",
-    "5. Panzerkreuz Mk. III", "5. Kampfpistole", "5. Lawine-6",
-    "6. Schallkraftwerk", "6. Blitzgewehr", "6. Flammenfaust",
-    "7. Ekelhaftwaffe", "7. MG-92", "7. VFR-245 Puls-Kanone",
-    "8. Bombenschuss", "8. Gewehr-1953", "8. KAR 82a-2K",
-    "9. Cross Thermals", "9. Cross Launchers", "9. Cross Machineguns", "9. Cross Shotguns", "9. Cross Pistols",
+    "Stielhandgranate-68", "Elektroshocker", "Kampfmesser 84",
+    "DL-44 FuturPistole-Blaster", "Mauser M972-S2", "Luger P-58",
+    "Jadtfaust Wunderfilnte-8", "Luftwaffe DP-65",
+    "MP-86s", "StG-60",
+    "Panzerkreuz Mk. III", "Kampfpistole", "Lawine-6",
+    "Schallkraftwerk", "Blitzgewehr", "Flammenfaust",
+    "Ekelhaftwaffe", "MG-92", "VFR-245 Puls-Kanone",
+    "Bombenschuss", "Gewehr-1953", "KAR 82a-2K",
+    "Cross Thermals", "Cross Launchers", "Cross Machineguns", "Cross Shotguns", "Cross Pistols",
   },
 
   { // Complex Doom
-    "1. Land Mine", "1. Hand Grenade", "1. Chainsaw", "1. Melee",
-    "2. Handgun",
-    "3. Quad Barrel Shotgun", "3. Double Barrel Shotgun", "3. Assault Shotgun", "3. Combat Shotgun",
-    "4. Minigun", "4. Assault Rifle",
-    "5. Grenade Launcher", "5. Rocket Launcher",
-    "6. Railgun", "6. Demon Tech Rifle", "6. Plasma Rifle",
-    "7. Demon Tech BFG10K", "7. BFG10K", "7. BFG9500",
-    "8. MP40",
+    "Land Mine", "Hand Grenade", "Chainsaw", "Melee",
+    "Handgun",
+    "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
+    "Minigun", "Assault Rifle",
+    "Grenade Launcher", "Rocket Launcher",
+    "Railgun", "Demon Tech Rifle", "Plasma Rifle",
+    "Demon Tech BFG10K", "BFG10K", "BFG9500",
+    "MP40",
   },
 
   { // Weapons of Saturn
-    "1. Chain Saw", "1. Knuckles",
-    "2. 1911", "2. Beretta",
-    "3. Coach Gun", "3. Riot Gun",
-    "4. Rotary Cannon", "4. Machine Rifle",
-    "5. Saturn V",
-    "6. Nova Rifle",
-    "7. Titan",
+    "Chain Saw", "Knuckles",
+    "1911", "Beretta",
+    "Coach Gun", "Riot Gun",
+    "Rotary Cannon", "Machine Rifle",
+    "Saturn V",
+    "Nova Rifle",
+    "Titan",
   },
 
   { // Hard-Doom
-    "1. Chainsaw", "1. Fist",
-    "2. Pistol",
-    "3. Quad-Shotgun", "3. Super Shotgun", "3. Shotgun",
-    "4. Minigun", "4. Chaingun",
-    "5. Grenade Launcher", "5. Rocket Launcher",
-    "6. Plasma Rifle", "6. Sonic Railgun",
-    "7. BFG10K", "7. BFG9000",
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Quad-Shotgun", "Super Shotgun", "Shotgun",
+    "Minigun", "Chaingun",
+    "Grenade Launcher", "Rocket Launcher",
+    "Plasma Rifle", "Sonic Railgun",
+    "BFG10K", "BFG9000",
   },
 };
 
@@ -367,7 +368,11 @@ function void printHudWeapon(int weaponNumber, int color, int xStart, int yStart
     y += weaponNumber * step;
   }
 
-  HudMessage(s:getPrintableWeaponName(weaponNumber);
+  int slotNumber = getWeaponSlot(weaponNumber);
+  str delimiter  = ". ";
+  str name       = getPrintableWeaponName(weaponNumber);
+
+  HudMessage(i:slotNumber, s:delimiter, s:name;
              HUDMSG_PLAIN,
              id, color, x, y, MINIMAL_HOLD_TIME);
 }
