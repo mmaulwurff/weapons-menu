@@ -22,9 +22,3 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "(note that bottom of menu can"
   StaticText "be out of screen with big values)"
 }
-
-AddOptionMenu "OptionsMenu"
-{
-  StaticText ""
-  Submenu "Weapons Menu Options", "M8FWeaponsMenuOptions"
-}
