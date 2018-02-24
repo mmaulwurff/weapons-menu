@@ -34,6 +34,7 @@ Built-in support for:
   9. Complex Doom V27a3
   10. Weapons of Saturn (October 31, 2017)
   11. Hard-Doom v8.1.1
+  12. Heretic IWAD
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -71,3 +72,4 @@ added smart slot selection.
 0.12: added Hard-Doom support.
 0.13: added menu colors and position options.
 0.14: added menu slot order option.
+added Heretic support.

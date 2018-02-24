@@ -23,8 +23,9 @@
 // 15 - Complex Doom V27a3
 // 16 - Weapons of Saturn - October 31, 2017
 // 17 - Hard-Doom v8.1.1
+// 18 - Heretic
 
-#define SETS_NUMBER (18)
+#define SETS_NUMBER (19)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -40,6 +41,7 @@ str playerClassNames[SETS_NUMBER] =
   "ComplexDoomPlayer", // Complex Doom
   "SaturnPlayer",      // Weapons of Saturn
   "DoomMarine",        // Hard-Doom
+  "HereticPlayer",     // Heretic
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -55,6 +57,7 @@ int weaponCounts[SETS_NUMBER] =
   20, // Complex Doom
   11, // Weapons of Saturn
   14, // Hard-Doom
+  8,  // Heretic
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -119,6 +122,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
 
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
+
+  { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -196,6 +201,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PlasmaRifle~", "Sonic Railgun",
     "BFG10K~", "BFG9000~",
   },
+
+  { // Heretic
+    "Gauntlets", "Staff",
+    "GoldWand",
+    "Crossbow",
+    "Blaster",
+    "SkullRod",
+    "PhoenixRod",
+    "Mace",
+  },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -272,6 +287,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Grenade Launcher", "Rocket Launcher",
     "Plasma Rifle", "Sonic Railgun",
     "BFG10K", "BFG9000",
+  },
+
+  { // Heretic
+    "Gauntlets of the Necromancer", "Staff",
+    "Elven Wand",
+    "Ethereal Crossbow",
+    "Dragon Claw",
+    "Hellstaff",
+    "Phoenix Rod",
+    "Firemace",
   },
 };
 
