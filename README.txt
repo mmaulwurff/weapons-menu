@@ -21,8 +21,9 @@ Features:
 - with menu, you see what you are about to select. No more blind weapon choices!
 - configurable colors and position.
 - will work with any HUD.
+- autoload safe! If weapon set isn't recognized, standard weapon selection is used.
 
-Built-in support for:
+Has support for:
   1. Original weapons
   2. PerK's Smoother Weapon Animations Enhanced
   3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
@@ -34,7 +35,7 @@ Built-in support for:
   9. Complex Doom V27a3
   10. Weapons of Saturn (October 31, 2017)
   11. Hard-Doom v8.1.1
-  12. Heretic IWAD
+  12. Heretic IWAD weapons
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -73,3 +74,4 @@ added smart slot selection.
 0.13: added menu colors and position options.
 0.14: added menu slot order option.
 added Heretic support.
+added resorting to standard weapon selection on unknown weapon sets.
