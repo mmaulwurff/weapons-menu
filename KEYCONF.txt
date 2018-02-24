@@ -59,3 +59,6 @@ addmenukey "Smart selection weapon 7" smart_select_7
 addmenukey "Smart selection weapon 8" smart_select_8
 addmenukey "Smart selection weapon 9" smart_select_9
 addmenukey "Smart selection weapon 0" smart_select_0
+
+alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
+addmenukey "Open Weapon Menu Options" WeaponMenuOptions
