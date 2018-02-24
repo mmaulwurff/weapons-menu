@@ -12,32 +12,46 @@ addmenukey "Previous weapon" prev_weapon_menu
 alias prev_weapon_menu "pukename scrollpreviousweapon"
 defaultbind p prev_weapon_menu
 
+alias DoomSelect1 "slot 1"
+alias DoomSelect2 "slot 2"
+alias DoomSelect3 "slot 3"
+alias DoomSelect4 "slot 4"
+alias DoomSelect5 "slot 5"
+alias DoomSelect6 "slot 6"
+alias DoomSelect7 "slot 7"
+alias DoomSelect8 "slot 8"
+alias DoomSelect9 "slot 9"
+alias DoomSelect0 "slot 0"
+
+alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
+alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
+alias WeaponMenuSelect3 "pukename SmartWeaponSelection 3"
+alias WeaponMenuSelect4 "pukename SmartWeaponSelection 4"
+alias WeaponMenuSelect5 "pukename SmartWeaponSelection 5"
+alias WeaponMenuSelect6 "pukename SmartWeaponSelection 6"
+alias WeaponMenuSelect7 "pukename SmartWeaponSelection 7"
+alias WeaponMenuSelect8 "pukename SmartWeaponSelection 8"
+alias WeaponMenuSelect9 "pukename SmartWeaponSelection 9"
+alias WeaponMenuSelect0 "pukename SmartWeaponSelection 0"
+
+alias smart_select_1 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect1 DoomSelect1"
+alias smart_select_2 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect2 DoomSelect2"
+alias smart_select_3 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect3 DoomSelect3"
+alias smart_select_4 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect4 DoomSelect4"
+alias smart_select_5 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect5 DoomSelect5"
+alias smart_select_6 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect6 DoomSelect6"
+alias smart_select_7 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect7 DoomSelect7"
+alias smart_select_8 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect8 DoomSelect8"
+alias smart_select_9 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect9 DoomSelect9"
+alias smart_select_0 "test $M8FWeaponMenuIsEnabled WeaponMenuSelect0 DoomSelect0"
+
 addmenukey "Smart selection weapon 1" smart_select_1
-alias smart_select_1 "pukename SmartWeaponSelection 1"
-
 addmenukey "Smart selection weapon 2" smart_select_2
-alias smart_select_2 "pukename SmartWeaponSelection 2"
-
 addmenukey "Smart selection weapon 3" smart_select_3
-alias smart_select_3 "pukename SmartWeaponSelection 3"
-
 addmenukey "Smart selection weapon 4" smart_select_4
-alias smart_select_4 "pukename SmartWeaponSelection 4"
-
 addmenukey "Smart selection weapon 5" smart_select_5
-alias smart_select_5 "pukename SmartWeaponSelection 5"
-
 addmenukey "Smart selection weapon 6" smart_select_6
-alias smart_select_6 "pukename SmartWeaponSelection 6"
-
 addmenukey "Smart selection weapon 7" smart_select_7
-alias smart_select_7 "pukename SmartWeaponSelection 7"
-
 addmenukey "Smart selection weapon 8" smart_select_8
-alias smart_select_8 "pukename SmartWeaponSelection 8"
-
 addmenukey "Smart selection weapon 9" smart_select_9
-alias smart_select_9 "pukename SmartWeaponSelection 9"
-
 addmenukey "Smart selection weapon 0" smart_select_0
-alias smart_select_0 "pukename SmartWeaponSelection 0"

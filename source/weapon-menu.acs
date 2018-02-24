@@ -427,23 +427,25 @@ script "ShowWeaponMenu" ENTER
       break;
     }
   }
-  bool menuEnabled = (currentSet != -1);
-
-  if (!menuEnabled)
-  {
-    log(s:"Weapon Menu: unknown player class: ", s:GetActorClass(0), s:", menu is disabled.");
-  }
-
-  int weaponCount = weaponCounts[currentSet];
-
-  if (menuEnabled)
-  {
-    SetSelected();
-  }
+  bool menuIsEnabled = (currentSet != -1);
 
   int playerN = PlayerNumber();
 
-  while (menuEnabled)
+  SetUserCVar(playerN, "M8FWeaponMenuIsEnabled", menuIsEnabled);
+
+  if (!menuIsEnabled)
+  {
+    log(s:"Weapon Menu: unknown player class: ",
+        s:GetActorClass(0),
+        s:", menu is disabled.");
+    terminate;
+  }
+
+  SetSelected();
+
+  int weaponCount = weaponCounts[currentSet];
+
+  while (true)
   {
     if (menuIsOpened)
     {
@@ -583,37 +585,34 @@ function void SetSelectedIfAvailable(int newSelected)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
-  if (slotNumber < weaponCounts[currentSet])
-  {
+  if (slotNumber >= weaponCounts[currentSet]) { terminate; }
 
-    if (!menuIsOpened)
+  if (!menuIsOpened)
+  {
+    SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
+    ToggleWeaponMenuFunction(); // open menu
+  }
+  else
+  {
+    int currentSlot = getWeaponSlot(selectedWeapon);
+    bool sameSlot = (slotNumber == currentSlot);
+
+    if (sameSlot)
     {
-      SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
-      ToggleWeaponMenuFunction(); // open menu
+      int sibling = selectedWeapon;
+      do
+      {
+        sibling = getWeaponSibling(sibling);
+      }
+      while (sibling != -1 && !CheckInventory(GetWeaponName(sibling)));
+      if (sibling != -1)
+      {
+        selectedWeapon = sibling;
+      }
     }
     else
     {
-      int currentSlot = getWeaponSlot(selectedWeapon);
-      bool sameSlot = (slotNumber == currentSlot);
-
-      if (sameSlot)
-      {
-        int sibling = selectedWeapon;
-        do
-        {
-          sibling = getWeaponSibling(sibling);
-        }
-        while (sibling != -1 && !CheckInventory(GetWeaponName(sibling)));
-        if (sibling != -1)
-        {
-          selectedWeapon = sibling;
-        }
-      }
-      else
-      {
-        SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
-      }
+      SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
     }
-
   }
 }
