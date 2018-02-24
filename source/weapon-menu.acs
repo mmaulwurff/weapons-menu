@@ -24,8 +24,9 @@
 // 16 - Weapons of Saturn - October 31, 2017
 // 17 - Hard-Doom v8.1.1
 // 18 - Heretic
+// 19 - Chex Quest (Single Player)
 
-#define SETS_NUMBER (19)
+#define SETS_NUMBER (20)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -42,6 +43,7 @@ str playerClassNames[SETS_NUMBER] =
   "SaturnPlayer",      // Weapons of Saturn
   "DoomMarine",        // Hard-Doom
   "HereticPlayer",     // Heretic
+  "ChexPlayer",        // Chex Quest
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -58,6 +60,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // Weapons of Saturn
   14, // Hard-Doom
   8,  // Heretic
+  8,  // Chex Quest
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -124,6 +127,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
+
+  { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -211,6 +216,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PhoenixRod",
     "Mace",
   },
+
+  { // Chex Quest
+    "SuperBootspork",
+    "Bootspoon",
+    "MiniZorcher",
+    "LargeZorcher",
+    "RapidZorcher",
+    "ZorchPropulsor",
+    "PhasingZorcher",
+    "LAZDevice",
+  },
 };
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -297,6 +313,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Hellstaff",
     "Phoenix Rod",
     "Firemace",
+  },
+
+  { // Chex Quest
+    "Super Bootspork", "Spoon",
+    "Mini Zorcher",
+    "Large Zorcher",
+    "Rapid Zorcher",
+    "Zorch Propulsor",
+    "Phasing Zorcher",
+    "LAZ Device",
   },
 };
 

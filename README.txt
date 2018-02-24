@@ -36,6 +36,7 @@ Has support for:
   10. Weapons of Saturn (October 31, 2017)
   11. Hard-Doom v8.1.1
   12. Heretic IWAD weapons
+  13. Chex Quest (Single Player)
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -53,7 +54,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.14
+Version: 0.15
 
 Changelog:
 0.1: initial version.
@@ -75,3 +76,4 @@ added smart slot selection.
 0.14: added menu slot order option.
 added Heretic support.
 added resorting to standard weapon selection on unknown weapon sets.
+0.15: added Chex Quest (Single Player) weapons.
