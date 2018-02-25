@@ -23,10 +23,11 @@
 // 15 - Complex Doom V27a3
 // 16 - Weapons of Saturn - October 31, 2017
 // 17 - Hard-Doom v8.1.1
-// 18 - Heretic
+// 18 - Heretic (not tested)
 // 19 - Chex Quest (Single Player)
+// 20 - Strife (not tested)
 
-#define SETS_NUMBER (20)
+#define SETS_NUMBER (21)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -44,6 +45,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomMarine",        // Hard-Doom
   "HereticPlayer",     // Heretic
   "ChexPlayer",        // Chex Quest
+  "StrifePlayer",      // Strife
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -61,6 +63,7 @@ int weaponCounts[SETS_NUMBER] =
   14, // Hard-Doom
   8,  // Heretic
   8,  // Chex Quest
+  8,  // Strife
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -129,6 +132,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
 
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
+
+  { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -227,7 +232,19 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PhasingZorcher",
     "LAZDevice",
   },
-};
+
+  { // Strife
+    "PunchDagger",
+    "StrifeCrossbow",
+    "AssaultGun",
+    "MiniMissileLauncher",
+    "StrifeGrenadeLauncher",
+    "FlameThrower",
+    "Mauler",
+    "Sigil",
+  },
+
+}; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
@@ -324,7 +341,19 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Phasing Zorcher",
     "LAZ Device",
   },
-};
+
+  { // Strife
+    "Dagger",
+    "Crossbow",
+    "Assault Gun",
+    "Mini Missile Launcher",
+    "Grenade Launcher",
+    "Flame Thrower",
+    "Mauler",
+    "SIGIL",
+  },
+
+}; // end of printable names
 
 bool menuIsOpened   = false;
 int  selectedWeapon = 0;
