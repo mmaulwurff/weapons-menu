@@ -428,7 +428,8 @@ function void printHudWeapon(
   int color,
   int xStart,
   int yStart,
-  bool highToLow
+  bool highToLow,
+  bool numbersOnTheLeft
 )
 {
   int playerN = PlayerNumber();
@@ -456,12 +457,21 @@ function void printHudWeapon(
   }
 
   int slotNumber = getWeaponSlot(weaponNumber);
-  str delimiter  = ". ";
+  str delimiter  = " - ";
   str name       = getPrintableWeaponName(weaponNumber);
 
-  HudMessage(i:slotNumber, s:delimiter, s:name;
-             HUDMSG_PLAIN,
-             id, color, x, y, MINIMAL_HOLD_TIME);
+  if (numbersOnTheLeft)
+  {
+    HudMessage(s:" ", i:slotNumber, s:delimiter, s:name, s:" ";
+               HUDMSG_PLAIN,
+               id, color, x, y, MINIMAL_HOLD_TIME);
+  }
+  else
+  {
+    HudMessage(s:" ", s:name, s:delimiter, i:slotNumber, s:" ";
+               HUDMSG_PLAIN,
+               id, color, x, y, MINIMAL_HOLD_TIME);
+  }
 }
 
 function void SetSelected(void)
@@ -522,6 +532,7 @@ script "ShowWeaponMenu" ENTER
       int highlightedWeapon  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
       bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
       bool highToLow         = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
+      bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
       int xStart             = getUserCVar(playerN, "M8FWeaponMenuXStart");
       int yStart             = getUserCVar(playerN, "M8FWeaponMenuYStart");
 
@@ -543,7 +554,8 @@ script "ShowWeaponMenu" ENTER
             availableWeapon,
             xStart,
             yStart,
-            highToLow
+            highToLow,
+            numbersOnTheLeft
           );
           position += 1;
         }
@@ -555,7 +567,8 @@ script "ShowWeaponMenu" ENTER
             notAvailableWeapon,
             xStart,
             yStart,
-            highToLow
+            highToLow,
+            numbersOnTheLeft
           );
           position += 1;
         }
@@ -567,7 +580,8 @@ script "ShowWeaponMenu" ENTER
         highlightedWeapon,
         xStart,
         yStart,
-        highToLow
+        highToLow,
+        numbersOnTheLeft
       );
 
     }

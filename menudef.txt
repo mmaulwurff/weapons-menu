@@ -10,6 +10,12 @@ OptionValue "M8FWeaponsMenuShowNotAvailable"
   1, "Show"
 }
 
+OptionValue "M8FWeaponMenuNumbersLeftOptions"
+{
+  0, "Right"
+  1, "Left"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapons Menu Options"
@@ -21,14 +27,17 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
 
   StaticText ""
+  Option "Slot numbers:", "M8FWeaponMenuNumbersLeft", "M8FWeaponMenuNumbersLeftOptions"
+
+  StaticText ""
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 
   StaticText ""
-  Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.1
+  Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
   StaticText "(also affects aligment)"
 
   StaticText ""
-  Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.1
+  Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.05, 2
   StaticText "(note that bottom of menu can"
   StaticText "be out of screen with big values)"
 }

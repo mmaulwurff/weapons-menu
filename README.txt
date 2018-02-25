@@ -55,7 +55,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.16
+Version: 0.17
 
 Changelog:
 0.1: initial version.
@@ -80,3 +80,4 @@ added resorting to standard weapon selection on unknown weapon sets.
 0.15: added Chex Quest (Single Player) weapons.
 0.16: added Strife weapons.
 added option to show/hide not acquired weapons.
+0.17: added option to show slot number on left or right side.
