@@ -4,6 +4,12 @@ OptionValue "M8FWeaponsMenuSlotOrder"
   1, "From highest to lowest"
 }
 
+OptionValue "M8FWeaponsMenuShowNotAvailable"
+{
+  0, "Hide"
+  1, "Show"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapons Menu Options"
@@ -11,7 +17,11 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Not Available Weapon Color", "M8FNotAvailableWeaponColor", "TextColors"
   Option "Highlighted Weapon Color", "M8FHighlightedWeaponColor", "TextColors"
 
+  StaticText ""
   Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
+
+  StaticText ""
+  Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.1

@@ -5,5 +5,6 @@ user int M8FHighlightedWeaponColor  = 21;
 user float M8FWeaponMenuXStart = 0.0;
 user float M8FWeaponMenuYStart = 0.0;
 user bool M8FWeaponMenuHighToLow = true;
+user bool M8FShowNotAvailable    = true;
 
 user bool M8FWeaponMenuIsEnabled = false;

@@ -79,3 +79,4 @@ added Heretic support.
 added resorting to standard weapon selection on unknown weapon sets.
 0.15: added Chex Quest (Single Player) weapons.
 0.16: added Strife weapons.
+added option to show/hide not acquired weapons.
