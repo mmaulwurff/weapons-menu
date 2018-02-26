@@ -81,3 +81,4 @@ added resorting to standard weapon selection on unknown weapon sets.
 0.16: added Strife weapons.
 added option to show/hide not acquired weapons.
 0.17: added option to show slot number on left or right side.
+added optional highlighting of currently selected weapon.
