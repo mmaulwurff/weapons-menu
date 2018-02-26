@@ -22,6 +22,7 @@ Features:
 - configurable colors and position.
 - will work with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
+- API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
 
 Has support for:
   1. Original weapons
@@ -55,7 +56,7 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.17
+Version: 0.18
 
 Changelog:
 0.1: initial version.
@@ -82,3 +83,4 @@ added resorting to standard weapon selection on unknown weapon sets.
 added option to show/hide not acquired weapons.
 0.17: added option to show slot number on left or right side.
 added optional highlighting of currently selected weapon.
+0.18: added CVar and ZScript API.
