@@ -23,10 +23,11 @@
 // 15 - Complex Doom V27a3
 // 16 - Weapons of Saturn - October 31, 2017
 // 17 - Hard-Doom v8.1.1
-// 18 - Heretic
+// 18 - Heretic (not tested)
 // 19 - Chex Quest (Single Player)
+// 20 - Strife (not tested)
 
-#define SETS_NUMBER (20)
+#define SETS_NUMBER (21)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -44,6 +45,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomMarine",        // Hard-Doom
   "HereticPlayer",     // Heretic
   "ChexPlayer",        // Chex Quest
+  "StrifePlayer",      // Strife
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -61,6 +63,7 @@ int weaponCounts[SETS_NUMBER] =
   14, // Hard-Doom
   8,  // Heretic
   8,  // Chex Quest
+  8,  // Strife
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -129,6 +132,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
 
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
+
+  { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -227,7 +232,19 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PhasingZorcher",
     "LAZDevice",
   },
-};
+
+  { // Strife
+    "PunchDagger",
+    "StrifeCrossbow",
+    "AssaultGun",
+    "MiniMissileLauncher",
+    "StrifeGrenadeLauncher",
+    "FlameThrower",
+    "Mauler",
+    "Sigil",
+  },
+
+}; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
@@ -324,11 +341,24 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Phasing Zorcher",
     "LAZ Device",
   },
-};
+
+  { // Strife
+    "Dagger",
+    "Crossbow",
+    "Assault Gun",
+    "Mini Missile Launcher",
+    "Grenade Launcher",
+    "Flame Thrower",
+    "Mauler",
+    "SIGIL",
+  },
+
+}; // end of printable names
 
 bool menuIsOpened   = false;
 int  selectedWeapon = 0;
 int  currentSet     = -1;
+int  holdingWeapon  = 0;
 
 function int getWeaponSlot(int weaponNumber)
 {
@@ -393,7 +423,15 @@ function int getWeaponBySlot(int slotNumber)
   return -1;
 }
 
-function void printHudWeapon(int weaponNumber, int color, int xStart, int yStart, bool highToLow)
+function void printHudWeapon(
+  int weaponNumber,
+  int position,
+  int color,
+  int xStart,
+  int yStart,
+  bool highToLow,
+  bool numbersOnTheLeft
+)
 {
   int playerN = PlayerNumber();
   int id = messageIdStart + weaponNumber;
@@ -412,20 +450,29 @@ function void printHudWeapon(int weaponNumber, int color, int xStart, int yStart
   int y = yStart;
   if (highToLow)
   {
-    y += (weaponCounts[currentSet] - 1 - weaponNumber) * step;
+    y += (weaponCounts[currentSet] - 1 - position) * step;
   }
   else
   {
-    y += weaponNumber * step;
+    y += position * step;
   }
 
   int slotNumber = getWeaponSlot(weaponNumber);
-  str delimiter  = ". ";
+  str delimiter  = " - ";
   str name       = getPrintableWeaponName(weaponNumber);
 
-  HudMessage(i:slotNumber, s:delimiter, s:name;
-             HUDMSG_PLAIN,
-             id, color, x, y, MINIMAL_HOLD_TIME);
+  if (numbersOnTheLeft)
+  {
+    HudMessage(s:" ", i:slotNumber, s:delimiter, s:name, s:" ";
+               HUDMSG_PLAIN,
+               id, color, x, y, MINIMAL_HOLD_TIME);
+  }
+  else
+  {
+    HudMessage(s:" ", s:name, s:delimiter, i:slotNumber, s:" ";
+               HUDMSG_PLAIN,
+               id, color, x, y, MINIMAL_HOLD_TIME);
+  }
 }
 
 function void SetSelected(void)
@@ -481,27 +528,84 @@ script "ShowWeaponMenu" ENTER
         SetSelected();
       }
 
-      int availableWeapon    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-      int notAvailableWeapon = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-      int highlightedWeapon  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+      int availableWeapon     = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+      int notAvailableWeapon  = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+      int highlightedWeapon   = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+      int selectedWeaponColor = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
-      int xStart = getUserCVar(playerN, "M8FWeaponMenuXStart");
-      int yStart = getUserCVar(playerN, "M8FWeaponMenuYStart");
-      bool highToLow = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
+      bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
+      bool highToLow          = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
+      bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+      int xStart              = getUserCVar(playerN, "M8FWeaponMenuXStart");
+      int yStart              = getUserCVar(playerN, "M8FWeaponMenuYStart");
+
+      int position          = 0;
+      int availablePosition = 0;
+      int holdingPosition   = 0;
 
       for (int i = 0; i < weaponCount; ++i)
       {
+        // remember position of selected weapon
+        if (i == selectedWeapon)
+        {
+          availablePosition = position;
+        }
+        if (i == holdingWeapon)
+        {
+          holdingPosition = position;
+        }
+
         if (CheckInventory(GetWeaponName(i)))
         {
-          printHudWeapon(i, availableWeapon, xStart, yStart, highToLow);
+          printHudWeapon(
+            i,
+            position,
+            availableWeapon,
+            xStart,
+            yStart,
+            highToLow,
+            numbersOnTheLeft
+          );
+          position += 1;
         }
-        else
+        else if (showNotAvailable)
         {
-          printHudWeapon(i, notAvailableWeapon, xStart, yStart, highToLow);
+          printHudWeapon(
+            i,
+            position,
+            notAvailableWeapon,
+            xStart,
+            yStart,
+            highToLow,
+            numbersOnTheLeft
+          );
+          position += 1;
         }
       }
 
-      printHudWeapon(selectedWeapon, highlightedWeapon, xStart, yStart, highToLow);
+      printHudWeapon(
+        selectedWeapon,
+        availablePosition,
+        highlightedWeapon,
+        xStart,
+        yStart,
+        highToLow,
+        numbersOnTheLeft
+      );
+
+      bool highlightHolding = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+      if (highlightHolding)
+      {
+        printHudWeapon(
+          holdingWeapon,
+          holdingPosition,
+          selectedWeaponColor,
+          xStart,
+          yStart,
+          highToLow,
+          numbersOnTheLeft
+        );
+      }
 
     }
 
@@ -526,6 +630,10 @@ function void ToggleWeaponMenuFunction(void)
   if (!menuIsOpened)
   {
     SetWeaponByNumber(selectedWeapon);
+  }
+  else
+  {
+    holdingWeapon = selectedWeapon;
   }
 }
 
