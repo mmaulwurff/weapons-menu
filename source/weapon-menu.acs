@@ -433,7 +433,6 @@ function void printHudWeapon(
   bool numbersOnTheLeft
 )
 {
-  int playerN = PlayerNumber();
   int id = messageIdStart + weaponNumber;
 
   int step;
@@ -487,6 +486,9 @@ function void SetSelected(void)
       break;
     }
   }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
 }
 
 script "ShowWeaponMenu" ENTER
@@ -514,6 +516,8 @@ script "ShowWeaponMenu" ENTER
     terminate;
   }
 
+  InitApiCvars();
+
   SetSelected();
 
   int weaponCount = weaponCounts[currentSet];
@@ -533,6 +537,7 @@ script "ShowWeaponMenu" ENTER
       int highlightedWeapon   = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
       int selectedWeaponColor = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
+      bool disableOutput      = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
       bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
       bool highToLow          = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
       bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
@@ -557,54 +562,63 @@ script "ShowWeaponMenu" ENTER
 
         if (CheckInventory(GetWeaponName(i)))
         {
-          printHudWeapon(
-            i,
-            position,
-            availableWeapon,
-            xStart,
-            yStart,
-            highToLow,
-            numbersOnTheLeft
-          );
+          if (!disableOutput)
+          {
+            printHudWeapon(
+              i,
+              position,
+              availableWeapon,
+              xStart,
+              yStart,
+              highToLow,
+              numbersOnTheLeft
+            );
+          }
           position += 1;
         }
         else if (showNotAvailable)
         {
-          printHudWeapon(
-            i,
-            position,
-            notAvailableWeapon,
-            xStart,
-            yStart,
-            highToLow,
-            numbersOnTheLeft
-          );
+          if (!disableOutput)
+          {
+            printHudWeapon(
+              i,
+              position,
+              notAvailableWeapon,
+              xStart,
+              yStart,
+              highToLow,
+              numbersOnTheLeft
+            );
+          }
           position += 1;
         }
       }
 
-      printHudWeapon(
-        selectedWeapon,
-        availablePosition,
-        highlightedWeapon,
-        xStart,
-        yStart,
-        highToLow,
-        numbersOnTheLeft
-      );
-
-      bool highlightHolding = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
-      if (highlightHolding)
+      if (!disableOutput)
       {
         printHudWeapon(
-          holdingWeapon,
-          holdingPosition,
-          selectedWeaponColor,
+          selectedWeapon,
+          availablePosition,
+          highlightedWeapon,
           xStart,
           yStart,
           highToLow,
           numbersOnTheLeft
         );
+
+        bool highlightHolding = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+        if (highlightHolding)
+        {
+          printHudWeapon(
+            holdingWeapon,
+            holdingPosition,
+            selectedWeaponColor,
+            xStart,
+            yStart,
+            highToLow,
+            numbersOnTheLeft
+          );
+        }
       }
 
     }
@@ -626,6 +640,9 @@ function void ToggleWeaponMenuFunction(void)
 {
   menuIsOpened = !menuIsOpened;
 
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", menuIsOpened);
+
   // on close - select weapon in menu.
   if (!menuIsOpened)
   {
@@ -634,6 +651,7 @@ function void ToggleWeaponMenuFunction(void)
   else
   {
     holdingWeapon = selectedWeapon;
+    SetUserCVar(playerN, "M8fWeaponMenuSelectedWeapon", holdingWeapon);
   }
 }
 
@@ -665,6 +683,9 @@ script "ScrollNextWeapon" (void)
     }
     while (!SetWeapon(GetWeaponName(selectedWeapon)));
   }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
 }
 
 script "ScrollPreviousWeapon" (void)
@@ -695,6 +716,9 @@ script "ScrollPreviousWeapon" (void)
     }
     while (!SetWeapon(GetWeaponName(selectedWeapon)));
   }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
 }
 
 function void SetWeaponByNumber(int weaponNumber)
@@ -749,4 +773,40 @@ script "SmartWeaponSelection" (int slotNumber)
       SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
     }
   }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
+}
+
+function void InitApiCvars(void)
+{
+  int playerN     = PlayerNumber();
+  int weaponCount = weaponCounts[currentSet];
+
+  SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
+
+  for (int i = 0; i < weaponCount; ++i) {
+    SetUserCVarString(playerN, makeWeaponClassVarName(i), GetWeaponName(i));
+    SetUserCVarString(playerN, makeWeaponNameVarName(i), GetPrintableWeaponName(i));
+    SetUserCVar(playerN, makeWeaponSlotVarName(i), GetWeaponSlot(i));
+  }
+}
+
+function str makeWeaponClassVarName(int weaponNumber)
+{
+  int weaponClassVarName = StrParam(s:"M8fWeaponMenuWeaponClass", i:weaponNumber);
+  return weaponClassVarName;
+}
+
+function str makeWeaponNameVarName(int weaponNumber)
+{
+  int weaponNameVarName = StrParam(s:"M8fWeaponMenuWeaponName", i:weaponNumber);
+  return weaponNameVarName;
+}
+
+function str makeWeaponSlotVarName(int weaponNumber)
+{
+  int weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot", i:weaponNumber);
+  return weaponSlotVarName;
 }

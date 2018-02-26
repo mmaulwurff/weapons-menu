@@ -1,13 +1,223 @@
-user int M8FAvailableWeaponColor    = 7;
-user int M8FNotAvailableWeaponColor = 2;
-user int M8FHighlightedWeaponColor  = 21;
-user int M8FSelectedWeaponColor     = 3;
-
 user float M8FWeaponMenuXStart = 0.0;
 user float M8FWeaponMenuYStart = 0.0;
-user bool M8FWeaponMenuHighToLow = true;
-user bool M8FShowNotAvailable    = true;
-user bool M8FWeaponMenuNumbersLeft = true;
-user bool M8FWeaponMenuHighlightSelected = true;
 
-user bool M8FWeaponMenuIsEnabled = false;
+////////////////////////////////////////////////////////////////////////////////
+
+// Weapons Menu CVar API
+
+// Format:
+// Description.
+// Read/write permissions. Please do not write to read-only variables.
+
+// Just check it for existence, then check number.
+// All API versions with the same major version number are backwards-compatible.
+// Read-only.
+user int M8fWeaponMenuApiVersionMajor = 1;
+
+// New minor API version marks new functionality without breaking
+// backward compatibility.
+// Read-only.
+user int M8fWeaponMenuApiVersionMinor = 0;
+
+// Set this to true to disable Weapon Menu native (built-in) output.
+// Native output is ACS HudMessage.
+// Read/write.
+user bool M8fWeaponMenuDisableNativeOutput = false;
+
+// Weapon Menu can be disabled if current weapon set is not supported by it.
+// Read-only.
+user bool M8fWeaponMenuIsEnabled = false;
+
+// Weapon Menu can be opened and closed by user. Check this to know menu status.
+// Read-only.
+user bool M8fWeaponMenuIsOpened = false;
+
+// Contains number of weapons in current weapon set.
+// Read-only.
+user int M8fWeaponMenuWeaponCount = 0;
+
+// Index of highlighted weapon.
+// Highlighted weapon will be selected when menu is closed.
+// Read-only.
+user int M8fWeaponMenuHighlightedWeapon = 0;
+
+// Index of currently selected weapon.
+// Selected weapon is the weapon that user is holding at the moment.
+// Read-only.
+user int M8fWeaponMenuSelectedWeapon = 0;
+
+// Options
+
+user int M8fAvailableWeaponColor    = 7;
+user int M8fNotAvailableWeaponColor = 2;
+user int M8fHighlightedWeaponColor  = 21;
+user int M8fSelectedWeaponColor     = 3;
+
+user bool M8fWeaponMenuHighToLow = true;
+user bool M8fShowNotAvailable    = true;
+user bool M8fWeaponMenuNumbersLeft = true;
+user bool M8fWeaponMenuHighlightSelected = true;
+
+// And here is the ugly part...
+
+// Weapon classes. Meaningful class names will be in variables up to
+// M8fWeaponMenuWeaponCount, not inclusive.
+// Read-only.
+user string M8fWeaponMenuWeaponClass0  = "Unknown";
+user string M8fWeaponMenuWeaponClass1  = "Unknown";
+user string M8fWeaponMenuWeaponClass2  = "Unknown";
+user string M8fWeaponMenuWeaponClass3  = "Unknown";
+user string M8fWeaponMenuWeaponClass4  = "Unknown";
+user string M8fWeaponMenuWeaponClass5  = "Unknown";
+user string M8fWeaponMenuWeaponClass6  = "Unknown";
+user string M8fWeaponMenuWeaponClass7  = "Unknown";
+user string M8fWeaponMenuWeaponClass8  = "Unknown";
+user string M8fWeaponMenuWeaponClass9  = "Unknown";
+user string M8fWeaponMenuWeaponClass10 = "Unknown";
+user string M8fWeaponMenuWeaponClass11 = "Unknown";
+user string M8fWeaponMenuWeaponClass12 = "Unknown";
+user string M8fWeaponMenuWeaponClass13 = "Unknown";
+user string M8fWeaponMenuWeaponClass14 = "Unknown";
+user string M8fWeaponMenuWeaponClass15 = "Unknown";
+user string M8fWeaponMenuWeaponClass16 = "Unknown";
+user string M8fWeaponMenuWeaponClass17 = "Unknown";
+user string M8fWeaponMenuWeaponClass18 = "Unknown";
+user string M8fWeaponMenuWeaponClass19 = "Unknown";
+user string M8fWeaponMenuWeaponClass20 = "Unknown";
+user string M8fWeaponMenuWeaponClass21 = "Unknown";
+user string M8fWeaponMenuWeaponClass22 = "Unknown";
+user string M8fWeaponMenuWeaponClass23 = "Unknown";
+user string M8fWeaponMenuWeaponClass24 = "Unknown";
+user string M8fWeaponMenuWeaponClass25 = "Unknown";
+user string M8fWeaponMenuWeaponClass26 = "Unknown";
+user string M8fWeaponMenuWeaponClass27 = "Unknown";
+user string M8fWeaponMenuWeaponClass28 = "Unknown";
+user string M8fWeaponMenuWeaponClass29 = "Unknown";
+user string M8fWeaponMenuWeaponClass30 = "Unknown";
+user string M8fWeaponMenuWeaponClass31 = "Unknown";
+user string M8fWeaponMenuWeaponClass32 = "Unknown";
+user string M8fWeaponMenuWeaponClass33 = "Unknown";
+user string M8fWeaponMenuWeaponClass34 = "Unknown";
+user string M8fWeaponMenuWeaponClass35 = "Unknown";
+user string M8fWeaponMenuWeaponClass36 = "Unknown";
+user string M8fWeaponMenuWeaponClass37 = "Unknown";
+user string M8fWeaponMenuWeaponClass38 = "Unknown";
+user string M8fWeaponMenuWeaponClass39 = "Unknown";
+user string M8fWeaponMenuWeaponClass40 = "Unknown";
+user string M8fWeaponMenuWeaponClass41 = "Unknown";
+user string M8fWeaponMenuWeaponClass42 = "Unknown";
+user string M8fWeaponMenuWeaponClass43 = "Unknown";
+user string M8fWeaponMenuWeaponClass44 = "Unknown";
+user string M8fWeaponMenuWeaponClass45 = "Unknown";
+user string M8fWeaponMenuWeaponClass46 = "Unknown";
+user string M8fWeaponMenuWeaponClass47 = "Unknown";
+user string M8fWeaponMenuWeaponClass48 = "Unknown";
+user string M8fWeaponMenuWeaponClass49 = "Unknown";
+
+// Weapon names. Meaningful class names will be in variables up to
+// M8fWeaponMenuWeaponCount, not inclusive.
+// Read-only.
+user string M8fWeaponMenuWeaponName0  = "Unknown";
+user string M8fWeaponMenuWeaponName1  = "Unknown";
+user string M8fWeaponMenuWeaponName2  = "Unknown";
+user string M8fWeaponMenuWeaponName3  = "Unknown";
+user string M8fWeaponMenuWeaponName4  = "Unknown";
+user string M8fWeaponMenuWeaponName5  = "Unknown";
+user string M8fWeaponMenuWeaponName6  = "Unknown";
+user string M8fWeaponMenuWeaponName7  = "Unknown";
+user string M8fWeaponMenuWeaponName8  = "Unknown";
+user string M8fWeaponMenuWeaponName9  = "Unknown";
+user string M8fWeaponMenuWeaponName10 = "Unknown";
+user string M8fWeaponMenuWeaponName11 = "Unknown";
+user string M8fWeaponMenuWeaponName12 = "Unknown";
+user string M8fWeaponMenuWeaponName13 = "Unknown";
+user string M8fWeaponMenuWeaponName14 = "Unknown";
+user string M8fWeaponMenuWeaponName15 = "Unknown";
+user string M8fWeaponMenuWeaponName16 = "Unknown";
+user string M8fWeaponMenuWeaponName17 = "Unknown";
+user string M8fWeaponMenuWeaponName18 = "Unknown";
+user string M8fWeaponMenuWeaponName19 = "Unknown";
+user string M8fWeaponMenuWeaponName20 = "Unknown";
+user string M8fWeaponMenuWeaponName21 = "Unknown";
+user string M8fWeaponMenuWeaponName22 = "Unknown";
+user string M8fWeaponMenuWeaponName23 = "Unknown";
+user string M8fWeaponMenuWeaponName24 = "Unknown";
+user string M8fWeaponMenuWeaponName25 = "Unknown";
+user string M8fWeaponMenuWeaponName26 = "Unknown";
+user string M8fWeaponMenuWeaponName27 = "Unknown";
+user string M8fWeaponMenuWeaponName28 = "Unknown";
+user string M8fWeaponMenuWeaponName29 = "Unknown";
+user string M8fWeaponMenuWeaponName30 = "Unknown";
+user string M8fWeaponMenuWeaponName31 = "Unknown";
+user string M8fWeaponMenuWeaponName32 = "Unknown";
+user string M8fWeaponMenuWeaponName33 = "Unknown";
+user string M8fWeaponMenuWeaponName34 = "Unknown";
+user string M8fWeaponMenuWeaponName35 = "Unknown";
+user string M8fWeaponMenuWeaponName36 = "Unknown";
+user string M8fWeaponMenuWeaponName37 = "Unknown";
+user string M8fWeaponMenuWeaponName38 = "Unknown";
+user string M8fWeaponMenuWeaponName39 = "Unknown";
+user string M8fWeaponMenuWeaponName40 = "Unknown";
+user string M8fWeaponMenuWeaponName41 = "Unknown";
+user string M8fWeaponMenuWeaponName42 = "Unknown";
+user string M8fWeaponMenuWeaponName43 = "Unknown";
+user string M8fWeaponMenuWeaponName44 = "Unknown";
+user string M8fWeaponMenuWeaponName45 = "Unknown";
+user string M8fWeaponMenuWeaponName46 = "Unknown";
+user string M8fWeaponMenuWeaponName47 = "Unknown";
+user string M8fWeaponMenuWeaponName48 = "Unknown";
+user string M8fWeaponMenuWeaponName49 = "Unknown";
+
+// Weapon slots. Meaningful slots will be in variables up to
+// M8fWeaponMenuWeaponCount, not inclusive.
+// Read-only.
+user int M8fWeaponMenuWeaponSlot0  = 0;
+user int M8fWeaponMenuWeaponSlot1  = 0;
+user int M8fWeaponMenuWeaponSlot2  = 0;
+user int M8fWeaponMenuWeaponSlot3  = 0;
+user int M8fWeaponMenuWeaponSlot4  = 0;
+user int M8fWeaponMenuWeaponSlot5  = 0;
+user int M8fWeaponMenuWeaponSlot6  = 0;
+user int M8fWeaponMenuWeaponSlot7  = 0;
+user int M8fWeaponMenuWeaponSlot8  = 0;
+user int M8fWeaponMenuWeaponSlot9  = 0;
+user int M8fWeaponMenuWeaponSlot10 = 0;
+user int M8fWeaponMenuWeaponSlot11 = 0;
+user int M8fWeaponMenuWeaponSlot12 = 0;
+user int M8fWeaponMenuWeaponSlot13 = 0;
+user int M8fWeaponMenuWeaponSlot14 = 0;
+user int M8fWeaponMenuWeaponSlot15 = 0;
+user int M8fWeaponMenuWeaponSlot16 = 0;
+user int M8fWeaponMenuWeaponSlot17 = 0;
+user int M8fWeaponMenuWeaponSlot18 = 0;
+user int M8fWeaponMenuWeaponSlot19 = 0;
+user int M8fWeaponMenuWeaponSlot20 = 0;
+user int M8fWeaponMenuWeaponSlot21 = 0;
+user int M8fWeaponMenuWeaponSlot22 = 0;
+user int M8fWeaponMenuWeaponSlot23 = 0;
+user int M8fWeaponMenuWeaponSlot24 = 0;
+user int M8fWeaponMenuWeaponSlot25 = 0;
+user int M8fWeaponMenuWeaponSlot26 = 0;
+user int M8fWeaponMenuWeaponSlot27 = 0;
+user int M8fWeaponMenuWeaponSlot28 = 0;
+user int M8fWeaponMenuWeaponSlot29 = 0;
+user int M8fWeaponMenuWeaponSlot30 = 0;
+user int M8fWeaponMenuWeaponSlot31 = 0;
+user int M8fWeaponMenuWeaponSlot32 = 0;
+user int M8fWeaponMenuWeaponSlot33 = 0;
+user int M8fWeaponMenuWeaponSlot34 = 0;
+user int M8fWeaponMenuWeaponSlot35 = 0;
+user int M8fWeaponMenuWeaponSlot36 = 0;
+user int M8fWeaponMenuWeaponSlot37 = 0;
+user int M8fWeaponMenuWeaponSlot38 = 0;
+user int M8fWeaponMenuWeaponSlot39 = 0;
+user int M8fWeaponMenuWeaponSlot40 = 0;
+user int M8fWeaponMenuWeaponSlot41 = 0;
+user int M8fWeaponMenuWeaponSlot42 = 0;
+user int M8fWeaponMenuWeaponSlot43 = 0;
+user int M8fWeaponMenuWeaponSlot44 = 0;
+user int M8fWeaponMenuWeaponSlot45 = 0;
+user int M8fWeaponMenuWeaponSlot46 = 0;
+user int M8fWeaponMenuWeaponSlot47 = 0;
+user int M8fWeaponMenuWeaponSlot48 = 0;
+user int M8fWeaponMenuWeaponSlot49 = 0;
