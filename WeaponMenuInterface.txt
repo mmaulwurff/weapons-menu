@@ -72,14 +72,29 @@ Class WeaponMenuInterface : Object {
   // Control section ///////////////////////////////////////////////////////////
   // Contains function to control Weapon Menu behavior.
 
+  // Set this to enable/disable Weapon Menu Native (standard) output.
+  // Native output is ACS HudMessage.
   void SetNativeOutputDisabled(bool disabled) {
     CVar.GetCVar("M8fWeaponMenuDisableNativeOutput", CPlayer).SetInt(disabled);
   }
 
+  // Set this to enable/disable sound on highlighting weapon in menu.
+  // Added in API v1.1.
+  // See also SetSound().
+  void SetSoundEnabled(bool enabled) {
+    CVar.GetCVar("M8fWeaponMenuEnableSound", CPlayer).SetInt(enabled);
+  }
+
+  // Set this to specify sound that plays on weapon highlight in menu.
+  // Added in API v1.1.
+  // See also SetSoundEnabled().
+  void SetSound(string soundName) {
+    CVar.GetCVar("M8fWeaponMenuHighlightSound", CPlayer).setString(soundName);
+  }
 
 
-  // Utility functions section /////////////////////////////////////////////////
-  // Contains
+  // Information functions section /////////////////////////////////////////////
+  // Contains functions to get more information about weapons.
 
   string GetWeaponClass(int weaponNumber) const {
     string weaponClassVariableName = String.Format("M8fWeaponMenuWeaponClass%d", weaponNumber);

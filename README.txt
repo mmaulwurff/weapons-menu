@@ -61,6 +61,7 @@ Credits:
 - click.wav is DSTINK.wav from Freedoom.
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
   https://freedoom.github.io/
+- Thanks to Gutawer and argv for example of ZScript HUD.
 
 Version: 0.19
 
