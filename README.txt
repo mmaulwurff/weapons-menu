@@ -39,6 +39,7 @@ Has support for:
   12. Heretic IWAD weapons (not tested)
   13. Chex Quest (Single Player)
   14. Strife weapons (not tested)
+  15. Argent (v0.5.3)
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -90,3 +91,4 @@ added option to show/hide not acquired weapons.
 added optional highlighting of currently selected weapon.
 0.18: added CVar and ZScript API.
 0.19: added optional sound on selecting new weapon in menu.
+added Argent 0.5.3 support.

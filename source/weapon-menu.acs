@@ -26,8 +26,9 @@
 // 18 - Heretic (not tested)
 // 19 - Chex Quest (Single Player)
 // 20 - Strife (not tested)
+// 21 - Argent (v0.5.3)
 
-#define SETS_NUMBER (21)
+#define SETS_NUMBER (22)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -46,6 +47,7 @@ str playerClassNames[SETS_NUMBER] =
   "HereticPlayer",     // Heretic
   "ChexPlayer",        // Chex Quest
   "StrifePlayer",      // Strife
+  "ArgPlayer",         // Argent
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -64,6 +66,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // Heretic
   8,  // Chex Quest
   8,  // Strife
+  11, // Argent
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -134,6 +137,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
 
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
+
+  { 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 }, // Argent
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -244,6 +249,20 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Sigil",
   },
 
+  { // Argent
+    "ArgChainsaw",
+    "ArgFist",
+    "ArgPistol",
+    "ArgSuperShotgun",
+    "ArgShotgun",
+    "ArgChaingun",
+    "ArgHeavyAR",
+    "ArgRocketLauncher",
+    "ArgGaussCannon",
+    "ArgPlasmaRifle",
+    "ArgBFG9000",
+  },
+
 }; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -351,6 +370,20 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Flame Thrower",
     "Mauler",
     "SIGIL",
+  },
+
+  { // Argent
+    "Chainsaw",
+    "Fists",
+    "Pistol",
+    "Super Shotgun",
+    "Combat Shotgun",
+    "Chaingun",
+    "Heavy Assault Rifle",
+    "Rocket Launcher",
+    "Gauss Cannon",
+    "Plasma Rifle",
+    "BFG 9000",
   },
 
 }; // end of printable names
