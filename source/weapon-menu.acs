@@ -670,6 +670,7 @@ script "ScrollNextWeapon" (void)
       }
     }
     while (!CheckInventory(GetWeaponName(selectedWeapon)));
+    PlaySwitchSound();
   }
   else
   {
@@ -703,6 +704,7 @@ script "ScrollPreviousWeapon" (void)
       }
     }
     while (!CheckInventory(GetWeaponName(selectedWeapon)));
+    PlaySwitchSound();
   }
   else
   {
@@ -772,6 +774,7 @@ script "SmartWeaponSelection" (int slotNumber)
     {
       SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
     }
+    PlaySwitchSound();
   }
 
   int playerN = PlayerNumber();
@@ -809,4 +812,16 @@ function str makeWeaponSlotVarName(int weaponNumber)
 {
   int weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot", i:weaponNumber);
   return weaponSlotVarName;
+}
+
+function void PlaySwitchSound(void)
+{
+  int playerN = PlayerNumber();
+  bool soundIsEnabled = GetUserCVar(playerN, "M8fWeaponMenuEnableSound");
+
+  if (soundIsEnabled)
+  {
+    str sound = GetUserCVarString(playerN, "M8fWeaponMenuHighlightSound");
+    PlaySound(0, sound);
+  }
 }

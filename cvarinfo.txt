@@ -17,7 +17,7 @@ user int M8fWeaponMenuApiVersionMajor = 1;
 // New minor API version marks new functionality without breaking
 // backward compatibility.
 // Read-only.
-user int M8fWeaponMenuApiVersionMinor = 0;
+user int M8fWeaponMenuApiVersionMinor = 1;
 
 // Set this to true to disable Weapon Menu native (built-in) output.
 // Native output is ACS HudMessage.
@@ -57,6 +57,16 @@ user bool M8fWeaponMenuHighToLow = true;
 user bool M8fShowNotAvailable    = true;
 user bool M8fWeaponMenuNumbersLeft = true;
 user bool M8fWeaponMenuHighlightSelected = true;
+
+// True if sound is played on highlighing a weapon in menu.
+// Added in 1.1.
+// Read/write.
+user bool M8fWeaponMenuEnableSound = false;
+
+// Sound that will be played on highlighting a weapon in menu.
+// Added in 1.1.
+// Read/write.
+user string M8fWeaponMenuHighlightSound = "menu/click";
 
 // And here is the ugly part...
 

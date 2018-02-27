@@ -56,7 +56,12 @@ GitHub: https://github.com/mmaulwurff/weapons-menu
 
 License: CC BY 4.0
 
-Version: 0.18
+Credits:
+- click.wav is DSTINK.wav from Freedoom.
+  Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
+  https://freedoom.github.io/
+
+Version: 0.19
 
 Changelog:
 0.1: initial version.
@@ -84,3 +89,4 @@ added option to show/hide not acquired weapons.
 0.17: added option to show slot number on left or right side.
 added optional highlighting of currently selected weapon.
 0.18: added CVar and ZScript API.
+0.19: added optional sound on selecting new weapon in menu.
