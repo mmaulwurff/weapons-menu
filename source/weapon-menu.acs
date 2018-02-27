@@ -27,8 +27,9 @@
 // 19 - Chex Quest (Single Player)
 // 20 - Strife (not tested)
 // 21 - Argent (v0.5.3)
+// 22 - Doom 64 'weapons only' X (updated 5-29-2016)
 
-#define SETS_NUMBER (22)
+#define SETS_NUMBER (23)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -48,6 +49,7 @@ str playerClassNames[SETS_NUMBER] =
   "ChexPlayer",        // Chex Quest
   "StrifePlayer",      // Strife
   "ArgPlayer",         // Argent
+  "64DoomPlayer",      // Doom 64
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -67,6 +69,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // Chex Quest
   8,  // Strife
   11, // Argent
+  15, // Doom 64 X
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -139,6 +142,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 }, // Argent
+
+  { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
+
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -263,11 +269,30 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "ArgBFG9000",
   },
 
+  { // Doom 64 X
+    "64Chainsaw", "64Fist",
+    "64Uzi", "64Pistol",
+    "64Devastator", "64SuperShotgun", "64Shotgun",
+    "64Nailgun", "64Chaingun",
+    "64Flamethrower", "64RocketLauncher",
+    "64Railgun", "64PlasmaRifle",
+    "Unmaker", "64BFG9000",
+  },
+
 }; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { // Doom
+    "Chainsaw", "Brass Knuckles",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
+  },
+
   { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
 
   { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
@@ -384,6 +409,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Gauss Cannon",
     "Plasma Rifle",
     "BFG 9000",
+  },
+
+  { // Doom 64 X
+    "Chainsaw", "Fist",
+    "Uzi", "Pistol",
+    "Devastator", "Super Shotgun", "Shotgun",
+    "Nailgun", "Chaingun",
+    "Flamethrower", "Rocket Launcher",
+    "Railgun", "Plasma Rifle",
+    "Unmaker", "BFG 9000",
   },
 
 }; // end of printable names
