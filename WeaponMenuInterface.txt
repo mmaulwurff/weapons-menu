@@ -2,146 +2,149 @@
 // for Weapon Selection Menu Mod.
 // See cvarinfo for more low-level CVar APi
 
+// Just copy this file to your project and #include it.
+
 // https://zdoom.org/wiki/CVar_(ZScript) says that attempts to access user
 // cvars will cause a desync in multiplayer. Is it true for HUDs?
 // If so, then Weapon Selection Menu API is only for single player.
 
 Class WeaponMenuInterface : Object {
 
-	private PlayerInfo CPlayer;
+  private PlayerInfo CPlayer;
 
 
-	// Main section //////////////////////////////////////////////////////////////
-	// This section contains important interface functions
+  // Main section //////////////////////////////////////////////////////////////
+  // This section contains important interface functions
 
-	static WeaponMenuInterface Create(PlayerInfo player) {
-		WeaponMenuInterface wmi = new('WeaponMenuInterface');
-		wmi.CPlayer = player;
-		return wmi;
-	}
+  static WeaponMenuInterface Create(PlayerInfo player) {
+    WeaponMenuInterface wmi = new('WeaponMenuInterface');
+    wmi.CPlayer = player;
+    return wmi;
+  }
 
-	// Must be checked before all other functions in this interface.
-	// If Weapon Menu isn't loaded, all interface functions except this will crash.
-	bool IsLoaded() const {
-		return (CVar.GetCVar("M8fWeaponMenuApiVersionMajor", CPlayer) != null);
-	}
+  // Must be checked before all other functions in this interface.
+  // If Weapon Menu isn't loaded, all interface functions except this will crash.
+  bool IsLoaded() const {
+    return (CVar.GetCVar("M8fWeaponMenuApiVersionMajor", CPlayer) != null);
+  }
 
   // All API versions with the same major version number are backwards-compatible.
-	int GetMajorApiVersion() const {
-		return (CVar.GetCVar("M8fWeaponMenuApiVersionMajor", CPlayer).getInt());
-	}
+  int GetMajorApiVersion() const {
+    return (CVar.GetCVar("M8fWeaponMenuApiVersionMajor", CPlayer).getInt());
+  }
 
-	// New minor API version marks new functionality without breaking
+  // New minor API version marks new functionality without breaking
   // backward compatibility.
-	int GetMinorApiVersion() const {
-		return (CVar.GetCVar("M8fWeaponMenuApiVersionMinor", CPlayer).getInt());
-	}
+  int GetMinorApiVersion() const {
+    return (CVar.GetCVar("M8fWeaponMenuApiVersionMinor", CPlayer).getInt());
+  }
 
-	// Weapon Menu can be disabled if current weapon set is not supported by it.
-	bool IsEnabled() const {
-		return CVar.GetCVar("M8fWeaponMenuIsEnabled", CPlayer).getInt();
-	}
+  // Weapon Menu can be disabled if current weapon set is not supported by it.
+  bool IsEnabled() const {
+    return CVar.GetCVar("M8fWeaponMenuIsEnabled", CPlayer).getInt();
+  }
 
-	// Weapon Menu can be opened and closed by user. Check this to know menu status.
-	bool IsOpened() const {
-		return CVar.GetCVar("M8fWeaponMenuIsOpened", CPlayer).getInt();
-	}
+  // Weapon Menu can be opened and closed by user. Check this to know menu status.
+  bool IsOpened() const {
+    return CVar.GetCVar("M8fWeaponMenuIsOpened", CPlayer).getInt();
+  }
 
-	// Returns number of weapons in current weapon set.
-	int GetWeaponCount() const {
-		return CVar.GetCVar("M8fWeaponMenuWeaponCount", CPlayer).getInt();
-	}
+  // Returns number of weapons in current weapon set.
+  int GetWeaponCount() const {
+    return CVar.GetCVar("M8fWeaponMenuWeaponCount", CPlayer).getInt();
+  }
 
-	// Returns highlighted weapon number.
-	// Highlighted weapon is the weapon that will be selected when menu is closed.
-	// See Utility Functions Section for functions that operate on this number.
-	int GetHighlightedWeaponNumber() const {
-		return CVar.GetCVar("M8fWeaponMenuHighlightedWeapon", CPlayer).getInt();
-	}
+  // Returns highlighted weapon number.
+  // Highlighted weapon is the weapon that will be selected when menu is closed.
+  // See Utility Functions Section for functions that operate on this number.
+  int GetHighlightedWeaponNumber() const {
+    return CVar.GetCVar("M8fWeaponMenuHighlightedWeapon", CPlayer).getInt();
+  }
 
-	// Returns currently selected weapon.
-	// Selected weapon is the weapon that player holds.
-	// See Utility Functions Section for functions that operate on this number.
-	int GetSelectedWeaponNumber() const {
-		return CVar.GetCVar("M8fWeaponMenuSelectedWeapon", CPlayer).getInt();
-	}
-
-
-	// Control section ///////////////////////////////////////////////////////////
-	// Contains function to control Weapon Menu behavior.
-
-	void SetNativeOutputDisabled(bool disabled) {
-		CVar.GetCVar("M8fWeaponMenuDisableNativeOutput", CPlayer).SetInt(disabled);
-	}
+  // Returns currently selected weapon.
+  // Selected weapon is the weapon that player holds.
+  // See Utility Functions Section for functions that operate on this number.
+  int GetSelectedWeaponNumber() const {
+    return CVar.GetCVar("M8fWeaponMenuSelectedWeapon", CPlayer).getInt();
+  }
 
 
-	// Utility functions section /////////////////////////////////////////////////
-	// Contains
+  // Control section ///////////////////////////////////////////////////////////
+  // Contains function to control Weapon Menu behavior.
 
-	string GetWeaponClass(int weaponNumber) const {
-		string weaponClassVariableName = String.Format("M8fWeaponMenuWeaponClass%d", weaponNumber);
-		CVar weaponClassCVar = CVar.GetCVar(weaponClassVariableName, CPlayer);
-		return weaponClassCVar.getString();
-	}
-
-	string GetWeaponName(int weaponNumber) const {
-		string weaponNameVariableName = String.Format("M8fWeaponMenuWeaponName%d", weaponNumber);
-		CVar weaponNameCVar = CVar.GetCVar(weaponNameVariableName, CPlayer);
-		return weaponNameCVar.getString();
-	}
-
-	int GetWeaponSlot(int weaponNumber) const {
-		string weaponSlotVariableName = String.Format("M8fWeaponMenuWeaponSlot%d", weaponNumber);
-		CVar weaponSlotCVar = CVar.GetCVar(weaponSlotVariableName, CPlayer);
-		return weaponSlotCVar.getInt();
-	}
-
-	bool CheckInventory(string weaponClass) const {
-		if (CPlayer) {
-			for (let inv = CPlayer.mo.Inv; inv; inv = inv.Inv) {
-				// [argv] look through the player pawn's inventory for weapons
-				if (inv is weaponClass) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+  void SetNativeOutputDisabled(bool disabled) {
+    CVar.GetCVar("M8fWeaponMenuDisableNativeOutput", CPlayer).SetInt(disabled);
+  }
 
 
-	// Options section ///////////////////////////////////////////////////////////
-	// Options may be ignored.
 
-	int GetAvailableWeaponColor() const {
-		return CVar.GetCVar("M8FAvailableWeaponColor", CPlayer).getInt();
-	}
+  // Utility functions section /////////////////////////////////////////////////
+  // Contains
 
-	int GetNotAvailableWeaponColor() const {
-		return CVar.GetCVar("M8FNotAvailableWeaponColor", CPlayer).getInt();
-	}
+  string GetWeaponClass(int weaponNumber) const {
+    string weaponClassVariableName = String.Format("M8fWeaponMenuWeaponClass%d", weaponNumber);
+    CVar weaponClassCVar = CVar.GetCVar(weaponClassVariableName, CPlayer);
+    return weaponClassCVar.getString();
+  }
 
-	int GetHighlightedWeaponColor() const {
-		return CVar.GetCVar("M8FHighlightedWeaponColor", CPlayer).getInt();
-	}
+  string GetWeaponName(int weaponNumber) const {
+    string weaponNameVariableName = String.Format("M8fWeaponMenuWeaponName%d", weaponNumber);
+    CVar weaponNameCVar = CVar.GetCVar(weaponNameVariableName, CPlayer);
+    return weaponNameCVar.getString();
+  }
 
-	int GetSelectedWeaponColor() const {
-		return CVar.GetCVar("M8FSelectedWeaponColor", CPlayer).getInt();
-	}
+  int GetWeaponSlot(int weaponNumber) const {
+    string weaponSlotVariableName = String.Format("M8fWeaponMenuWeaponSlot%d", weaponNumber);
+    CVar weaponSlotCVar = CVar.GetCVar(weaponSlotVariableName, CPlayer);
+    return weaponSlotCVar.getInt();
+  }
 
-	bool IsShowingNotAvailable() const {
-		return CVar.GetCVar("M8FShowNotAvailable", CPlayer).getInt();
-	}
+  bool CheckInventory(string weaponClass) const {
+    if (CPlayer) {
+      for (let inv = CPlayer.mo.Inv; inv; inv = inv.Inv) {
+        // [argv] look through the player pawn's inventory for weapons
+        if (inv is weaponClass) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 
-	bool IsSlotsHighToLow() const {
-		return CVar.GetCVar("M8FWeaponMenuHighToLow", CPlayer).getInt();
-	}
 
-	bool IsNumbersOnTheLeft() const {
-		return CVar.GetCVar("M8FWeaponMenuNumbersLeft", CPlayer).getInt();
-	}
+  // Options section ///////////////////////////////////////////////////////////
+  // Options may be ignored.
 
-	bool IsHighlightHolding() const {
-		return CVar.GetCVar("M8FWeaponMenuHighlightSelected", CPlayer).getInt();
-	}
+  int GetAvailableWeaponColor() const {
+    return CVar.GetCVar("M8FAvailableWeaponColor", CPlayer).getInt();
+  }
+
+  int GetNotAvailableWeaponColor() const {
+    return CVar.GetCVar("M8FNotAvailableWeaponColor", CPlayer).getInt();
+  }
+
+  int GetHighlightedWeaponColor() const {
+    return CVar.GetCVar("M8FHighlightedWeaponColor", CPlayer).getInt();
+  }
+
+  int GetSelectedWeaponColor() const {
+    return CVar.GetCVar("M8FSelectedWeaponColor", CPlayer).getInt();
+  }
+
+  bool IsShowingNotAvailable() const {
+    return CVar.GetCVar("M8FShowNotAvailable", CPlayer).getInt();
+  }
+
+  bool IsSlotsHighToLow() const {
+    return CVar.GetCVar("M8FWeaponMenuHighToLow", CPlayer).getInt();
+  }
+
+  bool IsNumbersOnTheLeft() const {
+    return CVar.GetCVar("M8FWeaponMenuNumbersLeft", CPlayer).getInt();
+  }
+
+  bool IsHighlightHolding() const {
+    return CVar.GetCVar("M8FWeaponMenuHighlightSelected", CPlayer).getInt();
+  }
 
 }
