@@ -25,21 +25,46 @@ Features:
 - API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
 
 Has support for:
-  1. Original weapons
-  2. PerK's Smoother Weapon Animations Enhanced
-  3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
-  4. Beautiful Doom
-  5. Final Doomer
-  6. Faspons
-  7. HXRTC Project
-  8. Kriegsland: Blutordnung (2.3 04/02/18)
-  9. Complex Doom V27a3
-  10. Weapons of Saturn (October 31, 2017)
-  11. Hard-Doom v8.1.1
-  12. Heretic IWAD weapons (not tested)
-  13. Chex Quest (Single Player)
-  14. Strife weapons (not tested)
-  15. Argent (v0.5.3)
+1. Original weapons
+
+2. PerK's Smoother Weapon Animations Enhanced
+   https://forum.zdoom.org/viewtopic.php?f=43&t=32628
+
+3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
+   https://forum.zdoom.org/viewtopic.php?f=43&t=48208
+
+4. Beautiful Doom 6.3.0
+   https://forum.zdoom.org/viewtopic.php?f=43&t=50004
+
+5. Final Doomer 2.4
+   https://forum.zdoom.org/viewtopic.php?f=43&t=55061
+
+6. Faspons (Feb24)
+   https://forum.zdoom.org/viewtopic.php?f=43&t=48985
+
+7. HXRTC Project Final Edition (Revised 17 feb 2018)
+   https://forum.zdoom.org/viewtopic.php?f=43&t=48074
+
+8. Kriegsland: Blutordnung (2.3 04/02/18)
+   https://forum.zdoom.org/viewtopic.php?f=43&t=57053
+
+9. Complex Doom V27a3
+   https://forum.zdoom.org/viewtopic.php?f=43&t=58535
+
+10. Weapons of Saturn (October 31, 2017)
+    https://forum.zdoom.org/viewtopic.php?f=43&t=36821
+
+11. Hard-Doom v8.1.1
+    https://forum.zdoom.org/viewtopic.php?f=43&t=45145
+
+12. Heretic IWAD weapons (not tested)
+
+13. Chex Quest (Single Player)
+
+14. Strife weapons (not tested)
+
+15. Argent (v0.5.3)
+    https://forum.zdoom.org/viewtopic.php?f=43&t=52363
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -92,4 +117,5 @@ added option to show/hide not acquired weapons.
 added optional highlighting of currently selected weapon.
 0.18: added CVar and ZScript API.
 0.19: added optional sound on selecting new weapon in menu.
+Sound can be set or disabled via ZScript API too.
 added Argent 0.5.3 support.
