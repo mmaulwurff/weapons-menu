@@ -2,7 +2,7 @@ Weapon Selection Menu Mod for GZDoom
 
 Usage:
 
-1. Assign keys (or mouse wheel) in Options -> Customize controls -> "Weapon Menu Keys"
+1. Assign controls in Options -> Customize controls -> "Weapon Menu Keys".
 
 2. Open Weapons Menu by pressing assigned Smart Selection Keys or Open/Close Menu key.
 
@@ -19,7 +19,7 @@ Usage:
 Features:
 - provides ability to fast weapon selection even without using number row keys.
 - with menu, you see what you are about to select. No more blind weapon choices!
-- last used weapon quick access (by accigned key).
+- last used weapon quick access (by assigned key).
 - configurable colors and position.
 - will work with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
@@ -40,7 +40,7 @@ Has support for:
 5. Final Doomer 2.4
    https://forum.zdoom.org/viewtopic.php?f=43&t=55061
 
-6. Faspons (Feb24)
+6. Faspons (Feb 24)
    https://forum.zdoom.org/viewtopic.php?f=43&t=48985
 
 7. HXRTC Project Final Edition (Revised 17 feb 2018)
