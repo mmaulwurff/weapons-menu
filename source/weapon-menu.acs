@@ -596,6 +596,19 @@ function void printHudWeapon(
   HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
 
+function void WM_SetupFont(void)
+{
+  str fonts[3] = { "SMALLFONT", "CONFONT", "BIGFONT" };
+
+  int playerN  = PlayerNumber();
+  int iFont    = GetUserCVar(playerN, "M8fWeaponMenuFont");
+
+  if (0 <= iFont && iFont < 3)
+  {
+    SetFont(fonts[iFont]);
+  }
+}
+
 
 // Control functions section ///////////////////////////////////////////////////
 
@@ -711,6 +724,8 @@ script "ShowWeaponMenu" ENTER
 
     if (menuIsOpened)
     {
+      WM_SetupFont();
+
       int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
       int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
       int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");

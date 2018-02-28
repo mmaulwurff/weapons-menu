@@ -16,6 +16,9 @@ Usage:
 
 7. Weapons Menu does not affect gameplay. When it is opened, you can run, shoot, do whatever you want to do. New weapon will be selected only when Menu is closed.
 
+8. Be sure you adjust menu position, font and text scale in Options to fit your screen and weapon set size.
+   Some options take effect only after Options are closed.
+
 Features:
 - provides ability to fast weapon selection even without using number row keys.
 - with menu, you see what you are about to select. No more blind weapon choices!
@@ -73,6 +76,9 @@ Has support for:
 17. Responsive Weapons + Faster Weapon Switching
     https://forum.zdoom.org/viewtopic.php?f=19&t=38235
 
+18. Dead Marine (v0.9.3)
+    https://forum.zdoom.org/viewtopic.php?f=43&t=58521&hilit=dead+marine
+
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
   1. Increment SETS_NUMBER constant,
@@ -95,7 +101,7 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 0.20
+Version: 0.21
 
 Changelog:
 0.1: initial version.
@@ -127,5 +133,7 @@ added optional highlighting of currently selected weapon.
 Sound can be set or disabled via ZScript API too.
 added Argent 0.5.3 support.
 0.20: added Doom 64 'weapons only' by Nevander X version.
-added Responsive Weapons + Faster Weapon Switching
+added Responsive Weapons + Faster Weapon Switching.
 added "Last Used Weapon" key.
+0.21: added Dead Marine weapons.
+added font options.
