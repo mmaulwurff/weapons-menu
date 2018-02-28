@@ -4,6 +4,8 @@
 #define MINIMAL_HOLD_TIME (1873)
 #define messageIdStart (191919)
 
+// Weapons data section ////////////////////////////////////////////////////////
+
 // Known weapon sets:
 // 0 - Vanilla (Standard) Weapons
 // 1 - PerK's Smoother Weapon Animations Enhanced
@@ -456,15 +458,23 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 }; // end of printable names
 
-bool menuIsOpened   = false;
-int  selectedWeapon = 0;
-int  currentSet     = -1;
-int  holdingWeapon  = 0;
-int  lastUsedWeapon = 0;
 
-function int getWeaponSlot(int weaponNumber)
+// Global variables ////////////////////////////////////////////////////////////
+// To write to global variables, use only special functions.
+
+bool menuIsOpened   = false;
+int  currentSet     = -1;
+
+int  highlightedWeapon = 0;
+int  selectedWeapon    = 0;
+int  lastUsedWeapon    = 0;
+
+
+// Weapon data access functions ////////////////////////////////////////////////
+
+function int WM_GetWeaponSlot(int weaponNumber)
 {
-  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  if (WM_IsValidWeaponNumber(weaponNumber))
   {
     return slots[currentSet][weaponNumber];
   }
@@ -472,9 +482,9 @@ function int getWeaponSlot(int weaponNumber)
   return 0;
 }
 
-function str getWeaponName(int weaponNumber)
+function str WM_GetWeaponName(int weaponNumber)
 {
-  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  if (WM_IsValidWeaponNumber(weaponNumber))
   {
     return names[currentSet][weaponNumber];
   }
@@ -482,9 +492,9 @@ function str getWeaponName(int weaponNumber)
   return "UnknownWeapon";
 }
 
-function str getPrintableWeaponName(int weaponNumber)
+function str WM_GetPrintableWeaponName(int weaponNumber)
 {
-  if (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet])
+  if (WM_IsValidWeaponNumber(weaponNumber))
   {
     return printableNames[currentSet][weaponNumber];
   }
@@ -492,16 +502,17 @@ function str getPrintableWeaponName(int weaponNumber)
   return "Unknown weapon";
 }
 
-// Returns weaponNumber of next weapon in this slot, or -1 if there is no
+// Returns weaponNumber of next weapon in this slot, or -1 if there is no more
+// weapons in this slot.
 function int getWeaponSibling(int weaponNumber)
 {
-  int thisWeaponSlot = getWeaponSlot(weaponNumber);
+  int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
   int weaponCount    = weaponCounts[currentSet];
 
   for (int i = 0; i < weaponCount; ++i)
   {
     int w = (weaponNumber + i) % weaponCount;
-    if (w != weaponNumber && getWeaponSlot(w) == thisWeaponSlot)
+    if (w != weaponNumber && WM_GetWeaponSlot(w) == thisWeaponSlot)
     {
       return w;
     }
@@ -516,7 +527,7 @@ function int getWeaponBySlot(int slotNumber)
 
   for (int i = 0; i < weaponCount; ++i)
   {
-    if (slotNumber == getWeaponSlot(i) && CheckInventory(GetWeaponName(i)))
+    if (slotNumber == WM_GetWeaponSlot(i) && WM_IsInInventory(i))
     {
       return i;
     }
@@ -524,6 +535,9 @@ function int getWeaponBySlot(int slotNumber)
 
   return -1;
 }
+
+
+// Printing Weapons Menu functions /////////////////////////////////////////////
 
 function void printHudWeapon(
   int weaponNumber,
@@ -537,61 +551,100 @@ function void printHudWeapon(
 {
   int id = messageIdStart + weaponNumber;
 
-  int step;
-  if (weaponCounts[currentSet] < 20)
-  {
-    step = 0.05;
-  }
-  else
-  {
-    step = 0.02;
-  }
+  int weaponCount = weaponCounts[currentSet];
+  int step = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+  int x    = xStart;
+  int y    = yStart + WM_IfThenElse(highToLow,
+    (weaponCount - 1 - position) * step,
+    position * step
+  );
 
-  int x = xStart;
-  int y = yStart;
-  if (highToLow)
-  {
-    y += (weaponCounts[currentSet] - 1 - position) * step;
-  }
-  else
-  {
-    y += position * step;
-  }
-
-  int slotNumber = getWeaponSlot(weaponNumber);
+  int slotNumber = WM_GetWeaponSlot(weaponNumber);
   str delimiter  = " - ";
-  str name       = getPrintableWeaponName(weaponNumber);
+  str name       = WM_GetPrintableWeaponName(weaponNumber);
 
-  if (numbersOnTheLeft)
-  {
-    HudMessage(s:" ", i:slotNumber, s:delimiter, s:name, s:" ";
-               HUDMSG_PLAIN,
-               id, color, x, y, MINIMAL_HOLD_TIME);
-  }
-  else
-  {
-    HudMessage(s:" ", s:name, s:delimiter, i:slotNumber, s:" ";
-               HUDMSG_PLAIN,
-               id, color, x, y, MINIMAL_HOLD_TIME);
-  }
+  str weaponString = WM_IfThenElse(numbersOnTheLeft,
+    StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" "),
+    StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ")
+  );
+
+  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
 
-function void SetSelected(void)
+
+// Control functions section ///////////////////////////////////////////////////
+
+function void WM_HighlightSelectedWeapon(void)
 {
   int weaponCount = weaponCounts[currentSet];
 
   for (int s = 0; s < weaponCount; ++s)
   {
-    if (checkWeapon(GetWeaponName(s)))
+    if (WM_IsSelected(s))
     {
-      selectedWeapon = s;
-      break;
+      WM_SetHighlightedWeapon(s);
+      return;
     }
   }
-
-  int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
 }
+
+function void WM_SelectWeaponByNumber(int weaponNumber)
+{
+  str weaponName = WM_GetWeaponName(weaponNumber);
+  bool success = SetWeapon(weaponName);
+
+  if (success)
+  {
+    lastUsedWeapon = selectedWeapon;
+    WM_SetSelectedWeapon(weaponNumber);
+  }
+  else
+  {
+    str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
+    print(s:printableWeaponName, s:": no ammo.");
+  }
+}
+
+function void WM_SetupWeaponsState(void)
+{
+  WM_HighlightSelectedWeapon();
+  WM_SetSelectedWeapon(highlightedWeapon);
+  lastUsedWeapon = highlightedWeapon;
+}
+
+function void WM_InitApiCvars(void)
+{
+  int playerN     = PlayerNumber();
+  int weaponCount = weaponCounts[currentSet];
+
+  SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
+
+  for (int i = 0; i < weaponCount; ++i) {
+    str weaponClassVarName = StrParam(s:"M8fWeaponMenuWeaponClass", i:i);
+    str weaponNameVarName  = StrParam(s:"M8fWeaponMenuWeaponName",  i:i);
+    str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
+
+    SetUserCVarString(playerN, weaponClassVarName, WM_GetWeaponName(i));
+    SetUserCVarString(playerN, weaponNameVarName,  WM_GetPrintableWeaponName(i));
+    SetUserCVar      (playerN, weaponSlotVarName,  WM_GetWeaponSlot(i));
+  }
+}
+
+function void WM_PlaySwitchSound(void)
+{
+  int playerN = PlayerNumber();
+  bool soundIsEnabled = GetUserCVar(playerN, "M8fWeaponMenuEnableSound");
+
+  if (soundIsEnabled)
+  {
+    str sound = GetUserCVarString(playerN, "M8fWeaponMenuHighlightSound");
+    PlaySound(0, sound);
+  }
+}
+
+
+// Scripts section /////////////////////////////////////////////////////////////
 
 script "ShowWeaponMenu" ENTER
 {
@@ -618,28 +671,25 @@ script "ShowWeaponMenu" ENTER
     terminate;
   }
 
-  InitApiCvars();
-
-  SetSelected();
-  lastUsedWeapon = selectedWeapon;
-  holdingWeapon  = selectedWeapon;
+  WM_InitApiCvars();
+  WM_SetupWeaponsState();
 
   int weaponCount = weaponCounts[currentSet];
 
   while (true)
   {
+    // can happen if player drops weapon, or pistol starter script is in action
+    if (!WM_IsInInventory(highlightedWeapon))
+    {
+      WM_SetupWeaponsState();
+    }
+
     if (menuIsOpened)
     {
-      // can happen if player drops weapon, or pistol starter script is in action
-      if (!CheckInventory(GetWeaponName(selectedWeapon)))
-      {
-        SetSelected();
-      }
-
-      int availableWeapon     = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-      int notAvailableWeapon  = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-      int highlightedWeapon   = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-      int selectedWeaponColor = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+      int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+      int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+      int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+      int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
       bool disableOutput      = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
       bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
@@ -655,23 +705,23 @@ script "ShowWeaponMenu" ENTER
       for (int i = 0; i < weaponCount; ++i)
       {
         // remember position of selected weapon
-        if (i == selectedWeapon)
+        if (i == highlightedWeapon)
         {
           availablePosition = position;
         }
-        if (i == holdingWeapon)
+        if (i == selectedWeapon)
         {
           holdingPosition = position;
         }
 
-        if (CheckInventory(GetWeaponName(i)))
+        if (WM_IsInInventory(i))
         {
           if (!disableOutput)
           {
             printHudWeapon(
               i,
               position,
-              availableWeapon,
+              availableWeaponColor,
               xStart,
               yStart,
               highToLow,
@@ -687,7 +737,7 @@ script "ShowWeaponMenu" ENTER
             printHudWeapon(
               i,
               position,
-              notAvailableWeapon,
+              notAvailableWeaponColor,
               xStart,
               yStart,
               highToLow,
@@ -701,20 +751,20 @@ script "ShowWeaponMenu" ENTER
       if (!disableOutput)
       {
         printHudWeapon(
-          selectedWeapon,
-          availablePosition,
           highlightedWeapon,
+          availablePosition,
+          highlightedWeaponColor,
           xStart,
           yStart,
           highToLow,
           numbersOnTheLeft
         );
 
-        bool highlightHolding = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
-        if (highlightHolding)
+        bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+        if (highlightSelected)
         {
           printHudWeapon(
-            holdingWeapon,
+            selectedWeapon,
             holdingPosition,
             selectedWeaponColor,
             xStart,
@@ -731,37 +781,24 @@ script "ShowWeaponMenu" ENTER
   }
 }
 
-script "ToggleWeaponMenu" (void)
+script "ToggleWeaponMenu" (int highlightSelected)
 {
-  ToggleWeaponMenuFunction();
+  WM_SetMenuIsOpened(!menuIsOpened);
+
   if (menuIsOpened)
   {
-    SetSelected();
-  }
-}
-
-function void SetHoldingWeapon(int value)
-{
-  int playerN = PlayerNumber();
-
-  holdingWeapon = value;
-  SetUserCVar(playerN, "M8fWeaponMenuSelectedWeapon", holdingWeapon);
-}
-
-function void ToggleWeaponMenuFunction(void)
-{
-  menuIsOpened = !menuIsOpened;
-
-  int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", menuIsOpened);
-
-  // on close - select weapon in menu.
-  if (!menuIsOpened)
-  {
-    if (selectedWeapon != holdingWeapon)
+    if (highlightSelected)
     {
-      lastUsedWeapon = holdingWeapon;
-      SetWeaponByNumber(selectedWeapon);
+      WM_HighlightSelectedWeapon();
+    }
+  }
+  else
+  {
+    // on close - select weapon in menu.
+    if (highlightedWeapon != selectedWeapon)
+    {
+      lastUsedWeapon = selectedWeapon;
+      WM_SelectWeaponByNumber(highlightedWeapon);
     }
   }
 }
@@ -772,34 +809,31 @@ script "ScrollNextWeapon" (void)
 
   if (menuIsOpened)
   {
+    int i = highlightedWeapon;
     do
     {
-      selectedWeapon += 1;
-      if (selectedWeapon >= weaponCount)
-      {
-        selectedWeapon = 0;
-      }
+      ++i;
+      if (i >= weaponCount) { i = 0; }
     }
-    while (!CheckInventory(GetWeaponName(selectedWeapon)));
-    PlaySwitchSound();
+    while (!WM_IsInInventory(i));
+
+    WM_SetHighlightedWeapon(i);
+    WM_PlaySwitchSound();
   }
   else
   {
-    lastUsedWeapon = holdingWeapon;
+    lastUsedWeapon = selectedWeapon;
     do
     {
-      selectedWeapon += 1;
-      if (selectedWeapon >= weaponCount)
+      highlightedWeapon += 1;
+      if (highlightedWeapon >= weaponCount)
       {
-        selectedWeapon = 0;
+        highlightedWeapon = 0;
       }
     }
-    while (!SetWeapon(GetWeaponName(selectedWeapon)));
-    SetHoldingWeapon(selectedWeapon);
+    while (!SetWeapon(WM_GetWeaponName(highlightedWeapon)));
+    WM_SetSelectedWeapon(highlightedWeapon);
   }
-
-  int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
 }
 
 script "ScrollPreviousWeapon" (void)
@@ -810,146 +844,137 @@ script "ScrollPreviousWeapon" (void)
   {
     do
     {
-      selectedWeapon -= 1;
-      if (selectedWeapon < 0)
+      highlightedWeapon -= 1;
+      if (highlightedWeapon < 0)
       {
-        selectedWeapon = weaponCount;
+        highlightedWeapon = weaponCount;
       }
     }
-    while (!CheckInventory(GetWeaponName(selectedWeapon)));
-    PlaySwitchSound();
+    while (!WM_IsInInventory(highlightedWeapon));
+    WM_PlaySwitchSound();
   }
   else
   {
-    lastUsedWeapon = holdingWeapon;
+    lastUsedWeapon = selectedWeapon;
     do
     {
-      selectedWeapon -= 1;
-      if (selectedWeapon < 0)
+      highlightedWeapon -= 1;
+      if (highlightedWeapon < 0)
       {
-        selectedWeapon = weaponCount;
+        highlightedWeapon = weaponCount;
       }
     }
-    while (!SetWeapon(GetWeaponName(selectedWeapon)));
-    SetHoldingWeapon(selectedWeapon);
+    while (!SetWeapon(WM_GetWeaponName(highlightedWeapon)));
+    WM_SetSelectedWeapon(highlightedWeapon);
   }
 
   int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
-}
-
-function void SetWeaponByNumber(int weaponNumber)
-{
-  str weaponName = GetWeaponName(weaponNumber);
-  bool success = SetWeapon(weaponName);
-
-  if (success)
-  {
-    lastUsedWeapon = holdingWeapon;
-    SetHoldingWeapon(weaponNumber);
-  }
-  else
-  {
-    str printableWeaponName = GetPrintableWeaponName(weaponNumber);
-    print(s:printableWeaponName, s:": no ammo.");
-  }
-}
-
-function void SetSelectedIfAvailable(int newSelected)
-{
-  if (CheckInventory(GetWeaponName(newSelected)))
-  {
-    selectedWeapon = newSelected;
-  }
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 }
 
 script "SmartWeaponSelection" (int slotNumber)
 {
   if (slotNumber >= weaponCounts[currentSet]) { terminate; }
 
-  if (!menuIsOpened)
+  if (menuIsOpened)
   {
-    SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
-    ToggleWeaponMenuFunction(); // open menu
-  }
-  else
-  {
-    int currentSlot = getWeaponSlot(selectedWeapon);
+    int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
     bool sameSlot = (slotNumber == currentSlot);
 
     if (sameSlot)
     {
-      int sibling = selectedWeapon;
+      int sibling = highlightedWeapon;
       do
       {
         sibling = getWeaponSibling(sibling);
       }
-      while (sibling != -1 && !CheckInventory(GetWeaponName(sibling)));
+      while (sibling != -1 && !WM_IsInInventory(sibling));
       if (sibling != -1)
       {
-        selectedWeapon = sibling;
+        highlightedWeapon = sibling;
       }
     }
     else
     {
-      SetSelectedIfAvailable(getWeaponBySlot(slotNumber));
+      WM_HighlightFirstInInventory(slotNumber);
     }
-    PlaySwitchSound();
+    WM_PlaySwitchSound();
   }
 
-  int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", selectedWeapon);
-}
-
-function void InitApiCvars(void)
-{
-  int playerN     = PlayerNumber();
-  int weaponCount = weaponCounts[currentSet];
-
-  SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
-
-  for (int i = 0; i < weaponCount; ++i) {
-    SetUserCVarString(playerN, makeWeaponClassVarName(i), GetWeaponName(i));
-    SetUserCVarString(playerN, makeWeaponNameVarName(i), GetPrintableWeaponName(i));
-    SetUserCVar(playerN, makeWeaponSlotVarName(i), GetWeaponSlot(i));
-  }
-}
-
-function str makeWeaponClassVarName(int weaponNumber)
-{
-  int weaponClassVarName = StrParam(s:"M8fWeaponMenuWeaponClass", i:weaponNumber);
-  return weaponClassVarName;
-}
-
-function str makeWeaponNameVarName(int weaponNumber)
-{
-  int weaponNameVarName = StrParam(s:"M8fWeaponMenuWeaponName", i:weaponNumber);
-  return weaponNameVarName;
-}
-
-function str makeWeaponSlotVarName(int weaponNumber)
-{
-  int weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot", i:weaponNumber);
-  return weaponSlotVarName;
-}
-
-function void PlaySwitchSound(void)
-{
-  int playerN = PlayerNumber();
-  bool soundIsEnabled = GetUserCVar(playerN, "M8fWeaponMenuEnableSound");
-
-  if (soundIsEnabled)
+  else
   {
-    str sound = GetUserCVarString(playerN, "M8fWeaponMenuHighlightSound");
-    PlaySound(0, sound);
+    ACS_NamedExecute("ToggleWeaponMenu", 0, false);
+    WM_HighlightFirstInInventory(slotNumber);
   }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 }
 
 script "SelectLastUsedWeapon" (void)
 {
-  if (CheckInventory(GetWeaponName(lastUsedWeapon)))
+  if (WM_IsInInventory(lastUsedWeapon))
   {
-    SetWeaponByNumber(lastUsedWeapon);
+    WM_SelectWeaponByNumber(lastUsedWeapon);
   }
+}
+
+
+// Utility functions section ///////////////////////////////////////////////////
+
+function bool WM_IsInInventory(int weaponNumber)
+{
+  return CheckInventory(WM_GetWeaponName(weaponNumber));
+}
+
+function bool WM_IsSelected(int weaponNumber)
+{
+  return CheckWeapon(WM_GetWeaponName(weaponNumber));
+}
+
+function void WM_HighlightFirstInInventory(int slotNumber)
+{
+  WM_SetHighlightedWeapon(getWeaponBySlot(slotNumber));
+}
+
+function bool WM_IsValidWeaponNumber(int weaponNumber)
+{
+  return (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet]);
+}
+
+function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
+{
+  if (condition)
+  {
+    return trueValue;
+  }
+
+  return falseValue;
+}
+
+
+// Global variables write access functions /////////////////////////////////////
+
+function void WM_SetCVar(int value, str cvarName)
+{
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, cvarName, value);
+}
+
+function void WM_SetMenuIsOpened(bool opened)
+{
+  menuIsOpened = opened;
+  WM_SetCVar(menuIsOpened, "M8fWeaponMenuIsOpened");
+}
+
+function void WM_SetHighlightedWeapon(int weaponNumber)
+{
+  highlightedWeapon = weaponNumber;
+  WM_SetCVar(highlightedWeapon, "M8fWeaponMenuHighlightedWeapon");
+}
+
+function void WM_SetSelectedWeapon(int weaponNumber)
+{
+  selectedWeapon = weaponNumber;
+  WM_SetCVar(selectedWeapon, "M8fWeaponMenuSelectedWeapon");
 }
