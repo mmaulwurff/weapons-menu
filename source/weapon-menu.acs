@@ -427,6 +427,7 @@ bool menuIsOpened   = false;
 int  selectedWeapon = 0;
 int  currentSet     = -1;
 int  holdingWeapon  = 0;
+int  lastUsedWeapon = 0;
 
 function int getWeaponSlot(int weaponNumber)
 {
@@ -587,6 +588,8 @@ script "ShowWeaponMenu" ENTER
   InitApiCvars();
 
   SetSelected();
+  lastUsedWeapon = selectedWeapon;
+  holdingWeapon  = selectedWeapon;
 
   int weaponCount = weaponCounts[currentSet];
 
@@ -704,6 +707,14 @@ script "ToggleWeaponMenu" (void)
   }
 }
 
+function void SetHoldingWeapon(int value)
+{
+  int playerN = PlayerNumber();
+
+  holdingWeapon = value;
+  SetUserCVar(playerN, "M8fWeaponMenuSelectedWeapon", holdingWeapon);
+}
+
 function void ToggleWeaponMenuFunction(void)
 {
   menuIsOpened = !menuIsOpened;
@@ -714,12 +725,11 @@ function void ToggleWeaponMenuFunction(void)
   // on close - select weapon in menu.
   if (!menuIsOpened)
   {
-    SetWeaponByNumber(selectedWeapon);
-  }
-  else
-  {
-    holdingWeapon = selectedWeapon;
-    SetUserCVar(playerN, "M8fWeaponMenuSelectedWeapon", holdingWeapon);
+    if (selectedWeapon != holdingWeapon)
+    {
+      lastUsedWeapon = holdingWeapon;
+      SetWeaponByNumber(selectedWeapon);
+    }
   }
 }
 
@@ -742,6 +752,7 @@ script "ScrollNextWeapon" (void)
   }
   else
   {
+    lastUsedWeapon = holdingWeapon;
     do
     {
       selectedWeapon += 1;
@@ -751,6 +762,7 @@ script "ScrollNextWeapon" (void)
       }
     }
     while (!SetWeapon(GetWeaponName(selectedWeapon)));
+    SetHoldingWeapon(selectedWeapon);
   }
 
   int playerN = PlayerNumber();
@@ -776,6 +788,7 @@ script "ScrollPreviousWeapon" (void)
   }
   else
   {
+    lastUsedWeapon = holdingWeapon;
     do
     {
       selectedWeapon -= 1;
@@ -785,6 +798,7 @@ script "ScrollPreviousWeapon" (void)
       }
     }
     while (!SetWeapon(GetWeaponName(selectedWeapon)));
+    SetHoldingWeapon(selectedWeapon);
   }
 
   int playerN = PlayerNumber();
@@ -796,7 +810,12 @@ function void SetWeaponByNumber(int weaponNumber)
   str weaponName = GetWeaponName(weaponNumber);
   bool success = SetWeapon(weaponName);
 
-  if (!success)
+  if (success)
+  {
+    lastUsedWeapon = holdingWeapon;
+    SetHoldingWeapon(weaponNumber);
+  }
+  else
   {
     str printableWeaponName = GetPrintableWeaponName(weaponNumber);
     print(s:printableWeaponName, s:": no ammo.");
@@ -891,5 +910,13 @@ function void PlaySwitchSound(void)
   {
     str sound = GetUserCVarString(playerN, "M8fWeaponMenuHighlightSound");
     PlaySound(0, sound);
+  }
+}
+
+script "SelectLastUsedWeapon" (void)
+{
+  if (CheckInventory(GetWeaponName(lastUsedWeapon)))
+  {
+    SetWeaponByNumber(lastUsedWeapon);
   }
 }

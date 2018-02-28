@@ -19,6 +19,7 @@ Usage:
 Features:
 - provides ability to fast weapon selection without using numbers row.
 - with menu, you see what you are about to select. No more blind weapon choices!
+- last used weapon quick access (by accigned key).
 - configurable colors and position.
 - will work with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
@@ -123,3 +124,4 @@ added optional highlighting of currently selected weapon.
 Sound can be set or disabled via ZScript API too.
 added Argent 0.5.3 support.
 0.20: added Doom 64 'weapons only' by Nevander X version.
+added "Last Used Weapon" key.
