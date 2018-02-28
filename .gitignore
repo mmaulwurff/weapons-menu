@@ -13,3 +13,6 @@ source/*
 acs/*
 !acs/*.o
 
+!sounds
+sounds/*
+!sounds/*.wav

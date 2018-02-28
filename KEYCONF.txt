@@ -1,6 +1,6 @@
 addkeysection "Weapon Menu Keys" WeaponMenuKeys
 
-alias WeaponMenuToggle "pukename ToggleWeaponMenu"
+alias WeaponMenuToggle "pukename ToggleWeaponMenu true"
 addmenukey "Open/close menu" toggle_menu
 alias toggle_menu "test $M8FWeaponMenuIsEnabled WeaponMenuToggle"
 defaultbind m toggle_menu
@@ -15,6 +15,11 @@ defaultbind n next_weapon_menu
 addmenukey "Previous weapon" prev_weapon_menu
 alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
 defaultbind p prev_weapon_menu
+
+alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
+addmenukey "Open Weapon Menu Options" WeaponMenuOptions
+
+addmenukey "Last Used Weapon" "pukename SelectLastUsedWeapon"
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"
@@ -59,6 +64,3 @@ addmenukey "Smart selection weapon 7" smart_select_7
 addmenukey "Smart selection weapon 8" smart_select_8
 addmenukey "Smart selection weapon 9" smart_select_9
 addmenukey "Smart selection weapon 0" smart_select_0
-
-alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
-addmenukey "Open Weapon Menu Options" WeaponMenuOptions

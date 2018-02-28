@@ -16,7 +16,7 @@ OptionValue "M8FWeaponMenuNumbersLeftOptions"
   1, "Left"
 }
 
-OptionValue "M8FWeaponMenuHighlightSelectedOptions"
+OptionValue "M8FWeaponMenuYesNoOptions"
 {
   0, "No"
   1, "Yes"
@@ -40,7 +40,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 
   StaticText ""
-  Option "Highlight selected weapon", "M8FWeaponMenuHighlightSelected", "M8FWeaponMenuHighlightSelectedOptions"
+  Option "Highlight selected weapon", "M8FWeaponMenuHighlightSelected", "M8FWeaponMenuYesNoOptions"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
@@ -50,4 +50,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.05, 2
   StaticText "(note that bottom of menu can"
   StaticText "be out of screen with big values)"
+
+  StaticText ""
+  Option "Play sound on weapon highlight", "M8fWeaponMenuEnableSound", "M8FWeaponMenuYesNoOptions"
 }
