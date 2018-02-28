@@ -31,8 +31,9 @@
 // 21 - Argent (v0.5.3)
 // 22 - Doom 64 'weapons only' X (updated 5-29-2016)
 // 23 - Responsive Weapons + Faster Weapon Switching
+// 24 - Dead Marine (v0.9.3)
 
-#define SETS_NUMBER (24)
+#define SETS_NUMBER (25)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -53,7 +54,8 @@ str playerClassNames[SETS_NUMBER] =
   "StrifePlayer",      // Strife
   "ArgPlayer",         // Argent
   "64DoomPlayer",      // Doom 64
-  "DoomPlayerFixed"    // Responsive Weapons + Faster Weapon Switching
+  "DoomPlayerFixed",   // Responsive Weapons + Faster Weapon Switching
+  "Xplayer",           // Dead Marine
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -75,6 +77,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // Argent
   15, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
+  9,  // Dead Marine
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -151,6 +154,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
+
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -304,6 +309,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000Fixed"
   },
 
+  { // Dead Marine
+    "XtremeSaw", "Xtremefist",
+    "XtremePistol",
+    "XtremeSSG", "XtremeShotgun",
+    "XtremeChaingun",
+    "XtremeRLauncher",
+    "XtremePlasma",
+    "XtremeBFG"
+  },
+
 }; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -447,6 +462,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { // Responsive Weapons + Faster Weapon Switching
+    "Chainsaw", "Brass Knuckles",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
+  },
+
+  { // Dead Marine
     "Chainsaw", "Brass Knuckles",
     "Pistol",
     "Super Shotgun", "Shotgun",
