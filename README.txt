@@ -17,7 +17,7 @@ Usage:
 7. Weapons Menu does not affect gameplay. When it is opened, you can run, shoot, do whatever you want to do. New weapon will be selected only when Menu is closed.
 
 Features:
-- provides ability to fast weapon selection without using numbers row.
+- provides ability to fast weapon selection even without using number row keys.
 - with menu, you see what you are about to select. No more blind weapon choices!
 - last used weapon quick access (by accigned key).
 - configurable colors and position.
@@ -69,6 +69,9 @@ Has support for:
 
 16. Doom 64 'weapons only' wad by Nevander (updated 5-29-2016) X version
     https://forum.zdoom.org/viewtopic.php?f=43&t=51596
+
+17. Responsive Weapons + Faster Weapon Switching
+    https://forum.zdoom.org/viewtopic.php?f=19&t=38235
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -124,4 +127,5 @@ added optional highlighting of currently selected weapon.
 Sound can be set or disabled via ZScript API too.
 added Argent 0.5.3 support.
 0.20: added Doom 64 'weapons only' by Nevander X version.
+added Responsive Weapons + Faster Weapon Switching
 added "Last Used Weapon" key.

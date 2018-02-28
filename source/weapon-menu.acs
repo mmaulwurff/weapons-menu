@@ -28,8 +28,9 @@
 // 20 - Strife (not tested)
 // 21 - Argent (v0.5.3)
 // 22 - Doom 64 'weapons only' X (updated 5-29-2016)
+// 23 - Responsive Weapons + Faster Weapon Switching
 
-#define SETS_NUMBER (23)
+#define SETS_NUMBER (24)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -50,6 +51,7 @@ str playerClassNames[SETS_NUMBER] =
   "StrifePlayer",      // Strife
   "ArgPlayer",         // Argent
   "64DoomPlayer",      // Doom 64
+  "DoomPlayerFixed"    // Responsive Weapons + Faster Weapon Switching
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -70,6 +72,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // Strife
   11, // Argent
   15, // Doom 64 X
+  9,  // Responsive Weapons + Faster Weapon Switching
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -145,11 +148,21 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
 
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { "Chainsaw", "Fist", "Pistol", "SuperShotgun", "Shotgun", "Chaingun", "RocketLauncher", "PlasmaRifle", "BFG9000" },
+  { // Standard
+    "Chainsaw", "Fist",
+    "Pistol",
+    "SuperShotgun", "Shotgun",
+    "Chaingun",
+    "RocketLauncher",
+    "PlasmaRifle",
+    "BFG9000"
+  },
+
   { "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
 
   { "EriChainsaw", "EriFist", "EriPistol", "EriSuperShotgun", "EriShotgun", "EriMachinegun", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000" },
@@ -277,6 +290,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "64Flamethrower", "64RocketLauncher",
     "64Railgun", "64PlasmaRifle",
     "Unmaker", "64BFG9000",
+  },
+
+  { // Responsive Weapons + Faster Weapon Switching
+    "ChainsawFixed", "FistFixed",
+    "PistolFixed",
+    "SuperShotgunFixed", "ShotgunFixed",
+    "ChaingunFixed",
+    "RocketLauncherFixed",
+    "PlasmaRifleFixed",
+    "BFG9000Fixed"
   },
 
 }; // end of actor/class names
@@ -419,6 +442,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Flamethrower", "Rocket Launcher",
     "Railgun", "Plasma Rifle",
     "Unmaker", "BFG 9000",
+  },
+
+  { // Responsive Weapons + Faster Weapon Switching
+    "Chainsaw", "Brass Knuckles",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
   },
 
 }; // end of printable names
