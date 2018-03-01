@@ -586,13 +586,15 @@ function void printHudWeapon(
   int xStart,
   int yStart,
   bool highToLow,
-  bool numbersOnTheLeft
+  bool numbersOnTheLeft,
+  int stepMultiplier
 )
 {
   int id = messageIdStart + weaponNumber;
 
   int weaponCount = weaponCounts[currentSet];
-  int step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+  int step = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+  step     = (step * stepMultiplier) >> 16;
   int yStartMax   = 1.0 - step * weaponCount;
 
   int x  = xStart;
@@ -672,7 +674,9 @@ function void WM_SelectWeapon(int weaponNumber)
   else
   {
     str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
-    print(s:printableWeaponName, s:": no ammo.");
+    HudMessage(s:printableWeaponName, s:": no ammo.";
+               HUDMSG_PLAIN, messageIdStart + MAX_WEAPONS_NUMBER, CR_RED,
+               0.5, 0.5, 1.0);
     WM_SetHighlightedWeapon(selectedWeapon);
   }
 }
@@ -751,9 +755,9 @@ script "ShowWeaponMenu" ENTER
     // debug output
     /*
     SetFont("SMALLFONT");
-    print(s:"sel:",   i:selectedWeapon,
-          s:" high:", i:highlightedWeapon,
-          s:" last:", i:lastUsedWeapon);
+    Log(s:"sel:",   i:selectedWeapon,
+        s:" high:", i:highlightedWeapon,
+        s:" last:", i:lastUsedWeapon);
     //*/
 
     if (!WM_IsSelected(selectedWeapon))
@@ -777,10 +781,11 @@ script "ShowWeaponMenu" ENTER
 
       bool disableOutput      = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
       bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
-      bool highToLow          = getUserCVar(playerN, "M8FWeaponMenuHighToLow");
+      bool highToLow          = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
       bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-      int xStart              = getUserCVar(playerN, "M8FWeaponMenuXStart");
-      int yStart              = getUserCVar(playerN, "M8FWeaponMenuYStart");
+      int xStart              = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+      int yStart              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+      int stepMultiplier      = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
 
       int position          = 0;
       int availablePosition = 0;
@@ -809,7 +814,8 @@ script "ShowWeaponMenu" ENTER
               xStart,
               yStart,
               highToLow,
-              numbersOnTheLeft
+              numbersOnTheLeft,
+              stepMultiplier
             );
           }
           position += 1;
@@ -825,7 +831,8 @@ script "ShowWeaponMenu" ENTER
               xStart,
               yStart,
               highToLow,
-              numbersOnTheLeft
+              numbersOnTheLeft,
+              stepMultiplier
             );
           }
           position += 1;
@@ -841,7 +848,8 @@ script "ShowWeaponMenu" ENTER
           xStart,
           yStart,
           highToLow,
-          numbersOnTheLeft
+          numbersOnTheLeft,
+          stepMultiplier
         );
 
         bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
@@ -854,7 +862,8 @@ script "ShowWeaponMenu" ENTER
             xStart,
             yStart,
             highToLow,
-            numbersOnTheLeft
+            numbersOnTheLeft,
+            stepMultiplier
           );
         }
       }
