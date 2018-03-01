@@ -1,6 +1,8 @@
 user float M8FWeaponMenuXStart = 0.0;
 user float M8FWeaponMenuYStart = 0.0;
 
+user int M8FWeaponMenuFont = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

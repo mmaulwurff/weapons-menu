@@ -31,8 +31,9 @@
 // 21 - Argent (v0.5.3)
 // 22 - Doom 64 'weapons only' X (updated 5-29-2016)
 // 23 - Responsive Weapons + Faster Weapon Switching
+// 24 - Dead Marine (v0.9.3)
 
-#define SETS_NUMBER (24)
+#define SETS_NUMBER (25)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -53,7 +54,8 @@ str playerClassNames[SETS_NUMBER] =
   "StrifePlayer",      // Strife
   "ArgPlayer",         // Argent
   "64DoomPlayer",      // Doom 64
-  "DoomPlayerFixed"    // Responsive Weapons + Faster Weapon Switching
+  "DoomPlayerFixed",   // Responsive Weapons + Faster Weapon Switching
+  "Xplayer",           // Dead Marine
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -75,6 +77,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // Argent
   15, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
+  9,  // Dead Marine
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -151,6 +154,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
+
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -302,6 +307,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "RocketLauncherFixed",
     "PlasmaRifleFixed",
     "BFG9000Fixed"
+  },
+
+  { // Dead Marine
+    "XtremeSaw", "Xtremefist",
+    "XtremePistol",
+    "XtremeSSG", "XtremeShotgun",
+    "XtremeChaingun",
+    "XtremeRLauncher",
+    "XtremePlasma",
+    "XtremeBFG"
   },
 
 }; // end of actor/class names
@@ -456,6 +471,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
+  { // Dead Marine
+    "Chainsaw", "Brass Knuckles",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
+  },
+
 }; // end of printable names
 
 
@@ -571,6 +596,19 @@ function void printHudWeapon(
   HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
 
+function void WM_SetupFont(void)
+{
+  str fonts[3] = { "SMALLFONT", "CONFONT", "BIGFONT" };
+
+  int playerN  = PlayerNumber();
+  int iFont    = GetUserCVar(playerN, "M8fWeaponMenuFont");
+
+  if (0 <= iFont && iFont < 3)
+  {
+    SetFont(fonts[iFont]);
+  }
+}
+
 
 // Control functions section ///////////////////////////////////////////////////
 
@@ -588,14 +626,29 @@ function void WM_HighlightSelectedWeapon(void)
   }
 }
 
-function void WM_SelectWeaponByNumber(int weaponNumber)
+function int WM_FindRealSelectedWeapon(void)
 {
-  str weaponName = WM_GetWeaponName(weaponNumber);
-  bool success = SetWeapon(weaponName);
+  int weaponCount = weaponCounts[currentSet];
+
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    if (WM_IsSelected(i))
+    {
+      return i;
+    }
+  }
+
+  return -1;
+}
+
+function void WM_SelectWeapon(int weaponNumber)
+{
+  str  weaponName = WM_GetWeaponName(weaponNumber);
+  bool success    = SetWeapon(weaponName);
 
   if (success)
   {
-    lastUsedWeapon = selectedWeapon;
+    WM_SetLastUsedWeapon(selectedWeapon);
     WM_SetSelectedWeapon(weaponNumber);
   }
   else
@@ -603,13 +656,6 @@ function void WM_SelectWeaponByNumber(int weaponNumber)
     str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
     print(s:printableWeaponName, s:": no ammo.");
   }
-}
-
-function void WM_SetupWeaponsState(void)
-{
-  WM_HighlightSelectedWeapon();
-  WM_SetSelectedWeapon(highlightedWeapon);
-  lastUsedWeapon = highlightedWeapon;
 }
 
 function void WM_InitApiCvars(void)
@@ -671,21 +717,40 @@ script "ShowWeaponMenu" ENTER
     terminate;
   }
 
+  WM_SetSelectedWeapon(WM_FindRealSelectedWeapon());
+  WM_SetHighlightedWeapon(selectedWeapon);
+  WM_SetLastUsedWeapon(selectedWeapon);
+
   WM_InitApiCvars();
-  WM_SetupWeaponsState();
+
+  lastUsedWeapon = highlightedWeapon;
 
   int weaponCount = weaponCounts[currentSet];
 
   while (true)
   {
-    // can happen if player drops weapon, or pistol starter script is in action
-    if (!WM_IsInInventory(highlightedWeapon))
+    // debug output
+    /*
+    SetFont("SMALLFONT");
+    print(s:"sel:",   i:selectedWeapon,
+          s:" high:", i:highlightedWeapon,
+          s:" last:", i:lastUsedWeapon);
+    //*/
+
+    if (!WM_IsSelected(selectedWeapon))
     {
-      WM_SetupWeaponsState();
+      if (WM_IsInInventory(selectedWeapon))
+      {
+        WM_SetLastUsedWeapon(selectedWeapon);
+      }
+      WM_HighlightSelectedWeapon();
+      WM_SetSelectedWeapon(highlightedWeapon);
     }
 
     if (menuIsOpened)
     {
+      WM_SetupFont();
+
       int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
       int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
       int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
@@ -792,13 +857,13 @@ script "ToggleWeaponMenu" (int highlightSelected)
       WM_HighlightSelectedWeapon();
     }
   }
-  else
+
+  else // if closed: select highlighted weapon:
   {
-    // on close - select weapon in menu.
     if (highlightedWeapon != selectedWeapon)
     {
-      lastUsedWeapon = selectedWeapon;
-      WM_SelectWeaponByNumber(highlightedWeapon);
+      WM_SetLastUsedWeapon(selectedWeapon);
+      WM_SelectWeapon(highlightedWeapon);
     }
   }
 }
@@ -806,10 +871,11 @@ script "ToggleWeaponMenu" (int highlightSelected)
 script "ScrollNextWeapon" (void)
 {
   int weaponCount = weaponCounts[currentSet];
+  int i;
 
   if (menuIsOpened)
   {
-    int i = highlightedWeapon;
+    i = highlightedWeapon;
     do
     {
       ++i;
@@ -820,52 +886,61 @@ script "ScrollNextWeapon" (void)
     WM_SetHighlightedWeapon(i);
     WM_PlaySwitchSound();
   }
+
   else
   {
-    lastUsedWeapon = selectedWeapon;
+    i = selectedWeapon;
     do
     {
-      highlightedWeapon += 1;
-      if (highlightedWeapon >= weaponCount)
-      {
-        highlightedWeapon = 0;
-      }
+      ++i;
+      if (i >= weaponCount) { i = 0; }
     }
-    while (!SetWeapon(WM_GetWeaponName(highlightedWeapon)));
-    WM_SetSelectedWeapon(highlightedWeapon);
+    while (!SetWeapon(WM_GetWeaponName(i)));
+
+    if (i != selectedWeapon)
+    {
+      WM_SetLastUsedWeapon(selectedWeapon);
+      WM_SetSelectedWeapon(i);
+      WM_SetHighlightedWeapon(i);
+    }
   }
 }
 
 script "ScrollPreviousWeapon" (void)
 {
   int weaponCount = weaponCounts[currentSet];
+  int i;
 
   if (menuIsOpened)
   {
+    i = highlightedWeapon;
     do
     {
-      highlightedWeapon -= 1;
-      if (highlightedWeapon < 0)
-      {
-        highlightedWeapon = weaponCount;
-      }
+      --i;
+      if (i < 0) { i = weaponCount - 1; }
     }
-    while (!WM_IsInInventory(highlightedWeapon));
+    while (!WM_IsInInventory(i));
+
+    WM_SetHighlightedWeapon(i);
     WM_PlaySwitchSound();
   }
+
   else
   {
-    lastUsedWeapon = selectedWeapon;
+    i = selectedWeapon;
     do
     {
-      highlightedWeapon -= 1;
-      if (highlightedWeapon < 0)
-      {
-        highlightedWeapon = weaponCount;
-      }
+      --i;
+      if (i < 0) { i = weaponCount - 1; }
     }
-    while (!SetWeapon(WM_GetWeaponName(highlightedWeapon)));
-    WM_SetSelectedWeapon(highlightedWeapon);
+    while (!SetWeapon(WM_GetWeaponName(i)));
+
+    if (i != selectedWeapon)
+    {
+      WM_SetLastUsedWeapon(selectedWeapon);
+      WM_SetSelectedWeapon(i);
+      WM_SetHighlightedWeapon(i);
+    }
   }
 
   int playerN = PlayerNumber();
@@ -876,11 +951,11 @@ script "SmartWeaponSelection" (int slotNumber)
 {
   if (slotNumber >= weaponCounts[currentSet]) { terminate; }
 
+  int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
+  bool sameSlot = (slotNumber == currentSlot);
+
   if (menuIsOpened)
   {
-    int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
-    bool sameSlot = (slotNumber == currentSlot);
-
     if (sameSlot)
     {
       int sibling = highlightedWeapon;
@@ -889,33 +964,34 @@ script "SmartWeaponSelection" (int slotNumber)
         sibling = getWeaponSibling(sibling);
       }
       while (sibling != -1 && !WM_IsInInventory(sibling));
-      if (sibling != -1)
+
+      if (sibling != -1 && sibling != highlightedWeapon)
       {
-        highlightedWeapon = sibling;
+        WM_SetHighlightedWeapon(sibling);
+        WM_PlaySwitchSound();
       }
     }
     else
     {
       WM_HighlightFirstInInventory(slotNumber);
     }
-    WM_PlaySwitchSound();
   }
 
   else
   {
     ACS_NamedExecute("ToggleWeaponMenu", 0, false);
-    WM_HighlightFirstInInventory(slotNumber);
+    if (!sameSlot)
+    {
+      WM_HighlightFirstInInventory(slotNumber);
+    }
   }
-
-  int playerN = PlayerNumber();
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 }
 
 script "SelectLastUsedWeapon" (void)
 {
   if (WM_IsInInventory(lastUsedWeapon))
   {
-    WM_SelectWeaponByNumber(lastUsedWeapon);
+    WM_SelectWeapon(lastUsedWeapon);
   }
 }
 
@@ -934,7 +1010,12 @@ function bool WM_IsSelected(int weaponNumber)
 
 function void WM_HighlightFirstInInventory(int slotNumber)
 {
-  WM_SetHighlightedWeapon(getWeaponBySlot(slotNumber));
+  int weaponNumber = getWeaponBySlot(slotNumber);
+  if (WM_IsInInventory(weaponNumber))
+  {
+    WM_SetHighlightedWeapon(weaponNumber);
+    WM_PlaySwitchSound();
+  }
 }
 
 function bool WM_IsValidWeaponNumber(int weaponNumber)
@@ -977,4 +1058,9 @@ function void WM_SetSelectedWeapon(int weaponNumber)
 {
   selectedWeapon = weaponNumber;
   WM_SetCVar(selectedWeapon, "M8fWeaponMenuSelectedWeapon");
+}
+
+function void WM_SetLastUsedWeapon(int weaponNumber)
+{
+  lastUsedWeapon = weaponNumber;
 }
