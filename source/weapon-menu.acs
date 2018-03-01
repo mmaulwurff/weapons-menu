@@ -32,8 +32,9 @@
 // 22 - Doom 64 'weapons only' X (updated 5-29-2016)
 // 23 - Responsive Weapons + Faster Weapon Switching
 // 24 - Dead Marine (v0.9.3)
+// 25 - Parkour
 
-#define SETS_NUMBER (25)
+#define SETS_NUMBER (26)
 #define MAX_WEAPONS_NUMBER (50)
 
 str playerClassNames[SETS_NUMBER] =
@@ -56,6 +57,7 @@ str playerClassNames[SETS_NUMBER] =
   "64DoomPlayer",      // Doom 64
   "DoomPlayerFixed",   // Responsive Weapons + Faster Weapon Switching
   "Xplayer",           // Dead Marine
+  "ParkourPlayer",     // Parkour
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -78,6 +80,7 @@ int weaponCounts[SETS_NUMBER] =
   15, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
   9,  // Dead Marine
+  12, // Parkour
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -156,6 +159,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
+
+  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -319,6 +324,18 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "XtremeBFG"
   },
 
+  { // Parkour
+    "PkChainsaw", "PkFist",
+    "PkPistolAkimbo", "PkPistol",
+    "PkDoubleShotguns", "PkShotgun",
+    "PkChaingun",
+    "PkRocketLauncher",
+    "PkPlasmaRifle",
+    "PkBFG9000",
+    "PkCyberLauncher",
+    "PkSuperChain",
+  },
+
 }; // end of actor/class names
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -479,6 +496,18 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Rocket Launcher",
     "Plasma Rifle",
     "BFG 9000"
+  },
+
+  { // Parkour
+    "Chainsaw", "Fists",
+    "Akimbo Pistols", "Pistol",
+    "Dual Sawnoffs", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000",
+    "Cyber Launcher",
+    "Super Chaingun",
   },
 
 }; // end of printable names

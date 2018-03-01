@@ -79,6 +79,9 @@ Has support for:
 18. Dead Marine (v0.9.3)
     https://forum.zdoom.org/viewtopic.php?f=43&t=58521
 
+19. Parkour v1.1
+    https://forum.zdoom.org/viewtopic.php?f=43&t=26057
+
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
   1. Increment SETS_NUMBER constant,
@@ -101,7 +104,7 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 0.21
+Version: 0.22
 
 Changelog:
 0.1: initial version.
@@ -138,3 +141,5 @@ added "Last Used Weapon" key.
 0.21: added Dead Marine weapons.
 added font options.
 bugfixes.
+0.22:
+added Parkour weapons.
