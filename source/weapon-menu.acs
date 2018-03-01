@@ -4,60 +4,47 @@
 #define MINIMAL_HOLD_TIME (1873)
 #define messageIdStart (191919)
 
-// Weapons data section ////////////////////////////////////////////////////////
 
-// Known weapon sets:
-// 0 - Vanilla (Standard) Weapons
-// 1 - PerK's Smoother Weapon Animations Enhanced
-// 2 - Eriguns1 Standard
-// 3 - Eriguns1 Extended
-// 4 - Eriguns2
-// 5 - Beautiful Doom
-// 6 - Final Doomer - Plutonia
-// 7 - Final Doomer - TNT
-// 8 - Final Doomer - Doom 2
-// 9 - Final Doomer - Ancient Aliens
-// 10 - Final Doomer - JPCP
-// 11 - Final Doomer - BTSX
-// 12 - Faspons
-// 13 - HXRTC Project
-// 14 - Kriegsland
-// 15 - Complex Doom V27a3
-// 16 - Weapons of Saturn - October 31, 2017
-// 17 - Hard-Doom v8.1.1
-// 18 - Heretic (not tested)
-// 19 - Chex Quest (Single Player)
-// 20 - Strife (not tested)
-// 21 - Argent (v0.5.3)
-// 22 - Doom 64 'weapons only' X (updated 5-29-2016)
-// 23 - Responsive Weapons + Faster Weapon Switching
-// 24 - Dead Marine (v0.9.3)
-// 25 - Parkour
+// Global variables ////////////////////////////////////////////////////////////
+// To write to global variables, use only special functions.
+
+bool menuIsOpened   = false;
+int  currentSet     = -1;
+
+int  highlightedWeapon = 0;
+int  selectedWeapon    = 0;
+int  lastUsedWeapon    = 0;
+
+
+// Weapons data section ////////////////////////////////////////////////////////
 
 #define SETS_NUMBER (26)
 #define MAX_WEAPONS_NUMBER (50)
 
+// Known weapon sets and player classes:
+
 str playerClassNames[SETS_NUMBER] =
 {
-  "DoomPlayer",        // Standard
-  "PerkDPlayer",       // PerK's Smoother Weapon Animations Enhanced
-  "EriPlayer", "AltPlayer", "HellPlayer", // Eriguns
-  "BD_DoomPlayer",     // Beautiful Doom
-  "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player", "FDAliensPlayer", "FDJPCPPlayer", "FDBTSXPlayer", // Final Doomer
-  "FasPlayer",         // Faspons
-  "HXRTCPlayer",       // HXRTC Project
-  "FKPlayer",          // Kriegsland
-  "ComplexDoomPlayer", // Complex Doom
-  "SaturnPlayer",      // Weapons of Saturn
-  "DoomMarine",        // Hard-Doom
-  "HereticPlayer",     // Heretic
-  "ChexPlayer",        // Chex Quest
-  "StrifePlayer",      // Strife
-  "ArgPlayer",         // Argent
-  "64DoomPlayer",      // Doom 64
-  "DoomPlayerFixed",   // Responsive Weapons + Faster Weapon Switching
-  "Xplayer",           // Dead Marine
-  "ParkourPlayer",     // Parkour
+  "DoomPlayer",        // 0. Standard
+  "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced
+  "EriPlayer", "AltPlayer", "HellPlayer", // 2-4. Eriguns
+  "BD_DoomPlayer",     // 5. Beautiful Doom
+  "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player",
+  "FDAliensPlayer", "FDJPCPPlayer", "FDBTSXPlayer", // 6-11. Final Doomer
+  "FasPlayer",         // 12. Faspons
+  "HXRTCPlayer",       // 13. HXRTC Project
+  "FKPlayer",          // 14. Kriegsland
+  "ComplexDoomPlayer", // 15. Complex Doom V27a3
+  "SaturnPlayer",      // 16. Weapons of Saturn October 31, 2017
+  "DoomMarine",        // 17. Hard-Doom v8.1.1
+  "HereticPlayer",     // 18. Heretic
+  "ChexPlayer",        // 19. Chex Quest (Single Player)
+  "StrifePlayer",      // 20. Strife
+  "ArgPlayer",         // 21. Argent (v0.5.3)
+  "64DoomPlayer",      // 22. Doom 64 'weapons only' X (updated 5-29-2016)
+  "DoomPlayerFixed",   // 23. Responsive Weapons + Faster Weapon Switching
+  "Xplayer",           // 24. Dead Marine v0.9.3
+  "ParkourPlayer",     // 25. Parkour v1.1
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -512,16 +499,15 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 }; // end of printable names
 
+function bool WM_IsSecretWeapon(int wNumber)
+{
+  switch (currentSet)
+  {
+    case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
+  }
 
-// Global variables ////////////////////////////////////////////////////////////
-// To write to global variables, use only special functions.
-
-bool menuIsOpened   = false;
-int  currentSet     = -1;
-
-int  highlightedWeapon = 0;
-int  selectedWeapon    = 0;
-int  lastUsedWeapon    = 0;
+  return false;
+}
 
 
 // Weapon data access functions ////////////////////////////////////////////////
@@ -824,7 +810,7 @@ script "ShowWeaponMenu" ENTER
           }
           position += 1;
         }
-        else if (showNotAvailable)
+        else if (showNotAvailable && !WM_IsSecretWeapon(i))
         {
           if (!disableOutput)
           {
