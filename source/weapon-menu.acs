@@ -592,19 +592,15 @@ function void printHudWeapon(
   int id = messageIdStart + weaponNumber;
 
   int weaponCount = weaponCounts[currentSet];
-  int step = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
-  int x    = xStart;
-  int y    = yStart + WM_IfThenElse(highToLow,
+  int step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+  int yStartMax   = 1.0 - step * weaponCount;
+
+  int x  = xStart;
+  yStart = WM_IfThenElse(yStart > yStartMax, yStartMax, yStart);
+  int y  = yStart + WM_IfThenElse(highToLow,
     (weaponCount - 1 - position) * step,
     position * step
   );
-
-  if (y > 1.0)
-  {
-    HudMessage(s:"Warning: part of Weapons Menu is out of screen.\nAdjust vertical position in Options.";
-      HUDMSG_PlAIN, messageIdStart + MAX_WEAPONS_NUMBER, CR_RED, 0, 0,
-      MINIMAL_HOLD_TIME);
-  }
 
   int slotNumber = WM_GetWeaponSlot(weaponNumber);
   str delimiter  = " - ";
