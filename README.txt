@@ -23,7 +23,7 @@ Features:
 - provides ability to fast weapon selection even without using number row keys.
 - with menu, you see what you are about to select. No more blind weapon choices!
 - last used weapon quick access (by assigned key).
-- configurable colors and position.
+- configurable colors, fonts, and position.
 - will work with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
 - API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
@@ -77,7 +77,7 @@ Has support for:
     https://forum.zdoom.org/viewtopic.php?f=19&t=38235
 
 18. Dead Marine (v0.9.3)
-    https://forum.zdoom.org/viewtopic.php?f=43&t=58521&hilit=dead+marine
+    https://forum.zdoom.org/viewtopic.php?f=43&t=58521
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -137,3 +137,4 @@ added Responsive Weapons + Faster Weapon Switching.
 added "Last Used Weapon" key.
 0.21: added Dead Marine weapons.
 added font options.
+bugfixes.
