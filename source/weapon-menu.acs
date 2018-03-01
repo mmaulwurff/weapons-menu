@@ -670,6 +670,7 @@ function void WM_SelectWeapon(int weaponNumber)
   {
     str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
     print(s:printableWeaponName, s:": no ammo.");
+    WM_SetHighlightedWeapon(selectedWeapon);
   }
 }
 
