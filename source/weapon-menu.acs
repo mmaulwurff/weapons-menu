@@ -599,6 +599,13 @@ function void printHudWeapon(
     position * step
   );
 
+  if (y > 1.0)
+  {
+    HudMessage(s:"Warning: part of Weapons Menu is out of screen.\nAdjust vertical position in Options.";
+      HUDMSG_PlAIN, messageIdStart + MAX_WEAPONS_NUMBER, CR_RED, 0, 0,
+      MINIMAL_HOLD_TIME);
+  }
+
   int slotNumber = WM_GetWeaponSlot(weaponNumber);
   str delimiter  = " - ";
   str name       = WM_GetPrintableWeaponName(weaponNumber);
