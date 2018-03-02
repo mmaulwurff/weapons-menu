@@ -1218,6 +1218,65 @@ function void WM_LoadRemembered(void)
 
     names[AUTO_SET][i] = GetUserCVarString(playerN, weaponClassVarName);
     slots[AUTO_SET][i] = GetUserCVar      (playerN, weaponSlotVarName);
-    printableNames[AUTO_SET][i] = names[AUTO_SET][i];
+    printableNames[AUTO_SET][i] = WM_BeautifyWeaponName(names[AUTO_SET][i]);
   }
+}
+
+function str WM_BeautifyWeaponName(str weaponClassName)
+{
+  str result1 = WM_Replace(weaponClassName, '_', ' ');
+  str result2 = WM_DivideCamelCase(result1);
+  return result2;
+}
+
+function str WM_DivideCamelCase(str source)
+{
+  int sourceLength = StrLen(source);
+  str result = "";
+  str new;
+  for (int i = 1; i < sourceLength; ++i)
+  {
+    int letter1 = GetChar(source, i-1);
+    int letter2 = GetChar(source, i);
+    if (WM_IsSmallLetter(letter1) && WM_IsBigLetter(letter2))
+    {
+      new = StrParam(s:result, c:letter1, s:" ");
+      result = new;
+    }
+    else
+    {
+      new = StrParam(s:result, c:letter1);
+      result = new;
+    }
+  }
+  new = StrParam(s:result, s:StrRight(source, 1));
+  result = new;
+
+  return result;
+}
+
+function str WM_Replace(str source, int rem, int add)
+{
+  int sourceLength = StrLen(source);
+  str result = "";
+  str new;
+  for (int i = 0; i < sourceLength; ++i)
+  {
+    int letter = GetChar(source, i);
+    int replacement = WM_IfThenElse((letter == rem), add, letter);
+    new = StrParam(s:result, c:replacement);
+    result = new;
+  }
+
+  return result;
+}
+
+function bool WM_IsSmallLetter(int character)
+{
+  return ('a' <= character && character <= 'z');
+}
+
+function bool WM_IsBigLetter(int character)
+{
+  return ('A' <= character && character <= 'Z');
 }
