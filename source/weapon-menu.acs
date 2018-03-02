@@ -8,7 +8,6 @@
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
-bool menuIsEnabled  = false;
 bool menuIsOpened   = false;
 int  currentSet     = -1;
 
@@ -733,58 +732,73 @@ function void WM_Initialize(void)
   lastUsedWeapon = highlightedWeapon;
 }
 
+function bool WM_GetWeaponSet(void)
+{
+  for (int c = 0; c < SETS_NUMBER; ++c)
+  {
+    if (CheckActorClass(0, playerClassNames[c]))
+    {
+      return c;
+    }
+  }
+
+  int playerN      = PlayerNumber();
+  str remClass     = GetUserCVarString(playerN, "M8fWeaponMenuRememberedClass");
+  str currentClass = GetActorClass(0);
+
+  if (StrICmp(currentClass, remClass) == 0)
+  {
+    Log(s:"Weapon menu: loading autodetected weapon set...");
+    WM_LoadRemembered();
+    return AUTO_SET;
+  }
+
+  return -1;
+}
+
+function bool WM_IsTitlemap(void)
+{
+  str mapLumpName = StrParam(n:PRINTNAME_LEVEL);
+  return (StrICmp(mapLumpName, "TITLEMAP") == 0);
+}
+
+function bool WM_MenuIsEnabled(void)
+{
+  currentSet = WM_GetWeaponSet();
+  bool menuIsEnabled = (currentSet != -1);
+  WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
+
+  if (menuIsEnabled)
+  {
+    WM_Initialize();
+    Log(s:"Weapon menu is loaded.");
+    return true;
+  }
+
+  Log(s:"Weapon Menu: unknown player class: ",
+      s:GetActorClass(0),
+      s:", menu is disabled.\n",
+      s:"You can try wm_autodetection in console.");
+  return false;
+}
+
 
 // Scripts section /////////////////////////////////////////////////////////////
 
 script "ShowWeaponMenu" ENTER
 {
-  str mapLumpName = StrParam(n:PRINTNAME_LEVEL);
-  if (StrICmp(mapLumpName, "TITLEMAP") == 0) { terminate; }
+  if (WM_IsTitlemap()) { terminate; }
 
-  // check if player class is known
-  for (int c = 0; c < SETS_NUMBER; ++c)
-  {
-    if (CheckActorClass(0, playerClassNames[c]))
-    {
-      currentSet = c;
-      break;
-    }
-  }
-  WM_SetMenuIsEnabled(currentSet != -1);
+  bool menuIsEnabled = WM_MenuIsEnabled();
+  if (!menuIsEnabled) { terminate; }
 
   int playerN = PlayerNumber();
-
-  if (!menuIsEnabled)
-  {
-    str currentClass = GetActorClass(0);
-    str remClass     = GetUserCVarString(playerN, "M8fWeaponMenuRememberedClass");
-    if (StrICmp(currentClass, remClass) == 0)
-    {
-      Log(s:"Weapon menu: loading autodetected weapon set...");
-      ACS_NamedExecute("WM_LoadRemembered", 0);
-    }
-    else
-    {
-      Log(s:"Weapon Menu: unknown player class: ",
-          s:GetActorClass(0),
-          s:", menu is disabled.\n",
-          s:"You can try wm_autodetection in console.");
-    }
-  }
-  else
-  {
-    WM_Initialize();
-  }
+  int weaponCount = weaponCounts[currentSet];
 
   while (true)
   {
-    if (!menuIsEnabled)
-    {
-      Delay(1);
-      continue;
-    }
-
-    int weaponCount = weaponCounts[currentSet];
+    // CVar may have been reset by other games while this game was saved.
+    WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
 
     // debug output
     /*
@@ -1107,12 +1121,6 @@ function void WM_SetMenuIsOpened(bool opened)
   WM_SetCVar(menuIsOpened, "M8fWeaponMenuIsOpened");
 }
 
-function void WM_SetMenuIsEnabled(bool enabled)
-{
-  menuIsEnabled = enabled;
-  WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
-}
-
 function void WM_SetHighlightedWeapon(int weaponNumber)
 {
   highlightedWeapon = weaponNumber;
@@ -1130,6 +1138,9 @@ function void WM_SetLastUsedWeapon(int weaponNumber)
   lastUsedWeapon = weaponNumber;
 }
 
+
+// Autodetection section ///////////////////////////////////////////////////////
+
 script "WM_RememberWeapon" (int slot)
 {
   str currentWeapon = GetWeapon();
@@ -1143,7 +1154,7 @@ script "WM_RememberWeapon" (int slot)
     }
   }
 
-  if (!alreadyRemembered && weaponcounts[AUTO_SET] < MAX_WEAPONS_NUMBER)
+  if (!alreadyRemembered && weaponCounts[AUTO_SET] < MAX_WEAPONS_NUMBER)
   {
     slots[AUTO_SET][weaponCounts[AUTO_SET]] = slot;
     names[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
@@ -1167,14 +1178,14 @@ script "WM_RememberWeapon" (int slot)
   }
 }
 
+script "WM_Remember_Start" (void)
+{
+  weaponCounts[AUTO_SET] = 0;
+}
+
 script "WM_Remember_Fin" (void)
 {
-  currentSet = AUTO_SET;
-
-  WM_Initialize();
-  WM_SetMenuIsEnabled(true);
-
-  int weaponCount = weaponCounts[currentSet];
+  int weaponCount = weaponCounts[AUTO_SET];
 
   Log(s:"weapon count: ", i:weaponCount);
 
@@ -1182,19 +1193,19 @@ script "WM_Remember_Fin" (void)
   int i;
   for (i = 0; i < weaponCount - 1; ++i)
   {
-    Log(i:slots[currentSet][i], s:", ");
+    Log(i:slots[AUTO_SET][i], s:", ");
   }
-  Log(i:slots[currentSet][i], s:" }");
+  Log(i:slots[AUTO_SET][i], s:" }");
 
   Log(s:"weapon classes: {");
   for (i = 0; i < weaponCount - 1; ++i)
   {
-    Log(s:names[currentSet][i], s:", ");
+    Log(s:names[AUTO_SET][i], s:", ");
   }
-  Log(s:names[currentSet][i], s:" }");
+  Log(s:names[AUTO_SET][i], s:" }");
 }
 
-script "WM_LoadRemembered" (void)
+function void WM_LoadRemembered(void)
 {
   int playerN = PlayerNumber();
   int weaponCount = GetUserCVar(playerN, "M8fWeaponMenuRememberedCount");
@@ -1209,9 +1220,4 @@ script "WM_LoadRemembered" (void)
     slots[AUTO_SET][i] = GetUserCVar      (playerN, weaponSlotVarName);
     printableNames[AUTO_SET][i] = names[AUTO_SET][i];
   }
-
-  currentSet = AUTO_SET;
-
-  WM_Initialize();
-  WM_SetMenuIsEnabled(true);
 }
