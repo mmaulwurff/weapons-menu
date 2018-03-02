@@ -26,9 +26,11 @@ Features:
 - configurable colors, fonts, and position.
 - will work with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
+- secret weapons that appear in Menu only when you have them (some mods).
 - API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
 
-Has support for:
+Has official support for:
+
 1. Original weapons
 
 2. PerK's Smoother Weapon Animations Enhanced
@@ -81,6 +83,42 @@ Has support for:
 
 19. Parkour v1.1
     https://forum.zdoom.org/viewtopic.php?f=43&t=26057
+
+20. Brutal Doom v21 (test feb24)
+    http://www.moddb.com/mods/brutal-doom/downloads/brutal-doom-v21-beta
+
+21. Combined Arms v1.0
+    https://forum.zdoom.org/viewtopic.php?f=43&t=51066
+
+Has unofficial support for:
+
+- almost every possible weapon set!
+  This is achieved by using Weapon Menu Autodetection System.
+
+  When you load weapon set that is not officially supported by Weapon Menu, a
+  message will appear with a suggestion to try Autodetection. To autodetect
+  weapons:
+
+  1. Enter 'wm_auto' in console.
+  2. Relax for 2 minutes and watch while the script cycles over all of the
+     weapons in your weapon set. Do not do anything while script works, even if you
+     think script does nothing. Doing something will mess up the results.
+  3. When script is finished, it reloads the level, taking away all weapons except
+     starting weapons, so it is wise to run it at the start of a new game.
+  4. Then autodetected weapon set will be remembered until the new autodetection
+     will be run, so you can play a megawad or a bunch of maps with the same
+     weapon mod. Remembered weapon set will be also stored in a save. But if you
+     autodetect one weapon set, save the game with it, then autodetect another
+     weapon set and load first save with first weapon set, autodetection data will
+     only last until new level is started. Then you will have to autodetect again
+     and lose acquired weapons or play without the Menu.
+  5. Autodetection system has the following limits:
+     - no more than 50 weapons in a weapon set.
+     - no more than 6 weapons in one slot.
+     - weapon names are made of weapon class names, so they may be rough.
+     - autodetection will detect all the weapons that are in a mod (within limits),
+       even if they are unobtainable in a game. So it is recommended to use an
+       option to hide not acquired weapons.
 
 Weapon sets are detected by player class. So support for other weapon sets can
 be easily added by modifying weapon-menu.acs:
@@ -142,4 +180,7 @@ added "Last Used Weapon" key.
 added font options.
 bugfixes.
 0.22:
-added Parkour weapons.
+added Parkour, Combined Arms, and Brutal Doom.
+added secret weapon feature (Parkour, Combined Arms and Brutal Doom have them).
+added Autodetection System
+added menu step multiplier option
