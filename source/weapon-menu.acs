@@ -27,7 +27,7 @@ int  lastUsedWeapon    = 0;
 
 str playerClassNames[SETS_NUMBER] =
 {
-  "oDoomPlayer",        // 0. Standard
+  "DoomPlayer",        // 0. Standard
   "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced
   "EriPlayer", "AltPlayer", "HellPlayer", // 2-4. Eriguns
   "BD_DoomPlayer",     // 5. Beautiful Doom
@@ -1039,10 +1039,7 @@ script "SmartWeaponSelection" (int slotNumber)
   else
   {
     ACS_NamedExecute("ToggleWeaponMenu", 0, false);
-    if (!sameSlot)
-    {
-      WM_HighlightFirstInInventory(slotNumber);
-    }
+    WM_HighlightFirstInInventory(slotNumber);
   }
 }
 
@@ -1070,7 +1067,7 @@ function bool WM_IsSelected(int weaponNumber)
 function void WM_HighlightFirstInInventory(int slotNumber)
 {
   int weaponNumber = getWeaponBySlot(slotNumber);
-  if (WM_IsInInventory(weaponNumber))
+  if (WM_IsInInventory(weaponNumber) && highlightedWeapon != weaponNumber)
   {
     WM_SetHighlightedWeapon(weaponNumber);
     WM_PlaySwitchSound();
