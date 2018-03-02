@@ -18,7 +18,7 @@ int  lastUsedWeapon    = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (31)
+#define SETS_NUMBER (32)
 #define MAX_WEAPONS_NUMBER (50)
 #define AUTO_SET 26
 
@@ -47,10 +47,11 @@ str playerClassNames[SETS_NUMBER] =
   "Xplayer",           // 24. Dead Marine v0.9.3
   "ParkourPlayer",     // 25. Parkour v1.1
   "Autodetected",      // 26. Autodetected
-  "Purist",            // 27. Brutal Doom - Purist
+  "Purist",            // 27. Brutal Doom 21 test feb24 - Purist
   "BDoomer",           // 28. Brutal Doom - Rifle Start
   "Doomer2",           // 29. Brutal Doom - Pistal Start
   "TacticalDoomer",    // 30. Brutal Doom - Tactical Mode
+  "CollabWeaponGuy",   // 31. Combined Arms v1.0
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -79,6 +80,7 @@ int weaponCounts[SETS_NUMBER] =
   22, // Brutal Doom - BDoomer
   22, // Brutal Doom - Doomer2
   22, // Brutal Doom - TacticalDoomer
+  12, // Combined Arms
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -166,6 +168,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // BDoomer
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Doomer2
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Tactical
+
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 8 }, // Combined Arms
 
 };
 
@@ -387,6 +391,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "FlameCannon", "HellishMissileLauncher"
   },
 
+  { // Combined Arms
+    "SkillAxe", "CFSFists",
+    "D3PS",
+    "particlesmasher", "BitchinShotgun",
+    "Gnasher",
+    "CygnusRL",
+    "BusterRifle",
+    "daibatana",
+    "havocrebounder", "tsbrick", "FlareGun"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -606,6 +621,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Flame Cannon", "Hellish Missile Launcher"
   },
 
+  { // Combined Arms
+    "Lilk's Axe", "Fists",
+    "Genka-12",
+    "Particle Smasher", "Shotgun",
+    "Mk. 2 'Gnasher' Nailgun",
+    "Cygnus Rocket Launcher",
+    "Buster Rifle",
+    "Daibatana",
+    "Havoc Rebounder", "Plakanomicon", "ZT Prototype Flare Gun"
+  },
+
 }; // end of printable names
 
 function bool WM_IsSecretWeapon(int wNumber)
@@ -616,6 +642,7 @@ function bool WM_IsSecretWeapon(int wNumber)
     case 28: return (wNumber == 3 || wNumber == 9);
     case 29: return (wNumber == 3 || wNumber == 9);
     case 30: return (wNumber == 3 || wNumber == 9);
+    case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
   }
 
   return false;
