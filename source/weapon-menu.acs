@@ -18,7 +18,7 @@ int  lastUsedWeapon    = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (28)
+#define SETS_NUMBER (31)
 #define MAX_WEAPONS_NUMBER (50)
 #define AUTO_SET 26
 
@@ -48,6 +48,9 @@ str playerClassNames[SETS_NUMBER] =
   "ParkourPlayer",     // 25. Parkour v1.1
   "Autodetected",      // 26. Autodetected
   "Purist",            // 27. Brutal Doom - Purist
+  "BDoomer",           // 28. Brutal Doom - Rifle Start
+  "Doomer2",           // 29. Brutal Doom - Pistal Start
+  "TacticalDoomer",    // 30. Brutal Doom - Tactical Mode
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -73,6 +76,9 @@ int weaponCounts[SETS_NUMBER] =
   12, // Parkour
   0,  // Special - autodetected
   9,  // Brutal Doom - Purist
+  22, // Brutal Doom - BDoomer
+  22, // Brutal Doom - Doomer2
+  22, // Brutal Doom - TacticalDoomer
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -157,6 +163,10 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Special - autodetected
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Brutal Doom - Purist
+  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // BDoomer
+  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Doomer2
+  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Tactical
+
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -342,6 +352,39 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "ClassicRocketLauncher",
     "ClassicPlasmaRifle",
     "VanillaBFG9000"
+  },
+
+  { // Brutal Doom - BDoomer
+    "Melee_Attacks", "Chain_saw", "BrutalAxe",
+    "MP40", "BrutalSMG", "BrutalPistol",
+    "SSG", "Shot_Gun", "AssaultShotgun",
+    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
+    "Rocket_Launcher", "GrenadeLauncher",
+    "Plasma_Gun", "Railgun",
+    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
+    "FlameCannon", "HellishMissileLauncher"
+  },
+
+  { // Brutal Doom - Doomer2
+    "Melee_Attacks", "Chain_saw", "BrutalAxe",
+    "MP40", "BrutalSMG", "BrutalPistol",
+    "SSG", "Shot_Gun", "AssaultShotgun",
+    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
+    "Rocket_Launcher", "GrenadeLauncher",
+    "Plasma_Gun", "Railgun",
+    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
+    "FlameCannon", "HellishMissileLauncher"
+  },
+
+  { // Brutal Doom - TacticalDoomer
+    "Melee_Attacks", "Chain_saw", "BrutalAxe",
+    "MP40", "BrutalSMG", "BrutalPistol",
+    "SSG", "Shot_Gun", "AssaultShotgun",
+    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
+    "Rocket_Launcher", "GrenadeLauncher",
+    "Plasma_Gun", "Railgun",
+    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
+    "FlameCannon", "HellishMissileLauncher"
   },
 
 }; // end of actor/class names /////////////////////////////////////////////////
@@ -530,6 +573,39 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
+  { // Brutal Doom - BDoomer
+    "Melee", "Chainsaw", "Axe",
+    "MP40", "SMG", "Pistol",
+    "SSG", "Shotgun", "AA-12 Assault Shotgun",
+    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
+    "Rocket Launcher", "Grenade Launcher",
+    "Plasma Gun", "Railgun",
+    "BFG-9000", "Unmaker", "BFG10K",
+    "Flame Cannon", "Hellish Missile Launcher"
+  },
+
+  { // Brutal Doom - Doomer2
+    "Melee", "Chainsaw", "Axe",
+    "MP40", "SMG", "Pistol",
+    "SSG", "Shotgun", "AA-12 Assault Shotgun",
+    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
+    "Rocket Launcher", "Grenade Launcher",
+    "Plasma Gun", "Railgun",
+    "BFG-9000", "Unmaker", "BFG10K",
+    "Flame Cannon", "Hellish Missile Launcher"
+  },
+
+  { // Brutal Doom - TacticalDoomer
+    "Melee", "Chainsaw", "Axe",
+    "MP40", "SMG", "Pistol",
+    "SSG", "Shotgun", "AA-12 Assault Shotgun",
+    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
+    "Rocket Launcher", "Grenade Launcher",
+    "Plasma Gun", "Railgun",
+    "BFG-9000", "Unmaker", "BFG10K",
+    "Flame Cannon", "Hellish Missile Launcher"
+  },
+
 }; // end of printable names
 
 function bool WM_IsSecretWeapon(int wNumber)
@@ -537,6 +613,9 @@ function bool WM_IsSecretWeapon(int wNumber)
   switch (currentSet)
   {
     case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
+    case 28: return (wNumber == 3 || wNumber == 9);
+    case 29: return (wNumber == 3 || wNumber == 9);
+    case 30: return (wNumber == 3 || wNumber == 9);
   }
 
   return false;
