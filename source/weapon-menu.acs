@@ -864,14 +864,6 @@ function void WM_Initialize(void)
 
 function bool WM_GetWeaponSet(void)
 {
-  for (int c = 0; c < SETS_NUMBER; ++c)
-  {
-    if (CheckActorClass(0, playerClassNames[c]))
-    {
-      return c;
-    }
-  }
-
   int playerN      = PlayerNumber();
   str remClass     = GetUserCVarString(playerN, "M8fWeaponMenuRememberedClass");
   str currentClass = GetActorClass(0);
@@ -881,6 +873,14 @@ function bool WM_GetWeaponSet(void)
     Log(s:"Weapon menu: loading autodetected weapon set...");
     WM_LoadRemembered();
     return AUTO_SET;
+  }
+
+  for (int c = 0; c < SETS_NUMBER; ++c)
+  {
+    if (CheckActorClass(0, playerClassNames[c]))
+    {
+      return c;
+    }
   }
 
   return -1;
