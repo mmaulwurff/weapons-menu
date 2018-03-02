@@ -738,6 +738,9 @@ function void WM_Initialize(void)
 
 script "ShowWeaponMenu" ENTER
 {
+  str mapLumpName = StrParam(n:PRINTNAME_LEVEL);
+  if (StrICmp(mapLumpName, "TITLEMAP") == 0) { terminate; }
+
   // check if player class is known
   for (int c = 0; c < SETS_NUMBER; ++c)
   {
