@@ -726,7 +726,8 @@ function void printHudWeapon(
   int yStart,
   bool highToLow,
   bool numbersOnTheLeft,
-  int stepMultiplier
+  int stepMultiplier,
+  bool showWeaponNames
 )
 {
   int id = messageIdStart + weaponNumber;
@@ -747,10 +748,18 @@ function void printHudWeapon(
   str delimiter  = " - ";
   str name       = WM_GetPrintableWeaponName(weaponNumber);
 
-  str weaponString = WM_IfThenElse(numbersOnTheLeft,
-    StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" "),
-    StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ")
-  );
+  str weaponString;
+  if (showWeaponNames)
+  {
+    weaponString = WM_IfThenElse(numbersOnTheLeft,
+      StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" "),
+      StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ")
+    );
+  }
+  else
+  {
+    weaponString = StrParam(s:" ", i:slotNumber, s:" ");
+  }
 
   HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
 }
@@ -961,6 +970,7 @@ script "ShowWeaponMenu" ENTER
       bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
       bool highToLow          = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
       bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+      bool showWeaponNames    = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
       int xStart              = GetUserCVar(playerN, "M8FWeaponMenuXStart");
       int yStart              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
       int stepMultiplier      = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
@@ -993,7 +1003,8 @@ script "ShowWeaponMenu" ENTER
               yStart,
               highToLow,
               numbersOnTheLeft,
-              stepMultiplier
+              stepMultiplier,
+              showWeaponNames
             );
           }
           position += 1;
@@ -1010,7 +1021,8 @@ script "ShowWeaponMenu" ENTER
               yStart,
               highToLow,
               numbersOnTheLeft,
-              stepMultiplier
+              stepMultiplier,
+              showWeaponNames
             );
           }
           position += 1;
@@ -1027,7 +1039,8 @@ script "ShowWeaponMenu" ENTER
           yStart,
           highToLow,
           numbersOnTheLeft,
-          stepMultiplier
+          stepMultiplier,
+          showWeaponNames
         );
 
         bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
@@ -1041,7 +1054,8 @@ script "ShowWeaponMenu" ENTER
             yStart,
             highToLow,
             numbersOnTheLeft,
-            stepMultiplier
+            stepMultiplier,
+            showWeaponNames
           );
         }
       }

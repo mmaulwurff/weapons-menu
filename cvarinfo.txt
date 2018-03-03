@@ -5,6 +5,8 @@ user int M8FWeaponMenuFont = 0;
 
 user float M8FWeaponMenuStepMultiplier = 1.0;
 
+user bool M8fWeaponMenuShowNames = true;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
