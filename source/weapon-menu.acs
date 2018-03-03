@@ -1356,7 +1356,25 @@ function str WM_BeautifyWeaponName(str weaponClassName)
 {
   str result1 = WM_Replace(weaponClassName, '_', ' ');
   str result2 = WM_DivideCamelCase(result1);
-  return result2;
+  str result3 = WM_Capitalize(result2);
+  return result3;
+}
+
+function str WM_Capitalize(str source)
+{
+  int firstChar = GetChar(source, 0);
+  str result;
+  if (WM_IsSmallLetter(firstChar))
+  {
+    int capitalized = firstChar - ('a' - 'A');
+    int sourceLength = StrLen(source);
+    result = StrParam(c:capitalized, s:StrRight(source, sourceLength - 1));
+  }
+  else
+  {
+    result = source;
+  }
+  return result;
 }
 
 function str WM_DivideCamelCase(str source)
