@@ -129,6 +129,43 @@ weapons:
      even if they are unobtainable in a game. So it is recommended to use an
      option to hide not acquired weapons.
 
+
+Note for weapon mod developers:
+
+1. If you want Weapon Menu to support your mod out of the box, just ask me.
+
+   It will help greatly if your mod uses unique player class/actor
+   name. Please do not use one of reserved class names (DoomPlayer,
+   PerkDPlayer, EriPlayer, AltPlayer, HellPlayer, BD_DoomPlayer,
+   FDPlutPlayer, FDTNTPlayer, FDDoom2Player, FDAliensPlayer,
+   FDJPCPPlayer, FDBTSXPlayer, FasPlayer, HXRTCPlayer, FKPlayer,
+   ComplexDoomPlayer, SaturnPlayer, DoomMarine, HereticPlayer,
+   ChexPlayer, StrifePlayer, ArgPlayer, 64DoomPlayer, DoomPlayerFixed,
+   Xplayer, ParkourPlayer, Autodetected, Purist, BDoomer, Doomer2,
+   TacticalDoomer, CollabWeaponGuy).
+
+   Also it would help if you supply a list of weapons class/actor
+   names, in order that they should appear in the menu, with
+   corresponding slots. For example, for standard Doom 2 weapons it
+   would be: 1 - Chainsaw, 1 - Fist, 2 - Pistol, 3 - SuperShotgun, 3 -
+   Shotgun, 4 - Chaingun, 5 - RocketLauncher, 6 - PlasmaRifle, 7 -
+   BFG9000.
+
+   It would be great if you will also provide a list of weapon names too.
+
+   If your mod has weapons that are very rare, or bonus, or secret, they can be
+   marked to be hidden from the menu until player gets them.
+
+2. If you want Weapon Menu to support your mod with Autodetection: there is
+   high probability that it already is supported!
+
+   Though for better autodetection results it would help if weapon
+   class/actor names are meaningful and human readable, and not have
+   special prefix. Examples of good names: SuperShotgun, Big_gun,
+   hammer. Examples of bad names: Weapon1, autorocketlauncher,
+   MYSUPERGUN, m8f_Shotgun.
+
+
 Author: m8f (mmaulwurff@gmail.com)
 
 GitHub: https://github.com/mmaulwurff/weapons-menu
