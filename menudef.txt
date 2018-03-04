@@ -31,7 +31,7 @@ OptionValue "M8FWeaponMenuFontOptions"
 
 OptionMenu "M8FWeaponsMenuOptions"
 {
-  Title "Weapons Menu Options"
+  Title "Weapon Menu Options"
   Option "Available Weapon Color", "M8FAvailableWeaponColor", "TextColors"
   Option "Not Available Weapon Color", "M8FNotAvailableWeaponColor", "TextColors"
   Option "Highlighted Weapon Color", "M8FHighlightedWeaponColor", "TextColors"
@@ -69,5 +69,5 @@ OptionMenu "M8FWeaponsMenuOptions"
 AddOptionMenu "OptionsMenu"
 {
   StaticText ""
-  Submenu "Weapons Menu Options", "M8FWeaponsMenuOptions"
+  Submenu "Weapon Menu Options", "M8FWeaponsMenuOptions"
 }
