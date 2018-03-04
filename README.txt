@@ -1,4 +1,4 @@
-Weapon Selection Menu Mod for GZDoom
+Weapon Menu Mod for GZDoom and Zandronum
 
 Usage:
 
@@ -23,15 +23,21 @@ Features:
 - provides ability to fast weapon selection even without using number row keys.
 - with menu, you see what you are about to select. No more blind weapon choices!
 - last used weapon quick access (by assigned key).
-- configurable colors, fonts, and position.
-- will work with any HUD.
+- configurable colors, fonts, and positions.
+- works with any HUD.
 - autoload safe! If weapon set isn't recognized, standard weapon selection is used.
 - secret weapons that appear in Menu only when you have them (some mods).
+- works with almost any weapon set.
 - API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
 
-Has official support for:
+Weapon Menu has two types of weapon support:
+1. Out of the box. You load the weapon mod with Menu, it works right away.
+2. Autodetected. You load the weapon mod with Menu, you run setup (see below),
+   then Menu works.
 
-1. Original weapons
+Weapon Menu supports the following weapons out of the box:
+
+1. Original Doom 2 weapons
 
 2. PerK's Smoother Weapon Animations Enhanced
    https://forum.zdoom.org/viewtopic.php?f=43&t=32628
@@ -90,45 +96,38 @@ Has official support for:
 21. Combined Arms v1.0
     https://forum.zdoom.org/viewtopic.php?f=43&t=51066
 
-Has unofficial support for:
 
-- almost every possible weapon set!
-  This is achieved by using Weapon Menu Autodetection System.
+Other weapons are supported, but required initial setup:
 
-  When you load weapon set that is not officially supported by Weapon Menu, a
-  message will appear with a suggestion to try Autodetection. To autodetect
-  weapons:
+When you load weapon set that is by Weapon Menu out of the box, a
+message will appear with a suggestion to try Autodetection. To autodetect
+weapons:
 
-  1. Enter 'wm_auto' in console.
-  2. Relax for 2 minutes and watch while the script cycles over all of the
-     weapons in your weapon set. Do not do anything while script works, even if you
-     think script does nothing. Doing something will mess up the results.
-  3. When script is finished, it reloads the level, taking away all weapons except
-     starting weapons, so it is wise to run it at the start of a new game.
-  4. Then autodetected weapon set will be remembered until the new autodetection
-     will be run, so you can play a megawad or a bunch of maps with the same
-     weapon mod. Remembered weapon set will be also stored in a save. But if you
-     autodetect one weapon set, save the game with it, then autodetect another
-     weapon set and load first save with first weapon set, autodetection data will
-     only last until new level is started. Then you will have to autodetect again
-     and lose acquired weapons or play without the Menu.
-  5. Autodetection system has the following limits:
-     - no more than 50 weapons in a weapon set.
-     - no more than 6 weapons in one slot.
-     - weapon names are made of weapon class names, so they may be rough.
-     - autodetection will detect all the weapons that are in a mod (within limits),
-       even if they are unobtainable in a game. So it is recommended to use an
-       option to hide not acquired weapons.
+1. After you load Weapon Menu with your weapon mod, after the level starts,
+   enter 'wmauto' in console.
 
-Weapon sets are detected by player class. So support for other weapon sets can
-be easily added by modifying weapon-menu.acs:
-  1. Increment SETS_NUMBER constant,
-  2. Then add new player class to "playerClassNames" array,
-  3. Then add number of weapons in this weapon set to "weaponCounts" array,
-  4. Then add weapon slot list to "slots" array,
-  5. Then add list of weapon classes to "names" array,
-  6. Then add list of printable weapon names to "printableNames" array.
-  7. Compile ACS.
+2. Relax for 2 minutes and watch while the script cycles over all of the
+   weapons in your weapon set. Do not do anything while script works, even if you
+   think script does nothing. Doing something will mess up the results.
+
+3. When script is finished, it reloads the level, taking away all weapons except
+   starting weapons, so it is wise to run it at the start of a new game.
+
+4. Then autodetected weapon set will be remembered until the new autodetection
+   will be run, so you can play a megawad or a bunch of maps with the same
+   weapon mod. Remembered weapon set will be also stored in a save. But if you
+   autodetect one weapon set, save the game with it, then autodetect another
+   weapon set and load first save with first weapon set, autodetection data will
+   only last until new level is started. Then you will have to autodetect again
+   and lose acquired weapons or play without the Menu.
+
+5. Autodetection system has the following limits:
+   - no more than 50 weapons in a weapon set.
+   - no more than 6 weapons in one slot.
+   - weapon names are composed of internal names, so they may be a bit inaccurate.
+   - autodetection will detect all the weapons that are in a mod (within limits),
+     even if they are unobtainable in a game. So it is recommended to use an
+     option to hide not acquired weapons.
 
 Author: m8f (mmaulwurff@gmail.com)
 
@@ -142,7 +141,7 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 0.22
+Version: 1.0
 
 Changelog:
 0.1: initial version.
@@ -179,8 +178,9 @@ added "Last Used Weapon" key.
 0.21: added Dead Marine weapons.
 added font options.
 bugfixes.
-0.22:
-added Parkour, Combined Arms, and Brutal Doom.
+0.22: added Parkour, Combined Arms, and Brutal Doom.
 added secret weapon feature (Parkour, Combined Arms and Brutal Doom have them).
 added Autodetection System
 added menu step multiplier option
+1.0: add show/hide weapon names option.
+minor fixes.
