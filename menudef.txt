@@ -48,6 +48,8 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   Option "Play sound on weapon highlight", "M8fWeaponMenuEnableSound", "M8FWeaponMenuYesNoOptions"
 
+  Option "Weapon names", "M8fWeaponMenuShowNames", "M8FWeaponsMenuShowNotAvailable"
+
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
   StaticText "(also affects aligment)"
