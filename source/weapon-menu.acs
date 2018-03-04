@@ -917,7 +917,7 @@ function bool WM_MenuIsEnabled(void)
   Log(s:"Weapon Menu: unknown player class: ",
       s:GetActorClass(0),
       s:", menu is disabled.\n",
-      s:"You can try 'wm_auto' in console.");
+      s:"You can try 'wmauto' in console.");
   return false;
 }
 
