@@ -96,6 +96,10 @@ Weapon Menu supports the following weapons out of the box:
 21. Combined Arms v1.0
     https://forum.zdoom.org/viewtopic.php?f=43&t=51066
 
+22. Freedoom v0.11.3
+    https://freedoom.github.io/index.html
+
+
 
 Other weapons are supported, but required initial setup:
 

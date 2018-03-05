@@ -921,6 +921,27 @@ function bool WM_MenuIsEnabled(void)
   return false;
 }
 
+function bool WM_IsFreeDoom(void)
+{
+  str checkString = StrParam(l:"CC_IMP");
+  return (StrICmp(checkString, "serpentipede") == 0);
+}
+
+function void WM_RenameWeaponsIfFreedoom(void)
+{
+  if (!WM_IsFreedoom()) { return; }
+
+  printableNames[0][0] = "Angle Grinder";
+  printableNames[0][1] = "Fists";
+  printableNames[0][2] = "Handgun";
+  printableNames[0][3] = "Double-barrelled Shotgun";
+  printableNames[0][4] = "Pump-action Shotgun";
+  printableNames[0][5] = "Minigun";
+  printableNames[0][6] = "Missile Launcher";
+  printableNames[0][7] = "Polaric Energy Cannon";
+  printableNames[0][8] = "SKAG 1337";
+}
+
 
 // Scripts section /////////////////////////////////////////////////////////////
 
@@ -933,6 +954,8 @@ script "ShowWeaponMenu" ENTER
 
   int playerN = PlayerNumber();
   int weaponCount = weaponCounts[currentSet];
+
+  WM_RenameWeaponsIfFreedoom();
 
   while (true)
   {
