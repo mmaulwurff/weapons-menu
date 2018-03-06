@@ -185,22 +185,122 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000"
   },
 
-  { "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
+  {
+    "Z86Chainsaw", "PerkFist",
+    "PerkPistol",
+    "PerkSuperShotgun", "PerkShotgun",
+    "Z86Chaingun",
+    "PerkRocketLauncher",
+    "BloxPlasmaRifle",
+    "Z86BFG9000"
+  },
 
-  { "EriChainsaw", "EriFist", "EriPistol", "EriSuperShotgun", "EriShotgun", "EriMachinegun", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000" },
-  { "EriChainsaw", "EriFist", "AltPistol", "EriAutoShotgun", "AltSuperShotgun", "EriShotgun", "EriGatlingGun", "EriMachinegun", "EriMissileLauncher", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000", "EriGrenadeLauncher" },
-  { "EriBlade", "EriFist", "EriSuperImmolator", "EriImmolator", "EriBloodbane", "EriNailgun", "EriMauler", "EriHellforge", "EriIrebolt", "EriCaster", "EriHydra", "EriBasilisk", "EriSoulreaver" },
+  {
+    "EriChainsaw", "EriFist",
+    "EriPistol",
+    "EriSuperShotgun",
+    "EriShotgun",
+    "EriMachinegun",
+    "EriRocketLauncher",
+    "EriPlasmaRifle",
+    "EriBFG9000"
+  },
+  {
+    "EriChainsaw", "EriFist",
+    "AltPistol",
+    "EriAutoShotgun", "AltSuperShotgun", "EriShotgun",
+    "EriGatlingGun", "EriMachinegun",
+    "EriMissileLauncher", "EriRocketLauncher",
+    "EriPlasmaRifle",
+    "EriBFG9000",
+    "EriGrenadeLauncher"
+  },
+  {
+    "EriBlade", "EriFist",
+    "EriSuperImmolator", "EriImmolator",
+    "EriBloodbane",
+    "EriNailgun",
+    "EriMauler",
+    "EriHellforge", "EriIrebolt",
+    "EriCaster",
+    "EriHydra", "EriBasilisk",
+    "EriSoulreaver"
+  },
 
-  { "BD_Chainsaw", "BD_Fist", "BD_Pistol", "BD_SuperShotgun", "BD_Shotgun", "BD_Chaingun", "BD_RocketLauncher", "BD_PlasmaRifle", "BD_BFG9000" },
+  {
+    "BD_Chainsaw", "BD_Fist",
+    "BD_Pistol",
+    "BD_SuperShotgun", "BD_Shotgun",
+    "BD_Chaingun",
+    "BD_RocketLauncher",
+    "BD_PlasmaRifle",
+    "BD_BFG9000"
+  },
 
-  { "FDPlutChainsaw", "FDPlutFist", "FDPlutPistol", "FDPlutSuperShotgun", "FDPlutShotgun", "FDPlutChaingun", "FDPlutRocketLauncher", "FDPlutPlasmaRifle", "FDPlutBFG9000" },
-  { "FDTNTChainsaw", "FDTNTFist", "FDTNTPistol", "FDTNTSuperShotgun", "FDTNTShotgun", "FDTNTChaingun", "FDTNTRocketLauncher", "FDTNTPlasmaRifle", "FDTNTBFG9000" },
-  { "FDDoom2Chainsaw", "FDDoom2Fist", "FDDoom2Pistol", "FDDoom2SuperShotgun", "FDDoom2Shotgun", "FDDoom2Chaingun", "FDDoom2RocketLauncher", "FDDoom2PlasmaRifle", "FDDoom2BFG9000" },
-  { "FDAliensChainsaw", "FDAliensFist", "FDAliensPistol", "FDAliensSuperShotgun", "FDAliensShotgun", "FDAliensChaingun", "FDAliensRocketLauncher", "FDAliensPlasmaRifle", "FDAliensBFG9000" },
-  { "FDJPCPFist", "FDJPCPPistol", "FDJPCPSuperShotgun", "FDJPCPShotgun", "FDJPCPChaingun", "FDJPCPRocketLauncher", "FDJPCPPlasmaRifle", "FDJPCPBFG9000" },
-  { "FDBTSXChainsaw", "FDBTSXFist", "FDBTSXPistol", "FDBTSXSuperShotgun", "FDBTSXShotgun", "FDBTSXChaingun", "FDBTSXRocketLauncher", "FDBTSXPlasmaRifle", "FDBTSXBFG9000" },
+  {
+    "FDPlutChainsaw", "FDPlutFist",
+    "FDPlutPistol",
+    "FDPlutSuperShotgun", "FDPlutShotgun",
+    "FDPlutChaingun",
+    "FDPlutRocketLauncher",
+    "FDPlutPlasmaRifle",
+    "FDPlutBFG9000"
+  },
+  {
+    "FDTNTChainsaw", "FDTNTFist",
+    "FDTNTPistol",
+    "FDTNTSuperShotgun", "FDTNTShotgun",
+    "FDTNTChaingun",
+    "FDTNTRocketLauncher",
+    "FDTNTPlasmaRifle",
+    "FDTNTBFG9000"
+  },
+  {
+    "FDDoom2Chainsaw", "FDDoom2Fist",
+    "FDDoom2Pistol",
+    "FDDoom2SuperShotgun", "FDDoom2Shotgun",
+    "FDDoom2Chaingun",
+    "FDDoom2RocketLauncher",
+    "FDDoom2PlasmaRifle",
+    "FDDoom2BFG9000"
+  },
+  {
+    "FDAliensChainsaw", "FDAliensFist",
+    "FDAliensPistol",
+    "FDAliensSuperShotgun", "FDAliensShotgun",
+    "FDAliensChaingun",
+    "FDAliensRocketLauncher",
+    "FDAliensPlasmaRifle",
+    "FDAliensBFG9000"
+  },
+  {
+    "FDJPCPFist",
+    "FDJPCPPistol",
+    "FDJPCPSuperShotgun", "FDJPCPShotgun",
+    "FDJPCPChaingun",
+    "FDJPCPRocketLauncher",
+    "FDJPCPPlasmaRifle",
+    "FDJPCPBFG9000"
+  },
+  {
+    "FDBTSXChainsaw", "FDBTSXFist",
+    "FDBTSXPistol",
+    "FDBTSXSuperShotgun", "FDBTSXShotgun",
+    "FDBTSXChaingun",
+    "FDBTSXRocketLauncher",
+    "FDBTSXPlasmaRifle",
+    "FDBTSXBFG9000"
+  },
 
-  { "Motorsaw", "Knuckles", "CombatRifle", "DoubleBarrel", "Riotgun", "Minigun", "RPG", "PulseRifle", "BFG" },
+  {
+    "Motorsaw", "Knuckles",
+    "CombatRifle",
+    "DoubleBarrel", "Riotgun",
+    "Minigun",
+    "RPG",
+    "PulseRifle",
+    "BFG"
+  },
 
   {
     "Z-Gun", "DoomChainsaw", "Axe", "Knife", "DoubleKnuckles", "OmicronRaygun",
