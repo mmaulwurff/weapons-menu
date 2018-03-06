@@ -1036,6 +1036,28 @@ script "ShowWeaponMenu" ENTER
 
   WM_RenameWeaponsIfFreedoom();
 
+  int optionsUpdatePeriod = 10;
+  int optionsUpdateCounter = optionsUpdatePeriod;
+
+  // options
+  int availableWeaponColor;
+  int notAvailableWeaponColor;
+  int highlightedWeaponColor;
+  int selectedWeaponColor;
+
+  bool disableOutput;
+  bool showNotAvailable;
+  bool highToLow;
+  bool numbersOnTheLeft;
+  bool showWeaponNames;
+  int xStart;
+  int yStart;
+  int stepMultiplier;
+  bool highlightSelected;
+
+  int stepMultiplied;
+  int yStartMax;
+
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
@@ -1061,26 +1083,32 @@ script "ShowWeaponMenu" ENTER
 
     if (menuIsOpened)
     {
-      WM_SetupFont();
+      ++optionsUpdateCounter;
+      if (optionsUpdateCounter >= optionsUpdatePeriod)
+      {
+        optionsUpdateCounter = 0;
 
-      int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-      int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-      int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-      int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+        WM_SetupFont();
 
-      bool disableOutput      = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-      bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
-      bool highToLow          = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
-      bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-      bool showWeaponNames    = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
-      int xStart              = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-      int yStart              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-      int stepMultiplier      = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
-      bool highlightSelected  = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+        availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+        notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+        highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+        selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
-      int stepMultiplied      = (step * stepMultiplier) >> 16;
-      int yStartMax = 1.0 - stepMultiplied * weaponCount;
-      if (yStart > yStartMax) { yStart = yStartMax; }
+        disableOutput     = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
+        showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
+        highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+        numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+        showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
+        xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+        yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+        stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+        highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+        stepMultiplied = (step * stepMultiplier) >> 16;
+        yStartMax = 1.0 - stepMultiplied * weaponCount;
+        if (yStart > yStartMax) { yStart = yStartMax; }
+      }
 
       int position          = 0;
       int availablePosition = 0;
