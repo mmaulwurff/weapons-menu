@@ -52,7 +52,7 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
-  StaticText "(also affects aligment)"
+  StaticText "(also affects alignment)"
 
   StaticText ""
   Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.05, 2
