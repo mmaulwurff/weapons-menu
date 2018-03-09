@@ -1085,12 +1085,16 @@ script "ShowWeaponMenu" ENTER
 
     if (!WM_IsSelected(selectedWeapon))
     {
-      if (WM_IsInInventory(selectedWeapon))
+      str currentWeapon = GetWeapon();
+      if (WM_IsListed(currentWeapon))
       {
-        WM_SetLastUsedWeapon(selectedWeapon);
+        if (WM_IsInInventory(selectedWeapon))
+        {
+          WM_SetLastUsedWeapon(selectedWeapon);
+        }
+        WM_HighlightSelectedWeapon();
+        WM_SetSelectedWeapon(highlightedWeapon);
       }
-      WM_HighlightSelectedWeapon();
-      WM_SetSelectedWeapon(highlightedWeapon);
     }
 
     if (menuIsOpened)
@@ -1398,6 +1402,17 @@ function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
   return falseValue;
 }
 
+function bool WM_IsListed(str weaponName)
+{
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    if (StrICmp(weaponName, WM_GetWeaponName(i)) == 0)
+    {
+      return true;
+    }
+  }
+  return false;
+}
 
 // Global variables write access functions /////////////////////////////////////
 
