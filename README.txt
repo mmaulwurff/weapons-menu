@@ -96,6 +96,13 @@ Weapon Menu supports the following weapons out of the box:
 21. Combined Arms v1.0
     https://forum.zdoom.org/viewtopic.php?f=43&t=51066
 
+22. Freedoom v0.11.3
+    https://freedoom.github.io/index.html
+
+23. Smooth Doom (2018-01-13)
+    https://forum.zdoom.org/viewtopic.php?f=43&t=45550&hilit=smooth+doom
+
+
 
 Other weapons are supported, but required initial setup:
 
@@ -129,6 +136,43 @@ weapons:
      even if they are unobtainable in a game. So it is recommended to use an
      option to hide not acquired weapons.
 
+
+Note for weapon mod developers:
+
+1. If you want Weapon Menu to support your mod out of the box, just ask me.
+
+   It will help greatly if your mod uses unique player class/actor
+   name. Please do not use one of reserved class names (DoomPlayer,
+   PerkDPlayer, EriPlayer, AltPlayer, HellPlayer, BD_DoomPlayer,
+   FDPlutPlayer, FDTNTPlayer, FDDoom2Player, FDAliensPlayer,
+   FDJPCPPlayer, FDBTSXPlayer, FasPlayer, HXRTCPlayer, FKPlayer,
+   ComplexDoomPlayer, SaturnPlayer, DoomMarine, HereticPlayer,
+   ChexPlayer, StrifePlayer, ArgPlayer, 64DoomPlayer, DoomPlayerFixed,
+   Xplayer, ParkourPlayer, Autodetected, Purist, BDoomer, Doomer2,
+   TacticalDoomer, CollabWeaponGuy).
+
+   Also it would help if you supply a list of weapons class/actor
+   names, in order that they should appear in the menu, with
+   corresponding slots. For example, for standard Doom 2 weapons it
+   would be: 1 - Chainsaw, 1 - Fist, 2 - Pistol, 3 - SuperShotgun, 3 -
+   Shotgun, 4 - Chaingun, 5 - RocketLauncher, 6 - PlasmaRifle, 7 -
+   BFG9000.
+
+   It would be great if you will also provide a list of weapon names too.
+
+   If your mod has weapons that are very rare, or bonus, or secret, they can be
+   marked to be hidden from the menu until player gets them.
+
+2. If you want Weapon Menu to support your mod with Autodetection: there is
+   high probability that it already is supported!
+
+   Though for better autodetection results it would help if weapon
+   class/actor names are meaningful and human readable, and not have
+   special prefix. Examples of good names: SuperShotgun, Big_gun,
+   hammer. Examples of bad names: Weapon1, autorocketlauncher,
+   MYSUPERGUN, m8f_Shotgun.
+
+
 Author: m8f (mmaulwurff@gmail.com)
 
 GitHub: https://github.com/mmaulwurff/weapons-menu
@@ -141,46 +185,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.0
-
-Changelog:
-0.1: initial version.
-0.2: added automatic selected weapon detecting on level start
-added getPrintableWeaponName function for external weapon names.
-added weapon set checking, disable menu if weapons are unknown.
-added smart slot selection.
-0.3: added player class detection; added some weapon sets support.
-0.4: added support for dropping weapons and pistol starter scripts.
-0.5: added all 6 Final Doomer weapon sets.
-0.6: added handling situation when a weapon can not be selected because it has no ammo.
-0.7: added weapon name to 'no ammo' message.
-0.8: added Faspons and HXRTC Project support.
-0.9: added Kriegsland: Blutordnung support.
-0.10: added Complex Doom V27a3 support.
-0.11: added Weapons of Saturn support.
-0.12: added Hard-Doom support.
-0.13: added menu colors and position options.
-0.14: added menu slot order option.
-added Heretic support.
-added resorting to standard weapon selection on unknown weapon sets.
-0.15: added Chex Quest (Single Player) weapons.
-0.16: added Strife weapons.
-added option to show/hide not acquired weapons.
-0.17: added option to show slot number on left or right side.
-added optional highlighting of currently selected weapon.
-0.18: added CVar and ZScript API.
-0.19: added optional sound on selecting new weapon in menu.
-Sound can be set or disabled via ZScript API too.
-added Argent 0.5.3 support.
-0.20: added Doom 64 'weapons only' by Nevander X version.
-added Responsive Weapons + Faster Weapon Switching.
-added "Last Used Weapon" key.
-0.21: added Dead Marine weapons.
-added font options.
-bugfixes.
-0.22: added Parkour, Combined Arms, and Brutal Doom.
-added secret weapon feature (Parkour, Combined Arms and Brutal Doom have them).
-added Autodetection System
-added menu step multiplier option
-1.0: add show/hide weapon names option.
-minor fixes.
+Version: 1.1.

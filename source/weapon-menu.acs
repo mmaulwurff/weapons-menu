@@ -15,6 +15,8 @@ int  highlightedWeapon = 0;
 int  selectedWeapon    = 0;
 int  lastUsedWeapon    = 0;
 
+int weaponCount = 0;
+int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
@@ -27,7 +29,7 @@ int  lastUsedWeapon    = 0;
 str playerClassNames[SETS_NUMBER] =
 {
   "DoomPlayer",        // 0. Standard
-  "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced
+  "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
   "EriPlayer", "AltPlayer", "HellPlayer", // 2-4. Eriguns
   "BD_DoomPlayer",     // 5. Beautiful Doom
   "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player",
@@ -57,7 +59,7 @@ str playerClassNames[SETS_NUMBER] =
 int weaponCounts[SETS_NUMBER] =
 {
   9,  // Standard
-  9,  // PerK's Smoother Weapon Animations Enhanced
+  10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
   9, 13, 13, // Eriguns
   9,  // Beautiful Doom
   9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
@@ -87,7 +89,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
 
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // PerK's Smoother Weapon Animations Enhanced
+  // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
+  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 },
 
   // Eriguns
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
@@ -185,22 +188,122 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000"
   },
 
-  { "Z86Chainsaw", "PerkFist", "PerkPistol", "PerkSuperShotgun", "PerkShotgun", "Z86Chaingun", "PerkRocketLauncher", "BloxPlasmaRifle", "Z86BFG9000" },
+  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
+    "Z86Chainsaw", "PerkFist",
+    "Rifle", "PerkPistol",
+    "PerkSuperShotgun", "PerkShotgun",
+    "Z86Chaingun",
+    "PerkRocketLauncher",
+    "BloxPlasmaRifle",
+    "Z86BFG9000"
+  },
 
-  { "EriChainsaw", "EriFist", "EriPistol", "EriSuperShotgun", "EriShotgun", "EriMachinegun", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000" },
-  { "EriChainsaw", "EriFist", "AltPistol", "EriAutoShotgun", "AltSuperShotgun", "EriShotgun", "EriGatlingGun", "EriMachinegun", "EriMissileLauncher", "EriRocketLauncher", "EriPlasmaRifle", "EriBFG9000", "EriGrenadeLauncher" },
-  { "EriBlade", "EriFist", "EriSuperImmolator", "EriImmolator", "EriBloodbane", "EriNailgun", "EriMauler", "EriHellforge", "EriIrebolt", "EriCaster", "EriHydra", "EriBasilisk", "EriSoulreaver" },
+  {
+    "EriChainsaw", "EriFist",
+    "EriPistol",
+    "EriSuperShotgun",
+    "EriShotgun",
+    "EriMachinegun",
+    "EriRocketLauncher",
+    "EriPlasmaRifle",
+    "EriBFG9000"
+  },
+  {
+    "EriChainsaw", "EriFist",
+    "AltPistol",
+    "EriAutoShotgun", "AltSuperShotgun", "EriShotgun",
+    "EriGatlingGun", "EriMachinegun",
+    "EriMissileLauncher", "EriRocketLauncher",
+    "EriPlasmaRifle",
+    "EriBFG9000",
+    "EriGrenadeLauncher"
+  },
+  {
+    "EriBlade", "EriFist",
+    "EriSuperImmolator", "EriImmolator",
+    "EriBloodbane",
+    "EriNailgun",
+    "EriMauler",
+    "EriHellforge", "EriIrebolt",
+    "EriCaster",
+    "EriHydra", "EriBasilisk",
+    "EriSoulreaver"
+  },
 
-  { "BD_Chainsaw", "BD_Fist", "BD_Pistol", "BD_SuperShotgun", "BD_Shotgun", "BD_Chaingun", "BD_RocketLauncher", "BD_PlasmaRifle", "BD_BFG9000" },
+  {
+    "BD_Chainsaw", "BD_Fist",
+    "BD_Pistol",
+    "BD_SuperShotgun", "BD_Shotgun",
+    "BD_Chaingun",
+    "BD_RocketLauncher",
+    "BD_PlasmaRifle",
+    "BD_BFG9000"
+  },
 
-  { "FDPlutChainsaw", "FDPlutFist", "FDPlutPistol", "FDPlutSuperShotgun", "FDPlutShotgun", "FDPlutChaingun", "FDPlutRocketLauncher", "FDPlutPlasmaRifle", "FDPlutBFG9000" },
-  { "FDTNTChainsaw", "FDTNTFist", "FDTNTPistol", "FDTNTSuperShotgun", "FDTNTShotgun", "FDTNTChaingun", "FDTNTRocketLauncher", "FDTNTPlasmaRifle", "FDTNTBFG9000" },
-  { "FDDoom2Chainsaw", "FDDoom2Fist", "FDDoom2Pistol", "FDDoom2SuperShotgun", "FDDoom2Shotgun", "FDDoom2Chaingun", "FDDoom2RocketLauncher", "FDDoom2PlasmaRifle", "FDDoom2BFG9000" },
-  { "FDAliensChainsaw", "FDAliensFist", "FDAliensPistol", "FDAliensSuperShotgun", "FDAliensShotgun", "FDAliensChaingun", "FDAliensRocketLauncher", "FDAliensPlasmaRifle", "FDAliensBFG9000" },
-  { "FDJPCPFist", "FDJPCPPistol", "FDJPCPSuperShotgun", "FDJPCPShotgun", "FDJPCPChaingun", "FDJPCPRocketLauncher", "FDJPCPPlasmaRifle", "FDJPCPBFG9000" },
-  { "FDBTSXChainsaw", "FDBTSXFist", "FDBTSXPistol", "FDBTSXSuperShotgun", "FDBTSXShotgun", "FDBTSXChaingun", "FDBTSXRocketLauncher", "FDBTSXPlasmaRifle", "FDBTSXBFG9000" },
+  {
+    "FDPlutChainsaw", "FDPlutFist",
+    "FDPlutPistol",
+    "FDPlutSuperShotgun", "FDPlutShotgun",
+    "FDPlutChaingun",
+    "FDPlutRocketLauncher",
+    "FDPlutPlasmaRifle",
+    "FDPlutBFG9000"
+  },
+  {
+    "FDTNTChainsaw", "FDTNTFist",
+    "FDTNTPistol",
+    "FDTNTSuperShotgun", "FDTNTShotgun",
+    "FDTNTChaingun",
+    "FDTNTRocketLauncher",
+    "FDTNTPlasmaRifle",
+    "FDTNTBFG9000"
+  },
+  {
+    "FDDoom2Chainsaw", "FDDoom2Fist",
+    "FDDoom2Pistol",
+    "FDDoom2SuperShotgun", "FDDoom2Shotgun",
+    "FDDoom2Chaingun",
+    "FDDoom2RocketLauncher",
+    "FDDoom2PlasmaRifle",
+    "FDDoom2BFG9000"
+  },
+  {
+    "FDAliensChainsaw", "FDAliensFist",
+    "FDAliensPistol",
+    "FDAliensSuperShotgun", "FDAliensShotgun",
+    "FDAliensChaingun",
+    "FDAliensRocketLauncher",
+    "FDAliensPlasmaRifle",
+    "FDAliensBFG9000"
+  },
+  {
+    "FDJPCPFist",
+    "FDJPCPPistol",
+    "FDJPCPSuperShotgun", "FDJPCPShotgun",
+    "FDJPCPChaingun",
+    "FDJPCPRocketLauncher",
+    "FDJPCPPlasmaRifle",
+    "FDJPCPBFG9000"
+  },
+  {
+    "FDBTSXChainsaw", "FDBTSXFist",
+    "FDBTSXPistol",
+    "FDBTSXSuperShotgun", "FDBTSXShotgun",
+    "FDBTSXChaingun",
+    "FDBTSXRocketLauncher",
+    "FDBTSXPlasmaRifle",
+    "FDBTSXBFG9000"
+  },
 
-  { "Motorsaw", "Knuckles", "CombatRifle", "DoubleBarrel", "Riotgun", "Minigun", "RPG", "PulseRifle", "BFG" },
+  {
+    "Motorsaw", "Knuckles",
+    "CombatRifle",
+    "DoubleBarrel", "Riotgun",
+    "Minigun",
+    "RPG",
+    "PulseRifle",
+    "BFG"
+  },
 
   {
     "Z-Gun", "DoomChainsaw", "Axe", "Knife", "DoubleKnuckles", "OmicronRaygun",
@@ -416,7 +519,15 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
+    "Chainsaw", "Fist",
+    "Rifle", "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000"
+  },
 
   { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
   { "Chainsaw", "Fist", "Pistol", "Auto Shotgun", "Super Shotgun", "Shotgun", "Gatling Gun", "Machinegun", "Missile Launcher", "Rocket Launcher", "Plasma Rifle", "BFG9000", "Grenade Launcher" },
@@ -638,6 +749,10 @@ function bool WM_IsSecretWeapon(int wNumber)
 {
   switch (currentSet)
   {
+
+    // Smooth Doom Rifle
+    case  1: return (wNumber == 2);
+
     case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
     case 28: return (wNumber == 3 || wNumber == 9);
     case 29: return (wNumber == 3 || wNumber == 9);
@@ -653,40 +768,24 @@ function bool WM_IsSecretWeapon(int wNumber)
 
 function int WM_GetWeaponSlot(int weaponNumber)
 {
-  if (WM_IsValidWeaponNumber(weaponNumber))
-  {
-    return slots[currentSet][weaponNumber];
-  }
-
-  return 0;
+  return slots[currentSet][weaponNumber];
 }
 
 function str WM_GetWeaponName(int weaponNumber)
 {
-  if (WM_IsValidWeaponNumber(weaponNumber))
-  {
-    return names[currentSet][weaponNumber];
-  }
-
-  return "UnknownWeapon";
+  return names[currentSet][weaponNumber];
 }
 
 function str WM_GetPrintableWeaponName(int weaponNumber)
 {
-  if (WM_IsValidWeaponNumber(weaponNumber))
-  {
-    return printableNames[currentSet][weaponNumber];
-  }
-
-  return "Unknown weapon";
+  return printableNames[currentSet][weaponNumber];
 }
 
 // Returns weaponNumber of next weapon in this slot, or -1 if there is no more
 // weapons in this slot.
-function int getWeaponSibling(int weaponNumber)
+function int WM_GetWeaponSibling(int weaponNumber)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
-  int weaponCount    = weaponCounts[currentSet];
 
   for (int i = 0; i < weaponCount; ++i)
   {
@@ -702,8 +801,6 @@ function int getWeaponSibling(int weaponNumber)
 
 function int getWeaponBySlot(int slotNumber)
 {
-  int weaponCount = weaponCounts[currentSet];
-
   for (int i = 0; i < weaponCount; ++i)
   {
     if (slotNumber == WM_GetWeaponSlot(i) && WM_IsInInventory(i))
@@ -718,7 +815,7 @@ function int getWeaponBySlot(int slotNumber)
 
 // Printing Weapons Menu functions /////////////////////////////////////////////
 
-function void printHudWeapon(
+function void WM_PrintHudWeapon(
   int weaponNumber,
   int position,
   int color,
@@ -726,42 +823,39 @@ function void printHudWeapon(
   int yStart,
   bool highToLow,
   bool numbersOnTheLeft,
-  int stepMultiplier,
+  int stepMultiplied,
   bool showWeaponNames
 )
 {
   int id = messageIdStart + weaponNumber;
 
-  int weaponCount = weaponCounts[currentSet];
-  int step = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
-  step     = (step * stepMultiplier) >> 16;
-  int yStartMax   = 1.0 - step * weaponCount;
-
-  int x  = xStart;
-  yStart = WM_IfThenElse(yStart > yStartMax, yStartMax, yStart);
-  int y  = yStart + WM_IfThenElse(highToLow,
-    (weaponCount - 1 - position) * step,
-    position * step
-  );
+  int y = yStart;
+  if (highToLow) { y += (weaponCount - 1 - position) * stepMultiplied; }
+  else           { y += position * stepMultiplied; }
 
   int slotNumber = WM_GetWeaponSlot(weaponNumber);
-  str delimiter  = " - ";
-  str name       = WM_GetPrintableWeaponName(weaponNumber);
 
   str weaponString;
   if (showWeaponNames)
   {
-    weaponString = WM_IfThenElse(numbersOnTheLeft,
-      StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" "),
-      StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ")
-    );
+    str name = WM_GetPrintableWeaponName(weaponNumber);
+    str delimiter  = " - ";
+
+    if (numbersOnTheLeft)
+    {
+      weaponString = StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" ");
+    }
+    else
+    {
+      weaponString = StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ");
+    }
   }
   else
   {
     weaponString = StrParam(s:" ", i:slotNumber, s:" ");
   }
 
-  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, MINIMAL_HOLD_TIME);
+  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, MINIMAL_HOLD_TIME);
 }
 
 function void WM_SetupFont(void)
@@ -782,8 +876,6 @@ function void WM_SetupFont(void)
 
 function void WM_HighlightSelectedWeapon(void)
 {
-  int weaponCount = weaponCounts[currentSet];
-
   for (int s = 0; s < weaponCount; ++s)
   {
     if (WM_IsSelected(s))
@@ -796,8 +888,6 @@ function void WM_HighlightSelectedWeapon(void)
 
 function int WM_FindRealSelectedWeapon(void)
 {
-  int weaponCount = weaponCounts[currentSet];
-
   for (int i = 0; i < weaponCount; ++i)
   {
     if (WM_IsSelected(i))
@@ -832,7 +922,6 @@ function void WM_SelectWeapon(int weaponNumber)
 function void WM_InitApiCvars(void)
 {
   int playerN     = PlayerNumber();
-  int weaponCount = weaponCounts[currentSet];
 
   SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
@@ -862,10 +951,14 @@ function void WM_PlaySwitchSound(void)
 
 function void WM_Initialize(void)
 {
+  weaponCount = weaponCounts[currentSet];
+  step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon());
   WM_SetHighlightedWeapon(selectedWeapon);
   WM_SetLastUsedWeapon(selectedWeapon);
 
+  WM_RenameWeaponsIfFreedoom();
   WM_InitApiCvars();
 
   lastUsedWeapon = highlightedWeapon;
@@ -903,7 +996,6 @@ function bool WM_IsTitlemap(void)
 
 function bool WM_MenuIsEnabled(void)
 {
-  currentSet = WM_GetWeaponSet();
   bool menuIsEnabled = (currentSet != -1);
   WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
 
@@ -921,6 +1013,27 @@ function bool WM_MenuIsEnabled(void)
   return false;
 }
 
+function bool WM_IsFreeDoom(void)
+{
+  str checkString = StrParam(l:"CC_IMP");
+  return (StrICmp(checkString, "serpentipede") == 0);
+}
+
+function void WM_RenameWeaponsIfFreedoom(void)
+{
+  if (!WM_IsFreedoom()) { return; }
+
+  printableNames[0][0] = "Angle Grinder";
+  printableNames[0][1] = "Fists";
+  printableNames[0][2] = "Handgun";
+  printableNames[0][3] = "Double-barrelled Shotgun";
+  printableNames[0][4] = "Pump-action Shotgun";
+  printableNames[0][5] = "Minigun";
+  printableNames[0][6] = "Missile Launcher";
+  printableNames[0][7] = "Polaric Energy Cannon";
+  printableNames[0][8] = "SKAG 1337";
+}
+
 
 // Scripts section /////////////////////////////////////////////////////////////
 
@@ -928,11 +1041,34 @@ script "ShowWeaponMenu" ENTER
 {
   if (WM_IsTitlemap()) { terminate; }
 
+  currentSet = WM_GetWeaponSet();
+
   bool menuIsEnabled = WM_MenuIsEnabled();
   if (!menuIsEnabled) { terminate; }
 
   int playerN = PlayerNumber();
-  int weaponCount = weaponCounts[currentSet];
+
+  int optionsUpdatePeriod = 10;
+  int optionsUpdateCounter = optionsUpdatePeriod;
+
+  // options
+  int availableWeaponColor;
+  int notAvailableWeaponColor;
+  int highlightedWeaponColor;
+  int selectedWeaponColor;
+
+  bool disableOutput;
+  bool showNotAvailable;
+  bool highToLow;
+  bool numbersOnTheLeft;
+  bool showWeaponNames;
+  int xStart;
+  int yStart;
+  int stepMultiplier;
+  bool highlightSelected;
+
+  int stepMultiplied;
+  int yStartMax;
 
   while (true)
   {
@@ -959,21 +1095,32 @@ script "ShowWeaponMenu" ENTER
 
     if (menuIsOpened)
     {
-      WM_SetupFont();
+      ++optionsUpdateCounter;
+      if (optionsUpdateCounter >= optionsUpdatePeriod)
+      {
+        optionsUpdateCounter = 0;
 
-      int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-      int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-      int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-      int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+        WM_SetupFont();
 
-      bool disableOutput      = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-      bool showNotAvailable   = GetUserCVar(playerN, "M8FShowNotAvailable");
-      bool highToLow          = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
-      bool numbersOnTheLeft   = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-      bool showWeaponNames    = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
-      int xStart              = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-      int yStart              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-      int stepMultiplier      = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+        availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+        notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+        highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+        selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+
+        disableOutput     = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
+        showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
+        highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+        numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+        showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
+        xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+        yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+        stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+        highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+        stepMultiplied = (step * stepMultiplier) >> 16;
+        yStartMax = 1.0 - stepMultiplied * weaponCount;
+        if (yStart > yStartMax) { yStart = yStartMax; }
+      }
 
       int position          = 0;
       int availablePosition = 0;
@@ -993,9 +1140,12 @@ script "ShowWeaponMenu" ENTER
 
         if (WM_IsInInventory(i))
         {
-          if (!disableOutput)
+          bool mustShow = !disableOutput &&
+            (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
+
+          if (mustShow)
           {
-            printHudWeapon(
+            WM_PrintHudWeapon(
               i,
               position,
               availableWeaponColor,
@@ -1003,7 +1153,7 @@ script "ShowWeaponMenu" ENTER
               yStart,
               highToLow,
               numbersOnTheLeft,
-              stepMultiplier,
+              stepMultiplied,
               showWeaponNames
             );
           }
@@ -1013,7 +1163,7 @@ script "ShowWeaponMenu" ENTER
         {
           if (!disableOutput)
           {
-            printHudWeapon(
+            WM_PrintHudWeapon(
               i,
               position,
               notAvailableWeaponColor,
@@ -1021,7 +1171,7 @@ script "ShowWeaponMenu" ENTER
               yStart,
               highToLow,
               numbersOnTheLeft,
-              stepMultiplier,
+              stepMultiplied,
               showWeaponNames
             );
           }
@@ -1031,7 +1181,7 @@ script "ShowWeaponMenu" ENTER
 
       if (!disableOutput)
       {
-        printHudWeapon(
+        WM_PrintHudWeapon(
           highlightedWeapon,
           availablePosition,
           highlightedWeaponColor,
@@ -1039,14 +1189,13 @@ script "ShowWeaponMenu" ENTER
           yStart,
           highToLow,
           numbersOnTheLeft,
-          stepMultiplier,
+          stepMultiplied,
           showWeaponNames
         );
 
-        bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
         if (highlightSelected)
         {
-          printHudWeapon(
+          WM_PrintHudWeapon(
             selectedWeapon,
             holdingPosition,
             selectedWeaponColor,
@@ -1054,7 +1203,7 @@ script "ShowWeaponMenu" ENTER
             yStart,
             highToLow,
             numbersOnTheLeft,
-            stepMultiplier,
+            stepMultiplied,
             showWeaponNames
           );
         }
@@ -1090,7 +1239,6 @@ script "ToggleWeaponMenu" (int highlightSelected)
 
 script "ScrollNextWeapon" (void)
 {
-  int weaponCount = weaponCounts[currentSet];
   int i;
 
   if (menuIsOpened)
@@ -1128,7 +1276,6 @@ script "ScrollNextWeapon" (void)
 
 script "ScrollPreviousWeapon" (void)
 {
-  int weaponCount = weaponCounts[currentSet];
   int i;
 
   if (menuIsOpened)
@@ -1169,7 +1316,7 @@ script "ScrollPreviousWeapon" (void)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
-  if (slotNumber >= weaponCounts[currentSet]) { terminate; }
+  if (slotNumber >= weaponCount) { terminate; }
 
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   bool sameSlot = (slotNumber == currentSlot);
@@ -1181,9 +1328,10 @@ script "SmartWeaponSelection" (int slotNumber)
       int sibling = highlightedWeapon;
       do
       {
-        sibling = getWeaponSibling(sibling);
+        sibling = WM_GetWeaponSibling(sibling);
+        if (sibling == -1) break;
       }
-      while (sibling != -1 && !WM_IsInInventory(sibling));
+      while (!WM_IsInInventory(sibling));
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {
@@ -1237,7 +1385,7 @@ function void WM_HighlightFirstInInventory(int slotNumber)
 
 function bool WM_IsValidWeaponNumber(int weaponNumber)
 {
-  return (0 <= weaponNumber && weaponNumber < weaponCounts[currentSet]);
+  return (0 <= weaponNumber && weaponNumber < weaponCount);
 }
 
 function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
@@ -1308,11 +1456,11 @@ script "WM_RememberWeapon" (int slot)
 
   // save all remembered info
   int playerN = PlayerNumber();
-  int weaponCount = weaponCounts[AUTO_SET];
-  SetUserCVar(playerN, "M8fWeaponMenuRememberedCount", weaponcount);
+  int autoCount = weaponCounts[AUTO_SET];
+  SetUserCVar(playerN, "M8fWeaponMenuRememberedCount", autoCount);
   SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", GetActorClass(0));
 
-  for (int w = 0; w < weaponCount; ++w)
+  for (int w = 0; w < autoCount; ++w)
   {
     str weaponClassVarName = StrParam(s:"M8fWeaponMenuRememberedName", i:w);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuRememberedSlot", i:w);
@@ -1329,20 +1477,20 @@ script "WM_Remember_Start" (void)
 
 script "WM_Remember_Fin" (void)
 {
-  int weaponCount = weaponCounts[AUTO_SET];
+  int autoCount = weaponCounts[AUTO_SET];
 
-  Log(s:"weapon count: ", i:weaponCount);
+  Log(s:"weapon count: ", i:autoCount);
 
   Log(s:"slots: {");
   int i;
-  for (i = 0; i < weaponCount - 1; ++i)
+  for (i = 0; i < autoCount - 1; ++i)
   {
     Log(i:slots[AUTO_SET][i], s:", ");
   }
   Log(i:slots[AUTO_SET][i], s:" }");
 
   Log(s:"weapon classes: {");
-  for (i = 0; i < weaponCount - 1; ++i)
+  for (i = 0; i < autoCount - 1; ++i)
   {
     Log(s:names[AUTO_SET][i], s:", ");
   }
@@ -1352,10 +1500,10 @@ script "WM_Remember_Fin" (void)
 function void WM_LoadRemembered(void)
 {
   int playerN = PlayerNumber();
-  int weaponCount = GetUserCVar(playerN, "M8fWeaponMenuRememberedCount");
-  weaponCounts[AUTO_SET] = weaponCount;
+  int autoCount = GetUserCVar(playerN, "M8fWeaponMenuRememberedCount");
+  weaponCounts[AUTO_SET] = autoCount;
 
-  for (int i = 0; i < weaponCount; ++i)
+  for (int i = 0; i < autoCount; ++i)
   {
     str weaponClassVarName = StrParam(s:"M8fWeaponMenuRememberedName", i:i);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuRememberedSlot", i:i);
