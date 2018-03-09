@@ -958,6 +958,7 @@ function void WM_Initialize(void)
   WM_SetHighlightedWeapon(selectedWeapon);
   WM_SetLastUsedWeapon(selectedWeapon);
 
+  WM_RenameWeaponsIfFreedoom();
   WM_InitApiCvars();
 
   lastUsedWeapon = highlightedWeapon;
@@ -1046,8 +1047,6 @@ script "ShowWeaponMenu" ENTER
   if (!menuIsEnabled) { terminate; }
 
   int playerN = PlayerNumber();
-
-  WM_RenameWeaponsIfFreedoom();
 
   int optionsUpdatePeriod = 10;
   int optionsUpdateCounter = optionsUpdatePeriod;
