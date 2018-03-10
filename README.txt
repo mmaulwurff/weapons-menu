@@ -3,6 +3,8 @@ Weapon Menu Mod for GZDoom and Zandronum
 Usage:
 
 1. Assign controls in Options -> Customize controls -> "Weapon Menu Keys".
+   Every control is optional. Menu works fine in combination with standard weapon
+   selection.
 
 2. Open Weapons Menu by pressing assigned Smart Selection Keys or Open/Close Menu key.
 
@@ -20,12 +22,13 @@ Usage:
    Some options take effect only after Options are closed.
 
 Features:
-- provides ability to fast weapon selection even without using number row keys.
+- allows fast and reliable weapon selection.
 - with menu, you see what you are about to select. No more blind weapon choices!
 - last used weapon quick access (by assigned key).
 - configurable colors, fonts, and positions.
+- configurable controls. Just don't assign keys for features you don't want.
 - works with any HUD.
-- autoload safe! If weapon set isn't recognized, standard weapon selection is used.
+- safe. If weapon set isn't recognized, standard weapon selection is used.
 - secret weapons that appear in Menu only when you have them (some mods).
 - works with almost any weapon set.
 - API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
@@ -185,4 +188,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.1.
+Version: 1.3.
