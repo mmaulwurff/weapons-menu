@@ -60,7 +60,7 @@ Weapon Menu supports the following weapons out of the box:
 7. HXRTC Project Final Edition (Revised 17 feb 2018)
    https://forum.zdoom.org/viewtopic.php?f=43&t=48074
 
-8. Kriegsland: Blutordnung (2.3 04/02/18)
+8. Kriegsland: Blutorden (2.3 04/02/18)
    https://forum.zdoom.org/viewtopic.php?f=43&t=57053
 
 9. Complex Doom V27a3
