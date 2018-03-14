@@ -20,7 +20,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (32)
+#define SETS_NUMBER (35)
 #define MAX_WEAPONS_NUMBER (50)
 #define AUTO_SET 26
 
@@ -54,6 +54,9 @@ str playerClassNames[SETS_NUMBER] =
   "Doomer2",           // 29. Brutal Doom - Pistal Start
   "TacticalDoomer",    // 30. Brutal Doom - Tactical Mode
   "CollabWeaponGuy",   // 31. Combined Arms v1.0
+  "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
+  "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
+  "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -83,6 +86,9 @@ int weaponCounts[SETS_NUMBER] =
   22, // Brutal Doom - Doomer2
   22, // Brutal Doom - TacticalDoomer
   12, // Combined Arms
+  12, // Trailblazer - Doom
+  12, // Trailblazer - Heretic
+  12, // Trailblazer - Hexen
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -173,6 +179,10 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Tactical
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 8 }, // Combined Arms
+
+  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 }, // Trailblazer
+  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
+  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
 
 };
 
@@ -505,6 +515,34 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "havocrebounder", "tsbrick", "FlareGun"
   },
 
+  { // Trailblazer
+    "Macheterang", "SpikebombWeapon",
+    "Colts", "Sidekick",
+    "Fleshrend", "ChromeJustice",
+    "Leadspitter", "FMG",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
+  },
+  { // Trailblazer
+    "Macheterang", "SpikebombWeapon",
+    "Colts", "Sidekick",
+    "Fleshrend", "ChromeJustice",
+    "Leadspitter", "FMG",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
+  },
+  { // Trailblazer
+    "Macheterang", "SpikebombWeapon",
+    "Colts", "Sidekick",
+    "Fleshrend", "ChromeJustice",
+    "Leadspitter", "FMG",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -741,6 +779,34 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Buster Rifle",
     "Daibatana",
     "Havoc Rebounder", "Plakanomicon", "ZT Prototype Flare Gun"
+  },
+
+  { // Trailblazer
+    "Macheterang", "Spikebombs",
+    "Cradle & Grave", "Sidekick",
+    "Fleshrend", "Chrome Justice",
+    "Leadspitter", "F.M.G.",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
+  },
+  { // Trailblazer
+    "Macheterang", "Spikebombs",
+    "Cradle & Grave", "Sidekick",
+    "Fleshrend", "Chrome Justice",
+    "Leadspitter", "F.M.G.",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
+  },
+  { // Trailblazer
+    "Macheterang", "Spikebombs",
+    "Cradle & Grave", "Sidekick",
+    "Fleshrend", "Chrome Justice",
+    "Leadspitter", "F.M.G.",
+    "Bitchmaker", "Patriarch",
+    "Skullthrottle",
+    "Nutcracker",
   },
 
 }; // end of printable names
