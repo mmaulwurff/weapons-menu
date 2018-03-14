@@ -103,8 +103,10 @@ Weapon Menu supports the following weapons out of the box:
     https://freedoom.github.io/index.html
 
 23. Smooth Doom (2018-01-13)
-    https://forum.zdoom.org/viewtopic.php?f=43&t=45550&hilit=smooth+doom
+    https://forum.zdoom.org/viewtopic.php?f=43&t=45550
 
+24. Trailblazer v1.4b
+    https://forum.zdoom.org/viewtopic.php?f=43&t=47494
 
 
 Other weapons are supported, but required initial setup:
@@ -188,4 +190,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.3.
+Version: 1.4.
