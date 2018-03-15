@@ -7,6 +7,8 @@ user float M8FWeaponMenuStepMultiplier = 1.0;
 
 user bool M8fWeaponMenuShowNames = true;
 
+user int M8fWeaponMenuLastUsedWeapon = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
