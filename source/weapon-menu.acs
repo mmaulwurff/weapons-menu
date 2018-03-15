@@ -1171,7 +1171,7 @@ script "ShowWeaponMenu" ENTER
       {
         optionsUpdateCounter = 0;
 
-        WM_SetupFont();
+        //WM_SetupFont();
 
         availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
         notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");

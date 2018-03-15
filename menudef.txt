@@ -60,8 +60,5 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "be out of screen with big values)"
 
   StaticText ""
-  Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
-  ScaleSlider "Text scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
-  StaticText "(Also affects Messages scale)"
   Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.5, 3.0, 0.1
 }
