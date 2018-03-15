@@ -1110,10 +1110,23 @@ script "ShowWeaponMenu" ENTER
 
   currentSet = WM_GetWeaponSet();
 
-  bool menuIsEnabled = WM_MenuIsEnabled();
-  if (!menuIsEnabled) { terminate; }
-
   int playerN = PlayerNumber();
+
+  bool menuIsEnabled = WM_MenuIsEnabled();
+  if (!menuIsEnabled)
+  {
+    while (true)
+    {
+      if (menuIsOpened)
+      {
+        int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+        int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+        HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
+                   HUDMSG_PLAIN, messageIdStart, CR_RED, stubXStart, stubYStart, MINIMAL_HOLD_TIME);
+      }
+      Delay(1);
+    }
+  }
 
   int optionsUpdatePeriod = 10;
   int optionsUpdateCounter = optionsUpdatePeriod;

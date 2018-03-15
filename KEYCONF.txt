@@ -8,7 +8,7 @@ alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
 alias WeaponMenuToggle "pukename ToggleWeaponMenu true"
 addmenukey "Open/close menu" toggle_menu
-alias toggle_menu "test $M8FWeaponMenuIsEnabled WeaponMenuToggle"
+alias toggle_menu "WeaponMenuToggle"
 defaultbind m toggle_menu
 
 alias WeaponMenuNext "pukename scrollnextweapon"
