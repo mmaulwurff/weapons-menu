@@ -6,8 +6,12 @@ addmenukey "Fire/Close menu" +fire_close_menu
 alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
+addmenukey "Alt Fire/Close menu" +alt_fire_close_menu
+alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +altattack"
+alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
+
 alias WeaponMenuToggle "pukename ToggleWeaponMenu true"
-addmenukey "Open/close menu" toggle_menu
+addmenukey "Toggle menu" toggle_menu
 alias toggle_menu "WeaponMenuToggle"
 defaultbind m toggle_menu
 
