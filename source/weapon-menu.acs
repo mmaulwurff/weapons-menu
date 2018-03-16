@@ -1025,7 +1025,14 @@ function void WM_Initialize(void)
 
   int playerN = PlayerNumber();
   int lastUsedWeaponLoaded = GetUserCVar(playerN, "M8fWeaponMenuLastUsedWeapon");
-  WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
+  if (lastUsedWeaponLoaded == -1 || !WM_IsInInventory(lastUsedWeaponLoaded))
+  {
+    WM_SetLastUsedWeapon(selectedWeapon);
+  }
+  else
+  {
+    WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
+  }
 
   WM_RenameWeaponsIfFreedoom();
   WM_InitApiCvars();
@@ -1591,6 +1598,9 @@ script "WM_Remember_Fin" (void)
     Log(s:names[AUTO_SET][i], s:", ");
   }
   Log(s:names[AUTO_SET][i], s:" }");
+
+  // reset last used weapon
+  WM_SetLastUsedWeapon(-1);
 }
 
 function void WM_LoadRemembered(void)
