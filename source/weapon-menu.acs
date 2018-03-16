@@ -20,7 +20,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (35)
+#define SETS_NUMBER (37)
 #define MAX_WEAPONS_NUMBER (50)
 #define AUTO_SET 26
 
@@ -28,35 +28,43 @@ int step = 0;
 
 str playerClassNames[SETS_NUMBER] =
 {
-  "DoomPlayer",        // 0. Standard
-  "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
-  "EriPlayer", "AltPlayer", "HellPlayer", // 2-4. Eriguns
-  "BD_DoomPlayer",     // 5. Beautiful Doom
-  "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player",
-  "FDAliensPlayer", "FDJPCPPlayer", "FDBTSXPlayer", // 6-11. Final Doomer
-  "FasPlayer",         // 12. Faspons
-  "HXRTCPlayer",       // 13. HXRTC Project
-  "FKPlayer",          // 14. Kriegsland
-  "ComplexDoomPlayer", // 15. Complex Doom V27a3
-  "SaturnPlayer",      // 16. Weapons of Saturn October 31, 2017
-  "DoomMarine",        // 17. Hard-Doom v8.1.1
-  "HereticPlayer",     // 18. Heretic
-  "ChexPlayer",        // 19. Chex Quest (Single Player)
-  "StrifePlayer",      // 20. Strife
-  "ArgPlayer",         // 21. Argent (v0.5.3)
-  "64DoomPlayer",      // 22. Doom 64 'weapons only' X (updated 5-29-2016)
-  "DoomPlayerFixed",   // 23. Responsive Weapons + Faster Weapon Switching
-  "Xplayer",           // 24. Dead Marine v0.9.3
-  "ParkourPlayer",     // 25. Parkour v1.1
-  "Autodetected",      // 26. Autodetected
-  "Purist",            // 27. Brutal Doom 21 test feb24 - Purist
-  "BDoomer",           // 28. Brutal Doom - Rifle Start
-  "Doomer2",           // 29. Brutal Doom - Pistal Start
-  "TacticalDoomer",    // 30. Brutal Doom - Tactical Mode
-  "CollabWeaponGuy",   // 31. Combined Arms v1.0
+  "DoomPlayer",          //  0. Standard
+  "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
+  "EriPlayer",           //  2. Eriguns - Standard weapons
+  "AltPlayer",           //  3. Eriguns - Extended weapons
+  "HellPlayer",          //  4. Eriguns - Hell weapons
+  "BD_DoomPlayer",       //  5. Beautiful Doom
+  "FDPlutPlayer",        //  6. Final Doomer - Plutonia
+  "FDTNTPlayer",         //  7. Final Doomer - TNT
+  "FDDoom2Player",       //  8. Final Doomer - Doom 2
+  "FDAliensPlayer",      //  9. Final Doomer - Ancient Aliens
+  "FDJPCPPlayer",        // 10. Final Doomer - JPCP
+  "FDBTSXPlayer",        // 11. Final Doomer - BTSX
+  "FasPlayer",           // 12. Faspons
+  "HXRTCPlayer",         // 13. HXRTC Project
+  "FKPlayer",            // 14. Kriegsland
+  "ComplexDoomPlayer",   // 15. Complex Doom V27a3
+  "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
+  "DoomMarine",          // 17. Hard-Doom v8.1.1
+  "HereticPlayer",       // 18. Heretic
+  "ChexPlayer",          // 19. Chex Quest (Single Player)
+  "StrifePlayer",        // 20. Strife
+  "ArgPlayer",           // 21. Argent (v0.5.3)
+  "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
+  "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
+  "Xplayer",             // 24. Dead Marine v0.9.3
+  "ParkourPlayer",       // 25. Parkour v1.1
+  "Autodetected",        // 26. Autodetected
+  "Purist",              // 27. Brutal Doom 21 test feb24 - Purist
+  "BDoomer",             // 28. Brutal Doom - Rifle Start
+  "Doomer2",             // 29. Brutal Doom - Pistal Start
+  "TacticalDoomer",      // 30. Brutal Doom - Tactical Mode
+  "CollabWeaponGuy",     // 31. Combined Arms v1.0
   "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
   "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
+  "WWColaPlayer",        // 35. WW-Cola3
+  "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -89,6 +97,8 @@ int weaponCounts[SETS_NUMBER] =
   12, // Trailblazer - Doom
   12, // Trailblazer - Heretic
   12, // Trailblazer - Hexen
+  8,  // WW-Cola3
+  8,  // WW-Cola3 - Hexen
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -183,6 +193,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 }, // Trailblazer
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
+
+  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3
+  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3 - Hexen
 
 };
 
@@ -543,6 +556,25 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Nutcracker",
   },
 
+  { // WW-Cola3
+    "ColaHandgun",
+    "PumpShotgun", "DualPumpShotgun",
+    "CardThrower",
+    "PlasmaAutorifle",
+    "MissileLauncher",
+    "Piledriver",
+    "ToothpasteLaser",
+  },
+  { // WW-Cola3
+    "ColaHandgun",
+    "PumpShotgun", "DualPumpShotgun",
+    "CardThrower",
+    "PlasmaAutorifle",
+    "MissileLauncher",
+    "Piledriver",
+    "ToothpasteLaser",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -807,6 +839,25 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Bitchmaker", "Patriarch",
     "Skullthrottle",
     "Nutcracker",
+  },
+
+  { // WW-Cola3
+    "Marston R-1 Techvolver",
+    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+    "Kare Brand Cards",
+    "Plasma Autorifle",
+    "Sidewinder Missile Launcher",
+    "Piledriver",
+    "Toothpaste Laser",
+  },
+  { // WW-Cola3
+    "Marston R-1 Techvolver",
+    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+    "Kare Brand Cards",
+    "Plasma Autorifle",
+    "Sidewinder Missile Launcher",
+    "Piledriver",
+    "Toothpaste Laser",
   },
 
 }; // end of printable names

@@ -108,6 +108,9 @@ Weapon Menu supports the following weapons out of the box:
 24. Trailblazer v1.4b
     https://forum.zdoom.org/viewtopic.php?f=43&t=47494
 
+25. WW-Cola3
+    https://forum.zdoom.org/viewtopic.php?f=43&t=55465
+
 
 Other weapons are supported, but required initial setup:
 
@@ -190,4 +193,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.4.
+Version: 1.5.
