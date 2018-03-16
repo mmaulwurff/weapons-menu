@@ -45,7 +45,7 @@ str playerClassNames[SETS_NUMBER] =
   "FKPlayer",            // 14. Kriegsland
   "ComplexDoomPlayer",   // 15. Complex Doom V27a3
   "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
-  "DoomMarine",          // 17. Hard-Doom v8.1.1
+  "DoomMarine",          // 17. Hard-Doom v8.2f
   "HereticPlayer",       // 18. Heretic
   "ChexPlayer",          // 19. Chex Quest (Single Player)
   "StrifePlayer",        // 20. Strife

@@ -69,7 +69,7 @@ Weapon Menu supports the following weapons out of the box:
 10. Weapons of Saturn (October 31, 2017)
     https://forum.zdoom.org/viewtopic.php?f=43&t=36821
 
-11. Hard-Doom v8.1.1
+11. Hard-Doom v8.2f
     https://forum.zdoom.org/viewtopic.php?f=43&t=45145
 
 12. Heretic IWAD weapons (not tested)
