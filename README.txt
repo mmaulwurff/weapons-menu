@@ -69,7 +69,7 @@ Weapon Menu supports the following weapons out of the box:
 10. Weapons of Saturn (October 31, 2017)
     https://forum.zdoom.org/viewtopic.php?f=43&t=36821
 
-11. Hard-Doom v8.1.1
+11. Hard-Doom v8.2f
     https://forum.zdoom.org/viewtopic.php?f=43&t=45145
 
 12. Heretic IWAD weapons (not tested)
@@ -107,6 +107,9 @@ Weapon Menu supports the following weapons out of the box:
 
 24. Trailblazer v1.4b
     https://forum.zdoom.org/viewtopic.php?f=43&t=47494
+
+25. WW-Cola3
+    https://forum.zdoom.org/viewtopic.php?f=43&t=55465
 
 
 Other weapons are supported, but required initial setup:
@@ -190,4 +193,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.4.
+Version: 1.5.

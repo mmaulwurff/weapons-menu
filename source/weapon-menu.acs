@@ -1,13 +1,14 @@
 #library "LIBWEAPONMENU"
 #include "zcommon.acs"
 
-#define MINIMAL_HOLD_TIME (1873)
-#define messageIdStart (191919)
+#define MINIMAL_HOLD_TIME 1873
+#define messageIdStart 191919
 
 
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
+bool menuIsEnabled  = false;
 bool menuIsOpened   = false;
 int  currentSet     = -1;
 
@@ -20,43 +21,52 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (35)
-#define MAX_WEAPONS_NUMBER (50)
+#define SETS_NUMBER 38
+#define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
 // Known weapon sets and player classes:
 
 str playerClassNames[SETS_NUMBER] =
 {
-  "DoomPlayer",        // 0. Standard
-  "PerkDPlayer",       // 1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
-  "EriPlayer", "AltPlayer", "HellPlayer", // 2-4. Eriguns
-  "BD_DoomPlayer",     // 5. Beautiful Doom
-  "FDPlutPlayer", "FDTNTPlayer", "FDDoom2Player",
-  "FDAliensPlayer", "FDJPCPPlayer", "FDBTSXPlayer", // 6-11. Final Doomer
-  "FasPlayer",         // 12. Faspons
-  "HXRTCPlayer",       // 13. HXRTC Project
-  "FKPlayer",          // 14. Kriegsland
-  "ComplexDoomPlayer", // 15. Complex Doom V27a3
-  "SaturnPlayer",      // 16. Weapons of Saturn October 31, 2017
-  "DoomMarine",        // 17. Hard-Doom v8.1.1
-  "HereticPlayer",     // 18. Heretic
-  "ChexPlayer",        // 19. Chex Quest (Single Player)
-  "StrifePlayer",      // 20. Strife
-  "ArgPlayer",         // 21. Argent (v0.5.3)
-  "64DoomPlayer",      // 22. Doom 64 'weapons only' X (updated 5-29-2016)
-  "DoomPlayerFixed",   // 23. Responsive Weapons + Faster Weapon Switching
-  "Xplayer",           // 24. Dead Marine v0.9.3
-  "ParkourPlayer",     // 25. Parkour v1.1
-  "Autodetected",      // 26. Autodetected
-  "Purist",            // 27. Brutal Doom 21 test feb24 - Purist
-  "BDoomer",           // 28. Brutal Doom - Rifle Start
-  "Doomer2",           // 29. Brutal Doom - Pistal Start
-  "TacticalDoomer",    // 30. Brutal Doom - Tactical Mode
-  "CollabWeaponGuy",   // 31. Combined Arms v1.0
+  "DoomPlayer",          //  0. Standard
+  "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
+  "EriPlayer",           //  2. Eriguns - Standard weapons
+  "AltPlayer",           //  3. Eriguns - Extended weapons
+  "HellPlayer",          //  4. Eriguns - Hell weapons
+  "BD_DoomPlayer",       //  5. Beautiful Doom
+  "FDPlutPlayer",        //  6. Final Doomer - Plutonia
+  "FDTNTPlayer",         //  7. Final Doomer - TNT
+  "FDDoom2Player",       //  8. Final Doomer - Doom 2
+  "FDAliensPlayer",      //  9. Final Doomer - Ancient Aliens
+  "FDJPCPPlayer",        // 10. Final Doomer - JPCP
+  "FDBTSXPlayer",        // 11. Final Doomer - BTSX
+  "FasPlayer",           // 12. Faspons
+  "HXRTCPlayer",         // 13. HXRTC Project
+  "FKPlayer",            // 14. Kriegsland
+  "ComplexDoomPlayer",   // 15. Complex Doom V27a3
+  "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
+  "DoomMarine",          // 17. Hard-Doom v8.2f
+  "HereticPlayer",       // 18. Heretic
+  "ChexPlayer",          // 19. Chex Quest (Single Player)
+  "StrifePlayer",        // 20. Strife
+  "ArgPlayer",           // 21. Argent (v0.5.3)
+  "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
+  "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
+  "Xplayer",             // 24. Dead Marine v0.9.3
+  "ParkourPlayer",       // 25. Parkour v1.1
+  "Autodetected",        // 26. Autodetected
+  "Purist",              // 27. Brutal Doom 21 test feb24 - Purist
+  "BDoomer",             // 28. Brutal Doom - Rifle Start
+  "Doomer2",             // 29. Brutal Doom - Pistal Start
+  "TacticalDoomer",      // 30. Brutal Doom - Tactical Mode
+  "CollabWeaponGuy",     // 31. Combined Arms v1.0
   "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
   "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
+  "WWColaPlayer",        // 35. WW-Cola3
+  "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
+  "Eilidh"               // 37. Netronian Chaos v3
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -89,6 +99,9 @@ int weaponCounts[SETS_NUMBER] =
   12, // Trailblazer - Doom
   12, // Trailblazer - Heretic
   12, // Trailblazer - Hexen
+  8,  // WW-Cola3
+  8,  // WW-Cola3 - Hexen
+  24, // Netronian Chaos
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -183,6 +196,20 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 }, // Trailblazer
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
+
+  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3
+  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3 - Hexen
+
+  { // Netronian Chaos
+    1, 1, 1,
+    2, 2, 2,
+    3, 3, 3,
+    4, 4, 4,
+    5, 5, 5,
+    6, 6, 6,
+    7, 7, 7,
+    8, 8, 8
+  },
 
 };
 
@@ -543,6 +570,36 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Nutcracker",
   },
 
+  { // WW-Cola3
+    "ColaHandgun",
+    "PumpShotgun", "DualPumpShotgun",
+    "CardThrower",
+    "PlasmaAutorifle",
+    "MissileLauncher",
+    "Piledriver",
+    "ToothpasteLaser",
+  },
+  { // WW-Cola3
+    "ColaHandgun",
+    "PumpShotgun", "DualPumpShotgun",
+    "CardThrower",
+    "PlasmaAutorifle",
+    "MissileLauncher",
+    "Piledriver",
+    "ToothpasteLaser",
+  },
+
+  { // Netronian Chaos
+    "LB1000PileBanger", "AnaikaDagger", "M101Blade",
+    "EG10HeavyPistol", "V57BurstPistol", "V96ServicePistol",
+    "FASR33AssaultSupporter", "VS4Sweeper", "VS2Riotgun",
+    "PAG20PDW", "V80BSMG", "V88Carbine",
+    "VARACarbine", "AG100Machinegun", "V74ARifle",
+    "M12FMGR", "V32AARifle", "V50MLauncher",
+    "M189Auto", "V99AThrower", "VE1Coilgun",
+    "HeavyBarrel", "VM201TD", "Ver110VC"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -567,20 +624,111 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000"
   },
 
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
-  { "Chainsaw", "Fist", "Pistol", "Auto Shotgun", "Super Shotgun", "Shotgun", "Gatling Gun", "Machinegun", "Missile Launcher", "Rocket Launcher", "Plasma Rifle", "BFG9000", "Grenade Launcher" },
-  { "Vorpal Blade", "Fist", "Super Immolator", "Immolator", "Bloodbane", "Nailgun", "Mauler", "Hellforge", "Irebolt", "Soul Caster", "Hydra", "Basilisk", "Soul Reaver" },
+  { // Eriguns
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000"
+  },
+  {
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Auto Shotgun", "Super Shotgun", "Shotgun",
+    "Gatling Gun", "Machinegun",
+    "Missile Launcher", "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000",
+    "Grenade Launcher"
+  },
+  {
+    "Vorpal Blade", "Fist",
+    "Super Immolator", "Immolator",
+    "Bloodbane",
+    "Nailgun",
+    "Mauler",
+    "Hellforge", "Irebolt",
+    "Soul Caster",
+    "Hydra", "Basilisk",
+    "Soul Reaver"
+  },
 
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { // Beautiful Doom
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000"
+  },
 
-  { "Power Saw", "Melee", "Ol' Faithful", "Super Shotgun", "Scoped Shotgun", "Machine Gun", "Grenade Launcher", "Heavy Machine Gun", "Quantum Accelerator" },
-  { "Halderman Device", "Melee", "Prototype Pistol", "Burst Shotgun", "Tactical Shotgun", "Dual Uzis", "Missile Launcher", "Maser", "Incursion Annihilator" },
-  { "Chainsaw", "Melee", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG 9000" },
-  { "Stasis Bow", "Trench Knife", "Ancient Pistol", "Hybrid SSG", "Ancient Shotgun", "Ancient AK", "Photon Scepter", "Alien Elite Weapon", "Illuminator" },
-  { "Katana", "Silenced Pistol", "Neutron Cascader", "Neutron Pulser", "Burst Needler", "Prism Cannon", "Ofuda Caster", "Onmyou Devastator" },
-  { "NanoCore", "Power Fist", "Charge Pistol", "Machreaper", "Arc Blaster", "Pulse Rifle", "Pulse Cannon", "Plasma Vulcan", "X-Spark Cannon" },
+  { // Final Doomer
+    "Power Saw", "Melee",
+    "Ol' Faithful",
+    "Super Shotgun", "Scoped Shotgun",
+    "Machine Gun",
+    "Grenade Launcher",
+    "Heavy Machine Gun",
+    "Quantum Accelerator"
+  },
+  {
+    "Halderman Device", "Melee",
+    "Prototype Pistol",
+    "Burst Shotgun", "Tactical Shotgun",
+    "Dual Uzis",
+    "Missile Launcher",
+    "Maser",
+    "Incursion Annihilator"
+  },
+  {
+    "Chainsaw", "Melee",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
+  },
+  {
+    "Stasis Bow", "Trench Knife",
+    "Ancient Pistol",
+    "Hybrid SSG", "Ancient Shotgun",
+    "Ancient AK",
+    "Photon Scepter",
+    "Alien Elite Weapon",
+    "Illuminator"
+  },
+  {
+    "Katana",
+    "Silenced Pistol",
+    "Neutron Cascader", "Neutron Pulser",
+    "Burst Needler",
+    "Prism Cannon",
+    "Ofuda Caster",
+    "Onmyou Devastator"
+  },
+  {
+    "NanoCore", "Power Fist",
+    "Charge Pistol",
+    "Machreaper", "Arc Blaster",
+    "Pulse Rifle",
+    "Pulse Cannon",
+    "Plasma Vulcan",
+    "X-Spark Cannon"
+  },
 
-  { "Chainsaw", "Knuckles", "Combat Rifle", "Double Barrel Shotgun", "Riotgun", "Minigun", "RPG", "Pulse Rifle", "BFG9000" },
+  { // Faspons
+    "Chainsaw", "Knuckles",
+    "Combat Rifle",
+    "Double Barrel Shotgun", "Riotgun",
+    "Minigun",
+    "RPG",
+    "Pulse Rifle",
+    "BFG9000"
+  },
 
   {
     "Z-Gun", "Chainsaw", "Hatchet", "Knife", "Double Knuckles", "Omicron Raygun",
@@ -809,6 +957,36 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Nutcracker",
   },
 
+  { // WW-Cola3
+    "Marston R-1 Techvolver",
+    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+    "Kare Brand Cards",
+    "Plasma Autorifle",
+    "Sidewinder Missile Launcher",
+    "Piledriver",
+    "Toothpaste Laser",
+  },
+  { // WW-Cola3
+    "Marston R-1 Techvolver",
+    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+    "Kare Brand Cards",
+    "Plasma Autorifle",
+    "Sidewinder Missile Launcher",
+    "Piledriver",
+    "Toothpaste Laser",
+  },
+
+  { // Netronian Chaos
+    "Pile Banger Glove", "Anaika Hunting Daggers", "Digitalblade",
+    "Heavy Caliber Pistol", "Burst Pistol", "Service Pistol",
+    "Assault Supporter", "Hand Sweeper", "Riotgun",
+    "Personal Defence Arm", "Burst SMG", "Machine Carbine",
+    "Semi Auto Rifle", "Squad Support Gun", "Combat Rifle",
+    "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
+    "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
+    "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
+  },
+
 }; // end of printable names
 
 function bool WM_IsSecretWeapon(int wNumber)
@@ -881,6 +1059,133 @@ function int getWeaponBySlot(int slotNumber)
 
 // Printing Weapons Menu functions /////////////////////////////////////////////
 
+function void WM_UpdateMenu(void)
+{
+  if (menuIsOpened) { WM_PrintMenu();   }
+  else              { WM_ClearScreen(); }
+}
+
+function void WM_ClearScreen(void)
+{
+  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart, CR_RED, 0.0, 0.0, 0);
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    int id = messageIdStart + i;
+    HudMessage(s:""; HUDMSG_PLAIN, id, CR_RED, 0.0, 0.0, 0);
+  }
+}
+
+function void WM_PrintMenu(void)
+{
+  int playerN = PlayerNumber();
+  bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
+  if (disableOutput) { return; }
+
+  if (!menuIsEnabled)
+  {
+    int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+    int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+    HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
+               HUDMSG_PLAIN, messageIdStart, CR_RED, stubXStart, stubYStart, 0);
+    return;
+  }
+
+  int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+  int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+  int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+  int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+
+  bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
+  bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+  bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+  bool showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
+  int xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+  int yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+  int stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+  bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+  int stepMultiplied = (step * stepMultiplier) >> 16;
+  int yStartMax = 1.0 - stepMultiplied * weaponCount;
+  if (yStart > yStartMax) { yStart = yStartMax; }
+
+  int position          = 0;
+  int availablePosition = 0;
+  int holdingPosition   = 0;
+
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    // remember position of selected weapon
+    if (i == highlightedWeapon) { availablePosition = position; }
+    if (i == selectedWeapon)    { holdingPosition   = position; }
+
+    if (WM_IsInInventory(i))
+    {
+      bool mustShow = !disableOutput &&
+        (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
+
+      if (mustShow)
+      {
+        WM_PrintHudWeapon(i,
+                          position,
+                          availableWeaponColor,
+                          xStart,
+                          yStart,
+                          highToLow,
+                          numbersOnTheLeft,
+                          stepMultiplied,
+                          showWeaponNames
+        );
+      }
+      position += 1;
+    }
+    else if (showNotAvailable && !WM_IsSecretWeapon(i))
+    {
+      if (!disableOutput)
+      {
+        WM_PrintHudWeapon(i,
+                          position,
+                          notAvailableWeaponColor,
+                          xStart,
+                          yStart,
+                          highToLow,
+                          numbersOnTheLeft,
+                          stepMultiplied,
+                          showWeaponNames
+        );
+      }
+      position += 1;
+    }
+  }
+
+  if (!disableOutput && WM_IsInInventory(highlightedWeapon))
+  {
+    WM_PrintHudWeapon(highlightedWeapon,
+                      availablePosition,
+                      highlightedWeaponColor,
+                      xStart,
+                      yStart,
+                      highToLow,
+                      numbersOnTheLeft,
+                      stepMultiplied,
+                      showWeaponNames
+    );
+
+    if (highlightSelected && WM_IsInInventory(selectedWeapon))
+    {
+      WM_PrintHudWeapon(selectedWeapon,
+                        holdingPosition,
+                        selectedWeaponColor,
+                        xStart,
+                        yStart,
+                        highToLow,
+                        numbersOnTheLeft,
+                        stepMultiplied,
+                        showWeaponNames
+      );
+    }
+  }
+}
+
 function void WM_PrintHudWeapon(
   int weaponNumber,
   int position,
@@ -921,7 +1226,7 @@ function void WM_PrintHudWeapon(
     weaponString = StrParam(s:" ", i:slotNumber, s:" ");
   }
 
-  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, MINIMAL_HOLD_TIME);
+  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, 0);
 }
 
 function void WM_SetupFont(void)
@@ -1025,7 +1330,14 @@ function void WM_Initialize(void)
 
   int playerN = PlayerNumber();
   int lastUsedWeaponLoaded = GetUserCVar(playerN, "M8fWeaponMenuLastUsedWeapon");
-  WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
+  if (lastUsedWeaponLoaded == -1 || !WM_IsInInventory(lastUsedWeaponLoaded))
+  {
+    WM_SetLastUsedWeapon(selectedWeapon);
+  }
+  else
+  {
+    WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
+  }
 
   WM_RenameWeaponsIfFreedoom();
   WM_InitApiCvars();
@@ -1061,23 +1373,24 @@ function bool WM_IsTitlemap(void)
   return (StrICmp(mapLumpName, "TITLEMAP") == 0);
 }
 
-function bool WM_MenuIsEnabled(void)
+function bool WM_MenuIsEnabled(int weaponSet)
 {
-  bool menuIsEnabled = (currentSet != -1);
+  bool isEnabled = (weaponSet != -1);
   WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
 
-  if (menuIsEnabled)
+  if (isEnabled)
   {
     WM_Initialize();
     Log(s:"Weapon menu is loaded.");
-    return true;
+  }
+  else
+  {
+    Log(s:"Weapon Menu: unknown player class: ",
+        s:GetActorClass(0),
+        s:", menu is disabled.\nYou can try 'wmauto' in console.");
   }
 
-  Log(s:"Weapon Menu: unknown player class: ",
-      s:GetActorClass(0),
-      s:", menu is disabled.\n",
-      s:"You can try 'wmauto' in console.");
-  return false;
+  return isEnabled;
 }
 
 function bool WM_IsFreeDoom(void)
@@ -1101,6 +1414,12 @@ function void WM_RenameWeaponsIfFreedoom(void)
   printableNames[0][8] = "SKAG 1337";
 }
 
+function bool WM_IsOpenOnScroll(void)
+{
+  int playerN = PlayerNumber();
+  return GetUserCVar(playerN, "M8fWeaponMenuOpenOnScroll");
+}
+
 
 // Scripts section /////////////////////////////////////////////////////////////
 
@@ -1109,34 +1428,10 @@ script "ShowWeaponMenu" ENTER
   if (WM_IsTitlemap()) { terminate; }
 
   currentSet = WM_GetWeaponSet();
-
-  bool menuIsEnabled = WM_MenuIsEnabled();
+  menuIsEnabled = WM_MenuIsEnabled(currentSet);
   if (!menuIsEnabled) { terminate; }
 
-  int playerN = PlayerNumber();
-
-  int optionsUpdatePeriod = 10;
-  int optionsUpdateCounter = optionsUpdatePeriod;
-
   // options
-  int availableWeaponColor;
-  int notAvailableWeaponColor;
-  int highlightedWeaponColor;
-  int selectedWeaponColor;
-
-  bool disableOutput;
-  bool showNotAvailable;
-  bool highToLow;
-  bool numbersOnTheLeft;
-  bool showWeaponNames;
-  int xStart;
-  int yStart;
-  int stepMultiplier;
-  bool highlightSelected;
-
-  int stepMultiplied;
-  int yStartMax;
-
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
@@ -1162,131 +1457,25 @@ script "ShowWeaponMenu" ENTER
         WM_HighlightSelectedWeapon();
         WM_SetSelectedWeapon(highlightedWeapon);
       }
-    }
 
-    if (menuIsOpened)
-    {
-      ++optionsUpdateCounter;
-      if (optionsUpdateCounter >= optionsUpdatePeriod)
-      {
-        optionsUpdateCounter = 0;
-
-        //WM_SetupFont();
-
-        availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-        notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-        highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-        selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
-
-        disableOutput     = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-        showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
-        highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
-        numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-        showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
-        xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-        yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-        stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
-        highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
-
-        stepMultiplied = (step * stepMultiplier) >> 16;
-        yStartMax = 1.0 - stepMultiplied * weaponCount;
-        if (yStart > yStartMax) { yStart = yStartMax; }
-      }
-
-      int position          = 0;
-      int availablePosition = 0;
-      int holdingPosition   = 0;
-
-      for (int i = 0; i < weaponCount; ++i)
-      {
-        // remember position of selected weapon
-        if (i == highlightedWeapon)
-        {
-          availablePosition = position;
-        }
-        if (i == selectedWeapon)
-        {
-          holdingPosition = position;
-        }
-
-        if (WM_IsInInventory(i))
-        {
-          bool mustShow = !disableOutput &&
-            (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
-
-          if (mustShow)
-          {
-            WM_PrintHudWeapon(
-              i,
-              position,
-              availableWeaponColor,
-              xStart,
-              yStart,
-              highToLow,
-              numbersOnTheLeft,
-              stepMultiplied,
-              showWeaponNames
-            );
-          }
-          position += 1;
-        }
-        else if (showNotAvailable && !WM_IsSecretWeapon(i))
-        {
-          if (!disableOutput)
-          {
-            WM_PrintHudWeapon(
-              i,
-              position,
-              notAvailableWeaponColor,
-              xStart,
-              yStart,
-              highToLow,
-              numbersOnTheLeft,
-              stepMultiplied,
-              showWeaponNames
-            );
-          }
-          position += 1;
-        }
-      }
-
-      if (!disableOutput)
-      {
-        WM_PrintHudWeapon(
-          highlightedWeapon,
-          availablePosition,
-          highlightedWeaponColor,
-          xStart,
-          yStart,
-          highToLow,
-          numbersOnTheLeft,
-          stepMultiplied,
-          showWeaponNames
-        );
-
-        if (highlightSelected)
-        {
-          WM_PrintHudWeapon(
-            selectedWeapon,
-            holdingPosition,
-            selectedWeaponColor,
-            xStart,
-            yStart,
-            highToLow,
-            numbersOnTheLeft,
-            stepMultiplied,
-            showWeaponNames
-          );
-        }
-      }
-
+      WM_UpdateMenu();
     }
 
     Delay(1);
   }
 }
 
+script "ApplyWeaponMenuSettings" (void)
+{
+  WM_UpdateMenu();
+}
+
 script "ToggleWeaponMenu" (int highlightSelected)
+{
+  WM_ToggleWeaponMenu(highlightSelected);
+}
+
+function void WM_ToggleWeaponMenu(int highlightSelected)
 {
   WM_SetMenuIsOpened(!menuIsOpened);
 
@@ -1306,11 +1495,19 @@ script "ToggleWeaponMenu" (int highlightSelected)
       WM_SelectWeapon(highlightedWeapon);
     }
   }
+
+  WM_UpdateMenu();
 }
 
 script "ScrollNextWeapon" (void)
 {
   int i;
+  int stopper = weaponCount;
+
+  if (WM_IsOpenOnScroll() && !menuIsOpened)
+  {
+    WM_ToggleWeaponMenu(true);
+  }
 
   if (menuIsOpened)
   {
@@ -1319,11 +1516,12 @@ script "ScrollNextWeapon" (void)
     {
       ++i;
       if (i >= weaponCount) { i = 0; }
+      --stopper;
     }
-    while (!WM_IsInInventory(i));
+    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    WM_PlaySwitchSound();
+    if (stopper) { WM_PlaySwitchSound(); }
   }
 
   else
@@ -1333,8 +1531,9 @@ script "ScrollNextWeapon" (void)
     {
       ++i;
       if (i >= weaponCount) { i = 0; }
+      --stopper;
     }
-    while (!SetWeapon(WM_GetWeaponName(i)));
+    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
 
     if (i != selectedWeapon)
     {
@@ -1343,11 +1542,19 @@ script "ScrollNextWeapon" (void)
       WM_SetHighlightedWeapon(i);
     }
   }
+
+  WM_UpdateMenu();
 }
 
 script "ScrollPreviousWeapon" (void)
 {
   int i;
+  int stopper = weaponCount;
+
+  if (WM_IsOpenOnScroll() && !menuIsOpened)
+  {
+    WM_ToggleWeaponMenu(true);
+  }
 
   if (menuIsOpened)
   {
@@ -1356,11 +1563,12 @@ script "ScrollPreviousWeapon" (void)
     {
       --i;
       if (i < 0) { i = weaponCount - 1; }
+      --stopper;
     }
-    while (!WM_IsInInventory(i));
+    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    WM_PlaySwitchSound();
+    if (stopper) { WM_PlaySwitchSound(); }
   }
 
   else
@@ -1370,8 +1578,9 @@ script "ScrollPreviousWeapon" (void)
     {
       --i;
       if (i < 0) { i = weaponCount - 1; }
+      --stopper;
     }
-    while (!SetWeapon(WM_GetWeaponName(i)));
+    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
 
     if (i != selectedWeapon)
     {
@@ -1383,6 +1592,8 @@ script "ScrollPreviousWeapon" (void)
 
   int playerN = PlayerNumber();
   SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
+
+  WM_UpdateMenu();
 }
 
 script "SmartWeaponSelection" (int slotNumber)
@@ -1397,12 +1608,14 @@ script "SmartWeaponSelection" (int slotNumber)
     if (sameSlot)
     {
       int sibling = highlightedWeapon;
+      int stopper = weaponCount;
       do
       {
         sibling = WM_GetWeaponSibling(sibling);
         if (sibling == -1) break;
+        --stopper;
       }
-      while (!WM_IsInInventory(sibling));
+      while (!WM_IsInInventory(sibling) && stopper);
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {
@@ -1418,9 +1631,11 @@ script "SmartWeaponSelection" (int slotNumber)
 
   else
   {
-    ACS_NamedExecute("ToggleWeaponMenu", 0, false);
+    WM_ToggleWeaponMenu(true);
     WM_HighlightFirstInInventory(slotNumber);
   }
+
+  WM_UpdateMenu();
 }
 
 script "SelectLastUsedWeapon" (void)
@@ -1429,6 +1644,8 @@ script "SelectLastUsedWeapon" (void)
   {
     WM_SelectWeapon(lastUsedWeapon);
   }
+
+  WM_UpdateMenu();
 }
 
 
@@ -1578,6 +1795,9 @@ script "WM_Remember_Fin" (void)
     Log(s:names[AUTO_SET][i], s:", ");
   }
   Log(s:names[AUTO_SET][i], s:" }");
+
+  // reset last used weapon
+  WM_SetLastUsedWeapon(-1);
 }
 
 function void WM_LoadRemembered(void)

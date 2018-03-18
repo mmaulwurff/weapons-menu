@@ -9,6 +9,8 @@ user bool M8fWeaponMenuShowNames = true;
 
 user int M8fWeaponMenuLastUsedWeapon = 0;
 
+user bool M8fWeaponMenuOpenOnScroll = false;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
