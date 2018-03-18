@@ -1416,6 +1416,12 @@ function void WM_RenameWeaponsIfFreedoom(void)
   printableNames[0][8] = "SKAG 1337";
 }
 
+function bool WM_IsOpenOnScroll(void)
+{
+  int playerN = PlayerNumber();
+  return GetUserCVar(playerN, "M8fWeaponMenuOpenOnScroll");
+}
+
 
 // Scripts section /////////////////////////////////////////////////////////////
 
@@ -1468,6 +1474,11 @@ script "ApplyWeaponMenuSettings" (void)
 
 script "ToggleWeaponMenu" (int highlightSelected)
 {
+  WM_ToggleWeaponMenu(highlightSelected);
+}
+
+function void WM_ToggleWeaponMenu(int highlightSelected)
+{
   WM_SetMenuIsOpened(!menuIsOpened);
 
   if (menuIsOpened)
@@ -1494,6 +1505,11 @@ script "ScrollNextWeapon" (void)
 {
   int i;
   int stopper = weaponCount;
+
+  if (WM_IsOpenOnScroll() && !menuIsOpened)
+  {
+    WM_ToggleWeaponMenu(true);
+  }
 
   if (menuIsOpened)
   {
@@ -1536,6 +1552,11 @@ script "ScrollPreviousWeapon" (void)
 {
   int i;
   int stopper = weaponCount;
+
+  if (WM_IsOpenOnScroll() && !menuIsOpened)
+  {
+    WM_ToggleWeaponMenu(true);
+  }
 
   if (menuIsOpened)
   {
@@ -1612,7 +1633,7 @@ script "SmartWeaponSelection" (int slotNumber)
 
   else
   {
-    ACS_NamedExecute("ToggleWeaponMenu", 0, false);
+    WM_ToggleWeaponMenu(true);
     WM_HighlightFirstInInventory(slotNumber);
   }
 
