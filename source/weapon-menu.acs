@@ -1,8 +1,8 @@
 #library "LIBWEAPONMENU"
 #include "zcommon.acs"
 
-#define MINIMAL_HOLD_TIME (1873)
-#define messageIdStart (191919)
+#define MINIMAL_HOLD_TIME 1873
+#define messageIdStart 191919
 
 
 // Global variables ////////////////////////////////////////////////////////////
@@ -20,8 +20,8 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER (37)
-#define MAX_WEAPONS_NUMBER (50)
+#define SETS_NUMBER 37
+#define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
 // Known weapon sets and player classes:
@@ -599,20 +599,111 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000"
   },
 
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
-  { "Chainsaw", "Fist", "Pistol", "Auto Shotgun", "Super Shotgun", "Shotgun", "Gatling Gun", "Machinegun", "Missile Launcher", "Rocket Launcher", "Plasma Rifle", "BFG9000", "Grenade Launcher" },
-  { "Vorpal Blade", "Fist", "Super Immolator", "Immolator", "Bloodbane", "Nailgun", "Mauler", "Hellforge", "Irebolt", "Soul Caster", "Hydra", "Basilisk", "Soul Reaver" },
+  { // Eriguns
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000"
+  },
+  {
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Auto Shotgun", "Super Shotgun", "Shotgun",
+    "Gatling Gun", "Machinegun",
+    "Missile Launcher", "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000",
+    "Grenade Launcher"
+  },
+  {
+    "Vorpal Blade", "Fist",
+    "Super Immolator", "Immolator",
+    "Bloodbane",
+    "Nailgun",
+    "Mauler",
+    "Hellforge", "Irebolt",
+    "Soul Caster",
+    "Hydra", "Basilisk",
+    "Soul Reaver"
+  },
 
-  { "Chainsaw", "Fist", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG9000" },
+  { // Beautiful Doom
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG9000"
+  },
 
-  { "Power Saw", "Melee", "Ol' Faithful", "Super Shotgun", "Scoped Shotgun", "Machine Gun", "Grenade Launcher", "Heavy Machine Gun", "Quantum Accelerator" },
-  { "Halderman Device", "Melee", "Prototype Pistol", "Burst Shotgun", "Tactical Shotgun", "Dual Uzis", "Missile Launcher", "Maser", "Incursion Annihilator" },
-  { "Chainsaw", "Melee", "Pistol", "Super Shotgun", "Shotgun", "Chaingun", "Rocket Launcher", "Plasma Rifle", "BFG 9000" },
-  { "Stasis Bow", "Trench Knife", "Ancient Pistol", "Hybrid SSG", "Ancient Shotgun", "Ancient AK", "Photon Scepter", "Alien Elite Weapon", "Illuminator" },
-  { "Katana", "Silenced Pistol", "Neutron Cascader", "Neutron Pulser", "Burst Needler", "Prism Cannon", "Ofuda Caster", "Onmyou Devastator" },
-  { "NanoCore", "Power Fist", "Charge Pistol", "Machreaper", "Arc Blaster", "Pulse Rifle", "Pulse Cannon", "Plasma Vulcan", "X-Spark Cannon" },
+  { // Final Doomer
+    "Power Saw", "Melee",
+    "Ol' Faithful",
+    "Super Shotgun", "Scoped Shotgun",
+    "Machine Gun",
+    "Grenade Launcher",
+    "Heavy Machine Gun",
+    "Quantum Accelerator"
+  },
+  {
+    "Halderman Device", "Melee",
+    "Prototype Pistol",
+    "Burst Shotgun", "Tactical Shotgun",
+    "Dual Uzis",
+    "Missile Launcher",
+    "Maser",
+    "Incursion Annihilator"
+  },
+  {
+    "Chainsaw", "Melee",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
+  },
+  {
+    "Stasis Bow", "Trench Knife",
+    "Ancient Pistol",
+    "Hybrid SSG", "Ancient Shotgun",
+    "Ancient AK",
+    "Photon Scepter",
+    "Alien Elite Weapon",
+    "Illuminator"
+  },
+  {
+    "Katana",
+    "Silenced Pistol",
+    "Neutron Cascader", "Neutron Pulser",
+    "Burst Needler",
+    "Prism Cannon",
+    "Ofuda Caster",
+    "Onmyou Devastator"
+  },
+  {
+    "NanoCore", "Power Fist",
+    "Charge Pistol",
+    "Machreaper", "Arc Blaster",
+    "Pulse Rifle",
+    "Pulse Cannon",
+    "Plasma Vulcan",
+    "X-Spark Cannon"
+  },
 
-  { "Chainsaw", "Knuckles", "Combat Rifle", "Double Barrel Shotgun", "Riotgun", "Minigun", "RPG", "Pulse Rifle", "BFG9000" },
+  { // Faspons
+    "Chainsaw", "Knuckles",
+    "Combat Rifle",
+    "Double Barrel Shotgun", "Riotgun",
+    "Minigun",
+    "RPG",
+    "Pulse Rifle",
+    "BFG9000"
+  },
 
   {
     "Z-Gun", "Chainsaw", "Hatchet", "Knife", "Double Knuckles", "Omicron Raygun",
