@@ -8,6 +8,7 @@
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
+bool menuIsEnabled  = false;
 bool menuIsOpened   = false;
 int  currentSet     = -1;
 
@@ -1058,6 +1059,135 @@ function int getWeaponBySlot(int slotNumber)
 
 // Printing Weapons Menu functions /////////////////////////////////////////////
 
+function void WM_UpdateMenu(void)
+{
+  if (menuIsOpened) { WM_PrintMenu();   }
+  else              { WM_ClearScreen(); }
+}
+
+function void WM_ClearScreen(void)
+{
+  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart, CR_RED, 0.0, 0.0, 0);
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    int id = messageIdStart + i;
+    HudMessage(s:""; HUDMSG_PLAIN, id, CR_RED, 0.0, 0.0, 0);
+  }
+}
+
+function void WM_PrintMenu(void)
+{
+  int playerN = PlayerNumber();
+  bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
+  if (disableOutput) { return; }
+
+  if (!menuIsEnabled)
+  {
+    int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+    int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+    HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
+               HUDMSG_PLAIN, messageIdStart, CR_RED, stubXStart, stubYStart, 0);
+    return;
+  }
+
+  WM_SetupFont();
+
+  int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+  int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
+  int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+  int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+
+  bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
+  bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+  bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
+  bool showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
+  int xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+  int yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+  int stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+  bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+  int stepMultiplied = (step * stepMultiplier) >> 16;
+  int yStartMax = 1.0 - stepMultiplied * weaponCount;
+  if (yStart > yStartMax) { yStart = yStartMax; }
+
+  int position          = 0;
+  int availablePosition = 0;
+  int holdingPosition   = 0;
+
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    // remember position of selected weapon
+    if (i == highlightedWeapon) { availablePosition = position; }
+    if (i == selectedWeapon)    { holdingPosition   = position; }
+
+    if (WM_IsInInventory(i))
+    {
+      bool mustShow = !disableOutput &&
+        (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
+
+      if (mustShow)
+      {
+        WM_PrintHudWeapon(i,
+                          position,
+                          availableWeaponColor,
+                          xStart,
+                          yStart,
+                          highToLow,
+                          numbersOnTheLeft,
+                          stepMultiplied,
+                          showWeaponNames
+        );
+      }
+      position += 1;
+    }
+    else if (showNotAvailable && !WM_IsSecretWeapon(i))
+    {
+      if (!disableOutput)
+      {
+        WM_PrintHudWeapon(i,
+                          position,
+                          notAvailableWeaponColor,
+                          xStart,
+                          yStart,
+                          highToLow,
+                          numbersOnTheLeft,
+                          stepMultiplied,
+                          showWeaponNames
+        );
+      }
+      position += 1;
+    }
+  }
+
+  if (!disableOutput && WM_IsInInventory(highlightedWeapon))
+  {
+    WM_PrintHudWeapon(highlightedWeapon,
+                      availablePosition,
+                      highlightedWeaponColor,
+                      xStart,
+                      yStart,
+                      highToLow,
+                      numbersOnTheLeft,
+                      stepMultiplied,
+                      showWeaponNames
+    );
+
+    if (highlightSelected && WM_IsInInventory(selectedWeapon))
+    {
+      WM_PrintHudWeapon(selectedWeapon,
+                        holdingPosition,
+                        selectedWeaponColor,
+                        xStart,
+                        yStart,
+                        highToLow,
+                        numbersOnTheLeft,
+                        stepMultiplied,
+                        showWeaponNames
+      );
+    }
+  }
+}
+
 function void WM_PrintHudWeapon(
   int weaponNumber,
   int position,
@@ -1098,7 +1228,7 @@ function void WM_PrintHudWeapon(
     weaponString = StrParam(s:" ", i:slotNumber, s:" ");
   }
 
-  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, MINIMAL_HOLD_TIME);
+  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, 0);
 }
 
 function void WM_SetupFont(void)
@@ -1245,23 +1375,24 @@ function bool WM_IsTitlemap(void)
   return (StrICmp(mapLumpName, "TITLEMAP") == 0);
 }
 
-function bool WM_MenuIsEnabled(void)
+function bool WM_MenuIsEnabled(int weaponSet)
 {
-  bool menuIsEnabled = (currentSet != -1);
+  bool isEnabled = (weaponSet != -1);
   WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
 
-  if (menuIsEnabled)
+  if (isEnabled)
   {
     WM_Initialize();
     Log(s:"Weapon menu is loaded.");
-    return true;
+  }
+  else
+  {
+    Log(s:"Weapon Menu: unknown player class: ",
+        s:GetActorClass(0),
+        s:", menu is disabled.\nYou can try 'wmauto' in console.");
   }
 
-  Log(s:"Weapon Menu: unknown player class: ",
-      s:GetActorClass(0),
-      s:", menu is disabled.\n",
-      s:"You can try 'wmauto' in console.");
-  return false;
+  return isEnabled;
 }
 
 function bool WM_IsFreeDoom(void)
@@ -1293,47 +1424,10 @@ script "ShowWeaponMenu" ENTER
   if (WM_IsTitlemap()) { terminate; }
 
   currentSet = WM_GetWeaponSet();
-
-  int playerN = PlayerNumber();
-
-  bool menuIsEnabled = WM_MenuIsEnabled();
-  if (!menuIsEnabled)
-  {
-    while (true)
-    {
-      if (menuIsOpened)
-      {
-        int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-        int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-        HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
-                   HUDMSG_PLAIN, messageIdStart, CR_RED, stubXStart, stubYStart, MINIMAL_HOLD_TIME);
-      }
-      Delay(1);
-    }
-  }
-
-  int optionsUpdatePeriod = 10;
-  int optionsUpdateCounter = optionsUpdatePeriod;
+  menuIsEnabled = WM_MenuIsEnabled(currentSet);
+  if (!menuIsEnabled) { terminate; }
 
   // options
-  int availableWeaponColor;
-  int notAvailableWeaponColor;
-  int highlightedWeaponColor;
-  int selectedWeaponColor;
-
-  bool disableOutput;
-  bool showNotAvailable;
-  bool highToLow;
-  bool numbersOnTheLeft;
-  bool showWeaponNames;
-  int xStart;
-  int yStart;
-  int stepMultiplier;
-  bool highlightSelected;
-
-  int stepMultiplied;
-  int yStartMax;
-
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
@@ -1359,128 +1453,17 @@ script "ShowWeaponMenu" ENTER
         WM_HighlightSelectedWeapon();
         WM_SetSelectedWeapon(highlightedWeapon);
       }
-    }
 
-    if (menuIsOpened)
-    {
-      ++optionsUpdateCounter;
-      if (optionsUpdateCounter >= optionsUpdatePeriod)
-      {
-        optionsUpdateCounter = 0;
-
-        WM_SetupFont();
-
-        availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-        notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-        highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-        selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
-
-        disableOutput     = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-        showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
-        highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
-        numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-        showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
-        xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-        yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-        stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
-        highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
-
-        stepMultiplied = (step * stepMultiplier) >> 16;
-        yStartMax = 1.0 - stepMultiplied * weaponCount;
-        if (yStart > yStartMax) { yStart = yStartMax; }
-      }
-
-      int position          = 0;
-      int availablePosition = 0;
-      int holdingPosition   = 0;
-
-      for (int i = 0; i < weaponCount; ++i)
-      {
-        // remember position of selected weapon
-        if (i == highlightedWeapon)
-        {
-          availablePosition = position;
-        }
-        if (i == selectedWeapon)
-        {
-          holdingPosition = position;
-        }
-
-        if (WM_IsInInventory(i))
-        {
-          bool mustShow = !disableOutput &&
-            (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
-
-          if (mustShow)
-          {
-            WM_PrintHudWeapon(
-              i,
-              position,
-              availableWeaponColor,
-              xStart,
-              yStart,
-              highToLow,
-              numbersOnTheLeft,
-              stepMultiplied,
-              showWeaponNames
-            );
-          }
-          position += 1;
-        }
-        else if (showNotAvailable && !WM_IsSecretWeapon(i))
-        {
-          if (!disableOutput)
-          {
-            WM_PrintHudWeapon(
-              i,
-              position,
-              notAvailableWeaponColor,
-              xStart,
-              yStart,
-              highToLow,
-              numbersOnTheLeft,
-              stepMultiplied,
-              showWeaponNames
-            );
-          }
-          position += 1;
-        }
-      }
-
-      if (!disableOutput && WM_IsInInventory(highlightedWeapon))
-      {
-        WM_PrintHudWeapon(
-          highlightedWeapon,
-          availablePosition,
-          highlightedWeaponColor,
-          xStart,
-          yStart,
-          highToLow,
-          numbersOnTheLeft,
-          stepMultiplied,
-          showWeaponNames
-        );
-
-        if (highlightSelected && WM_IsInInventory(selectedWeapon))
-        {
-          WM_PrintHudWeapon(
-            selectedWeapon,
-            holdingPosition,
-            selectedWeaponColor,
-            xStart,
-            yStart,
-            highToLow,
-            numbersOnTheLeft,
-            stepMultiplied,
-            showWeaponNames
-          );
-        }
-      }
-
+      WM_UpdateMenu();
     }
 
     Delay(1);
   }
+}
+
+script "ApplyWeaponMenuSettings" (void)
+{
+  WM_UpdateMenu();
 }
 
 script "ToggleWeaponMenu" (int highlightSelected)
@@ -1503,6 +1486,8 @@ script "ToggleWeaponMenu" (int highlightSelected)
       WM_SelectWeapon(highlightedWeapon);
     }
   }
+
+  WM_UpdateMenu();
 }
 
 script "ScrollNextWeapon" (void)
@@ -1543,6 +1528,8 @@ script "ScrollNextWeapon" (void)
       WM_SetHighlightedWeapon(i);
     }
   }
+
+  WM_UpdateMenu();
 }
 
 script "ScrollPreviousWeapon" (void)
@@ -1586,6 +1573,8 @@ script "ScrollPreviousWeapon" (void)
 
   int playerN = PlayerNumber();
   SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
+
+  WM_UpdateMenu();
 }
 
 script "SmartWeaponSelection" (int slotNumber)
@@ -1626,6 +1615,8 @@ script "SmartWeaponSelection" (int slotNumber)
     ACS_NamedExecute("ToggleWeaponMenu", 0, false);
     WM_HighlightFirstInInventory(slotNumber);
   }
+
+  WM_UpdateMenu();
 }
 
 script "SelectLastUsedWeapon" (void)
@@ -1634,6 +1625,8 @@ script "SelectLastUsedWeapon" (void)
   {
     WM_SelectWeapon(lastUsedWeapon);
   }
+
+  WM_UpdateMenu();
 }
 
 
