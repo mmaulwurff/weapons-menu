@@ -1412,7 +1412,7 @@ script "ShowWeaponMenu" ENTER
         }
       }
 
-      if (!disableOutput)
+      if (!disableOutput && WM_IsInInventory(highlightedWeapon))
       {
         WM_PrintHudWeapon(
           highlightedWeapon,
@@ -1426,7 +1426,7 @@ script "ShowWeaponMenu" ENTER
           showWeaponNames
         );
 
-        if (highlightSelected)
+        if (highlightSelected && WM_IsInInventory(selectedWeapon))
         {
           WM_PrintHudWeapon(
             selectedWeapon,
@@ -1473,6 +1473,7 @@ script "ToggleWeaponMenu" (int highlightSelected)
 script "ScrollNextWeapon" (void)
 {
   int i;
+  int stopper = weaponCount;
 
   if (menuIsOpened)
   {
@@ -1481,11 +1482,12 @@ script "ScrollNextWeapon" (void)
     {
       ++i;
       if (i >= weaponCount) { i = 0; }
+      --stopper;
     }
-    while (!WM_IsInInventory(i));
+    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    WM_PlaySwitchSound();
+    if (stopper) { WM_PlaySwitchSound(); }
   }
 
   else
@@ -1495,8 +1497,9 @@ script "ScrollNextWeapon" (void)
     {
       ++i;
       if (i >= weaponCount) { i = 0; }
+      --stopper;
     }
-    while (!SetWeapon(WM_GetWeaponName(i)));
+    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
 
     if (i != selectedWeapon)
     {
@@ -1510,6 +1513,7 @@ script "ScrollNextWeapon" (void)
 script "ScrollPreviousWeapon" (void)
 {
   int i;
+  int stopper = weaponCount;
 
   if (menuIsOpened)
   {
@@ -1518,11 +1522,12 @@ script "ScrollPreviousWeapon" (void)
     {
       --i;
       if (i < 0) { i = weaponCount - 1; }
+      --stopper;
     }
-    while (!WM_IsInInventory(i));
+    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    WM_PlaySwitchSound();
+    if (stopper) { WM_PlaySwitchSound(); }
   }
 
   else
@@ -1532,8 +1537,9 @@ script "ScrollPreviousWeapon" (void)
     {
       --i;
       if (i < 0) { i = weaponCount - 1; }
+      --stopper;
     }
-    while (!SetWeapon(WM_GetWeaponName(i)));
+    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
 
     if (i != selectedWeapon)
     {
@@ -1559,12 +1565,14 @@ script "SmartWeaponSelection" (int slotNumber)
     if (sameSlot)
     {
       int sibling = highlightedWeapon;
+      int stopper = weaponCount;
       do
       {
         sibling = WM_GetWeaponSibling(sibling);
         if (sibling == -1) break;
+        --stopper;
       }
-      while (!WM_IsInInventory(sibling));
+      while (!WM_IsInInventory(sibling) && stopper);
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {
