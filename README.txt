@@ -111,6 +111,9 @@ Weapon Menu supports the following weapons out of the box:
 25. WW-Cola3
     https://forum.zdoom.org/viewtopic.php?f=43&t=55465
 
+26. Netronian Chaos v3
+    https://forum.zdoom.org/viewtopic.php?f=43&t=57964
+
 
 Other weapons are supported, but required initial setup:
 
