@@ -20,7 +20,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 37
+#define SETS_NUMBER 38
 #define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
@@ -65,6 +65,7 @@ str playerClassNames[SETS_NUMBER] =
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
   "WWColaPlayer",        // 35. WW-Cola3
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
+  "Eilidh"               // 37. Netronian Chaos v3
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -99,6 +100,7 @@ int weaponCounts[SETS_NUMBER] =
   12, // Trailblazer - Hexen
   8,  // WW-Cola3
   8,  // WW-Cola3 - Hexen
+  24, // Netronian Chaos
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -196,6 +198,17 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3
   { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3 - Hexen
+
+  { // Netronian Chaos
+    1, 1, 1,
+    2, 2, 2,
+    3, 3, 3,
+    4, 4, 4,
+    5, 5, 5,
+    6, 6, 6,
+    7, 7, 7,
+    8, 8, 8
+  },
 
 };
 
@@ -575,6 +588,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "ToothpasteLaser",
   },
 
+  { // Netronian Chaos
+    "LB1000PileBanger", "AnaikaDagger", "M101Blade",
+    "EG10HeavyPistol", "V57BurstPistol", "V96ServicePistol",
+    "FASR33AssaultSupporter", "VS4Sweeper", "VS2Riotgun",
+    "PAG20PDW", "V80BSMG", "V88Carbine",
+    "VARACarbine", "AG100Machinegun", "V74ARifle",
+    "M12FMGR", "V32AARifle", "V50MLauncher",
+    "M189Auto", "V99AThrower", "VE1Coilgun",
+    "HeavyBarrel", "VM201TD", "Ver110VC"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -949,6 +973,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Sidewinder Missile Launcher",
     "Piledriver",
     "Toothpaste Laser",
+  },
+
+  { // Netronian Chaos
+    "Pile Banger Glove", "Anaika Hunting Daggers", "Digitalblade",
+    "Heavy Caliber Pistol", "Burst Pistol", "Service Pistol",
+    "Assault Supporter", "Hand Sweeper", "Riotgun",
+    "Personal Defence Arm", "Burst SMG", "Machine Carbine",
+    "Semi Auto Rifle", "Squad Support Gun", "Combat Rifle",
+    "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
+    "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
+    "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
   },
 
 }; // end of printable names
