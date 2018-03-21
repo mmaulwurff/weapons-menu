@@ -1669,6 +1669,24 @@ script "SelectLastUsedWeapon" (void)
   WM_UpdateMenu();
 }
 
+script "WM_MarkWeaponAsFavorite" (void)
+{
+  WM_SetCVar(selectedWeapon, "M8fWeaponMenuFavoriteWeapon");
+  Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
+}
+
+script "WM_SelectFavoriteWeapon" (void)
+{
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  if (WM_IsInInventory(favorite))
+  {
+    WM_SelectWeapon(favorite);
+  }
+
+  WM_UpdateMenu();
+}
+
 
 // Utility functions section ///////////////////////////////////////////////////
 

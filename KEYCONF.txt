@@ -31,6 +31,9 @@ addmenukey "Open Weapon Menu Options" WeaponMenuOptions
 
 addmenukey "Last Used Weapon" "pukename SelectLastUsedWeapon"
 
+addmenukey "Mark weapon as favorite" "pukename WM_MarkWeaponAsFavorite"
+addmenukey "Select favorite weapon" "pukename WM_SelectFavoriteWeapon"
+
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"
 alias DoomSelect3 "slot 3"
