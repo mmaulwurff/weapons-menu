@@ -1502,6 +1502,7 @@ function void WM_ToggleWeaponMenu(int highlightSelected)
 
   if (menuIsOpened)
   {
+    WM_UpdateIsInInventory();
     if (highlightSelected)
     {
       WM_HighlightSelectedWeapon();
