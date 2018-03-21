@@ -1,42 +1,40 @@
 Weapon Menu Mod for GZDoom and Zandronum
 
-Usage:
-
-1. Assign controls in Options -> Customize controls -> "Weapon Menu Keys".
-   Every control is optional. Menu works fine in combination with standard weapon
-   selection.
-
-2. Open Weapons Menu by pressing assigned Smart Selection Keys or Open/Close Menu key.
-
-3. Cycle through the Weapons Menu with Smart Selection Keys or Next/Previous weapon keys.
-
-4. Smart Selection Keys cycle through all the weapons in one slot.
-
-5. If Menu is closed, Next/Previous weapon keys act as standard Next/Previous weapon Keys.
-
-6. Close Weapons Menu, and highlighted weapon is selected.
-
-7. Weapons Menu does not affect gameplay. When it is opened, you can run, shoot, do whatever you want to do. New weapon will be selected only when Menu is closed.
-
-8. Be sure you adjust menu position, font and text scale in Options to fit your screen and weapon set size.
-   Some options take effect only after Options are closed.
-
 Features:
-- allows fast and reliable weapon selection.
-- with menu, you see what you are about to select. No more blind weapon choices!
-- last used weapon quick access (by assigned key).
-- configurable colors, fonts, and positions.
-- configurable controls. Just don't assign keys for features you don't want.
-- works with any HUD.
-- safe. If weapon set isn't recognized, standard weapon selection is used.
-- secret weapons that appear in Menu only when you have them (some mods).
-- works with almost any weapon set.
-- API: CVar (cvarinfo) and ZScript (WeaponMenuInterface.txt) for HUD developers.
 
-Weapon Menu has two types of weapon support:
-1. Out of the box. You load the weapon mod with Menu, it works right away.
-2. Autodetected. You load the weapon mod with Menu, you run setup (see below),
-   then Menu works.
+1. Allows fast and reliable weapon selection: you see what you are about to select.
+
+2. Works with any HUD.
+
+3. Works with almost any weapon set.
+
+4. Controls in Options -> Customize controls -> "Weapon Menu Keys".
+
+   - Fire/close menu, Alt fire/close menu: if menu is opened, close it.
+     If menu is closed, fire.
+   - Toggle menu: open and close menu.
+   - Next/previous weapon: if menu is opened, cycle through all available weapons.
+     If menu is closed, cycles through weapons in standard Doom fashion.
+     Option: "Open Menu on Next/Prev": if set to "Yes", menu is opened and
+     next/previous weapon is highlighted, but not yet selected.
+   - Open weapon menu options: opens options. Especially useful for Zandronum.
+   - Last used weapon: select last used weapon.
+     This key doesn't care if menu is opened or not.
+   - Mark weapon as favorite/Select favorite weapon:
+     First, you mark currently selected weapon as favorite with first key.
+     Later, you can select it with second key.
+   - Weapon slot 1-0: if menu is closed, open it.
+     Cycle through all weapons in a slot.
+
+   Every key bind is optional.
+
+   When you close menu by any means, highlighted weapon becomes selected.
+
+5. Configurable colors, fonts, and positions: Options -> Weapon Menu Options.
+
+   Be sure you adjust menu position, font and text scale in Options to fit your
+   screen and weapon set size. Options take effect after menu is reopened.
+
 
 Weapon Menu supports the following weapons out of the box:
 
@@ -115,7 +113,7 @@ Weapon Menu supports the following weapons out of the box:
     https://forum.zdoom.org/viewtopic.php?f=43&t=57964
 
 
-Other weapons are supported, but required initial setup:
+Other weapons are supported, but require initial setup:
 
 When you load weapon set that is by Weapon Menu out of the box, a
 message will appear with a suggestion to try Autodetection. To autodetect
@@ -146,21 +144,14 @@ weapons:
    - autodetection will detect all the weapons that are in a mod (within limits),
      even if they are unobtainable in a game. So it is recommended to use an
      option to hide not acquired weapons.
+   - autodetection may have problems with mods that feature weapon upgrades.
 
 
 Note for weapon mod developers:
 
 1. If you want Weapon Menu to support your mod out of the box, just ask me.
 
-   It will help greatly if your mod uses unique player class/actor
-   name. Please do not use one of reserved class names (DoomPlayer,
-   PerkDPlayer, EriPlayer, AltPlayer, HellPlayer, BD_DoomPlayer,
-   FDPlutPlayer, FDTNTPlayer, FDDoom2Player, FDAliensPlayer,
-   FDJPCPPlayer, FDBTSXPlayer, FasPlayer, HXRTCPlayer, FKPlayer,
-   ComplexDoomPlayer, SaturnPlayer, DoomMarine, HereticPlayer,
-   ChexPlayer, StrifePlayer, ArgPlayer, 64DoomPlayer, DoomPlayerFixed,
-   Xplayer, ParkourPlayer, Autodetected, Purist, BDoomer, Doomer2,
-   TacticalDoomer, CollabWeaponGuy).
+   It will help greatly if your mod uses unique player class/actor name.
 
    Also it would help if you supply a list of weapons class/actor
    names, in order that they should appear in the menu, with
@@ -177,12 +168,15 @@ Note for weapon mod developers:
 2. If you want Weapon Menu to support your mod with Autodetection: there is
    high probability that it already is supported!
 
-   Though for better autodetection results it would help if weapon
-   class/actor names are meaningful and human readable, and not have
-   special prefix. Examples of good names: SuperShotgun, Big_gun,
-   hammer. Examples of bad names: Weapon1, autorocketlauncher,
-   MYSUPERGUN, m8f_Shotgun.
+   Though for better autodetection results it would help if weapon class/actor
+   names are meaningful and human readable, and not have special prefix.
+   Examples of good names: SuperShotgun, Big_gun, hammer.
+   Examples of bad names: Weapon1, autorocketlauncher, MYSUPERGUN, m8f_Shotgun.
 
+
+Note for HUD developers:
+
+Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterface.txt), so it can be integrated into your HUD.
 
 Author: m8f (mmaulwurff@gmail.com)
 
@@ -196,4 +190,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.5.
+Version: 1.6.
