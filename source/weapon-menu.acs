@@ -989,6 +989,8 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 }; // end of printable names
 
+bool isInInventory[MAX_WEAPONS_NUMBER];
+
 function bool WM_IsSecretWeapon(int wNumber)
 {
   switch (currentSet)
@@ -1067,8 +1069,9 @@ function void WM_UpdateMenu(void)
 
 function void WM_ClearScreen(void)
 {
+  // when menu is disabled, weapon count is 0
   HudMessage(s:""; HUDMSG_PLAIN, messageIdStart, CR_RED, 0.0, 0.0, 0);
-  for (int i = 0; i < weaponCount; ++i)
+  for (int i = 1; i < weaponCount; ++i)
   {
     int id = messageIdStart + i;
     HudMessage(s:""; HUDMSG_PLAIN, id, CR_RED, 0.0, 0.0, 0);
@@ -1099,10 +1102,11 @@ function void WM_PrintMenu(void)
   bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
   bool showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
-  int xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-  int yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-  int stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
   bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+  int xStart         = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+  int yStart         = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+  int stepMultiplier = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
 
   int stepMultiplied = (step * stepMultiplier) >> 16;
   int yStartMax = 1.0 - stepMultiplied * weaponCount;
@@ -1120,8 +1124,8 @@ function void WM_PrintMenu(void)
 
     if (WM_IsInInventory(i))
     {
-      bool mustShow = !disableOutput &&
-        (i != highlightedWeapon || (i != selectedWeapon && highlightSelected));
+      bool mustShow = (i != highlightedWeapon) ||
+        (i != selectedWeapon && highlightSelected);
 
       if (mustShow)
       {
@@ -1140,24 +1144,21 @@ function void WM_PrintMenu(void)
     }
     else if (showNotAvailable && !WM_IsSecretWeapon(i))
     {
-      if (!disableOutput)
-      {
-        WM_PrintHudWeapon(i,
-                          position,
-                          notAvailableWeaponColor,
-                          xStart,
-                          yStart,
-                          highToLow,
-                          numbersOnTheLeft,
-                          stepMultiplied,
-                          showWeaponNames
-        );
-      }
+      WM_PrintHudWeapon(i,
+                        position,
+                        notAvailableWeaponColor,
+                        xStart,
+                        yStart,
+                        highToLow,
+                        numbersOnTheLeft,
+                        stepMultiplied,
+                        showWeaponNames
+      );
       position += 1;
     }
   }
 
-  if (!disableOutput && WM_IsInInventory(highlightedWeapon))
+  if (WM_IsInInventory(highlightedWeapon))
   {
     WM_PrintHudWeapon(highlightedWeapon,
                       availablePosition,
@@ -1340,6 +1341,7 @@ function void WM_Initialize(void)
   }
 
   WM_RenameWeaponsIfFreedoom();
+  WM_UpdateIsInInventory();
   WM_InitApiCvars();
 }
 
@@ -1431,11 +1433,28 @@ script "ShowWeaponMenu" ENTER
   menuIsEnabled = WM_MenuIsEnabled(currentSet);
   if (!menuIsEnabled) { terminate; }
 
+  int updatePeriod = 10;
+  int updateCount = 0;
+
   // options
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
     WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
+
+    if (menuIsOpened)
+    {
+      if (updateCount < updatePeriod)
+      {
+        ++updateCount;
+      }
+      else
+      {
+        updateCount = 0;
+        bool updated = WM_UpdateIsInInventory();
+        if (updated) { WM_UpdateMenu(); }
+      }
+    }
 
     // debug output
     /*
@@ -1481,6 +1500,7 @@ function void WM_ToggleWeaponMenu(int highlightSelected)
 
   if (menuIsOpened)
   {
+    WM_UpdateIsInInventory();
     if (highlightSelected)
     {
       WM_HighlightSelectedWeapon();
@@ -1648,12 +1668,44 @@ script "SelectLastUsedWeapon" (void)
   WM_UpdateMenu();
 }
 
+script "WM_MarkWeaponAsFavorite" (void)
+{
+  WM_SetCVar(selectedWeapon, "M8fWeaponMenuFavoriteWeapon");
+  Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
+}
+
+script "WM_SelectFavoriteWeapon" (void)
+{
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  if (WM_IsInInventory(favorite))
+  {
+    WM_SelectWeapon(favorite);
+  }
+
+  WM_UpdateMenu();
+}
+
 
 // Utility functions section ///////////////////////////////////////////////////
 
+function bool WM_UpdateIsInInventory(void)
+{
+  bool updated = false;
+
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    bool old = isInInventory[i];
+    isInInventory[i] = CheckInventory(WM_GetWeaponName(i));
+    if (old != isInInventory[i]) { updated = true; }
+  }
+
+  return updated;
+}
+
 function bool WM_IsInInventory(int weaponNumber)
 {
-  return CheckInventory(WM_GetWeaponName(weaponNumber));
+  return isInInventory[weaponNumber];
 }
 
 function bool WM_IsSelected(int weaponNumber)
