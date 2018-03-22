@@ -1443,6 +1443,7 @@ script "ShowWeaponMenu" ENTER
   {
     // CVar may have been reset by other games while this game was saved.
     WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
+    WM_SetMenuIsOpened(menuIsOpened);
 
     if (menuIsOpened)
     {
