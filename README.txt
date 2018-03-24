@@ -190,4 +190,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.6.
+Version: 1.6.1.
