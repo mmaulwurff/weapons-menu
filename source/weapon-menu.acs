@@ -1808,7 +1808,15 @@ script "WM_RememberWeapon" (int slot)
     printableNames[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
     ++weaponCounts[AUTO_SET];
   }
+}
 
+script "WM_Remember_Start" (void)
+{
+  weaponCounts[AUTO_SET] = 0;
+}
+
+script "WM_Remember_Fin" (void)
+{
   // save all remembered info
   int playerN = PlayerNumber();
   int autoCount = weaponCounts[AUTO_SET];
@@ -1823,16 +1831,6 @@ script "WM_RememberWeapon" (int slot)
     SetUserCVarString(playerN, weaponClassVarName, names[AUTO_SET][w]);
     SetUserCVar      (playerN, weaponSlotVarName,  slots[AUTO_SET][w]);
   }
-}
-
-script "WM_Remember_Start" (void)
-{
-  weaponCounts[AUTO_SET] = 0;
-}
-
-script "WM_Remember_Fin" (void)
-{
-  int autoCount = weaponCounts[AUTO_SET];
 
   Log(s:"weapon count: ", i:autoCount);
 
@@ -1948,6 +1946,8 @@ function bool WM_IsBigLetter(int character)
 {
   return ('A' <= character && character <= 'Z');
 }
+
+// Weapon Priority Section /////////////////////////////////////////////////////
 
 script "WM_IncreasePriority" (void)
 {
