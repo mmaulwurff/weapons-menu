@@ -1948,3 +1948,38 @@ function bool WM_IsBigLetter(int character)
 {
   return ('A' <= character && character <= 'Z');
 }
+
+script "WM_IncreasePriority" (void)
+{
+  str name = WM_GetPrintableWeaponName(highlightedWeapon);
+  if (highlightedWeapon == 0)
+  {
+    Log(s:"Priority of ", s:name, s:" is already maximal.");
+    terminate;
+  }
+
+  int oldMajorWeapon = highlightedWeapon - 1;
+  int thisWeaponSlot = WM_GetWeaponSlot(highlightedWeapon);
+  int oldWeaponSlot  = WM_GetWeaponSlot(oldMajorWeapon);
+  if (thisWeaponSlot != oldWeaponSlot)
+  {
+    Log(s:"Priority of ", s:name, s:" is already maximal.");
+    terminate;
+  }
+
+  WM_SwapWeapons(highlightedWeapon, oldMajorWeapon);
+  highlightedWeapon = oldMajorWeapon;
+  Log(s:"Priority of ", s:name, s:" is increased.");
+  WM_UpdateMenu();
+}
+
+function void WM_SwapWeapons(int slot1, int slot2)
+{
+  int namesTmp = names[currentSet][slot1];
+  names[currentSet][slot1] = names[currentSet][slot2];
+  names[currentSet][slot2] = namesTmp;
+
+  namesTmp = printableNames[currentSet][slot1];
+  printableNames[currentSet][slot1] = printableNames[currentSet][slot2];
+  printableNames[currentSet][slot2] = namesTmp;
+}
