@@ -33,7 +33,7 @@ addmenukey "Last Used Weapon" "pukename SelectLastUsedWeapon"
 
 addmenukey "Mark weapon as favorite" "pukename WM_MarkWeaponAsFavorite"
 addmenukey "Select favorite weapon" "pukename WM_SelectFavoriteWeapon"
-addmenukey "Increase selected weapon priority" "pukename WM_IncreasePriority"
+addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"
