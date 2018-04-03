@@ -1033,6 +1033,19 @@ function int WM_GetWeaponSibling(int weaponNumber)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
 
+  int playerN = PlayerNumber();
+  int cycleValue = GetUserCVar(playerN, "M8fWMCycle");
+  bool cycle = (cycleValue <= 1) && (cycleValue != 0);
+
+  if (!cycle)
+  {
+    int next = weaponNumber + 1;
+    if (next >= weaponCount) { return -1; }
+    int nextSlot = WM_GetWeaponSlot(next);
+    if (nextSlot != thisWeaponSlot) { return -1; }
+    return next;
+  }
+
   for (int i = 0; i < weaponCount; ++i)
   {
     int w = (weaponNumber + i) % weaponCount;
