@@ -1981,7 +1981,7 @@ script "WM_IncreasePriority" (void)
   }
 
   WM_SwapWeapons(highlightedWeapon, oldMajorWeapon);
-  highlightedWeapon = oldMajorWeapon;
+  WM_SetHighlightedWeapon(oldMajorWeapon);
   Log(s:"Priority of ", s:name, s:" is increased.");
   WM_UpdateMenu();
 }
