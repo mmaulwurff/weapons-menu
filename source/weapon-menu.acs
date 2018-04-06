@@ -21,7 +21,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 38
+#define SETS_NUMBER 39
 #define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
@@ -66,7 +66,8 @@ str playerClassNames[SETS_NUMBER] =
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
   "WWColaPlayer",        // 35. WW-Cola3
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
-  "Eilidh"               // 37. Netronian Chaos v3
+  "Eilidh",              // 37. Netronian Chaos v3
+  "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -102,6 +103,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // WW-Cola3
   8,  // WW-Cola3 - Hexen
   24, // Netronian Chaos
+  10, // Adventures of Square
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -210,6 +212,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     7, 7, 7,
     8, 8, 8
   },
+
+  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 }, // Adventures of Square
 
 };
 
@@ -600,6 +604,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "HeavyBarrel", "VM201TD", "Ver110VC"
   },
 
+  { // Adventures of Square
+    "PaintGuns", "PaintGun",
+    "Oozis", "Oozi",
+    "Quadcannon", "Shotbow",
+    "PaintCannon",
+    "HellShellLauncher",
+    "Sceptre",
+    "Defibrillator"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -985,6 +999,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
     "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
     "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
+  },
+
+  { // Adventures of Square
+    "Dual Paint Guns", "Paint Gun",
+    "Dual Oozis", "Oozi",
+    "Quad Cannon", "Shotbow",
+    "Paintgun Cannon",
+    "Hellshell Launcher",
+    "Cresceptre",
+    "Defibrillator"
   },
 
 }; // end of printable names

@@ -114,6 +114,9 @@ Weapon Menu supports the following weapons out of the box:
 26. Netronian Chaos v3
     https://forum.zdoom.org/viewtopic.php?f=43&t=57964
 
+27. The Adventures of Square (Episodes 1-2)
+    http://adventuresofsquare.com/
+
 
 Other weapons are supported, but require initial setup:
 
@@ -192,4 +195,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.8.
+Version: 1.9.
