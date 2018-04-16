@@ -1,0 +1,31 @@
+version "3.2.5"
+
+class WMInstaSwitcher : CustomInventory
+{
+  States
+  {
+    Pickup:
+      TNT1 A 0 SetPlayerProperty(0, 1, PROP_INSTANTWEAPONSWITCH);
+  }
+}
+
+class WMWeaponStub : Pistol
+{
+  Default
+  {
+    Weapon.SelectionOrder 0;
+  }
+
+  States
+  {
+    Ready:
+      TNT1 A 1 A_WeaponReady;
+      loop;
+    Deselect:
+        TNT1 A 1 A_Lower;
+        Loop;
+     Select:
+        TNT1 A 1 A_Raise;
+        Loop;
+  }
+}

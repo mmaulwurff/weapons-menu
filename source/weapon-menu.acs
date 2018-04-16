@@ -1828,6 +1828,9 @@ function void WM_SetLastUsedWeapon(int weaponNumber)
 script "WM_RememberWeapon" (int slot)
 {
   str currentWeapon = GetWeapon();
+
+  if (StrCmp(currentWeapon, "WMWeaponStub") == 0) { terminate; }
+
   bool alreadyRemembered = false;
   for (int i = 0; i < weaponCounts[AUTO_SET]; ++i)
   {
@@ -1845,11 +1848,16 @@ script "WM_RememberWeapon" (int slot)
     printableNames[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
     ++weaponCounts[AUTO_SET];
   }
+
+  SetWeapon("WMWeaponStub");
+  TakeInventory(currentWeapon, 1);
 }
 
 script "WM_Remember_Start" (void)
 {
   weaponCounts[AUTO_SET] = 0;
+  GiveInventory("WMInstaSwitcher", 1);
+  GiveInventory("WMWeaponStub", 1);
 }
 
 script "WM_Remember_Fin" (void)
