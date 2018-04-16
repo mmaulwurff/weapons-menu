@@ -21,7 +21,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 39
+#define SETS_NUMBER 40
 #define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
@@ -68,6 +68,7 @@ str playerClassNames[SETS_NUMBER] =
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
   "Eilidh",              // 37. Netronian Chaos v3
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
+  "CaptainBlazkowicz",   // 39. Doom Incarnate, v1.5
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -104,6 +105,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // WW-Cola3 - Hexen
   24, // Netronian Chaos
   10, // Adventures of Square
+  16, // Doom Incarnate
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -214,6 +216,17 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 }, // Adventures of Square
+
+  { // Doom Incarnate
+    1, 1,
+    2, 2,
+    3, 3, 3,
+    4, 4,
+    5, 5,
+    6, 6,
+    7, 7,
+    9
+  },
 
 };
 
@@ -614,6 +627,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Defibrillator"
   },
 
+  { // Doom Incarnate
+    "SMG", "Handgun",
+    "Paratrooper", "ScytheMagnum",
+    "Grimmhammer", "DoubleShotgun", "InfernoShotgun",
+    "GatlingGun", "AssaultRifle",
+    "NapalmKraftWerk", "Kampfpistole",
+    "LaserKraftWerk", "PlazmaRifle",
+    "Ubergewehr", "Lasergewehr",
+    "CrossedWield"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1009,6 +1033,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Hellshell Launcher",
     "Cresceptre",
     "Defibrillator"
+  },
+
+  { // Doom Incarnate
+    "Sub-Machine Gun", "Handgun",
+    "Paratrooper Rifle", "Scythe Magnum",
+    "Grimmhammer", "Super Shotgun", "Inferno Shotgun",
+    "Gatling Gun", "Assault Rifle",
+    "NapalmKraftWerk", "Kampfpistole",
+    "LaserKraftWerk", "Plasma Rifle",
+    "Ubergewehr", "Lasergewehr",
+    "Crossed Wield"
   },
 
 }; // end of printable names
