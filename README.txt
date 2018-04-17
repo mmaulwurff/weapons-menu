@@ -48,7 +48,7 @@ Weapon Menu supports the following weapons out of the box:
 3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
    https://forum.zdoom.org/viewtopic.php?f=43&t=48208
 
-4. Beautiful Doom 6.3.0
+4. Beautiful Doom 6.3.2
    https://forum.zdoom.org/viewtopic.php?f=43&t=50004
 
 5. Final Doomer 2.4
@@ -116,6 +116,9 @@ Weapon Menu supports the following weapons out of the box:
 
 27. The Adventures of Square (Episodes 1-2)
     http://adventuresofsquare.com/
+
+28. Doom Incarnate v1.5
+    https://forum.zdoom.org/viewtopic.php?f=43&t=58594#p1029236
 
 
 Other weapons are supported, but require initial setup:
@@ -195,4 +198,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.9.
+Version: 1.10.
