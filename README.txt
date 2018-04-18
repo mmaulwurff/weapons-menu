@@ -105,7 +105,7 @@ Weapon Menu supports the following weapons out of the box:
 23. Smooth Doom (2018-01-13)
     https://forum.zdoom.org/viewtopic.php?f=43&t=45550
 
-24. Trailblazer v1.4b
+24. Trailblazer v1.4c
     https://forum.zdoom.org/viewtopic.php?f=43&t=47494
 
 25. WW-Cola3
@@ -119,6 +119,9 @@ Weapon Menu supports the following weapons out of the box:
 
 28. Doom Incarnate v1.5
     https://forum.zdoom.org/viewtopic.php?f=43&t=58594#p1029236
+
+29. Project MSX 0.2a
+    https://forum.zdoom.org/viewtopic.php?t=25836#p492521
 
 
 Other weapons are supported, but require initial setup:
@@ -198,4 +201,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.10.
+Version: 1.11.

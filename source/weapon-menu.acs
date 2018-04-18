@@ -21,7 +21,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 40
+#define SETS_NUMBER 41
 #define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
@@ -69,6 +69,7 @@ str playerClassNames[SETS_NUMBER] =
   "Eilidh",              // 37. Netronian Chaos v3
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
   "CaptainBlazkowicz",   // 39. Doom Incarnate, v1.5
+  "msx_player",          // 40. Project MSX 0.2a
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -106,6 +107,7 @@ int weaponCounts[SETS_NUMBER] =
   24, // Netronian Chaos
   10, // Adventures of Square
   16, // Doom Incarnate
+  8,  // Project MSX
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -227,6 +229,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     7, 7,
     9
   },
+
+  { 1, 2, 3, 4, 5, 6, 7, 8 }, // Project MSX
 
 };
 
@@ -638,6 +642,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "CrossedWield"
   },
 
+  { // Project MSX
+    "RegularFists",
+    "golampistol",
+    "hydrashotgun",
+    "barracudarifle",
+    "raptorshotgun",
+    "tauruscannon",
+    "chimerarifle",
+    "orionSniper"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1044,6 +1059,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "LaserKraftWerk", "Plasma Rifle",
     "Ubergewehr", "Lasergewehr",
     "Crossed Wield"
+  },
+
+  { // Project MSX
+    "Fists",
+    "Golam Pistol",
+    "Hydra Shotgun",
+    "Barracuda Rifle",
+    "Raptor NailShotgun",
+    "Taurus AutoCannon",
+    "Chimaera Pulse Rifle",
+    "Orion Gauss Cannon"
   },
 
 }; // end of printable names
