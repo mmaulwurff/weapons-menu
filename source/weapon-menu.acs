@@ -1400,6 +1400,8 @@ function int WM_FindRealSelectedWeapon(void)
 
 function void WM_SelectWeapon(int weaponNumber)
 {
+  if (weaponNumber == selectedWeapon) { return; }
+
   str  weaponName = WM_GetWeaponName(weaponNumber);
   bool success    = SetWeapon(weaponName);
 
