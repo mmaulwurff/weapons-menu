@@ -123,6 +123,9 @@ Weapon Menu supports the following weapons out of the box:
 29. Project MSX 0.2a
     https://forum.zdoom.org/viewtopic.php?t=25836#p492521
 
+30. Accessories to Murder
+    https://forum.zdoom.org/viewtopic.php?t=36877#p699326
+
 
 Other weapons are supported, but require initial setup:
 
@@ -201,4 +204,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.11.
+Version: 1.12.

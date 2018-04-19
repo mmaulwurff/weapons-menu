@@ -21,7 +21,7 @@ int step = 0;
 
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 41
+#define SETS_NUMBER 42
 #define MAX_WEAPONS_NUMBER 50
 #define AUTO_SET 26
 
@@ -70,6 +70,7 @@ str playerClassNames[SETS_NUMBER] =
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
   "CaptainBlazkowicz",   // 39. Doom Incarnate, v1.5
   "msx_player",          // 40. Project MSX 0.2a
+  "DoomNukem",           // 41. Accessories to Murder
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -108,6 +109,7 @@ int weaponCounts[SETS_NUMBER] =
   10, // Adventures of Square
   16, // Doom Incarnate
   8,  // Project MSX
+  10, // Accessories to Murder
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -231,6 +233,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Project MSX
+
+  { 1, 2, 2, 2, 3, 3, 4, 5, 6, 7 }, // Accessories to Murder
 
 };
 
@@ -653,6 +657,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "orionSniper"
   },
 
+  { // Accessories to Murder
+    "Sledge",
+    "Revolver", "DNDualPistol", "DNPistol",
+    "TrenchShotgun", "DoubleShotgun",
+    "DNRifle",
+    "DNRocketLauncher",
+    "DNChaingun",
+    "DNBFG"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1072,6 +1086,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Orion Gauss Cannon"
   },
 
+  { // Accessories to Murder
+    "Sledge Hammer",
+    "Revolver", "Pistols (Akimbo)", "Pistol",
+    "Shotgun", "Sawed-Off",
+    "Assault Rifle",
+    "Rocket Launcher",
+    "Chaingun",
+    "Bergmann Field Generator"
+  },
+
 }; // end of printable names
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
@@ -1089,6 +1113,9 @@ function bool WM_IsSecretWeapon(int wNumber)
     case 29: return (wNumber == 3 || wNumber == 9);
     case 30: return (wNumber == 3 || wNumber == 9);
     case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
+
+    // Accessories to Murder
+    case 41: return (wNumber == 2 || wNumber == 3);
   }
 
   return false;
