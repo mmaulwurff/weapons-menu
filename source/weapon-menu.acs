@@ -2110,6 +2110,8 @@ script "WM_IncreasePriority" (void)
 
 function void WM_SwapWeapons(int w1, int w2)
 {
+  if (w1 == w2) { return; }
+
   int namesTmp = names[currentSet][w1];
   names[currentSet][w1] = names[currentSet][w2];
   names[currentSet][w2] = namesTmp;
@@ -2128,4 +2130,57 @@ function void WM_SwapWeapons(int w1, int w2)
   str weaponNameVarName2 = StrParam(s:"M8fWeaponMenuWeaponName", i:w2);
   SetUserCVarString(playerN, weaponNameVarName1, WM_GetPrintableWeaponName(w1));
   SetUserCVarString(playerN, weaponNameVarName2, WM_GetPrintableWeaponName(w2));
+
+  int slotTmp = slots[currentSet][w1];
+  slots[currentSet][w1] = slots[currentSet][w2];
+  slots[currentSet][w2] = slotTmp;
+
+  str slotVarName1 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w1);
+  str slotVarName2 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w2);
+  SetUserCVarString(playerN, slotVarName1, WM_GetWeaponSlot(w1));
+  SetUserCVarString(playerN, slotVarName2, WM_GetWeaponSlot(w2));
+}
+
+script "WM_IncreaseSlot" (void)
+{
+  int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
+  if (currentSlot == 0) { terminate; }
+
+  int targetSlot = currentSlot + 1;
+  if (targetSlot == 10) { targetSlot = 0; }
+
+  int i = weaponCount - 1;
+  for (; i >= 0; --i)
+  {
+    if (WM_GetWeaponSlot(i) == currentSlot) { break; }
+  }
+
+  slots[currentSet][highlightedWeapon] = targetSlot;
+  str name = WM_GetPrintableWeaponName(highlightedWeapon);
+  WM_SwapWeapons(highlightedWeapon, i);
+  WM_SetHighlightedWeapon(i);
+  Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
+  WM_UpdateMenu();
+}
+
+script "WM_DecreaseSlot" (void)
+{
+  int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
+  if (currentSlot == 1) { terminate; }
+
+  int targetSlot = currentSlot - 1;
+  if (targetSlot == -1) { targetSlot = 9; }
+
+  int i = 0;
+  for (; i < weaponCount; ++i)
+  {
+    if (WM_GetWeaponSlot(i) == currentSlot) { break; }
+  }
+
+  slots[currentSet][highlightedWeapon] = targetSlot;
+  str name = WM_GetPrintableWeaponName(highlightedWeapon);
+  WM_SwapWeapons(highlightedWeapon, i);
+  WM_SetHighlightedWeapon(i);
+  Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
+  WM_UpdateMenu();
 }

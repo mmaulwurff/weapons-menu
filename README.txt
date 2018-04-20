@@ -27,6 +27,7 @@ Features:
      Cycle through all weapons in a slot.
    - Increase weapon priority: for example, if you increase priority of vanilla
      shotgun, single press on "3" will select shotgun instead of SSG.
+   - Increase/decrease weapon slot: changes weapon slot.
 
    Every key bind is optional.
 
@@ -204,4 +205,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.12.
+Version: 1.13.
