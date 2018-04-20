@@ -2108,13 +2108,24 @@ script "WM_IncreasePriority" (void)
   WM_UpdateMenu();
 }
 
-function void WM_SwapWeapons(int slot1, int slot2)
+function void WM_SwapWeapons(int w1, int w2)
 {
-  int namesTmp = names[currentSet][slot1];
-  names[currentSet][slot1] = names[currentSet][slot2];
-  names[currentSet][slot2] = namesTmp;
+  int namesTmp = names[currentSet][w1];
+  names[currentSet][w1] = names[currentSet][w2];
+  names[currentSet][w2] = namesTmp;
 
-  namesTmp = printableNames[currentSet][slot1];
-  printableNames[currentSet][slot1] = printableNames[currentSet][slot2];
-  printableNames[currentSet][slot2] = namesTmp;
+  int playerN = PlayerNumber();
+  str weaponClassVarName1 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w1);
+  str weaponClassVarName2 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w2);
+  SetUserCVarString(playerN, weaponClassVarName1, WM_GetWeaponName(w1));
+  SetUserCVarString(playerN, weaponClassVarName2, WM_GetWeaponName(w2));
+
+  int printableNamesTmp = printableNames[currentSet][w1];
+  printableNames[currentSet][w1] = printableNames[currentSet][w2];
+  printableNames[currentSet][w2] = printableNamesTmp;
+
+  str weaponNameVarName1 = StrParam(s:"M8fWeaponMenuWeaponName", i:w1);
+  str weaponNameVarName2 = StrParam(s:"M8fWeaponMenuWeaponName", i:w2);
+  SetUserCVarString(playerN, weaponNameVarName1, WM_GetPrintableWeaponName(w1));
+  SetUserCVarString(playerN, weaponNameVarName2, WM_GetPrintableWeaponName(w2));
 }
