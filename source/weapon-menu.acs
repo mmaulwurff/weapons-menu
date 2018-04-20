@@ -2137,8 +2137,8 @@ function void WM_SwapWeapons(int w1, int w2)
 
   str slotVarName1 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w1);
   str slotVarName2 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w2);
-  SetUserCVarString(playerN, slotVarName1, WM_GetWeaponSlot(w1));
-  SetUserCVarString(playerN, slotVarName2, WM_GetWeaponSlot(w2));
+  SetUserCVar(playerN, slotVarName1, WM_GetWeaponSlot(w1));
+  SetUserCVar(playerN, slotVarName2, WM_GetWeaponSlot(w2));
 }
 
 script "WM_IncreaseSlot" (void)
