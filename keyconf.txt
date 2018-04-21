@@ -58,6 +58,8 @@ alias WeaponMenuSelect7 "pukename SmartWeaponSelection 7"
 alias WeaponMenuSelect8 "pukename SmartWeaponSelection 8"
 alias WeaponMenuSelect9 "pukename SmartWeaponSelection 9"
 alias WeaponMenuSelect0 "pukename SmartWeaponSelection 0"
+alias WeaponMenuSelect10 "pukename SmartWeaponSelection 10"
+alias WeaponMenuSelect11 "pukename SmartWeaponSelection 11"
 
 alias +smart_select_1 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect1 DoomSelect1"
 alias -smart_select_1 "M8fWMCycle 0"
@@ -89,6 +91,12 @@ alias -smart_select_9 "M8fWMCycle 0"
 alias +smart_select_0 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect0 DoomSelect0"
 alias -smart_select_0 "M8fWMCycle 0"
 
+alias +smart_select_10 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect10"
+alias -smart_select_10 "M8fWMCycle 0"
+
+alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect11"
+alias -smart_select_11 "M8fWMCycle 0"
+
 addmenukey "weapon slot 1" +smart_select_1
 addmenukey "weapon slot 2" +smart_select_2
 addmenukey "weapon slot 3" +smart_select_3
@@ -99,6 +107,8 @@ addmenukey "weapon slot 7" +smart_select_7
 addmenukey "weapon slot 8" +smart_select_8
 addmenukey "weapon slot 9" +smart_select_9
 addmenukey "weapon slot 0" +smart_select_0
+addmenukey "weapon slot 10" +smart_select_10
+addmenukey "weapon slot 11" +smart_select_11
 
 alias wm_rw1 "slot 1; wm_rem1"
 alias wm_rw2 "slot 2; wm_rem2"

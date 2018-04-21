@@ -676,8 +676,6 @@ script "ScrollPreviousWeapon" (void)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
-  if (slotNumber >= weaponCount) { terminate; }
-
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   bool sameSlot = (slotNumber == currentSlot);
 
@@ -759,6 +757,14 @@ function bool WM_UpdateIsInInventory(void)
   }
 
   return updated;
+}
+
+function void WM_ResetIsInInventory(void)
+{
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    isInInventory[i] = CheckInventory(WM_GetWeaponName(i));
+  }
 }
 
 function bool WM_IsInInventory(int weaponNumber)
@@ -1065,21 +1071,26 @@ function void WM_SwapWeapons(int w1, int w2)
 script "WM_IncreaseSlot" (void)
 {
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
-  if (currentSlot == 0) { terminate; }
+  if (currentSlot == 11) { terminate; }
 
-  int targetSlot = currentSlot + 1;
-  if (targetSlot == 10) { targetSlot = 0; }
+  int nextSlot[11] = { 10, 2, 3, 4, 5, 6, 7, 8, 9, 0, 11 };
+  int targetSlot = nextSlot[currentSlot];
 
-  int i = weaponCount - 1;
-  for (; i >= 0; --i)
+  int i = highlightedWeapon;
+  if (i != weaponCount - 1)
   {
-    if (WM_GetWeaponSlot(i) == currentSlot) { break; }
+    while ((WM_GetWeaponSlot(i + 1) == currentSlot) && (i != weaponCount - 1))
+    {
+      WM_SwapWeapons(i, i + 1);
+      if (i + 1 == selectedWeapon) { WM_SetSelectedWeapon(i); }
+      ++i;
+    }
   }
+  WM_ResetIsInInventory();
 
-  slots[currentSet][highlightedWeapon] = targetSlot;
-  str name = WM_GetPrintableWeaponName(highlightedWeapon);
-  WM_SwapWeapons(highlightedWeapon, i);
+  slots[currentSet][i] = targetSlot;
   WM_SetHighlightedWeapon(i);
+  str name = WM_GetPrintableWeaponName(i);
   Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
   WM_UpdateMenu();
 }
@@ -1089,18 +1100,23 @@ script "WM_DecreaseSlot" (void)
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 1) { terminate; }
 
-  int targetSlot = currentSlot - 1;
-  if (targetSlot == -1) { targetSlot = 9; }
+  int prevSlot[12] = { 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 0, 10 };
+  int targetSlot = prevSlot[currentSlot];
 
-  int i = 0;
-  for (; i < weaponCount; ++i)
+  int i = highlightedWeapon;
+  if (i != 0)
   {
-    if (WM_GetWeaponSlot(i) == currentSlot) { break; }
+    while (WM_GetWeaponSlot(i - 1) == currentSlot && i != 0)
+    {
+      WM_SwapWeapons(i, i - 1);
+      if (i - 1 == selectedWeapon) { WM_SetSelectedWeapon(i); }
+      --i;
+    }
   }
+  WM_ResetIsInInventory();
 
-  slots[currentSet][highlightedWeapon] = targetSlot;
+  slots[currentSet][i] = targetSlot;
   str name = WM_GetPrintableWeaponName(highlightedWeapon);
-  WM_SwapWeapons(highlightedWeapon, i);
   WM_SetHighlightedWeapon(i);
   Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
   WM_UpdateMenu();
