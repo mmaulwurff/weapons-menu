@@ -1,9 +1,9 @@
 #library "LIBWEAPONMENU"
 #include "zcommon.acs"
+#include "data.acs"
 
 #define MINIMAL_HOLD_TIME 1873
 #define messageIdStart 191919
-
 
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
@@ -19,1092 +19,12 @@ int  lastUsedWeapon    = 0;
 int weaponCount = 0;
 int step = 0;
 
-// Weapons data section ////////////////////////////////////////////////////////
-
-#define SETS_NUMBER 42
-#define MAX_WEAPONS_NUMBER 50
-#define AUTO_SET 26
-
-// Known weapon sets and player classes:
-
-str playerClassNames[SETS_NUMBER] =
-{
-  "DoomPlayer",          //  0. Standard
-  "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
-  "EriPlayer",           //  2. Eriguns - Standard weapons
-  "AltPlayer",           //  3. Eriguns - Extended weapons
-  "HellPlayer",          //  4. Eriguns - Hell weapons
-  "BD_DoomPlayer",       //  5. Beautiful Doom
-  "FDPlutPlayer",        //  6. Final Doomer - Plutonia
-  "FDTNTPlayer",         //  7. Final Doomer - TNT
-  "FDDoom2Player",       //  8. Final Doomer - Doom 2
-  "FDAliensPlayer",      //  9. Final Doomer - Ancient Aliens
-  "FDJPCPPlayer",        // 10. Final Doomer - JPCP
-  "FDBTSXPlayer",        // 11. Final Doomer - BTSX
-  "FasPlayer",           // 12. Faspons
-  "HXRTCPlayer",         // 13. HXRTC Project
-  "FKPlayer",            // 14. Kriegsland
-  "ComplexDoomPlayer",   // 15. Complex Doom V27a3
-  "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
-  "DoomMarine",          // 17. Hard-Doom v8.2f
-  "HereticPlayer",       // 18. Heretic
-  "ChexPlayer",          // 19. Chex Quest (Single Player)
-  "StrifePlayer",        // 20. Strife
-  "ArgPlayer",           // 21. Argent (v0.5.3)
-  "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
-  "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
-  "Xplayer",             // 24. Dead Marine v0.9.3
-  "ParkourPlayer",       // 25. Parkour v1.1
-  "Autodetected",        // 26. Autodetected
-  "Purist",              // 27. Brutal Doom 21 test feb24 - Purist
-  "BDoomer",             // 28. Brutal Doom - Rifle Start
-  "Doomer2",             // 29. Brutal Doom - Pistal Start
-  "TacticalDoomer",      // 30. Brutal Doom - Tactical Mode
-  "CollabWeaponGuy",     // 31. Combined Arms v1.0
-  "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
-  "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
-  "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
-  "WWColaPlayer",        // 35. WW-Cola3
-  "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
-  "Eilidh",              // 37. Netronian Chaos v3
-  "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
-  "CaptainBlazkowicz",   // 39. Doom Incarnate, v1.5
-  "msx_player",          // 40. Project MSX 0.2a
-  "DoomNukem",           // 41. Accessories to Murder
-};
-
-int weaponCounts[SETS_NUMBER] =
-{
-  9,  // Standard
-  10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-  9, 13, 13, // Eriguns
-  9,  // Beautiful Doom
-  9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
-  9,  // Faspons
-  50, // HXRTC Project!
-  22 + 5, // Kriegsland
-  18, // Complex Doom
-  11, // Weapons of Saturn
-  14, // Hard-Doom
-  8,  // Heretic
-  8,  // Chex Quest
-  8,  // Strife
-  11, // Argent
-  15, // Doom 64 X
-  9,  // Responsive Weapons + Faster Weapon Switching
-  9,  // Dead Marine
-  12, // Parkour
-  0,  // Special - autodetected
-  9,  // Brutal Doom - Purist
-  22, // Brutal Doom - BDoomer
-  22, // Brutal Doom - Doomer2
-  22, // Brutal Doom - TacticalDoomer
-  12, // Combined Arms
-  12, // Trailblazer - Doom
-  12, // Trailblazer - Heretic
-  12, // Trailblazer - Hexen
-  8,  // WW-Cola3
-  8,  // WW-Cola3 - Hexen
-  24, // Netronian Chaos
-  10, // Adventures of Square
-  16, // Doom Incarnate
-  8,  // Project MSX
-  10, // Accessories to Murder
-};
-
-int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
-{
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
-
-  // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 },
-
-  // Eriguns
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8 },
-  { 1, 1, 2, 2, 3, 4, 5, 6, 6, 7, 8, 8, 9 },
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Beautiful Doom
-
-  // Final Doomer
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 2, 3, 3, 4, 5, 6, 7 },
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Faspons
-
-  { // HXRTC Project
-    1, 1, 1, 1, 1, 1,
-    2, 2, 2, 2, 2, 2,
-    3, 3, 3, 3, 3,
-    4, 4, 4, 4, 4, 4,
-    5, 5, 5, 5, 5,
-    6, 6, 6, 6, 6,
-    7, 7, 7, 7, 7,
-    8, 8, 8, 8, 8,
-    9, 9, 9, 9, 9,
-    0, 0
-  },
-
-  { // Kriegsland
-    1, 1, 1,
-    2, 2, 2,
-    3, 3,
-    4, 4,
-    5, 5, 5,
-    6, 6, 6,
-    7, 7, 7,
-    8, 8, 8,
-    9, 9, 9, 9, 9, // cross akimbos
-  },
-
-  { // Complex Doom
-    1, 1,
-    2,
-    3, 3, 3, 3,
-    4, 4,
-    5, 5,
-    6, 6, 6,
-    7, 7, 7,
-    8,
-  },
-
-  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
-
-  { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
-
-  { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
-
-  { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
-
-  { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
-
-  { 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 }, // Argent
-
-  { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
-
-  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
-
-  { }, // Special - autodetected
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Brutal Doom - Purist
-  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // BDoomer
-  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Doomer2
-  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Tactical
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 8 }, // Combined Arms
-
-  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 }, // Trailblazer
-  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
-  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
-
-  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3
-  { 1, 2, 2, 3, 4, 5, 6, 7 }, // WW-Cola3 - Hexen
-
-  { // Netronian Chaos
-    1, 1, 1,
-    2, 2, 2,
-    3, 3, 3,
-    4, 4, 4,
-    5, 5, 5,
-    6, 6, 6,
-    7, 7, 7,
-    8, 8, 8
-  },
-
-  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 }, // Adventures of Square
-
-  { // Doom Incarnate
-    1, 1,
-    2, 2,
-    3, 3, 3,
-    4, 4,
-    5, 5,
-    6, 6,
-    7, 7,
-    9
-  },
-
-  { 1, 2, 3, 4, 5, 6, 7, 8 }, // Project MSX
-
-  { 1, 2, 2, 2, 3, 3, 4, 5, 6, 7 }, // Accessories to Murder
-
-};
-
-str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
-{
-  { // Standard
-    "Chainsaw", "Fist",
-    "Pistol",
-    "SuperShotgun", "Shotgun",
-    "Chaingun",
-    "RocketLauncher",
-    "PlasmaRifle",
-    "BFG9000"
-  },
-
-  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-    "Z86Chainsaw", "PerkFist",
-    "Rifle", "PerkPistol",
-    "PerkSuperShotgun", "PerkShotgun",
-    "Z86Chaingun",
-    "PerkRocketLauncher",
-    "BloxPlasmaRifle",
-    "Z86BFG9000"
-  },
-
-  {
-    "EriChainsaw", "EriFist",
-    "EriPistol",
-    "EriSuperShotgun",
-    "EriShotgun",
-    "EriMachinegun",
-    "EriRocketLauncher",
-    "EriPlasmaRifle",
-    "EriBFG9000"
-  },
-  {
-    "EriChainsaw", "EriFist",
-    "AltPistol",
-    "EriAutoShotgun", "AltSuperShotgun", "EriShotgun",
-    "EriGatlingGun", "EriMachinegun",
-    "EriMissileLauncher", "EriRocketLauncher",
-    "EriPlasmaRifle",
-    "EriBFG9000",
-    "EriGrenadeLauncher"
-  },
-  {
-    "EriBlade", "EriFist",
-    "EriSuperImmolator", "EriImmolator",
-    "EriBloodbane",
-    "EriNailgun",
-    "EriMauler",
-    "EriHellforge", "EriIrebolt",
-    "EriCaster",
-    "EriHydra", "EriBasilisk",
-    "EriSoulreaver"
-  },
-
-  {
-    "BD_Chainsaw", "BD_Fist",
-    "BD_Pistol",
-    "BD_SuperShotgun", "BD_Shotgun",
-    "BD_Chaingun",
-    "BD_RocketLauncher",
-    "BD_PlasmaRifle",
-    "BD_BFG9000"
-  },
-
-  {
-    "FDPlutChainsaw", "FDPlutFist",
-    "FDPlutPistol",
-    "FDPlutSuperShotgun", "FDPlutShotgun",
-    "FDPlutChaingun",
-    "FDPlutRocketLauncher",
-    "FDPlutPlasmaRifle",
-    "FDPlutBFG9000"
-  },
-  {
-    "FDTNTChainsaw", "FDTNTFist",
-    "FDTNTPistol",
-    "FDTNTSuperShotgun", "FDTNTShotgun",
-    "FDTNTChaingun",
-    "FDTNTRocketLauncher",
-    "FDTNTPlasmaRifle",
-    "FDTNTBFG9000"
-  },
-  {
-    "FDDoom2Chainsaw", "FDDoom2Fist",
-    "FDDoom2Pistol",
-    "FDDoom2SuperShotgun", "FDDoom2Shotgun",
-    "FDDoom2Chaingun",
-    "FDDoom2RocketLauncher",
-    "FDDoom2PlasmaRifle",
-    "FDDoom2BFG9000"
-  },
-  {
-    "FDAliensChainsaw", "FDAliensFist",
-    "FDAliensPistol",
-    "FDAliensSuperShotgun", "FDAliensShotgun",
-    "FDAliensChaingun",
-    "FDAliensRocketLauncher",
-    "FDAliensPlasmaRifle",
-    "FDAliensBFG9000"
-  },
-  {
-    "FDJPCPFist",
-    "FDJPCPPistol",
-    "FDJPCPSuperShotgun", "FDJPCPShotgun",
-    "FDJPCPChaingun",
-    "FDJPCPRocketLauncher",
-    "FDJPCPPlasmaRifle",
-    "FDJPCPBFG9000"
-  },
-  {
-    "FDBTSXChainsaw", "FDBTSXFist",
-    "FDBTSXPistol",
-    "FDBTSXSuperShotgun", "FDBTSXShotgun",
-    "FDBTSXChaingun",
-    "FDBTSXRocketLauncher",
-    "FDBTSXPlasmaRifle",
-    "FDBTSXBFG9000"
-  },
-
-  {
-    "Motorsaw", "Knuckles",
-    "CombatRifle",
-    "DoubleBarrel", "Riotgun",
-    "Minigun",
-    "RPG",
-    "PulseRifle",
-    "BFG"
-  },
-
-  {
-    "Z-Gun", "DoomChainsaw", "Axe", "Knife", "DoubleKnuckles", "OmicronRaygun",
-    "LightMachinegun", "MP40", "DualColt1911", "Colt1911", "DualBerettas", "Beretta",
-    "W-Shotgun", "AutoShotgun", "QuadShotgun", "CoachGun", "RiotShotgun",
-    "HeavyChaingun", "M134Minigun", "DemonkillerCarbine", "M24SniperRifle", "DualCombatRifles", "CombatRifle",
-    "MultiElementalCannon", "CryogenicRepeater", "NapalmLauncher", "SawThrower", "Saturn-V",
-    "GatlingLasergun", "DualPulseRifles", "PulseRifle", "DualPlasmaZappers", "PlasmaZapper",
-    "BlackHoleMaker", "BFG-X", "RailgunV20", "NeedleBuster", "ProtoBlaster",
-    "ChillyIceBombard", "FlameCannon", "ChillerCrossbow", "NightmareDoubleRaygun", "HellMissileLauncher",
-    "AcidArbalest", "ToxicWand", "EvilWarriorShield", "UACChemicalSpray", "BlowGun",
-    "LandMineWeapon", "HandGrenadeWeapon",
-  },
-
-  { // Kriegsland
-    "HDGrenades", "HDChainsaw", "HDKnife",
-    "HDBlaster", "HDHandgun", "HDPistol",
-    "HDSuperShotgun", "HDShotgun",
-    "HDChaingun", "HDMachinegun",
-    "HDPanzerfaust", "HDFlareGun", "HDRocketLauncher",
-    "HDSonicGun", "HDLightningGun", "HDPlasmaRifle",
-    "HDLaserGun", "HDLurdinha", "HDBFG9000",
-    "HDCarbine", "HDGewehr", "HDRifle",
-    "HDCrossAkimbo5", "HDCrossAkimbo4", "HDCrossAkimbo3", "HDCrossAkimbo2", "HDCrossAkimbo1",
-  },
-
-  { // Complex Doom
-    "Chainsaw ", "Melee",
-    "Handgun",
-    "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
-    "Minigun ", "Assault Rifle",
-    "Grenade Launcher", "Rocket Launcher",
-    "Railgun ", "Demon Tech Rifle", "Plasma Rifle",
-    "Demon Tech BFG10K", "BFG10K ", "BFG9500",
-    "MP40",
-  },
-
-  { // Weapons of Saturn
-    "Motorsaw", "Knuckles",
-    "1911", "Beretta",
-    "Coachgun", "Riotgun",
-    "Minigun", "MachineRifle",
-    "SaturnV",
-    "NovaRifle",
-    "TITAN",
-  },
-
-  { // Hard-Doom
-    "Chainsaw~", "Fist~",
-    "Pistol~",
-    "Quad-Shotgun", "SuperShotgun~", "Shotgun~",
-    "Minigun~", "Chaingun~",
-    "GrenadeLauncher~", "RocketLauncher~",
-    "PlasmaRifle~", "Sonic Railgun",
-    "BFG10K~", "BFG9000~",
-  },
-
-  { // Heretic
-    "Gauntlets", "Staff",
-    "GoldWand",
-    "Crossbow",
-    "Blaster",
-    "SkullRod",
-    "PhoenixRod",
-    "Mace",
-  },
-
-  { // Chex Quest
-    "SuperBootspork",
-    "Bootspoon",
-    "MiniZorcher",
-    "LargeZorcher",
-    "RapidZorcher",
-    "ZorchPropulsor",
-    "PhasingZorcher",
-    "LAZDevice",
-  },
-
-  { // Strife
-    "PunchDagger",
-    "StrifeCrossbow",
-    "AssaultGun",
-    "MiniMissileLauncher",
-    "StrifeGrenadeLauncher",
-    "FlameThrower",
-    "Mauler",
-    "Sigil",
-  },
-
-  { // Argent
-    "ArgChainsaw",
-    "ArgFist",
-    "ArgPistol",
-    "ArgSuperShotgun",
-    "ArgShotgun",
-    "ArgChaingun",
-    "ArgHeavyAR",
-    "ArgRocketLauncher",
-    "ArgGaussCannon",
-    "ArgPlasmaRifle",
-    "ArgBFG9000",
-  },
-
-  { // Doom 64 X
-    "64Chainsaw", "64Fist",
-    "64Uzi", "64Pistol",
-    "64Devastator", "64SuperShotgun", "64Shotgun",
-    "64Nailgun", "64Chaingun",
-    "64Flamethrower", "64RocketLauncher",
-    "64Railgun", "64PlasmaRifle",
-    "Unmaker", "64BFG9000",
-  },
-
-  { // Responsive Weapons + Faster Weapon Switching
-    "ChainsawFixed", "FistFixed",
-    "PistolFixed",
-    "SuperShotgunFixed", "ShotgunFixed",
-    "ChaingunFixed",
-    "RocketLauncherFixed",
-    "PlasmaRifleFixed",
-    "BFG9000Fixed"
-  },
-
-  { // Dead Marine
-    "XtremeSaw", "Xtremefist",
-    "XtremePistol",
-    "XtremeSSG", "XtremeShotgun",
-    "XtremeChaingun",
-    "XtremeRLauncher",
-    "XtremePlasma",
-    "XtremeBFG"
-  },
-
-  { // Parkour
-    "PkChainsaw", "PkFist",
-    "PkPistolAkimbo", "PkPistol",
-    "PkDoubleShotguns", "PkShotgun",
-    "PkChaingun",
-    "PkRocketLauncher",
-    "PkPlasmaRifle",
-    "PkBFG9000",
-    "PkCyberLauncher",
-    "PkSuperChain",
-  },
-
-  { }, // Special - autodetected
-
-  { // Brutal Doom Purist
-    "ClassicSaw", "ClassicFist",
-    "ClassicPistol",
-    "ClassicSSG", "ClassicShotgun",
-    "ClassicChaingun",
-    "ClassicRocketLauncher",
-    "ClassicPlasmaRifle",
-    "VanillaBFG9000"
-  },
-
-  { // Brutal Doom - BDoomer
-    "Melee_Attacks", "Chain_saw", "BrutalAxe",
-    "MP40", "BrutalSMG", "BrutalPistol",
-    "SSG", "Shot_Gun", "AssaultShotgun",
-    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
-    "Rocket_Launcher", "GrenadeLauncher",
-    "Plasma_Gun", "Railgun",
-    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
-    "FlameCannon", "HellishMissileLauncher"
-  },
-
-  { // Brutal Doom - Doomer2
-    "Melee_Attacks", "Chain_saw", "BrutalAxe",
-    "MP40", "BrutalSMG", "BrutalPistol",
-    "SSG", "Shot_Gun", "AssaultShotgun",
-    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
-    "Rocket_Launcher", "GrenadeLauncher",
-    "Plasma_Gun", "Railgun",
-    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
-    "FlameCannon", "HellishMissileLauncher"
-  },
-
-  { // Brutal Doom - TacticalDoomer
-    "Melee_Attacks", "Chain_saw", "BrutalAxe",
-    "MP40", "BrutalSMG", "BrutalPistol",
-    "SSG", "Shot_Gun", "AssaultShotgun",
-    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
-    "Rocket_Launcher", "GrenadeLauncher",
-    "Plasma_Gun", "Railgun",
-    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
-    "FlameCannon", "HellishMissileLauncher"
-  },
-
-  { // Combined Arms
-    "SkillAxe", "CFSFists",
-    "D3PS",
-    "particlesmasher", "BitchinShotgun",
-    "Gnasher",
-    "CygnusRL",
-    "BusterRifle",
-    "daibatana",
-    "havocrebounder", "tsbrick", "FlareGun"
-  },
-
-  { // Trailblazer
-    "Macheterang", "SpikebombWeapon",
-    "Colts", "Sidekick",
-    "Fleshrend", "ChromeJustice",
-    "Leadspitter", "FMG",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-  { // Trailblazer
-    "Macheterang", "SpikebombWeapon",
-    "Colts", "Sidekick",
-    "Fleshrend", "ChromeJustice",
-    "Leadspitter", "FMG",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-  { // Trailblazer
-    "Macheterang", "SpikebombWeapon",
-    "Colts", "Sidekick",
-    "Fleshrend", "ChromeJustice",
-    "Leadspitter", "FMG",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-
-  { // WW-Cola3
-    "ColaHandgun",
-    "PumpShotgun", "DualPumpShotgun",
-    "CardThrower",
-    "PlasmaAutorifle",
-    "MissileLauncher",
-    "Piledriver",
-    "ToothpasteLaser",
-  },
-  { // WW-Cola3
-    "ColaHandgun",
-    "PumpShotgun", "DualPumpShotgun",
-    "CardThrower",
-    "PlasmaAutorifle",
-    "MissileLauncher",
-    "Piledriver",
-    "ToothpasteLaser",
-  },
-
-  { // Netronian Chaos
-    "LB1000PileBanger", "AnaikaDagger", "M101Blade",
-    "EG10HeavyPistol", "V57BurstPistol", "V96ServicePistol",
-    "FASR33AssaultSupporter", "VS4Sweeper", "VS2Riotgun",
-    "PAG20PDW", "V80BSMG", "V88Carbine",
-    "VARACarbine", "AG100Machinegun", "V74ARifle",
-    "M12FMGR", "V32AARifle", "V50MLauncher",
-    "M189Auto", "V99AThrower", "VE1Coilgun",
-    "HeavyBarrel", "VM201TD", "Ver110VC"
-  },
-
-  { // Adventures of Square
-    "PaintGuns", "PaintGun",
-    "Oozis", "Oozi",
-    "Quadcannon", "Shotbow",
-    "PaintCannon",
-    "HellShellLauncher",
-    "Sceptre",
-    "Defibrillator"
-  },
-
-  { // Doom Incarnate
-    "SMG", "Handgun",
-    "Paratrooper", "ScytheMagnum",
-    "Grimmhammer", "DoubleShotgun", "InfernoShotgun",
-    "GatlingGun", "AssaultRifle",
-    "NapalmKraftWerk", "Kampfpistole",
-    "LaserKraftWerk", "PlazmaRifle",
-    "Ubergewehr", "Lasergewehr",
-    "CrossedWield"
-  },
-
-  { // Project MSX
-    "RegularFists",
-    "golampistol",
-    "hydrashotgun",
-    "barracudarifle",
-    "raptorshotgun",
-    "tauruscannon",
-    "chimerarifle",
-    "orionSniper"
-  },
-
-  { // Accessories to Murder
-    "Sledge",
-    "Revolver", "DNDualPistol", "DNPistol",
-    "TrenchShotgun", "DoubleShotgun",
-    "DNRifle",
-    "DNRocketLauncher",
-    "DNChaingun",
-    "DNBFG"
-  },
-
-}; // end of actor/class names /////////////////////////////////////////////////
-
-str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
-{
-  { // Doom
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-    "Chainsaw", "Fist",
-    "Rifle", "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
-
-  { // Eriguns
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
-  {
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Auto Shotgun", "Super Shotgun", "Shotgun",
-    "Gatling Gun", "Machinegun",
-    "Missile Launcher", "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000",
-    "Grenade Launcher"
-  },
-  {
-    "Vorpal Blade", "Fist",
-    "Super Immolator", "Immolator",
-    "Bloodbane",
-    "Nailgun",
-    "Mauler",
-    "Hellforge", "Irebolt",
-    "Soul Caster",
-    "Hydra", "Basilisk",
-    "Soul Reaver"
-  },
-
-  { // Beautiful Doom
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
-
-  { // Final Doomer
-    "Power Saw", "Melee",
-    "Ol' Faithful",
-    "Super Shotgun", "Scoped Shotgun",
-    "Machine Gun",
-    "Grenade Launcher",
-    "Heavy Machine Gun",
-    "Quantum Accelerator"
-  },
-  {
-    "Halderman Device", "Melee",
-    "Prototype Pistol",
-    "Burst Shotgun", "Tactical Shotgun",
-    "Dual Uzis",
-    "Missile Launcher",
-    "Maser",
-    "Incursion Annihilator"
-  },
-  {
-    "Chainsaw", "Melee",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-  {
-    "Stasis Bow", "Trench Knife",
-    "Ancient Pistol",
-    "Hybrid SSG", "Ancient Shotgun",
-    "Ancient AK",
-    "Photon Scepter",
-    "Alien Elite Weapon",
-    "Illuminator"
-  },
-  {
-    "Katana",
-    "Silenced Pistol",
-    "Neutron Cascader", "Neutron Pulser",
-    "Burst Needler",
-    "Prism Cannon",
-    "Ofuda Caster",
-    "Onmyou Devastator"
-  },
-  {
-    "NanoCore", "Power Fist",
-    "Charge Pistol",
-    "Machreaper", "Arc Blaster",
-    "Pulse Rifle",
-    "Pulse Cannon",
-    "Plasma Vulcan",
-    "X-Spark Cannon"
-  },
-
-  { // Faspons
-    "Chainsaw", "Knuckles",
-    "Combat Rifle",
-    "Double Barrel Shotgun", "Riotgun",
-    "Minigun",
-    "RPG",
-    "Pulse Rifle",
-    "BFG9000"
-  },
-
-  {
-    "Z-Gun", "Chainsaw", "Hatchet", "Knife", "Double Knuckles", "Omicron Raygun",
-    "Light Machinegun", "MP40", "Dual Colt 1911", "Colt 1911", "Dual Berettas", "Beretta",
-    "W-Shotgun", "Auto Shotgun", "Quad Shotgun", "Coach Gun", "Riot Shotgun",
-    "Heavy Chaingun", "M134 Minigun", "Demonkiller Carbine", "M24 Sniper Rifle", "Dual Combat Rifles", "Combat Rifle",
-    "Multi-Elemental Cannon", "Cryogenic Repeater", "Napalm Launcher", "Saw Thrower", "Saturn-V",
-    "Gatling Lasergun", "Dual Pulse Rifles", "Pulse Rifle", "Dual Plasma Zappers", "Plasma Zapper",
-    "Black Hole Maker", "BFG-X", "Railgun 2.0", "Needle Buster", "Proto Blaster",
-    "Chilly Mancubus' Ice Bombard", "Mancubi's Flame Cannon", "Arctic Archer's Chiller Crossbow", "Nightmare Reaper's Double Raygun", "Skeleton's Hell Missile Launcher",
-    "Acid Arbalest", "Toxic Wand", "Evil Warrior's Shield", "UAC Chemical Spray", "Poison Dart Blowgun",
-    "Land Mine", "Hand Grenade",
-  },
-
-  { // Kriegsland
-    "Stielhandgranate-68", "Elektroshocker", "Kampfmesser 84",
-    "DL-44 FuturPistole-Blaster", "Mauser M972-S2", "Luger P-58",
-    "Jadtfaust Wunderfilnte-8", "Luftwaffe DP-65",
-    "MP-86s", "StG-60",
-    "Panzerkreuz Mk. III", "Kampfpistole", "Lawine-6",
-    "Schallkraftwerk", "Blitzgewehr", "Flammenfaust",
-    "Ekelhaftwaffe", "MG-92", "VFR-245 Puls-Kanone",
-    "Bombenschuss", "Gewehr-1953", "KAR 82a-2K",
-    "Cross Thermals", "Cross Launchers", "Cross Machineguns", "Cross Shotguns", "Cross Pistols",
-  },
-
-  { // Complex Doom
-    "Chainsaw", "Melee",
-    "Handgun",
-    "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
-    "Minigun", "Assault Rifle",
-    "Grenade Launcher", "Rocket Launcher",
-    "Railgun", "Demon Tech Rifle", "Plasma Rifle",
-    "Demon Tech BFG10K", "BFG10K", "BFG9500",
-    "MP40",
-  },
-
-  { // Weapons of Saturn
-    "Chain Saw", "Knuckles",
-    "1911", "Beretta",
-    "Coach Gun", "Riot Gun",
-    "Rotary Cannon", "Machine Rifle",
-    "Saturn V",
-    "Nova Rifle",
-    "Titan",
-  },
-
-  { // Hard-Doom
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Quad-Shotgun", "Super Shotgun", "Shotgun",
-    "Minigun", "Chaingun",
-    "Grenade Launcher", "Rocket Launcher",
-    "Plasma Rifle", "Sonic Railgun",
-    "BFG10K", "BFG9000",
-  },
-
-  { // Heretic
-    "Gauntlets of the Necromancer", "Staff",
-    "Elven Wand",
-    "Ethereal Crossbow",
-    "Dragon Claw",
-    "Hellstaff",
-    "Phoenix Rod",
-    "Firemace",
-  },
-
-  { // Chex Quest
-    "Super Bootspork", "Spoon",
-    "Mini Zorcher",
-    "Large Zorcher",
-    "Rapid Zorcher",
-    "Zorch Propulsor",
-    "Phasing Zorcher",
-    "LAZ Device",
-  },
-
-  { // Strife
-    "Dagger",
-    "Crossbow",
-    "Assault Gun",
-    "Mini Missile Launcher",
-    "Grenade Launcher",
-    "Flame Thrower",
-    "Mauler",
-    "SIGIL",
-  },
-
-  { // Argent
-    "Chainsaw",
-    "Fists",
-    "Pistol",
-    "Super Shotgun",
-    "Combat Shotgun",
-    "Chaingun",
-    "Heavy Assault Rifle",
-    "Rocket Launcher",
-    "Gauss Cannon",
-    "Plasma Rifle",
-    "BFG 9000",
-  },
-
-  { // Doom 64 X
-    "Chainsaw", "Fist",
-    "Uzi", "Pistol",
-    "Devastator", "Super Shotgun", "Shotgun",
-    "Nailgun", "Chaingun",
-    "Flamethrower", "Rocket Launcher",
-    "Railgun", "Plasma Rifle",
-    "Unmaker", "BFG 9000",
-  },
-
-  { // Responsive Weapons + Faster Weapon Switching
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // Dead Marine
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // Parkour
-    "Chainsaw", "Fists",
-    "Akimbo Pistols", "Pistol",
-    "Dual Sawnoffs", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000",
-    "Cyber Launcher",
-    "Super Chaingun",
-  },
-
-  { }, // Special - autodetected
-
-  { // Brutal Doom Purist
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // Brutal Doom - BDoomer
-    "Melee", "Chainsaw", "Axe",
-    "MP40", "SMG", "Pistol",
-    "SSG", "Shotgun", "AA-12 Assault Shotgun",
-    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
-    "Rocket Launcher", "Grenade Launcher",
-    "Plasma Gun", "Railgun",
-    "BFG-9000", "Unmaker", "BFG10K",
-    "Flame Cannon", "Hellish Missile Launcher"
-  },
-
-  { // Brutal Doom - Doomer2
-    "Melee", "Chainsaw", "Axe",
-    "MP40", "SMG", "Pistol",
-    "SSG", "Shotgun", "AA-12 Assault Shotgun",
-    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
-    "Rocket Launcher", "Grenade Launcher",
-    "Plasma Gun", "Railgun",
-    "BFG-9000", "Unmaker", "BFG10K",
-    "Flame Cannon", "Hellish Missile Launcher"
-  },
-
-  { // Brutal Doom - TacticalDoomer
-    "Melee", "Chainsaw", "Axe",
-    "MP40", "SMG", "Pistol",
-    "SSG", "Shotgun", "AA-12 Assault Shotgun",
-    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
-    "Rocket Launcher", "Grenade Launcher",
-    "Plasma Gun", "Railgun",
-    "BFG-9000", "Unmaker", "BFG10K",
-    "Flame Cannon", "Hellish Missile Launcher"
-  },
-
-  { // Combined Arms
-    "Lilk's Axe", "Fists",
-    "Genka-12",
-    "Particle Smasher", "Shotgun",
-    "Mk. 2 'Gnasher' Nailgun",
-    "Cygnus Rocket Launcher",
-    "Buster Rifle",
-    "Daibatana",
-    "Havoc Rebounder", "Plakanomicon", "ZT Prototype Flare Gun"
-  },
-
-  { // Trailblazer
-    "Macheterang", "Spikebombs",
-    "Cradle & Grave", "Sidekick",
-    "Fleshrend", "Chrome Justice",
-    "Leadspitter", "F.M.G.",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-  { // Trailblazer
-    "Macheterang", "Spikebombs",
-    "Cradle & Grave", "Sidekick",
-    "Fleshrend", "Chrome Justice",
-    "Leadspitter", "F.M.G.",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-  { // Trailblazer
-    "Macheterang", "Spikebombs",
-    "Cradle & Grave", "Sidekick",
-    "Fleshrend", "Chrome Justice",
-    "Leadspitter", "F.M.G.",
-    "Bitchmaker", "Patriarch",
-    "Skullthrottle",
-    "Nutcracker",
-  },
-
-  { // WW-Cola3
-    "Marston R-1 Techvolver",
-    "KS-23 Shotgun", "Dual KS-23 Shotguns",
-    "Kare Brand Cards",
-    "Plasma Autorifle",
-    "Sidewinder Missile Launcher",
-    "Piledriver",
-    "Toothpaste Laser",
-  },
-  { // WW-Cola3
-    "Marston R-1 Techvolver",
-    "KS-23 Shotgun", "Dual KS-23 Shotguns",
-    "Kare Brand Cards",
-    "Plasma Autorifle",
-    "Sidewinder Missile Launcher",
-    "Piledriver",
-    "Toothpaste Laser",
-  },
-
-  { // Netronian Chaos
-    "Pile Banger Glove", "Anaika Hunting Daggers", "Digitalblade",
-    "Heavy Caliber Pistol", "Burst Pistol", "Service Pistol",
-    "Assault Supporter", "Hand Sweeper", "Riotgun",
-    "Personal Defence Arm", "Burst SMG", "Machine Carbine",
-    "Semi Auto Rifle", "Squad Support Gun", "Combat Rifle",
-    "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
-    "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
-    "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
-  },
-
-  { // Adventures of Square
-    "Dual Paint Guns", "Paint Gun",
-    "Dual Oozis", "Oozi",
-    "Quad Cannon", "Shotbow",
-    "Paintgun Cannon",
-    "Hellshell Launcher",
-    "Cresceptre",
-    "Defibrillator"
-  },
-
-  { // Doom Incarnate
-    "Sub-Machine Gun", "Handgun",
-    "Paratrooper Rifle", "Scythe Magnum",
-    "Grimmhammer", "Super Shotgun", "Inferno Shotgun",
-    "Gatling Gun", "Assault Rifle",
-    "NapalmKraftWerk", "Kampfpistole",
-    "LaserKraftWerk", "Plasma Rifle",
-    "Ubergewehr", "Lasergewehr",
-    "Crossed Wield"
-  },
-
-  { // Project MSX
-    "Fists",
-    "Golam Pistol",
-    "Hydra Shotgun",
-    "Barracuda Rifle",
-    "Raptor NailShotgun",
-    "Taurus AutoCannon",
-    "Chimaera Pulse Rifle",
-    "Orion Gauss Cannon"
-  },
-
-  { // Accessories to Murder
-    "Sledge Hammer",
-    "Revolver", "Pistols (Akimbo)", "Pistol",
-    "Shotgun", "Sawed-Off",
-    "Assault Rifle",
-    "Rocket Launcher",
-    "Chaingun",
-    "Bergmann Field Generator"
-  },
-
-}; // end of printable names
-
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
 function bool WM_IsSecretWeapon(int wNumber)
 {
   switch (currentSet)
   {
-
     // Smooth Doom Rifle
     case  1: return (wNumber == 2);
 
@@ -1116,6 +36,9 @@ function bool WM_IsSecretWeapon(int wNumber)
 
     // Accessories to Murder
     case 41: return (wNumber == 2 || wNumber == 3);
+
+    // DoomRL Arsenal
+    case 42: return true;
   }
 
   return false;
@@ -1188,7 +111,7 @@ function int getWeaponBySlot(int slotNumber)
 
 function void WM_UpdateMenu(void)
 {
-  if (menuIsOpened) { WM_PrintMenu();   }
+  if (menuIsOpened) { WM_ClearScreen(); WM_PrintMenu();   }
   else              { WM_ClearScreen(); }
 }
 
@@ -1236,14 +159,18 @@ function void WM_PrintMenu(void)
   int stepMultiplier = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
 
   int stepMultiplied = (step * stepMultiplier) >> 16;
-  int yStartMax = 1.0 - stepMultiplied * weaponCount;
-  if (yStart > yStartMax) { yStart = yStartMax; }
 
   int position          = 0;
   int availablePosition = 0;
   int holdingPosition   = 0;
 
-  for (int i = 0; i < weaponCount; ++i)
+  int iBegin;
+  int iEnd;
+  int iStep;
+  if (highToLow) { iBegin = weaponCount - 1; iEnd = -1;          iStep = -1; }
+  else           { iBegin = 0;               iEnd = weaponCount; iStep =  1; }
+
+  for (int i = iBegin; i != iEnd; i += iStep)
   {
     // remember position of selected weapon
     if (i == highlightedWeapon) { availablePosition = position; }
@@ -1261,7 +188,6 @@ function void WM_PrintMenu(void)
                           availableWeaponColor,
                           xStart,
                           yStart,
-                          highToLow,
                           numbersOnTheLeft,
                           stepMultiplied,
                           showWeaponNames
@@ -1276,7 +202,6 @@ function void WM_PrintMenu(void)
                         notAvailableWeaponColor,
                         xStart,
                         yStart,
-                        highToLow,
                         numbersOnTheLeft,
                         stepMultiplied,
                         showWeaponNames
@@ -1292,7 +217,6 @@ function void WM_PrintMenu(void)
                       highlightedWeaponColor,
                       xStart,
                       yStart,
-                      highToLow,
                       numbersOnTheLeft,
                       stepMultiplied,
                       showWeaponNames
@@ -1305,7 +229,6 @@ function void WM_PrintMenu(void)
                         selectedWeaponColor,
                         xStart,
                         yStart,
-                        highToLow,
                         numbersOnTheLeft,
                         stepMultiplied,
                         showWeaponNames
@@ -1320,18 +243,13 @@ function void WM_PrintHudWeapon(
   int color,
   int xStart,
   int yStart,
-  bool highToLow,
   bool numbersOnTheLeft,
   int stepMultiplied,
   bool showWeaponNames
 )
 {
   int id = messageIdStart + weaponNumber;
-
-  int y = yStart;
-  if (highToLow) { y += (weaponCount - 1 - position) * stepMultiplied; }
-  else           { y += position * stepMultiplied; }
-
+  int y = yStart + position * stepMultiplied;
   int slotNumber = WM_GetWeaponSlot(weaponNumber);
 
   str weaponString;
@@ -1485,6 +403,16 @@ function bool WM_GetWeaponSet(void)
     Log(s:"Weapon menu: loading autodetected weapon set...");
     WM_LoadRemembered();
     return AUTO_SET;
+  }
+
+  // special case: 6 DoomRL Arsenal classes
+  str doomRLClasses[6] = { "DoomRLMarine", "DoomRLScout", "DoomRLTechnician", "DoomRLRenegade", "DoomRLDemolitionist", "DoomRLCommando" };
+  for (int i = 0; i < 6; ++i)
+  {
+    if (CheckActorClass(0, doomRLClasses[i]))
+    {
+      return 42;
+    }
   }
 
   for (int c = 0; c < SETS_NUMBER; ++c)
@@ -1969,20 +897,13 @@ script "WM_Remember_Fin" (void)
 
   Log(s:"weapon count: ", i:autoCount);
 
-  Log(s:"slots: {");
   int i;
-  for (i = 0; i < autoCount - 1; ++i)
-  {
-    Log(i:slots[AUTO_SET][i], s:", ");
-  }
-  Log(i:slots[AUTO_SET][i], s:" }");
-
-  Log(s:"weapon classes: {");
-  for (i = 0; i < autoCount - 1; ++i)
-  {
-    Log(s:names[AUTO_SET][i], s:", ");
-  }
-  Log(s:names[AUTO_SET][i], s:" }");
+  Log(s:"slots:");
+  for (i = 0; i < autoCount; ++i) { Log(i:slots[AUTO_SET][i], s:", "); }
+  Log(s:"weapon classes:");
+  for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:names[AUTO_SET][i], s:"\", "); }
+  Log(s:"weapon names:");
+  for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:WM_BeautifyWeaponName(printableNames[AUTO_SET][i]), s:"\", "); }
 
   // reset last used weapon
   WM_SetLastUsedWeapon(-1);
