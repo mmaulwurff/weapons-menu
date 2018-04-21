@@ -25,6 +25,9 @@ Features:
      Later, you can select it with second key.
    - Weapon slot 1-0: if menu is closed, open it.
      Cycle through all weapons in a slot.
+   - Increase weapon priority: for example, if you increase priority of vanilla
+     shotgun, single press on "3" will select shotgun instead of SSG.
+   - Increase/decrease weapon slot: changes weapon slot.
 
    Every key bind is optional.
 
@@ -46,7 +49,7 @@ Weapon Menu supports the following weapons out of the box:
 3. Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)
    https://forum.zdoom.org/viewtopic.php?f=43&t=48208
 
-4. Beautiful Doom 6.3.0
+4. Beautiful Doom 6.3.2
    https://forum.zdoom.org/viewtopic.php?f=43&t=50004
 
 5. Final Doomer 2.4
@@ -103,7 +106,7 @@ Weapon Menu supports the following weapons out of the box:
 23. Smooth Doom (2018-01-13)
     https://forum.zdoom.org/viewtopic.php?f=43&t=45550
 
-24. Trailblazer v1.4b
+24. Trailblazer v1.4c
     https://forum.zdoom.org/viewtopic.php?f=43&t=47494
 
 25. WW-Cola3
@@ -111,6 +114,18 @@ Weapon Menu supports the following weapons out of the box:
 
 26. Netronian Chaos v3
     https://forum.zdoom.org/viewtopic.php?f=43&t=57964
+
+27. The Adventures of Square (Episodes 1-2)
+    http://adventuresofsquare.com/
+
+28. Doom Incarnate v1.5
+    https://forum.zdoom.org/viewtopic.php?f=43&t=58594#p1029236
+
+29. Project MSX 0.2a
+    https://forum.zdoom.org/viewtopic.php?t=25836#p492521
+
+30. Accessories to Murder
+    https://forum.zdoom.org/viewtopic.php?t=36877#p699326
 
 
 Other weapons are supported, but require initial setup:
@@ -190,4 +205,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.6.1.
+Version: 1.13.

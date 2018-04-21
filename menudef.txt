@@ -61,7 +61,8 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "be out of screen with big values)"
 
   StaticText ""
-  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.5, 3.0, 0.1
+  Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
+  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
 
   StaticText ""
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"

@@ -245,6 +245,7 @@ user int M8fWeaponMenuWeaponSlot49 = 0;
 
 // End of Weapons Menu CVar API
 
+user int M8fWMCycle = 0;
 
 // Remembered Weapon Set info.
 // Is declaring too many CVars a crime?
