@@ -127,6 +127,9 @@ Weapon Menu supports the following weapons out of the box:
 30. Accessories to Murder
     https://forum.zdoom.org/viewtopic.php?t=36877#p699326
 
+31. DoomRL Arsenal v1.05
+    https://forum.zdoom.org/viewtopic.php?t=37044#p703341
+
 
 Other weapons are supported, but require initial setup:
 
@@ -137,9 +140,9 @@ weapons:
 1. After you load Weapon Menu with your weapon mod, after the level starts,
    enter 'wmauto' in console.
 
-2. Relax for 2 minutes and watch while the script cycles over all of the
-   weapons in your weapon set. Do not do anything while script works, even if you
-   think script does nothing. Doing something will mess up the results.
+2. Relax for 45 minutes. Do not do anything while script works, even
+   if you think script does strange things or does nothing. Doing
+   something will mess up the results.
 
 3. When script is finished, it reloads the level, taking away all weapons except
    starting weapons, so it is wise to run it at the start of a new game.
@@ -205,4 +208,4 @@ Credits:
   https://freedoom.github.io/
 - Thanks to Gutawer and argv for example of ZScript HUD.
 
-Version: 1.13.
+Version: 1.14.
