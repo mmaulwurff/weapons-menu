@@ -1,6 +1,6 @@
 # Weapon Menu Mod for GZDoom and Zandronum
 
-## Features:
+## Features
 
 1. Allows fast and reliable weapon selection: you see what you are about to select.
 1. Works with any HUD.
@@ -35,7 +35,7 @@
    Be sure you adjust menu position, font and text scale in Options to fit your
    screen and weapon set size. Options take effect after menu is reopened.
 
-## Weapon Menu supports the following weapons out of the box:
+## Weapon Menu supports the following weapons out of the box
 
 1. Original Doom 2 weapons
 1. [PerK's Smoother Weapon Animations Enhanced](https://forum.zdoom.org/viewtopic.php?f=43&t=32628)
@@ -46,7 +46,7 @@
 1. [HXRTC Project Final Edition (Revised 17 feb 2018)](https://forum.zdoom.org/viewtopic.php?f=43&t=48074)
 1. [Kriegsland: Blutorden (2.3 04/02/18)](https://forum.zdoom.org/viewtopic.php?f=43&t=57053)
 1. [Complex Doom V27a3](https://forum.zdoom.org/viewtopic.php?f=43&t=58535)
-1.[Weapons of Saturn (October 31, 2017)](https://forum.zdoom.org/viewtopic.php?f=43&t=36821)
+1. [Weapons of Saturn (October 31, 2017)](https://forum.zdoom.org/viewtopic.php?f=43&t=36821)
 1. [Hard-Doom v8.2f](https://forum.zdoom.org/viewtopic.php?f=43&t=45145)
 1. Heretic IWAD weapons (not tested)
 1. Chex Quest (Single Player)
@@ -59,7 +59,7 @@
 1. [Brutal Doom v21 (test feb24)](http://www.moddb.com/mods/brutal-doom/downloads/brutal-doom-v21-beta)
 1. [Combined Arms v1.0](https://forum.zdoom.org/viewtopic.php?f=43&t=51066)
 1. [Freedoom v0.11.3](https://freedoom.github.io/index.html)
-1. [Smooth Doom (2018-01-13)](https://forum.zdoom.org/viewtopic.php?f=43&t=45550
+1. [Smooth Doom (2018-01-13)](https://forum.zdoom.org/viewtopic.php?f=43&t=45550)
 1. [Trailblazer v1.4c](https://forum.zdoom.org/viewtopic.php?f=43&t=47494)
 1. [WW-Cola3](https://forum.zdoom.org/viewtopic.php?f=43&t=55465)
 1. [Netronian Chaos v3](https://forum.zdoom.org/viewtopic.php?f=43&t=57964)
@@ -69,7 +69,7 @@
 1. [Accessories to Murder](https://forum.zdoom.org/viewtopic.php?t=36877#p699326)
 1. [DoomRL Arsenal v1.05](https://forum.zdoom.org/viewtopic.php?t=37044#p703341)
 
-## Other weapons are supported, but require initial setup:
+## Other weapons are supported, but require initial setup
 
 When you load weapon set that is by Weapon Menu out of the box, a
 message will appear with a suggestion to try Autodetection. To autodetect
@@ -78,7 +78,7 @@ weapons:
 1. After you load Weapon Menu with your weapon mod, after the level starts,
    enter 'wmauto' in console.
 
-2. Relax for 45 minutes. Do not do anything while script works, even
+2. Relax for 45 seconds. Do not do anything while script works, even
    if you think script does strange things or does nothing. Doing
    something will mess up the results.
 
@@ -101,8 +101,7 @@ weapons:
      option to hide not acquired weapons.
    * autodetection may have problems with mods that feature weapon upgrades.
 
-
-## Note for weapon mod developers:
+## Note for weapon mod developers
 
 1. If you want Weapon Menu to support your mod out of the box, just ask me.
 
@@ -138,6 +137,7 @@ Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterfac
 Author: m8f (mmaulwurff@gmail.com)
 
 [GitHub](https://github.com/mmaulwurff/weapons-menu)
+
 [Forum topic](https://forum.zdoom.org/viewtopic.php?f=43&t=59498)
 
 License: CC BY 4.0
