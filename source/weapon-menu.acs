@@ -889,8 +889,9 @@ script "WM_Remember_Fin" (void)
   // save all remembered info
   int playerN = PlayerNumber();
   int autoCount = weaponCounts[AUTO_SET];
+  str playerActorClass = GetActorClass(0);
   SetUserCVar(playerN, "M8fWeaponMenuRememberedCount", autoCount);
-  SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", GetActorClass(0));
+  SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", playerActorClass);
 
   for (int w = 0; w < autoCount; ++w)
   {
@@ -903,6 +904,7 @@ script "WM_Remember_Fin" (void)
 
   Log(s:"weapon count: ", i:autoCount);
 
+  Log(s:"Player Class: ", s:playerActorClass);
   int i;
   Log(s:"slots:");
   for (i = 0; i < autoCount; ++i) { Log(i:slots[AUTO_SET][i], s:", "); }
@@ -1120,4 +1122,15 @@ script "WM_DecreaseSlot" (void)
   WM_SetHighlightedWeapon(i);
   Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
   WM_UpdateMenu();
+}
+
+script "WM_PrintWeaponClass" (void)
+{
+  Log(s:GetWeapon());
+}
+
+script "WM_ResetAutodetection" (void)
+{
+  int playerN = PlayerNumber();
+  SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", "");
 }

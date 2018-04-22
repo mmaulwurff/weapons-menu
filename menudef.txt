@@ -69,6 +69,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText ""
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"
   StaticText "Or settings will be applied on next menu opening"
+  Command "Reset autodetected weapons", "pukename WM_ResetAutodetection"
 }
 
 AddOptionMenu "OptionsMenu"
