@@ -111,8 +111,11 @@ function int getWeaponBySlot(int slotNumber)
 
 function void WM_UpdateMenu(void)
 {
-  if (menuIsOpened) { WM_ClearScreen(); WM_PrintMenu();   }
-  else              { WM_ClearScreen(); }
+  int  playerN    = PlayerNumber();
+  bool alwaysShow = GetUserCVar(playerN, "M8fWeaponMenuAlwaysShow");
+
+  WM_ClearScreen();
+  if (menuIsOpened || alwaysShow) { WM_PrintMenu(); }
 }
 
 function void WM_ClearScreen(void)

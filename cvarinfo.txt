@@ -12,6 +12,8 @@ user int M8fWeaponMenuFavoriteWeapon = 0;
 
 user bool M8fWeaponMenuOpenOnScroll = false;
 
+user bool M8fWeaponMenuAlwaysShow = false;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

@@ -51,6 +51,8 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Weapon names", "M8fWeaponMenuShowNames", "M8FWeaponsMenuShowNotAvailable"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
 
+  Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
+
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
   StaticText "(also affects alignment)"
