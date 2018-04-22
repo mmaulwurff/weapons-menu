@@ -496,6 +496,8 @@ script "ShowWeaponMenu" ENTER
   int updatePeriod = 10;
   int updateCount = 0;
 
+  WM_UpdateMenu();
+
   // options
   while (true)
   {
@@ -503,7 +505,10 @@ script "ShowWeaponMenu" ENTER
     WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
     WM_SetMenuIsOpened(menuIsOpened);
 
-    if (menuIsOpened)
+    int  playerN    = PlayerNumber();
+    bool alwaysShow = GetUserCVar(playerN, "M8fWeaponMenuAlwaysShow");
+
+    if (menuIsOpened || alwaysShow)
     {
       if (updateCount < updatePeriod)
       {
