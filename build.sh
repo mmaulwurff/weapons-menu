@@ -15,8 +15,11 @@ zip weapon-menu.pk3 \
     sndinfo.txt \
     autodetection.cfg \
     zscript.txt \
+    MINIPLWK.lmp \
+    MINIPL_W.lmp \
 && \
 gzdoom -glversion 3 -file \
        weapon-menu.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
+       $1 \
        +map test

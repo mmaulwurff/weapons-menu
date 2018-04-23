@@ -27,6 +27,8 @@ OptionValue "M8FWeaponMenuFontOptions"
   0, "Small Font"
   1, "Console Font"
   2, "Big Font"
+  3, "Miniplicity"
+  4, "Miniplicity Condensed"
 }
 
 OptionMenu "M8FWeaponsMenuOptions"
@@ -58,7 +60,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "(also affects alignment)"
 
   StaticText ""
-  Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.05, 2
+  Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
   StaticText "(note that bottom of menu can"
   StaticText "be out of screen with big values)"
 

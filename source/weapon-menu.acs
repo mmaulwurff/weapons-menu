@@ -278,14 +278,23 @@ function void WM_PrintHudWeapon(
   HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, 0);
 }
 
+#define N_FONTS 5
+
 function void WM_SetupFont(void)
 {
-  str fonts[3] = { "SMALLFONT", "CONFONT", "BIGFONT" };
+  str fonts[N_FONTS] =
+  {
+    "SMALLFONT",
+    "CONFONT",
+    "BIGFONT",
+    "MINIPL_W",
+    "MINIPLWK"
+  };
 
   int playerN  = PlayerNumber();
   int iFont    = GetUserCVar(playerN, "M8fWeaponMenuFont");
 
-  if (0 <= iFont && iFont < 3)
+  if (0 <= iFont && iFont < N_FONTS)
   {
     SetFont(fonts[iFont]);
   }

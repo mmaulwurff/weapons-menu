@@ -143,7 +143,7 @@ Author: m8f (mmaulwurff@gmail.com)
 License: CC BY 4.0
 
 Credits:
-- click.wav is DSTINK.wav from Freedoom.
+* click.wav is DSTINK.wav from [Freedoom](https://freedoom.github.io/).
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
-  https://freedoom.github.io/
-- Thanks to Gutawer and argv for example of ZScript HUD.
+* [Miniplicity font by Jimmy / Agent Spork](Jimmy / Agent Spork)
+* Thanks to Gutawer and argv for example of ZScript HUD.
