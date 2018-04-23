@@ -18,8 +18,11 @@ zip weapon-menu.pk3 \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
 && \
+cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
+&& \
 gzdoom -glversion 3 -file \
        weapon-menu.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
        $1 \
-       +map test
+       +map test \
+       -nomonsters
