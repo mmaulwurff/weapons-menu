@@ -5,6 +5,7 @@
 !*.txt
 !*.md
 !*.sh
+!*.lmp
 !.gitignore
 
 !source
