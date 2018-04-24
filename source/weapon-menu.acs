@@ -127,6 +127,8 @@ function void WM_ClearScreen(void)
     int id = messageIdStart + i;
     HudMessage(s:""; HUDMSG_PLAIN, id, CR_RED, 0.0, 0.0, 0);
   }
+  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount, 0, 0, 0, 0);
+  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount + 1, 0, 0, 0, 0);
 }
 
 function void WM_PrintMenu(void)
@@ -173,6 +175,21 @@ function void WM_PrintMenu(void)
   int iStep;
   if (highToLow) { iBegin = weaponCount - 1; iEnd = -1;          iStep = -1; }
   else           { iBegin = 0;               iEnd = weaponCount; iStep =  1; }
+
+  if (displayMode != 0)
+  {
+    HudMessage(s:"Selected: ", s:WM_GetPrintableWeaponName(selectedWeapon);
+               HUDMSG_PLAIN, messageIdStart + weaponCount,
+               selectedWeaponColor, 0.5, yStart + stepMultiplied * 2, 0);
+    HudMessage(s:"Highlighted: ", s:WM_GetPrintableWeaponName(highlightedWeapon);
+               HUDMSG_PLAIN, messageIdStart + weaponCount + 1,
+               highlightedWeaponColor, 0.5, yStart + stepMultiplied * 4, 0);
+  }
+  else
+  {
+    HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount, 0, 0, 0, 0);
+    HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount + 1, 0, 0, 0, 0);
+  }
 
   for (int i = iBegin; i != iEnd; i += iStep)
   {
