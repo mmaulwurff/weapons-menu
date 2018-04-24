@@ -32,14 +32,13 @@
 
 1. Configurable colors, fonts, and positions: Options -> Weapon Menu Options.
 
-   Be sure you adjust menu position, font and text scale in Options to fit your
-   screen and weapon set size. Options take effect after menu is reopened.
+   Be sure you adjust menu position, font and text scale in Options to fit your screen and weapon set size. Options take effect after menu is reopened.
 
 ## Weapon Menu supports the following weapons out of the box
 
 1. Original Doom 2 weapons
 1. [PerK's Smoother Weapon Animations Enhanced](https://forum.zdoom.org/viewtopic.php?f=43&t=32628)
-1. [Eriguns: Eriguns1 Standard, Eriguns1 Extended, Eriguns2 (limited)](https://forum.zdoom.org/viewtopic.php?f=43&t=48208)
+1. [Eriguns: Eriguns 1 Standard and Extended, Eriguns 2 (limited)](https://forum.zdoom.org/viewtopic.php?f=43&t=48208)
 1. [Beautiful Doom 6.3.2](https://forum.zdoom.org/viewtopic.php?f=43&t=50004)
 1. [Final Doomer 2.4](https://forum.zdoom.org/viewtopic.php?f=43&t=55061)
 1. [Faspons (Feb 24)](https://forum.zdoom.org/viewtopic.php?f=43&t=48985)
@@ -71,31 +70,20 @@
 
 ## Other weapons are supported, but require initial setup
 
-When you load weapon set that is by Weapon Menu out of the box, a
-message will appear with a suggestion to try Autodetection. To autodetect
-weapons:
+When you load weapon set that is by not supported by Weapon Menu out
+of the box, a message will appear with a suggestion to try 'wmauto' script:
 
-1. After you load Weapon Menu with your weapon mod, after the level starts,
-   enter 'wmauto' in console.
+1. After you load Weapon Menu with your weapon mod, after the level starts, enter 'wmauto' in console.
 
-2. Relax for 45 seconds. Do not do anything while script works, even
-   if you think script does strange things or does nothing. Doing
-   something will mess up the results.
+2. Relax and wait until the detection process is finished. The script will report the progress. Do not do anything while script works, even if you think script does strange things or does nothing. Doing something will mess up the results.
 
-3. When script is finished, it reloads the level, taking away all weapons except
-   starting weapons, so it is wise to run it at the start of a new game.
+3. When script is finished, it reloads the level, taking away all weapons except starting weapons, so it is wise to run it at the start of a new game.
 
-4. Then autodetected weapon set will be remembered until the new autodetection
-   will be run, so you can play a megawad or a bunch of maps with the same
-   weapon mod. Remembered weapon set will be also stored in a save. But if you
-   autodetect one weapon set, save the game with it, then autodetect another
-   weapon set and load first save with first weapon set, autodetection data will
-   only last until new level is started. Then you will have to autodetect again
-   and lose acquired weapons or play without the Menu.
+4. Then detected weapon set will be remembered until the new detection will be run, so you can play a megawad or a bunch of maps with the same weapon mod. Remembered weapon set will be also stored in a save. But if you detect one weapon set, save the game with it, then detect another weapon set and load first save with first weapon set, detection data will only last until new level is started. Then you will have to detect again and lose acquired weapons or play without the Menu.
 
 5. Autodetection system has the following limits:
    * no more than 250 weapons in a weapon set.
-   * weapon names are composed of internal names, so they may be a bit inaccurate.
+   * weapon names are composed of internal names, so they may be inaccurate.
    * autodetection will detect all the weapons that are in a mod (within limits),
      even if they are unobtainable in a game. So it is recommended to use an
      option to hide not acquired weapons.
@@ -103,30 +91,25 @@ weapons:
 
 ## Note for weapon mod developers
 
-1. If you want Weapon Menu to support your mod out of the box, just ask me.
+If you want Weapon Menu to support your mod out of the box:
 
-   It will help greatly if your mod uses unique player class/actor name.
+1. Your mod must have unique player class/actor name.
 
-   Also it would help if you supply a list of weapons class/actor
-   names, in order that they should appear in the menu, with
-   corresponding slots. For example, for standard Doom 2 weapons it
-   would be: 1 - Chainsaw, 1 - Fist, 2 - Pistol, 3 - SuperShotgun, 3 -
-   Shotgun, 4 - Chaingun, 5 - RocketLauncher, 6 - PlasmaRifle, 7 -
-   BFG9000.
+1. Please supply a list of weapons with slots and tags, in order that they should appear in the menu. For example, for standard Doom 2 weapons it would be:
 
-   It would be great if you will also provide a list of weapon names too.
+| slot | class name     | displayed name  |
+|------+----------------+-----------------|
+|    1 | Chainsaw       | Chainsaw        |
+|    1 | Fist           | Brass knuckles  |
+|    2 | Pistol         | Pistol          |
+|    3 | SuperShotgun   | Super Shotgun   |
+|    3 | Shotgun        | Shotgun         |
+|    4 | Chaingun       | Chaingun        |
+|    5 | RocketLauncher | Rocket Launcher |
+|    6 | PlasmaRifle    | Plasma Rifle    |
+|    7 | BFG9000        | BFG 9000        |
 
-   If your mod has weapons that are very rare, or bonus, or secret, they can be
-   marked to be hidden from the menu until player gets them.
-
-2. If you want Weapon Menu to support your mod with Autodetection: there is
-   high probability that it already is supported!
-
-   Though for better autodetection results it would help if weapon class/actor
-   names are meaningful and human readable, and not have special prefix.
-   Examples of good names: SuperShotgun, Big_gun, hammer.
-   Examples of bad names: Weapon1, autorocketlauncher, MYSUPERGUN, m8f_Shotgun.
-
+1. If your mod has weapons that are very rare, or bonus, or secret, they can be marked so to be hidden from the menu until player gets them.
 
 ## Note for HUD developers
 
