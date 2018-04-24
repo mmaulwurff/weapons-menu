@@ -107,9 +107,9 @@ of the box, a message will appear with a suggestion to try 'wmauto' script:
 
 If you want Weapon Menu to support your mod out of the box:
 
-1. Your mod must have unique player class/actor name.
+* Your mod must have unique player class/actor name.
 
-1. Please supply a list of weapons with slots and tags, in order that they should appear in the menu. For example, for standard Doom 2 weapons it would be:
+* Please supply a list of weapons with slots and tags, in order that they should appear in the menu. For example, for standard Doom 2 weapons it would be:
 
 ```
 | slot | class name     | displayed name  |
@@ -125,7 +125,7 @@ If you want Weapon Menu to support your mod out of the box:
 |    7 | BFG9000        | BFG 9000        |
 ```
 
-1. If your mod has weapons that are very rare, or bonus, or secret, they can be marked so to be hidden from the menu until player gets them.
+* If your mod has weapons that are very rare, or bonus, or secret, they can be marked so to be hidden from the menu until player gets them.
 
 ## Note for HUD developers
 
