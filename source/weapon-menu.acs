@@ -154,8 +154,9 @@ function void WM_PrintMenu(void)
   bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
   bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-  bool showWeaponNames   = GetUserCVar(playerN, "M8fWeaponMenuShowNames");
   bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
+
+  int  displayMode = GetUserCVar(playerN, "M8fWeaponMenuDisplayMode");
 
   int xStart         = GetUserCVar(playerN, "M8FWeaponMenuXStart");
   int yStart         = GetUserCVar(playerN, "M8FWeaponMenuYStart");
@@ -193,7 +194,7 @@ function void WM_PrintMenu(void)
                           yStart,
                           numbersOnTheLeft,
                           stepMultiplied,
-                          showWeaponNames
+                          displayMode
         );
       }
       position += 1;
@@ -207,7 +208,7 @@ function void WM_PrintMenu(void)
                         yStart,
                         numbersOnTheLeft,
                         stepMultiplied,
-                        showWeaponNames
+                        displayMode
       );
       position += 1;
     }
@@ -222,7 +223,7 @@ function void WM_PrintMenu(void)
                       yStart,
                       numbersOnTheLeft,
                       stepMultiplied,
-                      showWeaponNames
+                      displayMode
     );
 
     if (highlightSelected && WM_IsInInventory(selectedWeapon))
@@ -234,7 +235,7 @@ function void WM_PrintMenu(void)
                         yStart,
                         numbersOnTheLeft,
                         stepMultiplied,
-                        showWeaponNames
+                        displayMode
       );
     }
   }
@@ -248,15 +249,19 @@ function void WM_PrintHudWeapon(
   int yStart,
   bool numbersOnTheLeft,
   int stepMultiplied,
-  bool showWeaponNames
+  int displayMode
 )
 {
   int id = messageIdStart + weaponNumber;
-  int y = yStart + position * stepMultiplied;
+  int y = yStart;
+  int x = xStart;
+  if (displayMode == 2) { x += position * stepMultiplied; } // horizontal
+  else                  { y += position * stepMultiplied; } // vertical
+
   int slotNumber = WM_GetWeaponSlot(weaponNumber);
 
   str weaponString;
-  if (showWeaponNames)
+  if (displayMode == 0) // with weapon names
   {
     str name = WM_GetPrintableWeaponName(weaponNumber);
     str delimiter  = " - ";
@@ -270,12 +275,12 @@ function void WM_PrintHudWeapon(
       weaponString = StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ");
     }
   }
-  else
+  else // without weapon names
   {
     weaponString = StrParam(s:" ", i:slotNumber, s:" ");
   }
 
-  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, xStart, y, 0);
+  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, 0);
 }
 
 #define N_FONTS 5

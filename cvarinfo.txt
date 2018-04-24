@@ -5,7 +5,10 @@ user int M8FWeaponMenuFont = 0;
 
 user float M8FWeaponMenuStepMultiplier = 1.0;
 
-user bool M8fWeaponMenuShowNames = true;
+// 0 - vertical with names
+// 1 - vertical without names
+// 2 - horizontal without names
+user int M8fWeaponMenuDisplayMode = 0;
 
 user int M8fWeaponMenuLastUsedWeapon = 0;
 user int M8fWeaponMenuFavoriteWeapon = 0;

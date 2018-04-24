@@ -31,6 +31,13 @@ OptionValue "M8FWeaponMenuFontOptions"
   4, "Miniplicity Condensed"
 }
 
+OptionValue "M8FWeaponMenuDisplayModeOptions"
+{
+  0, "Vertical with Names"
+  1, "Vertical without Names"
+  2, "Horizontal without Names"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -50,7 +57,7 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   Option "Play sound on weapon highlight", "M8fWeaponMenuEnableSound", "M8FWeaponMenuYesNoOptions"
 
-  Option "Weapon names", "M8fWeaponMenuShowNames", "M8FWeaponsMenuShowNotAvailable"
+  Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
 
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
