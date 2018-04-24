@@ -872,17 +872,7 @@ script "WM_RememberWeapon" (int slot)
 
   if (StrCmp(currentWeapon, "WMWeaponStub") == 0) { terminate; }
 
-  bool alreadyRemembered = false;
-  for (int i = 0; i < weaponCounts[AUTO_SET]; ++i)
-  {
-    if (StrICmp(names[AUTO_SET][i], currentWeapon) == 0) // equal
-    {
-      alreadyRemembered = true;
-      break;
-    }
-  }
-
-  if (!alreadyRemembered && weaponCounts[AUTO_SET] < MAX_WEAPONS_NUMBER)
+  if (weaponCounts[AUTO_SET] < MAX_WEAPONS_NUMBER)
   {
     slots[AUTO_SET][weaponCounts[AUTO_SET]] = slot;
     names[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
@@ -890,6 +880,7 @@ script "WM_RememberWeapon" (int slot)
     ++weaponCounts[AUTO_SET];
   }
 
+  GiveInventory("WMInstaSwitcher", 1);
   SetWeapon("WMWeaponStub");
   TakeInventory(currentWeapon, 1);
 }
