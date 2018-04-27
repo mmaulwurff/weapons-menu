@@ -29,3 +29,40 @@ class WMWeaponStub : Pistol
         Loop;
   }
 }
+
+class WMAmmoInformer : Actor
+{
+  static void TellAmmo(Actor activator, string weaponClass, bool showSecond)
+  {
+    CVar messageCVar =  CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", activator.player);
+
+    if (!activator || !activator.player)
+    {
+      messageCVar.SetString("");
+      return;
+    }
+
+    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (!w)
+    {
+      messageCVar.SetString("");
+      return;
+    }
+
+    string message = "";
+
+    Ammo amm1 = w.Ammo1;
+    if (amm1)
+    {
+      message = String.Format("(%d/%d)", amm1.amount, amm1.maxAmount);
+    }
+
+    Ammo amm2 = w.Ammo2;
+    if (showSecond && amm2)
+    {
+      message = String.Format("%s (%d/%d)", message, amm2.amount, amm2.maxAmount);
+    }
+
+    messageCVar.SetString(message);
+  }
+}

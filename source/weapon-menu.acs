@@ -159,6 +159,7 @@ function void WM_PrintMenu(void)
   bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
 
   int  displayMode = GetUserCVar(playerN, "M8fWeaponMenuDisplayMode");
+  int  ammoMode    = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
 
   int xStart         = GetUserCVar(playerN, "M8FWeaponMenuXStart");
   int yStart         = GetUserCVar(playerN, "M8FWeaponMenuYStart");
@@ -181,7 +182,13 @@ function void WM_PrintMenu(void)
     HudMessage(s:"Selected: ", s:WM_GetPrintableWeaponName(selectedWeapon);
                HUDMSG_PLAIN, messageIdStart + weaponCount,
                selectedWeaponColor, 0.5, yStart + stepMultiplied * 2, 0);
-    HudMessage(s:"Highlighted: ", s:WM_GetPrintableWeaponName(highlightedWeapon);
+    str message = StrParam(s:"Highlighted: ",
+                           s:WM_GetPrintableWeaponName(highlightedWeapon));
+    if (ammoMode != 0) {
+      str ammo = WM_GetAmmoString(WM_GetWeaponName(highlightedWeapon), ammoMode);
+      message = StrParam(s:message, s:" ", s:ammo);
+    }
+    HudMessage(s:message;
                HUDMSG_PLAIN, messageIdStart + weaponCount + 1,
                highlightedWeaponColor, 0.5, yStart + stepMultiplied * 4, 0);
   }
@@ -211,7 +218,8 @@ function void WM_PrintMenu(void)
                           yStart,
                           numbersOnTheLeft,
                           stepMultiplied,
-                          displayMode
+                          displayMode,
+                          ammoMode
         );
       }
       position += 1;
@@ -225,7 +233,8 @@ function void WM_PrintMenu(void)
                         yStart,
                         numbersOnTheLeft,
                         stepMultiplied,
-                        displayMode
+                        displayMode,
+                        ammoMode
       );
       position += 1;
     }
@@ -240,7 +249,8 @@ function void WM_PrintMenu(void)
                       yStart,
                       numbersOnTheLeft,
                       stepMultiplied,
-                      displayMode
+                      displayMode,
+                      ammoMode
     );
 
     if (highlightSelected && WM_IsInInventory(selectedWeapon))
@@ -252,7 +262,8 @@ function void WM_PrintMenu(void)
                         yStart,
                         numbersOnTheLeft,
                         stepMultiplied,
-                        displayMode
+                        displayMode,
+                        ammoMode
       );
     }
   }
@@ -266,7 +277,8 @@ function void WM_PrintHudWeapon(
   int yStart,
   bool numbersOnTheLeft,
   int stepMultiplied,
-  int displayMode
+  int displayMode,
+  int ammoMode
 )
 {
   int id = messageIdStart + weaponNumber;
@@ -281,15 +293,18 @@ function void WM_PrintHudWeapon(
   if (displayMode == 0) // with weapon names
   {
     str name = WM_GetPrintableWeaponName(weaponNumber);
+    str ammo = WM_GetAmmoString(WM_GetWeaponName(weaponNumber), ammoMode);
     str delimiter  = " - ";
 
     if (numbersOnTheLeft)
     {
-      weaponString = StrParam(s:" ", i:slotNumber, s:delimiter, s:name, s:" ");
+      weaponString = StrParam(i:slotNumber, s:delimiter, s:name);
+      if (ammoMode != 0) {weaponString = StrParam(s:weaponString, s:" ", s:ammo);}
     }
     else
     {
-      weaponString = StrParam(s:" ", s:name, s:delimiter, i:slotNumber, s:" ");
+      weaponString = StrParam(s:name, s:delimiter, i:slotNumber);
+      if (ammoMode != 0) {weaponString = StrParam(s:ammo, s:" ", s:weaponString);}
     }
   }
   else // without weapon names
@@ -297,7 +312,7 @@ function void WM_PrintHudWeapon(
     weaponString = StrParam(s:" ", i:slotNumber, s:" ");
   }
 
-  HudMessage(s:weaponString; HUDMSG_PLAIN, id, color, x, y, 0);
+  HudMessage(s:" ", s:weaponString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
 }
 
 #define N_FONTS 5
@@ -784,8 +799,17 @@ script "WM_SelectFavoriteWeapon" (void)
 
 // Utility functions section ///////////////////////////////////////////////////
 
+int updateCounter = 0;
+
 function bool WM_UpdateIsInInventory(void)
 {
+  ++updateCounter;
+  if (updateCounter > 10)
+  {
+    updateCounter = 0;
+    return true;
+  }
+
   bool updated = false;
 
   for (int i = 0; i < weaponCount; ++i)
@@ -1163,4 +1187,14 @@ script "WM_ResetAutodetection" (void)
 {
   int playerN = PlayerNumber();
   SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", "");
+}
+
+function str WM_GetAmmoString(str weaponClass, int ammoMode)
+{
+  if (ammoMode == 0) { return ""; }
+
+  bool showSecondary = ammoMode == 2;
+  int playerN = PlayerNumber();
+  ScriptCall("WMAmmoInformer", "TellAmmo", weaponClass, showSecondary);
+  return GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
 }

@@ -38,6 +38,13 @@ OptionValue "M8FWeaponMenuDisplayModeOptions"
   2, "Horizontal without Names"
 }
 
+OptionValue "M8FWeaponMenuShowAmmoOptions"
+{
+  0, "No"
+  1, "Only primary"
+  2, "Primary and secondary"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -61,6 +68,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
 
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
+  Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
