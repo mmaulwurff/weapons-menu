@@ -20,7 +20,7 @@
    * Mark weapon as favorite/Select favorite weapon:
      First, you mark currently selected weapon as favorite with first key.
      Later, you can select it with second key.
-   * Weapon slot 1-0: if menu is closed, open it.
+   * Weapon slot 1-11: if menu is closed, open it.
      Cycle through all weapons in a slot.
    * Increase weapon priority: for example, if you increase priority of vanilla
      shotgun, single press on "3" will select shotgun instead of SSG.
@@ -144,5 +144,5 @@ License: CC BY 4.0
 Credits:
 * click.wav is DSTINK.wav from [Freedoom](https://freedoom.github.io/).
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
-* [Miniplicity font by Jimmy / Agent Spork](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308)
+* [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308)
 * Thanks to Gutawer and argv for example of ZScript HUD.

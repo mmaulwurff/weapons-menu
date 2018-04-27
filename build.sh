@@ -17,6 +17,7 @@ zip weapon-menu.pk3 \
     zscript.txt \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
+    MM2SFNTO.fon2 \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \

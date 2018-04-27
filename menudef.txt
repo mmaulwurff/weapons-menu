@@ -29,6 +29,7 @@ OptionValue "M8FWeaponMenuFontOptions"
   2, "Big Font"
   3, "Miniplicity"
   4, "Miniplicity Condensed"
+  5, "Mementwo"
 }
 
 OptionValue "M8FWeaponMenuDisplayModeOptions"

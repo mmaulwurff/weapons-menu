@@ -315,7 +315,7 @@ function void WM_PrintHudWeapon(
   HudMessage(s:" ", s:weaponString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
 }
 
-#define N_FONTS 5
+#define N_FONTS 6
 
 function void WM_SetupFont(void)
 {
@@ -325,7 +325,8 @@ function void WM_SetupFont(void)
     "CONFONT",
     "BIGFONT",
     "MINIPL_W",
-    "MINIPLWK"
+    "MINIPLWK",
+    "MM2SFNTO",
   };
 
   int playerN  = PlayerNumber();
