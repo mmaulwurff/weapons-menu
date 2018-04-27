@@ -994,7 +994,36 @@ function str WM_BeautifyWeaponName(str weaponClassName)
   str result1 = WM_Replace(weaponClassName, '_', ' ');
   str result2 = WM_DivideCamelCase(result1);
   str result3 = WM_Capitalize(result2);
-  return result3;
+  str result4 = WM_RemovePrefix(result3);
+  return result4;
+}
+
+#define N_PREFIX 1
+
+function str WM_RemovePrefix(str source)
+{
+  str classes[N_PREFIX] =
+  {
+    "Doom4Player",
+  };
+  str prefix[N_PREFIX] =
+  {
+    "D4",
+  };
+
+  str currentClass = GetActorClass(0);
+
+  for (int i = 0; i < N_PREFIX; ++i)
+  {
+    int prefixLength = StrLen(prefix[i]);
+    if (StrCmp(currentClass, classes[i]) == 0 &&
+        StrCmp(StrLeft(source, prefixLength), prefix[i]) == 0)
+    {
+      return StrRight(source, StrLen(source) - prefixLength);
+    }
+  }
+
+  return source;
 }
 
 function str WM_Capitalize(str source)
