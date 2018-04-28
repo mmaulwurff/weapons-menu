@@ -58,7 +58,7 @@ class WMAmmoInformer : Actor
     }
 
     Ammo amm2 = w.Ammo2;
-    if (showSecond && amm2)
+    if (showSecond && amm2 && amm1 != amm2)
     {
       message = String.Format("%s (%d/%d)", message, amm2.amount, amm2.maxAmount);
     }
