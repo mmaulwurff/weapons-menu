@@ -993,24 +993,51 @@ function void WM_LoadRemembered(void)
 
 function str WM_BeautifyWeaponName(str weaponClassName)
 {
-  str result1 = WM_Replace(weaponClassName, '_', ' ');
-  str result2 = WM_DivideCamelCase(result1);
-  str result3 = WM_Capitalize(result2);
-  str result4 = WM_RemovePrefix(result3);
-  return result4;
+  str result = weaponClassName;
+  result = WM_RemovePrefix(result);
+  result = WM_Replace(result, '_', ' ');
+  result = WM_DivideCamelCase(result);
+  result = WM_Capitalize(result);
+  return result;
 }
 
-#define N_PREFIX 1
+#define N_PREFIX 14
 
 function str WM_RemovePrefix(str source)
 {
   str classes[N_PREFIX] =
   {
     "Doom4Player",
+    "Infantry",
+    "Gunner",
+    "Commander",
+    "Demolition",
+    "Marksman",
+    "Recon",
+    "Colonel",
+    "Mercenary",
+    "Heavy",
+    "Elite",
+    "Slipgater",
+    "Samurai",
+    "Pointman",
   };
   str prefix[N_PREFIX] =
   {
     "D4",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
+    "SZ_",
   };
 
   str currentClass = GetActorClass(0);
