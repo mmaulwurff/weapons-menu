@@ -919,11 +919,11 @@ script "WM_RememberWeapon" (int slot)
 
   if (StrCmp(currentWeapon, "WMWeaponStub") == 0) { terminate; }
 
-  if (weaponCounts[AUTO_SET] < MAX_WEAPONS_NUMBER)
+  int count = weaponCounts[AUTO_SET];
+  if (count < MAX_WEAPONS_NUMBER)
   {
-    slots[AUTO_SET][weaponCounts[AUTO_SET]] = slot;
-    names[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
-    printableNames[AUTO_SET][weaponCounts[AUTO_SET]] = currentWeapon;
+    slots[AUTO_SET][count] = slot;
+    names[AUTO_SET][count] = currentWeapon;
     ++weaponCounts[AUTO_SET];
   }
 
@@ -966,7 +966,7 @@ script "WM_Remember_Fin" (void)
   Log(s:"weapon classes:");
   for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:names[AUTO_SET][i], s:"\", "); }
   Log(s:"weapon names:");
-  for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:WM_BeautifyWeaponName(printableNames[AUTO_SET][i]), s:"\", "); }
+  for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:WM_BeautifyWeaponName(names[AUTO_SET][i]), s:"\", "); }
 
   // reset last used weapon
   WM_SetLastUsedWeapon(-1);
