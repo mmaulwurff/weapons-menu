@@ -7,8 +7,9 @@
 1. Works with almost any weapon set.
 1. Controls in Options -> Customize controls -> "Weapon Menu Keys".
 
-   * Fire/close menu, Alt fire/close menu: if menu is opened, close it.
-     If menu is closed, fire.
+   * Fire/Select: if menu is opened, close it and select weapon. If
+     menu is closed, fire.
+   * Alt fire/close menu: the same, but do not select new weapon, just close menu.
    * Toggle menu: open and close menu.
    * Next/previous weapon: if menu is opened, cycle through all available weapons.
      If menu is closed, cycles through weapons in standard Doom fashion.

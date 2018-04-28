@@ -2,7 +2,7 @@ addkeysection "Weapon Menu Keys" WeaponMenuKeys
 
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-addmenukey "Fire/Select menu" +fire_close_menu
+addmenukey "Fire/Select" +fire_close_menu
 alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
