@@ -158,7 +158,6 @@ function void WM_PrintMenu(void)
   bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
   bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
-  bool highlightSelected = GetUserCVar(playerN, "M8FWeaponMenuHighlightSelected");
 
   int  displayMode = GetUserCVar(playerN, "M8fWeaponMenuDisplayMode");
   int  ammoMode    = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
@@ -208,8 +207,7 @@ function void WM_PrintMenu(void)
 
     if (WM_IsInInventory(i))
     {
-      bool mustShow = (i != highlightedWeapon) ||
-        (i != selectedWeapon && highlightSelected);
+      bool mustShow = (i != highlightedWeapon) || (i != selectedWeapon);
 
       if (mustShow)
       {
@@ -254,20 +252,20 @@ function void WM_PrintMenu(void)
                       displayMode,
                       ammoMode
     );
+  }
 
-    if (highlightSelected && WM_IsInInventory(selectedWeapon))
-    {
-      WM_PrintHudWeapon(selectedWeapon,
-                        holdingPosition,
-                        selectedWeaponColor,
-                        xStart,
-                        yStart,
-                        numbersOnTheLeft,
-                        stepMultiplied,
-                        displayMode,
-                        ammoMode
-      );
-    }
+  if (WM_IsInInventory(selectedWeapon) && selectedWeapon != highlightedWeapon)
+  {
+    WM_PrintHudWeapon(selectedWeapon,
+                      holdingPosition,
+                      selectedWeaponColor,
+                      xStart,
+                      yStart,
+                      numbersOnTheLeft,
+                      stepMultiplied,
+                      displayMode,
+                      ammoMode
+    );
   }
 }
 

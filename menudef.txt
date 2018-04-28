@@ -69,8 +69,6 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 
-  Option "Highlight selected weapon", "M8FWeaponMenuHighlightSelected", "M8FWeaponMenuYesNoOptions"
-
   Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
 
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
