@@ -11,7 +11,9 @@ zip weapon-menu.pk3 \
     menudef.txt \
     source/weapon-menu.acs \
     WeaponMenuInterface.txt \
-    sounds/click.wav \
+    sounds/WMSWTCH1.wav \
+    sounds/WMSWTCH2.wav \
+    sounds/WMSWTCH3.wav \
     sndinfo.txt \
     autodetection.cfg \
     zscript.txt \

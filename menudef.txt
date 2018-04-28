@@ -46,6 +46,14 @@ OptionValue "M8FWeaponMenuShowAmmoOptions"
   2, "Primary and secondary"
 }
 
+OptionValue "M8fWeaponMenuSwitchSoundOptions"
+{
+  0, "None"
+  1, "Click"
+  2, "Hum"
+  3, "Chk"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -63,7 +71,7 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   Option "Highlight selected weapon", "M8FWeaponMenuHighlightSelected", "M8FWeaponMenuYesNoOptions"
 
-  Option "Play sound on weapon highlight", "M8fWeaponMenuEnableSound", "M8FWeaponMenuYesNoOptions"
+  Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
 
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"

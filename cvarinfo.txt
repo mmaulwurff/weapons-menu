@@ -40,7 +40,7 @@ user int M8fWeaponMenuApiVersionMajor = 1;
 // New minor API version marks new functionality without breaking
 // backward compatibility.
 // Read-only.
-user int M8fWeaponMenuApiVersionMinor = 1;
+user int M8fWeaponMenuApiVersionMinor = 2;
 
 // Set this to true to disable Weapon Menu native (built-in) output.
 // Native output is ACS HudMessage.
@@ -82,14 +82,25 @@ user bool M8fWeaponMenuNumbersLeft = true;
 user bool M8fWeaponMenuHighlightSelected = true;
 
 // True if sound is played on highlighing a weapon in menu.
-// Added in 1.1.
+// Added in 1.1. Deprecated since 1.2. Always false. Changing this does no effect.
+// See M8fWeaponMenuSwitchSound.
 // Read/write.
 user bool M8fWeaponMenuEnableSound = false;
 
 // Sound that will be played on highlighting a weapon in menu.
-// Added in 1.1.
+// Added in 1.1. Deprecated since 1.2. Always empty. Changing this does no effect.
+// See M8fWeaponMenuSwitchSound.
 // Read/write.
-user string M8fWeaponMenuHighlightSound = "menu/click";
+user string M8fWeaponMenuHighlightSound = "";
+
+// Sound index that will be played on highlighting a weapon in menu.
+// Added in 1.2.
+// 0 - none
+// 1 - click
+// 2 - hum
+// 3 - chk
+// For new sounds, add them to sounds/ directory and name them WMSWTCH[N].
+user int M8fWeaponMenuSwitchSound = 3;
 
 // And here is the ugly part...
 
