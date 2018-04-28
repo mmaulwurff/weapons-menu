@@ -609,6 +609,12 @@ script "ToggleWeaponMenu" (int highlightSelected)
   WM_ToggleWeaponMenu(highlightSelected);
 }
 
+script "CloseWeaponMenuNoSwitch" (void)
+{
+  WM_HighlightSelectedWeapon();
+  WM_ToggleWeaponMenu(true);
+}
+
 function void WM_ToggleWeaponMenu(int highlightSelected)
 {
   WM_SetMenuIsOpened(!menuIsOpened);
