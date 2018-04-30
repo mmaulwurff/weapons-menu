@@ -70,6 +70,7 @@
 1. [Project MSX 0.2a](https://forum.zdoom.org/viewtopic.php?t=25836#p492521)
 1. [Accessories to Murder](https://forum.zdoom.org/viewtopic.php?t=36877#p699326)
 1. [DoomRL Arsenal v1.05](https://forum.zdoom.org/viewtopic.php?t=37044#p703341)
+1. [High Noon Drifter](https://forum.zdoom.org/viewtopic.php?f=43&t=57098#p1006858)
 
 ## Other weapons are supported, but require initial setup
 

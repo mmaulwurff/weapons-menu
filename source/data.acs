@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 43
+#define SETS_NUMBER 44
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -51,6 +51,7 @@ str playerClassNames[SETS_NUMBER] =
   "msx_player",          // 40. Project MSX 0.2a
   "DoomNukem",           // 41. Accessories to Murder
   "DoomRLMarine",        // 42. DoomRL Arsenal 1.05
+  "WesternPlayer",       // 43. High Noon Drifter v1.2c
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -91,6 +92,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // Project MSX
   10, // Accessories to Murder
   217, // DoomRL Arsenal
+  11, // High Noon Drifter
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -226,6 +228,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6,
     7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7,
   },
+
+  { 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 0 }, // High Noon Drifter
 
 };
 
@@ -878,6 +882,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "RLBFG9000"
   },
 
+  { // High Noon Drifter
+    "Boomerang", "Bow",
+    "Revolver",
+    "Coachgun", "Winchester",
+    "SMGs", "SMG",
+    "Grenades",
+    "DarkStaff",
+    "Artifact",
+    "DoubleWhips",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1525,6 +1540,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG10K",
     "Nuclear BFG9000",
     "BFG9000"
+  },
+
+  { // High Noon Drifter
+    "Nimurdal", "Heki",
+    "R&C Thunderhawk",
+    "Montaraz 1899", "Cintia 1901",
+    "M-12 Grasa x2", "M-12 Grasa",
+    "V45 Grenades",
+    "Gate of Anthrakia",
+    "Mask of Basilissa",
+    "Bullwhips",
   },
 
 }; // end of printable names

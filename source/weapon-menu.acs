@@ -21,7 +21,7 @@ int step = 0;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
-function bool WM_IsSecretWeapon(int wNumber)
+function bool WM_IsHiddenWeapon(int wNumber)
 {
   switch (currentSet)
   {
@@ -41,6 +41,14 @@ function bool WM_IsSecretWeapon(int wNumber)
 
     // DoomRL Arsenal
     case 42: return true;
+
+    // High Noon Drifter:
+    case 43:
+      if (wNumber == 10) return true; // Double whips
+      // Single SMG when Second SMG is acquired:
+      if (wNumber ==  6 && WM_IsInInventory(5)) return true;
+      if (wNumber ==  5) return true; // Double SMG
+      return false;
   }
 
   return false;
@@ -224,7 +232,7 @@ function void WM_PrintMenu(void)
       }
       position += 1;
     }
-    else if (showNotAvailable && !WM_IsSecretWeapon(i))
+    else if (showNotAvailable && !WM_IsHiddenWeapon(i))
     {
       WM_PrintHudWeapon(i,
                         position,
