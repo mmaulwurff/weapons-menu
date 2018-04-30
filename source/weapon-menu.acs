@@ -446,8 +446,30 @@ function void WM_Initialize(void)
   }
 
   WM_RenameWeaponsIfFreedoom();
+  WM_MaybeTacticalChainsaw();
   WM_UpdateIsInInventory();
   WM_InitApiCvars();
+}
+
+function void WM_MaybeTacticalChainsaw(void)
+{
+  // function specifically for Tactical Chainsaw mod
+  // https://www.doomworld.com/idgames/combos/ph_stuff
+
+  str tacticalClass = "TacticalChainsaw";
+  if (!CheckClass(tacticalClass)) { return; }
+  int chainsawLength = StrLen("Chainsaw");
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    str class = WM_GetWeaponName(i);
+    if (StrICmp("Chainsaw", StrLeft(class, chainsawLength)) == 0 ||
+        StrICmp("saw", StrRight(class, 3)) == 0)
+    {
+      names[currentSet][i] = "TacticalChainsaw";
+      printableNames[currentSet][i] = "Tactical chainsaw";
+      break;
+    }
+  }
 }
 
 function bool WM_GetWeaponSet(void)
