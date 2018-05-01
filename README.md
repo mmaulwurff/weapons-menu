@@ -51,7 +51,7 @@
 1. [Weapons of Saturn (October 31, 2017)](https://forum.zdoom.org/viewtopic.php?f=43&t=36821)
 1. [Hard-Doom v8.2f](https://forum.zdoom.org/viewtopic.php?f=43&t=45145)
 1. Heretic IWAD weapons (not tested)
-1. Chex Quest (Single Player)
+1. [Chex Quest](http://www.chucktropolis.com/gamers.htm)
 1. Strife weapons (not tested)
 1. [Argent (v0.5.3)](https://forum.zdoom.org/viewtopic.php?f=43&t=52363)
 1. [Doom 64 'weapons only' wad by Nevander (updated 5-29-2016) X version](https://forum.zdoom.org/viewtopic.php?f=43&t=51596)

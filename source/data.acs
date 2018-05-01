@@ -71,7 +71,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // Weapons of Saturn
   14, // Hard-Doom
   8,  // Heretic
-  8,  // Chex Quest
+  9,  // Chex Quest
   8,  // Strife
   11, // Argent
   15, // Doom 64 X
@@ -167,7 +167,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // Heretic
 
-  { 1, 1, 2, 3, 4, 5, 6, 7 }, // Chex Quest
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Chex Quest
 
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Strife
 
@@ -452,10 +452,9 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { // Chex Quest
-    "SuperBootspork",
-    "Bootspoon",
+    "SuperBootspork", "Bootspoon",
     "MiniZorcher",
-    "LargeZorcher",
+    "SuperLargeZorcher", "LargeZorcher",
     "RapidZorcher",
     "ZorchPropulsor",
     "PhasingZorcher",
@@ -1175,7 +1174,7 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { // Chex Quest
     "Super Bootspork", "Spoon",
     "Mini Zorcher",
-    "Large Zorcher",
+    "Super-Large Zorcher", "Large Zorcher",
     "Rapid Zorcher",
     "Zorch Propulsor",
     "Phasing Zorcher",

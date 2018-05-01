@@ -30,6 +30,9 @@ function bool WM_IsHiddenWeapon(int wNumber)
 
     case 13: return (wNumber == 5); // HXRTC Project: Omicron Raygun
 
+    // Chex Quest: Super Large Zorcher is deathmatch-only
+    case 19: return (wNumber == 3);
+
     case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
     case 28: return (wNumber == 3 || wNumber == 9);
     case 29: return (wNumber == 3 || wNumber == 9);
