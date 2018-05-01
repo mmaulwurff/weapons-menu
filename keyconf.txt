@@ -33,8 +33,11 @@ addmenukey "Open Weapon Menu Options" WeaponMenuOptions
 
 addmenukey "Last Used Weapon" "pukename SelectLastUsedWeapon"
 
-addmenukey "Mark weapon as favorite" "pukename WM_MarkWeaponAsFavorite"
-addmenukey "Select favorite weapon" "pukename WM_SelectFavoriteWeapon"
+addmenukey "Mark weapon for quick access" "pukename WM_MarkWeaponAsFavorite"
+addmenukey "Select quick access weapon" "pukename WM_SelectFavoriteWeapon"
+addmenukey "Fire quick access weapon" "pukename WM_FireFavoriteWeapon 0"
+addmenukey "AltFire quick access weapon" "pukename WM_FireFavoriteWeapon 1"
+
 addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
 addmenukey "Increase weapon slot" "pukename WM_IncreaseSlot"
 addmenukey "Decrease weapon slot" "pukename WM_DecreaseSlot"

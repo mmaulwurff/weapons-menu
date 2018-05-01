@@ -30,7 +30,7 @@ class WMWeaponStub : Pistol
   }
 }
 
-class WMAmmoInformer : Actor
+class WMZscriptHelper : Actor
 {
   static void TellAmmo(Actor activator, string weaponClass, bool showSecond)
   {
@@ -64,5 +64,29 @@ class WMAmmoInformer : Actor
     }
 
     messageCVar.SetString(message);
+  }
+
+  static void IsWeaponReady(Actor activator, string weaponClass)
+  {
+    PlayerPawn p = PlayerPawn(activator);
+    bool isReady = p.player.WeaponState & WF_WEAPONREADY;
+    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuWeaponReady", activator.player);
+    messageCVar.SetInt(isReady);
+  }
+
+  static void FireWeapon(Actor activator, string weaponClass)
+  {
+    if (!activator || !activator.player) { return; }
+
+    PlayerPawn p = PlayerPawn(activator);
+    p.FireWeapon(null);
+  }
+
+  static void FireWeaponAlt(Actor activator, string weaponClass)
+  {
+    if (!activator || !activator.player) { return; }
+
+    PlayerPawn p = PlayerPawn(activator);
+    p.FireWeaponAlt(null);
   }
 }

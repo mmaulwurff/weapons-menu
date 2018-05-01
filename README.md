@@ -18,9 +18,9 @@
    * Open weapon menu options: opens options. Especially useful for Zandronum.
    * Last used weapon: select last used weapon.
      This key doesn't care if menu is opened or not.
-   * Mark weapon as favorite/Select favorite weapon:
-     First, you mark currently selected weapon as favorite with first key.
-     Later, you can select it with second key.
+   * Mark weapon for quick access/Select quick access weapon.
+   * Fire/Altfire quick access weapon:
+     Draw quick access weapon, fire it once, and return to previous weapon.
    * Weapon slot 1-11: if menu is closed, open it.
      Cycle through all weapons in a slot.
    * Increase weapon priority: for example, if you increase priority of vanilla

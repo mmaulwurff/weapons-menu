@@ -1373,6 +1373,41 @@ function str WM_GetAmmoString(str weaponClass, int ammoMode)
 
   bool showSecondary = ammoMode == 2;
   int playerN = PlayerNumber();
-  ScriptCall("WMAmmoInformer", "TellAmmo", weaponClass, showSecondary);
+  ScriptCall("WMZscriptHelper", "TellAmmo", weaponClass, showSecondary);
   return GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+}
+
+script "WM_FireFavoriteWeapon" (int alt)
+{
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  str favoriteClass = WM_GetWeaponName(favorite);
+  bool returnToLast = favorite != selectedWeapon;
+
+  if (WM_IsInInventory(favorite))
+  {
+    WM_SelectWeapon(favorite);
+    ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
+    bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+    while (!(WM_IsSelected(favorite) && isReady))
+    {
+      Delay(1);
+      ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
+      isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+    }
+
+    if (alt)
+    {
+      ScriptCall("WMZscriptHelper", "FireWeaponAlt", favoriteClass);
+    }
+    else
+    {
+      ScriptCall("WMZscriptHelper", "FireWeapon", favoriteClass);
+    }
+
+    if (returnToLast && WM_IsInInventory(lastUsedWeapon))
+    {
+      WM_SelectWeapon(lastUsedWeapon);
+    }
+  }
 }
