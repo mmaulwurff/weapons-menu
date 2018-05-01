@@ -1117,7 +1117,7 @@ function str WM_BeautifyWeaponName(str weaponClassName)
   return result;
 }
 
-#define N_PREFIX 14
+#define N_PREFIX 15
 
 function str WM_RemovePrefix(str source)
 {
@@ -1137,6 +1137,7 @@ function str WM_RemovePrefix(str source)
     "Slipgater",
     "Samurai",
     "Pointman",
+    "OMGDoomPlayer",
   };
   str prefix[N_PREFIX] =
   {
@@ -1154,6 +1155,7 @@ function str WM_RemovePrefix(str source)
     "SZ_",
     "SZ_",
     "SZ_",
+    "OMG_",
   };
 
   str currentClass = GetActorClass(0);
