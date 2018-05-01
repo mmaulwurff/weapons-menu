@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 44
+#define SETS_NUMBER 45
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -52,6 +52,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomNukem",           // 41. Accessories to Murder
   "DoomRLMarine",        // 42. DoomRL Arsenal 1.05
   "WesternPlayer",       // 43. High Noon Drifter v1.2c
+  "DoomPlayer",          // 44. Freedoom
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -93,6 +94,7 @@ int weaponCounts[SETS_NUMBER] =
   10, // Accessories to Murder
   217, // DoomRL Arsenal
   11, // High Noon Drifter
+  9,  // Freedoom
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -230,6 +232,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 0 }, // High Noon Drifter
+
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Freedoom
 
 };
 
@@ -893,6 +897,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "DoubleWhips",
   },
 
+  { // Freedoom
+    "Chainsaw", "Fist",
+    "Pistol",
+    "SuperShotgun", "Shotgun",
+    "Chaingun",
+    "RocketLauncher",
+    "PlasmaRifle",
+    "BFG9000"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1551,6 +1565,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Gate of Anthrakia",
     "Mask of Basilissa",
     "Bullwhips",
+  },
+
+  { // Freedoom
+    "Angle Grinder", "Fists",
+    "Handgun",
+    "Double-barrelled Shotgun", "Pump-action Shotgun",
+    "Minigun",
+    "Missile Launcher",
+    "Polaric Energy Cannon",
+    "SKAG 1337",
   },
 
 }; // end of printable names

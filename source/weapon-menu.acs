@@ -445,7 +445,6 @@ function void WM_Initialize(void)
     WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
   }
 
-  WM_RenameWeaponsIfFreedoom();
   WM_MaybeTacticalChainsaw();
   WM_UpdateIsInInventory();
   WM_InitApiCvars();
@@ -472,6 +471,41 @@ function void WM_MaybeTacticalChainsaw(void)
   }
 }
 
+#define N_MATCHED_CLASSES 6
+
+function int WM_SpecialMatchClassToWeaponSet(str class)
+{
+  // First case: one weapon set for several classes.
+
+  str classes[N_MATCHED_CLASSES][2] =
+  {
+    { "DoomRLMarine",        42 },
+    { "DoomRLScout",         42 },
+    { "DoomRLTechnician",    42 },
+    { "DoomRLRenegade",      42 },
+    { "DoomRLDemolitionist", 42 },
+    { "DoomRLCommando",      42 },
+  };
+
+  for (int i = 0; i < N_MATCHED_CLASSES; ++i)
+  {
+    if (StrCmp(class, classes[i][0]) == 0)
+    {
+      return classes[i][1];
+    }
+  }
+
+  // Second case: one class for several weapon sets.
+
+  if (StrCmp(class, "DoomPlayer") == 0)
+  {
+    if (WM_IsFreedoom()) { return 44; }
+    else                 { return  0; }
+  }
+
+  return -1;
+}
+
 function bool WM_GetWeaponSet(void)
 {
   int playerN      = PlayerNumber();
@@ -485,14 +519,10 @@ function bool WM_GetWeaponSet(void)
     return AUTO_SET;
   }
 
-  // special case: 6 DoomRL Arsenal classes
-  str doomRLClasses[6] = { "DoomRLMarine", "DoomRLScout", "DoomRLTechnician", "DoomRLRenegade", "DoomRLDemolitionist", "DoomRLCommando" };
-  for (int i = 0; i < 6; ++i)
+  int matchedClass = WM_SpecialMatchClassToWeaponSet(currentClass);
+  if (matchedClass != -1)
   {
-    if (CheckActorClass(0, doomRLClasses[i]))
-    {
-      return 42;
-    }
+    return matchedClass;
   }
 
   for (int c = 0; c < SETS_NUMBER; ++c)
@@ -532,25 +562,10 @@ function bool WM_MenuIsEnabled(int weaponSet)
   return isEnabled;
 }
 
-function bool WM_IsFreeDoom(void)
+function bool WM_IsFreedoom(void)
 {
   str checkString = StrParam(l:"CC_IMP");
   return (StrICmp(checkString, "serpentipede") == 0);
-}
-
-function void WM_RenameWeaponsIfFreedoom(void)
-{
-  if (!WM_IsFreedoom()) { return; }
-
-  printableNames[0][0] = "Angle Grinder";
-  printableNames[0][1] = "Fists";
-  printableNames[0][2] = "Handgun";
-  printableNames[0][3] = "Double-barrelled Shotgun";
-  printableNames[0][4] = "Pump-action Shotgun";
-  printableNames[0][5] = "Minigun";
-  printableNames[0][6] = "Missile Launcher";
-  printableNames[0][7] = "Polaric Energy Cannon";
-  printableNames[0][8] = "SKAG 1337";
 }
 
 function bool WM_IsOpenOnScroll(void)
@@ -599,13 +614,12 @@ script "ShowWeaponMenu" ENTER
       }
     }
 
-    // debug output
-    /*
+    /* debug output
     SetFont("SMALLFONT");
     Log(s:"sel:",   i:selectedWeapon,
         s:" high:", i:highlightedWeapon,
         s:" last:", i:lastUsedWeapon);
-    //*/
+    ///*///
 
     if (!WM_IsSelected(selectedWeapon))
     {
