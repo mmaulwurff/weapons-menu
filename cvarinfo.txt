@@ -22,7 +22,7 @@ user string M8fWeaponMenuAmmoInformerResult;
 // 0 - do not show
 // 1 - show only primary ammo
 // 2 - show primary and secondary
-user int M8fWeaponMenuShowAmmoCounts = 1;
+user int M8fWeaponMenuShowAmmoCounts = 2;
 
 ////////////////////////////////////////////////////////////////////////////////
 
