@@ -1405,6 +1405,15 @@ script "WM_FireFavoriteWeapon" (int alt)
       ScriptCall("WMZscriptHelper", "FireWeapon", favoriteClass);
     }
 
+    ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
+    isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+    while (!(WM_IsSelected(favorite) && isReady))
+    {
+      Delay(1);
+      ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
+      isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+    }
+
     if (returnToLast && WM_IsInInventory(lastUsedWeapon))
     {
       WM_SelectWeapon(lastUsedWeapon);
