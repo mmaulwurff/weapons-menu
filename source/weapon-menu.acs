@@ -445,9 +445,38 @@ function void WM_Initialize(void)
     WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
   }
 
-  WM_MaybeTacticalChainsaw();
+  WM_SetupAddons();
   WM_UpdateIsInInventory();
   WM_InitApiCvars();
+}
+
+function void WM_SetupAddons(void)
+{
+  WM_MaybeTacticalChainsaw();
+  WM_MaybeUACSurvivalPack();
+}
+
+function void WM_AddWeapon(int slot, str class, str name)
+{
+  slots[currentSet][weaponCount] = slot;
+  names[currentSet][weaponCount] = class;
+  printableNames[currentSet][weaponCount] = name;
+  ++weaponCount;
+}
+
+function void WM_MaybeUACSurvivalPack(void)
+{
+  str satchelChargeClass = "Det_satchelCharge";
+  if (CheckClass(satchelChargeClass))
+  {
+    WM_AddWeapon(0, satchelChargeClass, "Satchel Charge with Detonator");
+  }
+
+  str pipebombClass = "Det_Pipebomb";
+  if (CheckClass(pipebombClass))
+  {
+    WM_AddWeapon(0, pipebombClass, "Pipebombs with Detonator");
+  }
 }
 
 function void WM_MaybeTacticalChainsaw(void)
@@ -465,7 +494,7 @@ function void WM_MaybeTacticalChainsaw(void)
         StrICmp("saw", StrRight(class, 3)) == 0)
     {
       names[currentSet][i] = "TacticalChainsaw";
-      printableNames[currentSet][i] = "Tactical chainsaw";
+      printableNames[currentSet][i] = "Tactical Chainsaw";
       break;
     }
   }

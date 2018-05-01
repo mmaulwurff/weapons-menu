@@ -72,6 +72,7 @@
 1. [DoomRL Arsenal v1.05](https://forum.zdoom.org/viewtopic.php?t=37044#p703341)
 1. [High Noon Drifter v1.2c](https://forum.zdoom.org/viewtopic.php?f=43&t=57098#p1006858)
 1. [Tactical Chainsaw](https://www.doomworld.com/idgames/combos/ph_stuff) (works only for mods that have a chainsaw)
+1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19) (works with everything)
 
 ## Other weapons are supported, but require initial setup
 
