@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 46
+#define SETS_NUMBER 47
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -54,6 +54,7 @@ str playerClassNames[SETS_NUMBER] =
   "WesternPlayer",       // 43. High Noon Drifter v1.2c
   "DoomPlayer",          // 44. Freedoom
   "XDoomPlayer",         // 45. X-Weapon
+  "DoomPlayer",          // 46. Harmony
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -97,6 +98,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // High Noon Drifter
   9,  // Freedoom
   29, // X-Weapon
+  6,  // Harmony
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -249,6 +251,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     9, 9,
     0, 0,
   },
+
+  { 1, 2, 3, 4, 5, 6 } // Harmony
 
 };
 
@@ -963,6 +967,15 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "XPistolX",
   },
 
+  { // Harmony
+    "Fist",
+    "Pistol",
+    "Shotgun",
+    "Chaingun",
+    "RocketLauncher",
+    "PlasmaRifle",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1672,6 +1685,15 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
     "Fatman Pistol", // 27
     "Bluetail pistol", // 28
+  },
+
+  { // Harmony
+    "Grenade",
+    "Neutron Gun",
+    "Compensator",
+    "Minigun",
+    "Grenade launcher",
+    "Entrophy thrower",
   },
 
 }; // end of printable names

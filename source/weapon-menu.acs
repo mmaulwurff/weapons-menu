@@ -519,7 +519,7 @@ function void WM_MaybeTacticalChainsaw(void)
   }
 }
 
-#define N_MATCHED_CLASSES 10
+#define N_MATCHED_CLASSES 11
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -540,6 +540,9 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     { "XDoomPlayer2",        45 },
     { "XDoomPlayer3",        45 },
     { "XDoomPlayer4",        45 },
+
+    // Harmony mods
+    { "HarmonyPlayer",       46 },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
@@ -554,8 +557,9 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "DoomPlayer") == 0)
   {
-    if (WM_IsFreedoom()) { return 44; }
-    else                 { return  0; }
+    if      (WM_IsFreedoom()) { return 44; }
+    else if (WM_IsHarmony())  { return 46; }
+    else                      { return  0; }
   }
 
   return -1;
@@ -621,6 +625,15 @@ function bool WM_IsFreedoom(void)
 {
   str checkString = StrParam(l:"CC_IMP");
   return (StrICmp(checkString, "serpentipede") == 0);
+}
+
+function bool WM_IsHarmony(void)
+{
+  str checkString = StrParam(l:"C1TEXT");
+  str harmString = "HEADING DOWN YOU FINALLY HAVE";
+  int harmLength = StrLen(harmString);
+  bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
+  return isHarmony;
 }
 
 function bool WM_IsOpenOnScroll(void)
@@ -1340,9 +1353,10 @@ script "WM_DecreaseSlot" (void)
   WM_UpdateMenu();
 }
 
-script "WM_PrintWeaponClass" (void)
+script "WM_PrintInfo" (void)
 {
-  Log(s:GetWeapon());
+  Log(s:"Player: ", s:GetActorClass(0));
+  Log(s:"Weapon: ", s:GetWeapon());
 }
 
 script "WM_ResetAutodetection" (void)
