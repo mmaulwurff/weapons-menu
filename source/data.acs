@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 45
+#define SETS_NUMBER 46
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -53,6 +53,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomRLMarine",        // 42. DoomRL Arsenal 1.05
   "WesternPlayer",       // 43. High Noon Drifter v1.2c
   "DoomPlayer",          // 44. Freedoom
+  "XDoomPlayer",         // 45. X-Weapon
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -95,6 +96,7 @@ int weaponCounts[SETS_NUMBER] =
   217, // DoomRL Arsenal
   11, // High Noon Drifter
   9,  // Freedoom
+  29, // X-Weapon
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -234,6 +236,19 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 0 }, // High Noon Drifter
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Freedoom
+
+  { // X-Weapon
+    1,
+    2, 2, 2, 2,
+    3, 3, 3, 3,
+    4, 4, 4,
+    5, 5, 5,
+    6, 6, 6,
+    7, 7, 7,
+    8, 8, 8, 8,
+    9, 9,
+    0, 0,
+  },
 
 };
 
@@ -907,6 +922,47 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000"
   },
 
+  { // X-Weapon
+    "FistX",
+
+    "XPistolXX",
+    "SPistolX",
+    "BFDPistolX",
+    "PistolX",
+
+    "HavokCannon",
+    "XShotgunX",
+    "SShotgunX",
+    "ShotgunX",
+
+    "XAssaultRifleX",
+    "SAssaultRifleX",
+    "AssaultRifleX",
+
+    "XSuperShotgunX",
+    "SSuperShotgunX",
+    "SuperShotgunX",
+
+    "XPhaseLauncherX",
+    "SPhaseLauncherX",
+    "PhaseLauncherX",
+
+    "XPlasmaRifleX",
+    "SDemontechRifleX",
+    "DemontechRifleX",
+
+    "XBFSGX",
+    "XBFGGX",
+    "SBFGX",
+    "BFGX",
+
+    "GrenadeCannonX",
+    "ChaingunX",
+
+    "DPistolX",
+    "XPistolX",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1575,6 +1631,47 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Missile Launcher",
     "Polaric Energy Cannon",
     "SKAG 1337",
+  },
+
+  { // X-Weapon
+    "Fist", // 0
+
+    "Magnum Handcannon", // 1
+    "Nighthawk", // 2 upgraded
+    "Bluetail Pistol", // 3
+    "Nighthawk", // 4
+
+    "Havok Cannon", // 5
+    "Tactical Shotgun", // 6
+    "Shotgun", // 7 upgrade
+    "Shotgun", // 8
+
+    "Legion Light Rifle", // 9
+    "Upgraded Assault Rifle", // 10 upgrade?
+    "Assault Rifle", // 11
+
+    "Automatic Shotgun", // 12
+    "Quadruple Barreled Shotgun", // 13 upgrade
+    "Double Barreled Shotgun", // 14
+
+    "Cluster Torpedo Launcher", // 15
+    "Phasic Cluster Launcher", // 16 upgrade
+    "Phasic Cluster Launcher", // 17
+
+    "Dual Neutron Disruptor", // 18
+    "Demontech Rifle", // 19 upgrade
+    "Demontech Rifle", // 20
+
+    "BFSG", // 21
+    "BFGG", // 22
+    "BFG", // 23 upgrade
+    "BFG", // 24
+
+    "Grenade Cannon", // 25
+    "Chaingun", // 26
+
+    "Fatman Pistol", // 27
+    "Bluetail pistol", // 28
   },
 
 }; // end of printable names

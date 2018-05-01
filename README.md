@@ -73,6 +73,7 @@
 1. [High Noon Drifter v1.2c](https://forum.zdoom.org/viewtopic.php?f=43&t=57098#p1006858)
 1. [Tactical Chainsaw](https://www.doomworld.com/idgames/combos/ph_stuff) (works only for mods that have a chainsaw)
 1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19) (works with everything)
+1. [X-Weapon](https://forum.zdoom.org/viewtopic.php?f=43&t=37254#p707405)
 
 ## Other weapons are supported, but require initial setup
 

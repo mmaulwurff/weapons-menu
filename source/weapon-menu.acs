@@ -49,6 +49,25 @@ function bool WM_IsHiddenWeapon(int wNumber)
       if (wNumber ==  6 && WM_IsInInventory(5)) return true;
       if (wNumber ==  5) return true; // Double SMG
       return false;
+
+    // X-Weapon
+    case 45:
+      if (wNumber == 27 || wNumber == 28) return true;
+      if (wNumber ==  4 && WM_IsInInventory( 2)) return true;
+      if (wNumber ==  8 && WM_IsInInventory( 7)) return true;
+      if (wNumber == 11 && WM_IsInInventory(10)) return true;
+      if (wNumber == 14 && WM_IsInInventory(13)) return true;
+      if (wNumber == 17 && WM_IsInInventory(16)) return true;
+      if (wNumber == 20 && WM_IsInInventory(19)) return true;
+      if (wNumber == 24 && WM_IsInInventory(23)) return true;
+      if (wNumber ==  2) return true;
+      if (wNumber ==  3) return true;
+      if (wNumber ==  7) return true;
+      if (wNumber == 10) return true;
+      if (wNumber == 13) return true;
+      if (wNumber == 16) return true;
+      if (wNumber == 19) return true;
+      if (wNumber == 22) return true;
   }
 
   return false;
@@ -500,7 +519,7 @@ function void WM_MaybeTacticalChainsaw(void)
   }
 }
 
-#define N_MATCHED_CLASSES 6
+#define N_MATCHED_CLASSES 10
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -508,12 +527,19 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   str classes[N_MATCHED_CLASSES][2] =
   {
+    // DoomRL Arsenal
     { "DoomRLMarine",        42 },
     { "DoomRLScout",         42 },
     { "DoomRLTechnician",    42 },
     { "DoomRLRenegade",      42 },
     { "DoomRLDemolitionist", 42 },
     { "DoomRLCommando",      42 },
+
+    // X-Weapon
+    { "XDoomPlayer",         45 },
+    { "XDoomPlayer2",        45 },
+    { "XDoomPlayer3",        45 },
+    { "XDoomPlayer4",        45 },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
