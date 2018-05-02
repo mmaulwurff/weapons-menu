@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 47
+#define SETS_NUMBER 48
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -55,6 +55,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 44. Freedoom
   "XDoomPlayer",         // 45. X-Weapon
   "DoomPlayer",          // 46. Harmony
+  "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
 };
 
 int weaponCounts[SETS_NUMBER] =
@@ -99,6 +100,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Freedoom
   29, // X-Weapon
   6,  // Harmony
+  13, // Doom Delta
 };
 
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -252,8 +254,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     0, 0,
   },
 
-  { 1, 2, 3, 4, 5, 6 } // Harmony
+  { 1, 2, 3, 4, 5, 6 }, // Harmony
 
+  { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
 };
 
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -975,6 +978,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PlasmaRifle",
   },
 
+  { // Doom Delta
+    "ChainsawBeta", "Bayonette",
+    "Rifle",
+    "SuperShotgunBeta", "ShotgunBeta",
+    "ChaingunBeta", "MachineGun",
+    "RocketLauncherBeta", "GrenadeLauncherBeta",
+    "DarkClaw", "PlasmaRifleBeta",
+    "BFGBeta",
+    "UnmakerDelta",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
@@ -1693,6 +1707,17 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Minigun",
     "Grenade launcher",
     "Entrophy thrower",
+  },
+
+  { // Doom Delta
+    "Chainsaw", "Bayonet",
+    "Rifle",
+    "Super Shotgun", "Shotgun",
+    "Chaingun", "Machine Gun",
+    "Rocket Launcher", "Grenade Launcher",
+    "Dark Claw", "Plasma Rifle",
+    "BFG 2704",
+    "Unmaker",
   },
 
 }; // end of printable names

@@ -74,6 +74,7 @@
 1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19) (works with everything)
 1. [X-Weapon](https://forum.zdoom.org/viewtopic.php?f=43&t=37254#p707405)
 1. [Harmony](http://rabotik.nl/harmony.htm)
+1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
 
 ## Other weapons are supported, but require initial setup
 

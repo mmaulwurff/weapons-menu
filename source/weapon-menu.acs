@@ -71,6 +71,9 @@ function bool WM_IsHiddenWeapon(int wNumber)
       if (wNumber == 16) return true;
       if (wNumber == 19) return true;
       if (wNumber == 22) return true;
+
+    // Doom Delta
+    case 47: return (wNumber == 8);
   }
 
   return false;
@@ -519,7 +522,7 @@ function void WM_MaybeTacticalChainsaw(void)
   ++weaponCount;
 }
 
-#define N_MATCHED_CLASSES 11
+#define N_MATCHED_CLASSES 15
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -543,6 +546,12 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
     // Harmony mods
     { "HarmonyPlayer",       46 },
+
+    // Doom Delta
+    { "LoreleiPlayer", 47 },
+    { "JohnPlayer",    47 },
+    { "DimitriPlayer", 47 },
+    { "ThiPlayer",     47 },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
