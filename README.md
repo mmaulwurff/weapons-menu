@@ -121,7 +121,7 @@ If you want Weapon Menu to support your mod out of the box:
 | slot | class name     | displayed name  |
 |------+----------------+-----------------|
 |    1 | Chainsaw       | Chainsaw        |
-|    1 | Fist           | Brass knuckles  |
+|    1 | Fist           | Brass Knuckles  |
 |    2 | Pistol         | Pistol          |
 |    3 | SuperShotgun   | Super Shotgun   |
 |    3 | Shotgun        | Shotgun         |
@@ -132,6 +132,8 @@ If you want Weapon Menu to support your mod out of the box:
 ```
 
 * If your mod has weapons that are very rare, or bonus, or secret, they can be marked so to be hidden from the menu until player gets them.
+
+* If you want to test your weapon mod support by yourself, see comments in source/data.acs file.
 
 ## Note for HUD developers
 

@@ -4,8 +4,11 @@
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
-// Known weapon sets and player classes:
-
+// List of known weapon classes.
+// When adding to this list, don't forget to increase SETS_NUMBER.
+// If weapon mod has single weapon set shared by several player classes, there is
+// no need to add them all here. Add only one, and the rest will go to
+// WM_SpecialMatchClassToWeaponSet(str class) function.
 str playerClassNames[SETS_NUMBER] =
 {
   "DoomPlayer",          //  0. Standard
@@ -58,6 +61,9 @@ str playerClassNames[SETS_NUMBER] =
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
 };
 
+// List of weapon counts for every known weapon mod.
+// Must include all weapons.
+// Maximal supported weapon count is MAX_WEAPONS_NUMBER.
 int weaponCounts[SETS_NUMBER] =
 {
   9,  // Standard
@@ -103,6 +109,9 @@ int weaponCounts[SETS_NUMBER] =
   13, // Doom Delta
 };
 
+// List of corresponding weapon slots.
+// Number of slots in weapon set must be equal to weapon count in weaponCounts
+// array.
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
@@ -259,6 +268,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
 };
 
+// List of weapon classes.
+// Number of classes here must be equal to weapon count in weaponCounts array.
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { // Standard
@@ -991,6 +1002,8 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 }; // end of actor/class names /////////////////////////////////////////////////
 
+// List of weapon names (tags).
+// Number of names here must be equal to weapon count in weaponCounts array.
 str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { // Doom
