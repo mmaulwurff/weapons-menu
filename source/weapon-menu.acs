@@ -1377,46 +1377,49 @@ function str WM_GetAmmoString(str weaponClass, int ammoMode)
   return GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
 }
 
+function bool WM_IsWeaponReady(str weaponClass)
+{
+  int playerN = PlayerNumber();
+  ScriptCall("WMZscriptHelper", "IsWeaponReady", weaponClass);
+  bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+  return isReady;
+}
+
 script "WM_FireFavoriteWeapon" (int alt)
 {
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  if (!WM_IsInInventory(favorite)) { terminate; }
+
   str favoriteClass = WM_GetWeaponName(favorite);
-  bool returnToLast = favorite != selectedWeapon;
+  bool returnToLast = (favorite != selectedWeapon);
 
-  if (WM_IsInInventory(favorite))
+  WM_SelectWeapon(favorite);
+
+  bool isReady = WM_IsWeaponReady(favoriteClass);
+  int i = 0;
+  while (!(WM_IsSelected(favorite) && isReady))
   {
-    WM_SelectWeapon(favorite);
-    ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
-    bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
-    while (!(WM_IsSelected(favorite) && isReady))
-    {
-      Delay(1);
-      ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
-      isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
-    }
+    // this is to interrupt script in case something has gone wrong.
+    if (i > 0 && isReady && !WM_IsSelected(favorite)) { terminate; }
+    ++i;
 
-    if (alt)
-    {
-      ScriptCall("WMZscriptHelper", "FireWeaponAlt", favoriteClass);
-    }
-    else
-    {
-      ScriptCall("WMZscriptHelper", "FireWeapon", favoriteClass);
-    }
+    Delay(1);
+    isReady = WM_IsWeaponReady(favoriteClass);
+  }
 
-    ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
-    isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
-    while (!(WM_IsSelected(favorite) && isReady))
-    {
-      Delay(1);
-      ScriptCall("WMZscriptHelper", "IsWeaponReady", favoriteClass);
-      isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
-    }
+  if (alt) { ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); }
+  else     { ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); }
 
-    if (returnToLast && WM_IsInInventory(lastUsedWeapon))
-    {
-      WM_SelectWeapon(lastUsedWeapon);
-    }
+  isReady = WM_IsWeaponReady(favoriteClass);
+  while (!isReady)
+  {
+    Delay(1);
+    isReady = WM_IsWeaponReady(favoriteClass);
+  }
+
+  if (returnToLast && WM_IsInInventory(lastUsedWeapon))
+  {
+    WM_SelectWeapon(lastUsedWeapon);
   }
 }

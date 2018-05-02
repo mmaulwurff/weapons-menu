@@ -10,7 +10,7 @@
    * Fire/Select: if menu is opened, close it and select weapon. If
      menu is closed, fire.
    * Alt fire/close menu: the same, but do not select new weapon, just close menu.
-   * Toggle menu: open and close menu.
+   * Toggle menu: open menu/close menu and select a weapon.
    * Next/previous weapon: if menu is opened, cycle through all available weapons.
      If menu is closed, cycles through weapons in standard Doom fashion.
      Option: "Open Menu on Next/Prev": if set to "Yes", menu is opened and
@@ -27,9 +27,8 @@
      shotgun, single press on "3" will select shotgun instead of SSG.
    * Increase/decrease weapon slot: changes weapon slot.
 
-   Every key bind is optional.
-
-   When you close menu by any means, highlighted weapon becomes selected.
+   Every key bind is optional. You can always use standard key binds
+   if you want vanilla behavior.
 
 1. Configurable colors, fonts, and positions: Options -> Weapon Menu Options.
 
