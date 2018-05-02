@@ -74,6 +74,14 @@ class WMZscriptHelper : Actor
     messageCVar.SetInt(isReady);
   }
 
+  static void IsWeaponDeselectable(Actor activator, string weaponClass)
+  {
+    PlayerPawn p = PlayerPawn(activator);
+    bool isReady = p.player.WeaponState & WF_WEAPONSWITCHOK;
+    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuWeaponReady", activator.player);
+    messageCVar.SetInt(isReady);
+  }
+
   static void FireWeapon(Actor activator, string weaponClass)
   {
     if (!activator || !activator.player) { return; }

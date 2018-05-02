@@ -54,6 +54,13 @@ OptionValue "M8fWeaponMenuSwitchSoundOptions"
   3, "Chk"
 }
 
+OptionValue "M8fWeaponMenuInstantSwitchOptions"
+{
+  0, "Never"
+  1, "Only quick access fire"
+  2, "Always"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -93,6 +100,13 @@ OptionMenu "M8FWeaponsMenuOptions"
   Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
 
   StaticText ""
+  StaticText "Gameplay Changes"
+  Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
+  StaticText "Instant switching doesn't work for mods with"
+  StaticText "custom select or deselect animations"
+
+  StaticText ""
+  StaticText "Commands"
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"
   StaticText "Or settings will be applied on next menu opening"
   Command "Reset autodetected weapons", "pukename WM_ResetAutodetection"

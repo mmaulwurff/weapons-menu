@@ -656,6 +656,9 @@ script "ShowWeaponMenu" ENTER
   int updatePeriod = 10;
   int updateCount = 0;
 
+  int playerN = PlayerNumber();
+  int oldInstant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
+
   WM_UpdateMenu();
 
   // options
@@ -665,18 +668,21 @@ script "ShowWeaponMenu" ENTER
     WM_SetCVar(menuIsEnabled, "M8fWeaponMenuIsEnabled");
     WM_SetMenuIsOpened(menuIsOpened);
 
-    int  playerN    = PlayerNumber();
-    bool alwaysShow = GetUserCVar(playerN, "M8fWeaponMenuAlwaysShow");
-
-    if (menuIsOpened || alwaysShow)
+    if (updateCount < updatePeriod) { ++updateCount; }
+    else
     {
-      if (updateCount < updatePeriod)
+      updateCount = 0;
+
+      bool instant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
+      if (oldInstant != instant)
       {
-        ++updateCount;
+        WM_InstantSwitch(instant == 2);
+        oldInstant = instant;
       }
-      else
+
+      bool alwaysShow = GetUserCVar(playerN, "M8fWeaponMenuAlwaysShow");
+      if (menuIsOpened || alwaysShow)
       {
-        updateCount = 0;
         bool updated = WM_UpdateIsInInventory();
         if (updated) { WM_UpdateMenu(); }
       }
@@ -1385,6 +1391,14 @@ function bool WM_IsWeaponReady(str weaponClass)
   return isReady;
 }
 
+function bool WM_IsWeaponDeselectable(str weaponClass)
+{
+  int playerN = PlayerNumber();
+  ScriptCall("WMZscriptHelper", "IsWeaponDeselectable", weaponClass);
+  bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+  return isReady;
+}
+
 script "WM_FireFavoriteWeapon" (int alt)
 {
   int playerN = PlayerNumber();
@@ -1394,7 +1408,10 @@ script "WM_FireFavoriteWeapon" (int alt)
   str favoriteClass = WM_GetWeaponName(favorite);
   bool returnToLast = (favorite != selectedWeapon);
 
+  bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
+  if (instant) { WM_InstantSwitch(true); }
   WM_SelectWeapon(favorite);
+  if (instant) { Delay(1); WM_InstantSwitch(false); }
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
   int i = 0;
@@ -1411,15 +1428,22 @@ script "WM_FireFavoriteWeapon" (int alt)
   if (alt) { ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); }
   else     { ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); }
 
-  isReady = WM_IsWeaponReady(favoriteClass);
+  isReady = WM_IsWeaponDeselectable(favoriteClass);
   while (!isReady)
   {
     Delay(1);
-    isReady = WM_IsWeaponReady(favoriteClass);
+    isReady = WM_IsWeaponDeselectable(favoriteClass);
   }
 
   if (returnToLast && WM_IsInInventory(lastUsedWeapon))
   {
+    if (instant) { WM_InstantSwitch(true); }
     WM_SelectWeapon(lastUsedWeapon);
+    if (instant) { Delay(1); WM_InstantSwitch(false); }
   }
+}
+
+function void WM_InstantSwitch(bool enable)
+{
+  SetPlayerProperty(0, enable, PROP_INSTANTWEAPONSWITCH);
 }

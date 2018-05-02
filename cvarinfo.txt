@@ -25,6 +25,11 @@ user int M8fWeaponMenuWeaponReady;
 // 2 - show primary and secondary
 user int M8fWeaponMenuShowAmmoCounts = 2;
 
+// 0 - Never
+// 1 - Only on quick access
+// 2 - Always
+user int M8fWeaponMenuInstantSwitch = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
