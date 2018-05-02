@@ -1415,6 +1415,7 @@ script "WM_FireFavoriteWeapon" (int alt)
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
   int i = 0;
+  bool alreadyFired = false;
   while (!(WM_IsSelected(favorite) && isReady))
   {
     // this is to interrupt script in case something has gone wrong.
@@ -1423,10 +1424,17 @@ script "WM_FireFavoriteWeapon" (int alt)
 
     Delay(1);
     isReady = WM_IsWeaponReady(favoriteClass);
+
+    if (alreadyFired == false)
+    {
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      alreadyFired = (buttons & (BT_ATTACK|BT_ALTATTACK));
+    }
   }
 
-  if (alt) { ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); }
-  else     { ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); }
+  if (alreadyFired) { Delay(1); }
+  else if (alt) { ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); }
+  else          { ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); }
 
   isReady = WM_IsWeaponDeselectable(favoriteClass);
   while (!isReady)
