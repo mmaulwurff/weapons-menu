@@ -726,7 +726,7 @@ script "ShowWeaponMenu" ENTER
       str currentWeapon = GetWeapon();
       if (WM_IsListed(currentWeapon))
       {
-        if (WM_IsInInventory(selectedWeapon))
+        if (CheckInventory(WM_GetWeaponName(selectedWeapon)))
         {
           WM_SetLastUsedWeapon(selectedWeapon);
         }
@@ -939,7 +939,7 @@ script "SmartWeaponSelection" (int slotNumber)
 
 script "SelectLastUsedWeapon" (void)
 {
-  if (WM_IsInInventory(lastUsedWeapon))
+  if (CheckInventory(WM_GetWeaponName(lastUsedWeapon)))
   {
     WM_SelectWeapon(lastUsedWeapon, true);
   }
@@ -958,7 +958,7 @@ script "WM_SelectFavoriteWeapon" (void)
 {
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  if (WM_IsInInventory(favorite))
+  if (CheckInventory(WM_GetWeaponName(favorite)))
   {
     WM_SelectWeapon(favorite, true);
   }
@@ -1513,7 +1513,7 @@ script "WM_FireFavoriteWeapon" (int alt)
     isReady = WM_IsWeaponDeselectable(favoriteClass);
   }
 
-  if (returnToLast && WM_IsInInventory(lastUsedWeapon))
+  if (returnToLast && CheckInventory(WM_GetWeaponName(lastUsedWeapon)))
   {
     if (instant) { WM_InstantSwitch(true); }
     WM_SelectWeapon(returnTo, false);
