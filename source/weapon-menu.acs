@@ -1416,7 +1416,17 @@ script "WM_DecreaseSlot" (void)
 script "WM_PrintInfo" (void)
 {
   Log(s:"Player: ", s:GetActorClass(0));
-  Log(s:"Weapon: ", s:GetWeapon());
+  Log(s:"Selected: ", i:selectedWeapon, s:": ",
+      s:WM_GetWeaponName(selectedWeapon), s:": ",
+      s:GetWeapon());
+  Log(s:"Highlighted: ", i:highlightedWeapon, s:": ",
+      s:WM_GetWeaponName(highlightedWeapon));
+  Log(s:"Last used: ", i:lastUsedWeapon, s:": ",
+      s:WM_GetWeaponName(lastUsedWeapon));
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  Log(s:"Favorite: ", i:favorite, s:": ",
+      s:WM_GetWeaponName(favorite));
 }
 
 script "WM_ResetAutodetection" (void)
@@ -1457,9 +1467,9 @@ script "WM_FireFavoriteWeapon" (int alt)
 
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  if (!WM_IsInInventory(favorite)) { terminate; }
-
   str favoriteClass = WM_GetWeaponName(favorite);
+  if (!CheckInventory(favoriteClass)) { terminate; }
+
   bool returnToLast = (favorite != selectedWeapon);
   int returnTo = selectedWeapon;
   selectedWatchEnabled = false;
