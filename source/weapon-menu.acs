@@ -1521,6 +1521,11 @@ function void WM_InstantSwitch(bool enable)
 script "WM_HolsterWeapon" (void)
 {
   if (selectedWeapon == holsteredWeapon) { terminate; }
+  if (currentSet == 47)
+  {
+    Log(s:"Weapon holstering is not supported in Doom Delta.");
+    terminate;
+  }
 
   if (menuIsOpened) { WM_ToggleWeaponMenu(true); }
   WM_SetLastUsedWeapon(selectedWeapon);
