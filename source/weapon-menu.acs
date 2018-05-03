@@ -1481,6 +1481,7 @@ script "WM_FireFavoriteWeapon" (int alt)
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
   int i = 0;
+  int iMax = 35 * 2; // 2 seconds
   bool alreadyFired = false;
   while (!(WM_IsSelected(favorite) && isReady))
   {
@@ -1493,7 +1494,7 @@ script "WM_FireFavoriteWeapon" (int alt)
     ++i;
 
     Delay(1);
-    isReady = WM_IsWeaponReady(favoriteClass);
+    isReady = (WM_IsWeaponReady(favoriteClass) || i > iMax);
 
     if (alreadyFired == false)
     {
