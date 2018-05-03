@@ -22,6 +22,8 @@ int  lastUsedWeapon    = 0;
 int weaponCount = 0;
 int step = 0;
 
+bool selectedWatchEnabled = true;
+
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
 function bool WM_IsHiddenWeapon(int wNumber)
@@ -413,7 +415,7 @@ function int WM_FindRealSelectedWeapon(void)
   return holsteredWeapon;
 }
 
-function void WM_SelectWeapon(int weaponNumber)
+function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 {
   if (weaponNumber == selectedWeapon) { return; }
 
@@ -422,7 +424,7 @@ function void WM_SelectWeapon(int weaponNumber)
 
   if (success)
   {
-    WM_SetLastUsedWeapon(selectedWeapon);
+    if (changeLast) { WM_SetLastUsedWeapon(selectedWeapon); }
     WM_SetSelectedWeapon(weaponNumber);
   }
   else
@@ -718,7 +720,7 @@ script "ShowWeaponMenu" ENTER
         s:" last:", i:lastUsedWeapon);
     ///*///
 
-    if (!WM_IsSelected(selectedWeapon))
+    if (selectedWatchEnabled && !WM_IsSelected(selectedWeapon))
     {
       str currentWeapon = GetWeapon();
       if (WM_IsListed(currentWeapon))
@@ -772,7 +774,7 @@ function void WM_ToggleWeaponMenu(int highlightSelected)
     if (highlightedWeapon != selectedWeapon)
     {
       WM_SetLastUsedWeapon(selectedWeapon);
-      WM_SelectWeapon(highlightedWeapon);
+      WM_SelectWeapon(highlightedWeapon, true);
     }
   }
 
@@ -922,7 +924,7 @@ script "SelectLastUsedWeapon" (void)
 {
   if (WM_IsInInventory(lastUsedWeapon))
   {
-    WM_SelectWeapon(lastUsedWeapon);
+    WM_SelectWeapon(lastUsedWeapon, true);
   }
 
   WM_UpdateMenu();
@@ -941,7 +943,7 @@ script "WM_SelectFavoriteWeapon" (void)
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   if (WM_IsInInventory(favorite))
   {
-    WM_SelectWeapon(favorite);
+    WM_SelectWeapon(favorite, true);
   }
 
   WM_UpdateMenu();
@@ -1442,11 +1444,12 @@ script "WM_FireFavoriteWeapon" (int alt)
 
   str favoriteClass = WM_GetWeaponName(favorite);
   bool returnToLast = (favorite != selectedWeapon);
-  int lastUsedSave = lastUsedWeapon;
+  int returnTo = selectedWeapon;
+  selectedWatchEnabled = false;
 
   bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
   if (instant) { WM_InstantSwitch(true); }
-  WM_SelectWeapon(favorite);
+  WM_SelectWeapon(favorite, false);
   if (instant) { Delay(1); WM_InstantSwitch(false); }
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
@@ -1457,7 +1460,7 @@ script "WM_FireFavoriteWeapon" (int alt)
     // this is to interrupt script in case something has gone wrong.
     if (i > 0 && isReady && !WM_IsSelected(favorite))
     {
-      WM_SetLastUsedWeapon(lastUsedSave);
+      selectedWatchEnabled = true;
       terminate;
     }
     ++i;
@@ -1486,11 +1489,11 @@ script "WM_FireFavoriteWeapon" (int alt)
   if (returnToLast && WM_IsInInventory(lastUsedWeapon))
   {
     if (instant) { WM_InstantSwitch(true); }
-    WM_SelectWeapon(lastUsedWeapon);
+    WM_SelectWeapon(returnTo, false);
     if (instant) { Delay(1); WM_InstantSwitch(false); }
   }
 
-  WM_SetLastUsedWeapon(lastUsedSave);
+  selectedWatchEnabled = true;
 }
 
 function void WM_InstantSwitch(bool enable)
@@ -1500,7 +1503,10 @@ function void WM_InstantSwitch(bool enable)
 
 script "WM_HolsterWeapon" (void)
 {
+  if (selectedWeapon == holsteredWeapon) { terminate; }
+
   if (menuIsOpened) { WM_ToggleWeaponMenu(true); }
+  WM_SetLastUsedWeapon(selectedWeapon);
   WM_SetSelectedWeapon(holsteredWeapon);
   ScriptCall("WMZScriptHelper", "HolsterWeapon");
 }
