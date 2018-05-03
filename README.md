@@ -1,4 +1,4 @@
-# Weapon Menu Mod for GZDoom and Zandronum
+# Weapon Menu Mod for GZDoom
 
 ## Features
 
@@ -26,6 +26,7 @@
    * Increase weapon priority: for example, if you increase priority of vanilla
      shotgun, single press on "3" will select shotgun instead of SSG.
    * Increase/decrease weapon slot: changes weapon slot.
+   * Holster weapon.
 
    Every key bind is optional. You can always use standard key binds
    if you want vanilla behavior.
