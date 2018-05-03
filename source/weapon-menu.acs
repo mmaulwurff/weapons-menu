@@ -824,10 +824,25 @@ script "ScrollNextWeapon" (void)
       WM_SetLastUsedWeapon(selectedWeapon);
       WM_SetSelectedWeapon(i);
       WM_SetHighlightedWeapon(i);
+      WM_MaybeDisplayNameTag();
     }
   }
 
   WM_UpdateMenu();
+}
+
+function void WM_MaybeDisplayNameTag(void)
+{
+  bool showNameTag = (GetCVar("displaynametags") >= 2);
+  if (showNameTag)
+  {
+    int nametagcolor = GetCVar("nametagcolor");
+    str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
+    HudMessage(s:selectedName;
+               HUDMSG_FADEOUT, messageIdStart + weaponCount + 2,
+               nametagcolor, 0.5, 0.9, 2.0, 1.0);
+
+  }
 }
 
 script "ScrollPreviousWeapon" (void)
@@ -872,6 +887,7 @@ script "ScrollPreviousWeapon" (void)
       WM_SetLastUsedWeapon(selectedWeapon);
       WM_SetSelectedWeapon(i);
       WM_SetHighlightedWeapon(i);
+      WM_MaybeDisplayNameTag();
     }
   }
 
