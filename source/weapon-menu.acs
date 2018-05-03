@@ -5,6 +5,9 @@
 #define MINIMAL_HOLD_TIME 1873
 #define messageIdStart 191919
 
+#define resetWeapon -1
+#define holsteredWeapon -2
+
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
@@ -201,25 +204,23 @@ function void WM_PrintMenu(void)
 
   int stepMultiplied = (step * stepMultiplier) >> 16;
 
-  int position          = 0;
-  int availablePosition = 0;
-  int holdingPosition   = 0;
-
-  int iBegin;
-  int iEnd;
-  int iStep;
-  if (highToLow) { iBegin = weaponCount - 1; iEnd = -1;          iStep = -1; }
-  else           { iBegin = 0;               iEnd = weaponCount; iStep =  1; }
-
   if (displayMode != 0)
   {
-    HudMessage(s:"Selected: ", s:WM_GetPrintableWeaponName(selectedWeapon);
-               HUDMSG_PLAIN, messageIdStart + weaponCount,
-               selectedWeaponColor, 0.5, yStart + stepMultiplied * 2, 0);
-    str message = StrParam(s:"Highlighted: ",
-                           s:WM_GetPrintableWeaponName(highlightedWeapon));
-    if (ammoMode != 0) {
-      str ammo = WM_GetAmmoString(WM_GetWeaponName(highlightedWeapon), ammoMode);
+    if (selectedWeapon != holsteredWeapon)
+    {
+      str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
+      HudMessage(s:"Selected: ", s:selectedName;
+                 HUDMSG_PLAIN, messageIdStart + weaponCount,
+                 selectedWeaponColor, 0.5, yStart + stepMultiplied * 2, 0);
+    }
+
+    str highlightedName = WM_GetPrintableWeaponName(highlightedWeapon);
+    str message = StrParam(s:"Highlighted: ", s:highlightedName);
+
+    if (ammoMode != 0)
+    {
+      str highlightedClass = WM_GetWeaponName(highlightedWeapon);
+      str ammo = WM_GetAmmoString(highlightedClass, ammoMode);
       message = StrParam(s:message, s:" ", s:ammo);
     }
     HudMessage(s:message;
@@ -231,6 +232,16 @@ function void WM_PrintMenu(void)
     HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount, 0, 0, 0, 0);
     HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount + 1, 0, 0, 0, 0);
   }
+
+  int position          = 0;
+  int availablePosition = -1;
+  int holdingPosition   = -1;
+
+  int iBegin;
+  int iEnd;
+  int iStep;
+  if (highToLow) { iBegin = weaponCount - 1; iEnd = -1;          iStep = -1; }
+  else           { iBegin = 0;               iEnd = weaponCount; iStep =  1; }
 
   for (int i = iBegin; i != iEnd; i += iStep)
   {
@@ -287,18 +298,21 @@ function void WM_PrintMenu(void)
     );
   }
 
-  if (WM_IsInInventory(selectedWeapon) && selectedWeapon != highlightedWeapon)
+  if (selectedWeapon != holsteredWeapon)
   {
-    WM_PrintHudWeapon(selectedWeapon,
-                      holdingPosition,
-                      selectedWeaponColor,
-                      xStart,
-                      yStart,
-                      numbersOnTheLeft,
-                      stepMultiplied,
-                      displayMode,
-                      ammoMode
-    );
+    if (WM_IsInInventory(selectedWeapon) && selectedWeapon != highlightedWeapon)
+    {
+      WM_PrintHudWeapon(selectedWeapon,
+                        holdingPosition,
+                        selectedWeaponColor,
+                        xStart,
+                        yStart,
+                        numbersOnTheLeft,
+                        stepMultiplied,
+                        displayMode,
+                        ammoMode
+                        );
+    }
   }
 }
 
@@ -396,7 +410,7 @@ function int WM_FindRealSelectedWeapon(void)
     }
   }
 
-  return -1;
+  return holsteredWeapon;
 }
 
 function void WM_SelectWeapon(int weaponNumber)
@@ -417,6 +431,7 @@ function void WM_SelectWeapon(int weaponNumber)
     HudMessage(s:printableWeaponName, s:": no ammo.";
                HUDMSG_PLAIN, messageIdStart + MAX_WEAPONS_NUMBER, CR_RED,
                0.5, 0.5, 1.0);
+
     WM_SetHighlightedWeapon(selectedWeapon);
   }
 }
@@ -461,14 +476,13 @@ function void WM_Initialize(void)
 
   int playerN = PlayerNumber();
   int lastUsedWeaponLoaded = GetUserCVar(playerN, "M8fWeaponMenuLastUsedWeapon");
-  if (lastUsedWeaponLoaded == -1 || !WM_IsInInventory(lastUsedWeaponLoaded))
+  if (lastUsedWeaponLoaded == resetWeapon ||
+      !WM_IsInInventory(lastUsedWeaponLoaded))
   {
-    WM_SetLastUsedWeapon(selectedWeapon);
+    lastUsedWeaponLoaded = selectedWeapon;
   }
-  else
-  {
-    WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
-  }
+  if (lastUsedWeaponLoaded == holsteredWeapon) { lastUsedWeaponLoaded = 0; }
+  WM_SetLastUsedWeapon(lastUsedWeaponLoaded);
 
   WM_SetupAddons();
   WM_UpdateIsInInventory();
@@ -793,6 +807,7 @@ script "ScrollNextWeapon" (void)
   else
   {
     i = selectedWeapon;
+    if (i == holsteredWeapon) { i = 0; }
     do
     {
       ++i;
@@ -840,6 +855,7 @@ script "ScrollPreviousWeapon" (void)
   else
   {
     i = selectedWeapon;
+    if (i == holsteredWeapon) { i = weaponCount - 1; }
     do
     {
       --i;
@@ -914,6 +930,7 @@ script "SelectLastUsedWeapon" (void)
 
 script "WM_MarkWeaponAsFavorite" (void)
 {
+  if (selectedWeapon == holsteredWeapon) { terminate; }
   WM_SetCVar(selectedWeapon, "M8fWeaponMenuFavoriteWeapon");
   Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
 }
@@ -971,6 +988,7 @@ function bool WM_IsInInventory(int weaponNumber)
 
 function bool WM_IsSelected(int weaponNumber)
 {
+  if (weaponNumber == holsteredWeapon) { return true; }
   return CheckWeapon(WM_GetWeaponName(weaponNumber));
 }
 
@@ -1027,6 +1045,7 @@ function void WM_SetMenuIsOpened(bool opened)
 
 function void WM_SetHighlightedWeapon(int weaponNumber)
 {
+  if (weaponNumber == holsteredWeapon) { return; }
   highlightedWeapon = weaponNumber;
   WM_SetCVar(highlightedWeapon, "M8fWeaponMenuHighlightedWeapon");
 }
@@ -1039,6 +1058,7 @@ function void WM_SetSelectedWeapon(int weaponNumber)
 
 function void WM_SetLastUsedWeapon(int weaponNumber)
 {
+  if (weaponNumber == holsteredWeapon) { return; }
   lastUsedWeapon = weaponNumber;
   WM_SetCVar(lastUsedWeapon, "M8fWeaponMenuLastUsedWeapon");
 }
@@ -1102,7 +1122,7 @@ script "WM_Remember_Fin" (void)
   for (i = 0; i < autoCount; ++i) { Log(s:"\"", s:WM_BeautifyWeaponName(names[AUTO_SET][i]), s:"\", "); }
 
   // reset last used weapon
-  WM_SetLastUsedWeapon(-1);
+  WM_SetLastUsedWeapon(resetWeapon);
 }
 
 function void WM_LoadRemembered(void)
@@ -1318,6 +1338,8 @@ function void WM_SwapWeapons(int w1, int w2)
 
 script "WM_IncreaseSlot" (void)
 {
+  if (selectedWeapon == holsteredWeapon) { terminate; }
+
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 11) { terminate; }
 
@@ -1345,6 +1367,8 @@ script "WM_IncreaseSlot" (void)
 
 script "WM_DecreaseSlot" (void)
 {
+  if (selectedWeapon == holsteredWeapon) { terminate; }
+
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 1) { terminate; }
 
@@ -1410,12 +1434,15 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
 
 script "WM_FireFavoriteWeapon" (int alt)
 {
+  if (selectedWeapon == holsteredWeapon) { terminate; }
+
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   if (!WM_IsInInventory(favorite)) { terminate; }
 
   str favoriteClass = WM_GetWeaponName(favorite);
   bool returnToLast = (favorite != selectedWeapon);
+  int lastUsedSave = lastUsedWeapon;
 
   bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
   if (instant) { WM_InstantSwitch(true); }
@@ -1428,7 +1455,11 @@ script "WM_FireFavoriteWeapon" (int alt)
   while (!(WM_IsSelected(favorite) && isReady))
   {
     // this is to interrupt script in case something has gone wrong.
-    if (i > 0 && isReady && !WM_IsSelected(favorite)) { terminate; }
+    if (i > 0 && isReady && !WM_IsSelected(favorite))
+    {
+      WM_SetLastUsedWeapon(lastUsedSave);
+      terminate;
+    }
     ++i;
 
     Delay(1);
@@ -1458,9 +1489,18 @@ script "WM_FireFavoriteWeapon" (int alt)
     WM_SelectWeapon(lastUsedWeapon);
     if (instant) { Delay(1); WM_InstantSwitch(false); }
   }
+
+  WM_SetLastUsedWeapon(lastUsedSave);
 }
 
 function void WM_InstantSwitch(bool enable)
 {
   SetPlayerProperty(0, enable, PROP_INSTANTWEAPONSWITCH);
+}
+
+script "WM_HolsterWeapon" (void)
+{
+  if (menuIsOpened) { WM_ToggleWeaponMenu(true); }
+  WM_SetSelectedWeapon(holsteredWeapon);
+  ScriptCall("WMZScriptHelper", "HolsterWeapon");
 }

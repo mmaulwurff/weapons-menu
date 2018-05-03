@@ -1,4 +1,4 @@
-addkeysection "Weapon Menu Keys" WeaponMenuKeys
+addkeysection "Weapon Menu General Keys" WeaponMenuKeys
 
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
@@ -37,10 +37,15 @@ addmenukey "Mark weapon for quick access" "pukename WM_MarkWeaponAsFavorite"
 addmenukey "Select quick access weapon" "pukename WM_SelectFavoriteWeapon"
 addmenukey "Fire quick access weapon" "pukename WM_FireFavoriteWeapon 0"
 addmenukey "AltFire quick access weapon" "pukename WM_FireFavoriteWeapon 1"
+addmenukey "Holster weapon" "pukename WM_HolsterWeapon"
+
+addkeysection "Weapon Menu Order Keys" WeaponMenuKeys
 
 addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
 addmenukey "Increase weapon slot" "pukename WM_IncreaseSlot"
 addmenukey "Decrease weapon slot" "pukename WM_DecreaseSlot"
+
+addkeysection "Weapon Menu Slot Keys" WeaponMenuKeys
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"

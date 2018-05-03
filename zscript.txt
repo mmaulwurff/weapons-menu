@@ -97,4 +97,11 @@ class WMZscriptHelper : Actor
     PlayerPawn p = PlayerPawn(activator);
     p.FireWeaponAlt(null);
   }
+
+  static void HolsterWeapon(Actor activator)
+  {
+    if (!activator || !activator.player) { return; }
+
+    activator.player.PendingWeapon = null;
+  }
 }
