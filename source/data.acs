@@ -1653,13 +1653,13 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { // High Noon Drifter
     "Nimurdal", "Heki",
-    "R&C Thunderhawk",
+    "Thunderhawk",
     "Montaraz 1899", "Cintia 1901",
     "M-12 Grasa x2", "M-12 Grasa",
     "V45 Grenades",
-    "Gate of Anthrakia",
-    "Mask of Basilissa",
-    "Bullwhips",
+    "Anthrakia",
+    "Basilissa",
+    "Whips",
   },
 
   { // Freedoom
