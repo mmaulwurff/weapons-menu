@@ -538,7 +538,7 @@ function void WM_MaybeTacticalChainsaw(void)
   ++weaponCount;
 }
 
-#define N_MATCHED_CLASSES 15
+#define N_MATCHED_CLASSES 16
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -568,6 +568,7 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     { "JohnPlayer",    47 },
     { "DimitriPlayer", 47 },
     { "ThiPlayer",     47 },
+    { "BetaPlayer",    47 },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
