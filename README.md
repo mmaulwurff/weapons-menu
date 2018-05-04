@@ -76,6 +76,7 @@
 1. [X-Weapon](https://forum.zdoom.org/viewtopic.php?f=43&t=37254#p707405)
 1. [Harmony](http://rabotik.nl/harmony.htm)
 1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
+1. [EVP](https://forum.zdoom.org/viewtopic.php?f=43&t=58191#p1023165) (v17)
 
 ## Other weapons are supported, but require initial setup
 

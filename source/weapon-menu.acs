@@ -595,6 +595,11 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     else                      { return  0; }
   }
 
+  if (StrCmp(class, "PerkDPlayer") == 0)
+  {
+    if (WM_IsEVP()) { return 48; }
+  }
+
   return -1;
 }
 
@@ -667,6 +672,12 @@ function bool WM_IsHarmony(void)
   int harmLength = StrLen(harmString);
   bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
   return isHarmony;
+}
+
+function bool WM_IsEVP(void)
+{
+  bool isEVP = CheckClass("EVPBFGBall");
+  return isEVP;
 }
 
 function bool WM_IsOpenOnScroll(void)

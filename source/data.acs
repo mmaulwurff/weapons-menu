@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 48
+#define SETS_NUMBER 49
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -59,6 +59,7 @@ str playerClassNames[SETS_NUMBER] =
   "XDoomPlayer",         // 45. X-Weapon
   "DoomPlayer",          // 46. Harmony
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
+  "PerkDPlayer",         // 48. EVP v17
 };
 
 // List of weapon counts for every known weapon mod.
@@ -107,6 +108,7 @@ int weaponCounts[SETS_NUMBER] =
   29, // X-Weapon
   6,  // Harmony
   13, // Doom Delta
+  9,  // EVP
 };
 
 // List of corresponding weapon slots.
@@ -266,6 +268,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 2, 3, 4, 5, 6 }, // Harmony
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
+
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
+
 };
 
 // List of weapon classes.
@@ -1000,6 +1005,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "UnmakerDelta",
   },
 
+  { // EVP
+    "PerkChainsaw", "PerkFist",
+    "PerkPistol",
+    "PerkSuperShotgun", "PerkShotgun",
+    "PerkChaingun",
+    "PerkRocketLauncher",
+    "PerkPlasmaRifle",
+    "PerkBFG9000",
+  }
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
@@ -1731,6 +1746,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Dark Claw", "Plasma Rifle",
     "BFG 2704",
     "Unmaker",
+  },
+
+  { // EVP
+    "Chainsaw", "Brass Knuckles",
+    "Pistol",
+    "Super Shotgun", "Shotgun",
+    "Chaingun",
+    "Rocket Launcher",
+    "Plasma Rifle",
+    "BFG 9000"
   },
 
 }; // end of printable names
