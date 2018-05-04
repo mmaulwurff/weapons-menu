@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 50
+#define SETS_NUMBER 51
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -61,6 +61,7 @@ str playerClassNames[SETS_NUMBER] =
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
   "PerkDPlayer",         // 48. EVP v17
   "FKPlayer",            // 49. Factotum (29/04/18)
+  "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18)
 };
 
 // List of weapon counts for every known weapon mod.
@@ -111,6 +112,7 @@ int weaponCounts[SETS_NUMBER] =
   13, // Doom Delta
   9,  // EVP
   10, // Factotum
+  19, // Flakes Doom
 };
 
 // List of corresponding weapon slots.
@@ -274,6 +276,16 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
 
   { 1, 2, 2, 3, 4, 5, 5, 5, 6, 7 }, // Factotum
+
+  { // Flakes Doom
+    1, 1, 1,
+    2, 2,
+    3, 3,
+    4, 4, 4,
+    5, 5, 5,
+    6, 6,
+    7, 7, 7, 7,
+  },
 
 };
 
@@ -1029,6 +1041,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "FKCarbine",
   },
 
+  { // Flakes Doom
+    "FKChainsaw", "FKMCGT", "FKFist",
+    "FKMachinegun", "FKPistol",
+    "FKSupershotgun", "FKShotgun",
+    "FKROTTCG", "FKChaingun", "FKHAR",
+    "FKROTTRL", "FKRocketLauncher", "FKGrenades",
+    "FKROTTPL", "FKPlasmaRifle",
+    "FKROTTB9", "FKHexenUnmaker", "FKBFG9000", "FKUnmaker",
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
@@ -1780,6 +1802,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Upgraded M79", "Springfield M79", "Grenades",
     "Plasma Cannon",
     "Colt M4A1",
+  },
+
+  { // Flakes Doom
+    "UAC Painsaw", "Mace and Gauntlet", "Melee Attacks",
+    "Machinegun", "EnerPlas UAC Sidearm",
+    "Super Shotgun", "Shotgun",
+    "Chaingun", "Chaingun", "Heavy Assault Rifle",
+    "Rocket Launcher", "Rocket Launcher", "Grenades",
+    "Plasma Rifle", "Plasma Rifle",
+    "BFG-9000", "Unmaker", "BFG-9000", "Unmaker",
   },
 
 }; // end of printable names

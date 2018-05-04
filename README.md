@@ -78,6 +78,7 @@
 1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
 1. [EVP](https://forum.zdoom.org/viewtopic.php?f=43&t=58191#p1023165) (v17)
 1. [Factotum](https://forum.zdoom.org/viewtopic.php?f=43&t=58486#p1027620) (29/04/18)
+1. [Flakes Doom](https://forum.zdoom.org/viewtopic.php?f=43&t=54560#p961736) v2.6b (06/03/18). Note: weapons are visible only if you have them.
 
 ## Other weapons are supported, but require initial setup
 

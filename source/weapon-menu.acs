@@ -82,13 +82,16 @@ function bool WM_IsHiddenWeapon(int wNumber)
     // Doom Delta
   case 47: return (wNumber == 8);
 
-    //Factotum
+    // Factotum
   case 49:
     if (wNumber == 2 && WM_IsInInventory(1)) return true;
     if (wNumber == 6 && WM_IsInInventory(5)) return true;
     if (wNumber == 1) return true;
     if (wNumber == 5) return true;
     return false;
+
+    // Flakes Doom
+  case 50: return true; // TODO: make game detection and hide weapons properly
 
   }
 
@@ -609,11 +612,14 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
   if (StrCmp(class, "PerkDPlayer") == 0)
   {
     if (WM_IsEVP()) { return 48; }
+    else            { return  1; }
   }
 
   if (StrCmp(class, "FKPlayer") == 0)
   {
-    if (WM_IsFactotum()) { return 49; }
+    if (WM_IsFactotum())   { return 49; }
+    if (WM_IsFlakesDoom()) { return 50; }
+    else                   { return 14; }
   }
 
   return -1;
@@ -700,6 +706,12 @@ function bool WM_IsFactotum(void)
 {
   bool isFactotum = CheckClass("FKMachete");
   return isFactotum;
+}
+
+function bool WM_IsFlakesDoom(void)
+{
+  bool isFlakesDoom = CheckClass("FKHAR");
+  return isFlakesDoom;
 }
 
 function bool WM_IsOpenOnScroll(void)
