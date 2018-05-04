@@ -77,6 +77,7 @@
 1. [Harmony](http://rabotik.nl/harmony.htm)
 1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
 1. [EVP](https://forum.zdoom.org/viewtopic.php?f=43&t=58191#p1023165) (v17)
+1. [Factotum](https://forum.zdoom.org/viewtopic.php?f=43&t=58486#p1027620) (29/04/18)
 
 ## Other weapons are supported, but require initial setup
 

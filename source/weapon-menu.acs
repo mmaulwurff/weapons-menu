@@ -30,55 +30,66 @@ function bool WM_IsHiddenWeapon(int wNumber)
 {
   switch (currentSet)
   {
-    // Smooth Doom Rifle
-    case  1: return (wNumber == 2);
 
-    case 13: return (wNumber == 5); // HXRTC Project: Omicron Raygun
+    // Smooth Doom Rifle
+  case  1: return (wNumber == 2);
+
+  case 13: return (wNumber == 5); // HXRTC Project: Omicron Raygun
 
     // Chex Quest: Super Large Zorcher is deathmatch-only
-    case 19: return (wNumber == 3);
+  case 19: return (wNumber == 3);
 
-    case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
-    case 28: return (wNumber == 3 || wNumber == 9);
-    case 29: return (wNumber == 3 || wNumber == 9);
-    case 30: return (wNumber == 3 || wNumber == 9);
-    case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
+  case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
+  case 28: return (wNumber == 3 || wNumber == 9);
+  case 29: return (wNumber == 3 || wNumber == 9);
+  case 30: return (wNumber == 3 || wNumber == 9);
+  case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
 
     // Accessories to Murder
-    case 41: return (wNumber == 2 || wNumber == 3);
+  case 41: return (wNumber == 2 || wNumber == 3);
 
     // DoomRL Arsenal
-    case 42: return true;
+  case 42: return true;
 
     // High Noon Drifter:
-    case 43:
-      if (wNumber == 10) return true; // Double whips
-      // Single SMG when Second SMG is acquired:
-      if (wNumber ==  6 && WM_IsInInventory(5)) return true;
-      if (wNumber ==  5) return true; // Double SMG
-      return false;
+  case 43:
+    if (wNumber == 10) return true; // Double whips
+    // Single SMG when Second SMG is acquired:
+    if (wNumber ==  6 && WM_IsInInventory(5)) return true;
+    if (wNumber ==  5) return true; // Double SMG
+    return false;
 
     // X-Weapon
-    case 45:
-      if (wNumber == 27 || wNumber == 28) return true;
-      if (wNumber ==  4 && WM_IsInInventory( 2)) return true;
-      if (wNumber ==  8 && WM_IsInInventory( 7)) return true;
-      if (wNumber == 11 && WM_IsInInventory(10)) return true;
-      if (wNumber == 14 && WM_IsInInventory(13)) return true;
-      if (wNumber == 17 && WM_IsInInventory(16)) return true;
-      if (wNumber == 20 && WM_IsInInventory(19)) return true;
-      if (wNumber == 24 && WM_IsInInventory(23)) return true;
-      if (wNumber ==  2) return true;
-      if (wNumber ==  3) return true;
-      if (wNumber ==  7) return true;
-      if (wNumber == 10) return true;
-      if (wNumber == 13) return true;
-      if (wNumber == 16) return true;
-      if (wNumber == 19) return true;
-      if (wNumber == 22) return true;
+  case 45:
+    if (wNumber == 27 || wNumber == 28) return true;
+    if (wNumber ==  4 && WM_IsInInventory( 2)) return true;
+    if (wNumber ==  8 && WM_IsInInventory( 7)) return true;
+    if (wNumber == 11 && WM_IsInInventory(10)) return true;
+    if (wNumber == 14 && WM_IsInInventory(13)) return true;
+    if (wNumber == 17 && WM_IsInInventory(16)) return true;
+    if (wNumber == 20 && WM_IsInInventory(19)) return true;
+    if (wNumber == 24 && WM_IsInInventory(23)) return true;
+    if (wNumber ==  2) return true;
+    if (wNumber ==  3) return true;
+    if (wNumber ==  7) return true;
+    if (wNumber == 10) return true;
+    if (wNumber == 13) return true;
+    if (wNumber == 16) return true;
+    if (wNumber == 19) return true;
+    if (wNumber == 22) return true;
+    return false;
 
     // Doom Delta
-    case 47: return (wNumber == 8);
+  case 47: return (wNumber == 8);
+
+    //Factotum
+  case 49:
+    if (wNumber == 2 && WM_IsInInventory(1)) return true;
+    if (wNumber == 6 && WM_IsInInventory(5)) return true;
+    if (wNumber == 1) return true;
+    if (wNumber == 5) return true;
+    return false;
+
   }
 
   return false;
@@ -600,6 +611,11 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     if (WM_IsEVP()) { return 48; }
   }
 
+  if (StrCmp(class, "FKPlayer") == 0)
+  {
+    if (WM_IsFactotum()) { return 49; }
+  }
+
   return -1;
 }
 
@@ -678,6 +694,12 @@ function bool WM_IsEVP(void)
 {
   bool isEVP = CheckClass("EVPBFGBall");
   return isEVP;
+}
+
+function bool WM_IsFactotum(void)
+{
+  bool isFactotum = CheckClass("FKMachete");
+  return isFactotum;
 }
 
 function bool WM_IsOpenOnScroll(void)

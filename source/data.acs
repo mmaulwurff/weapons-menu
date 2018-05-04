@@ -1,6 +1,6 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 49
+#define SETS_NUMBER 50
 #define MAX_WEAPONS_NUMBER 250
 #define AUTO_SET 26
 
@@ -60,6 +60,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 46. Harmony
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
   "PerkDPlayer",         // 48. EVP v17
+  "FKPlayer",            // 49. Factotum (29/04/18)
 };
 
 // List of weapon counts for every known weapon mod.
@@ -109,6 +110,7 @@ int weaponCounts[SETS_NUMBER] =
   6,  // Harmony
   13, // Doom Delta
   9,  // EVP
+  10, // Factotum
 };
 
 // List of corresponding weapon slots.
@@ -270,6 +272,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
+
+  { 1, 2, 2, 3, 4, 5, 5, 5, 6, 7 }, // Factotum
 
 };
 
@@ -1013,7 +1017,17 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PerkRocketLauncher",
     "PerkPlasmaRifle",
     "PerkBFG9000",
-  }
+  },
+
+  { // Factotum
+    "FKMachete",
+    "FKPistolUP", "FKPistol",
+    "FKShotgun",
+    "FKMachinegun",
+    "FKLauncherUP", "FKLauncher", "FKGrenades",
+    "FKPlasmaRifle",
+    "FKCarbine",
+  },
 
 }; // end of actor/class names /////////////////////////////////////////////////
 
@@ -1756,6 +1770,16 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Rocket Launcher",
     "Plasma Rifle",
     "BFG 9000"
+  },
+
+  { // Factotum
+    "Machete",
+    "Upgraded Beretta 92", "Beretta 92FS",
+    "Franchi SPAS-12",
+    "Calico M950",
+    "Upgraded M79", "Springfield M79", "Grenades",
+    "Plasma Cannon",
+    "Colt M4A1",
   },
 
 }; // end of printable names
