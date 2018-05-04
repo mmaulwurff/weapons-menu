@@ -30,6 +30,8 @@ user int M8fWeaponMenuShowAmmoCounts = 2;
 // 2 - Always
 user int M8fWeaponMenuInstantSwitch = 0;
 
+user float M8fWeaponMenuHolsterSpeedMultiplier = 0.0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

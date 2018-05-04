@@ -104,6 +104,8 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
   StaticText "Instant switching doesn't work for mods with"
   StaticText "custom select or deselect animations"
+  Slider "Speed with holstered weapon", "M8fWeaponMenuHolsterSpeedMultiplier", 0.0, 3.0, 0.2
+  StaticText "Set this to 0.0 to disable speed change"
 
   StaticText ""
   StaticText "Commands"

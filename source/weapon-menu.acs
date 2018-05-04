@@ -424,6 +424,13 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 
   if (success)
   {
+    int playerN = PlayerNumber();
+    int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
+    if (holsterSpeedMultiplier != 0.0 && selectedWeapon == holsteredWeapon)
+    {
+      SetActorProperty(0, APROP_SPEED, 1.0);
+    }
+
     if (changeLast) { WM_SetLastUsedWeapon(selectedWeapon); }
     WM_SetSelectedWeapon(weaponNumber);
   }
@@ -1427,6 +1434,7 @@ script "WM_PrintInfo" (void)
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   Log(s:"Favorite: ", i:favorite, s:": ",
       s:WM_GetWeaponName(favorite));
+  Log(s:"Speed: ", f:GetActorProperty(0, APROP_Speed));
 }
 
 script "WM_ResetAutodetection" (void)
@@ -1536,6 +1544,13 @@ script "WM_HolsterWeapon" (void)
   {
     Log(s:"Weapon holstering is not supported in Doom Delta.");
     terminate;
+  }
+
+  int playerN = PlayerNumber();
+  int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
+  if (holsterSpeedMultiplier != 0.0)
+  {
+    SetActorProperty(0, APROP_SPEED, holsterSpeedMultiplier);
   }
 
   if (menuIsOpened) { WM_ToggleWeaponMenu(true); }
