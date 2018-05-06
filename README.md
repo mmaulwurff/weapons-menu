@@ -39,7 +39,7 @@
 
 ## Weapon Menu supports the following weapons out of the box
 
-1. Original Doom 2 weapons
+1. Original Doom/Doom 2 weapons
 1. [PerK's Smoother Weapon Animations Enhanced](https://forum.zdoom.org/viewtopic.php?f=43&t=32628)
 1. [Eriguns: Eriguns 1 Standard and Extended, Eriguns 2 (limited)](https://forum.zdoom.org/viewtopic.php?f=43&t=48208)
 1. [Beautiful Doom 6.3.2](https://forum.zdoom.org/viewtopic.php?f=43&t=50004)
@@ -71,8 +71,8 @@
 1. [Accessories to Murder](https://forum.zdoom.org/viewtopic.php?t=36877#p699326)
 1. [DoomRL Arsenal v1.05](https://forum.zdoom.org/viewtopic.php?t=37044#p703341)
 1. [High Noon Drifter v1.2c](https://forum.zdoom.org/viewtopic.php?f=43&t=57098#p1006858)
-1. [Tactical Chainsaw](https://www.doomworld.com/idgames/combos/ph_stuff) (works only for mods that have a chainsaw)
-1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19) (works with everything)
+1. [Tactical Chainsaw](https://www.doomworld.com/idgames/combos/ph_stuff)
+1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19)
 1. [X-Weapon](https://forum.zdoom.org/viewtopic.php?f=43&t=37254#p707405)
 1. [Harmony](http://rabotik.nl/harmony.htm)
 1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
@@ -117,7 +117,7 @@ of the box, a message will appear with a suggestion to try 'wmauto' script:
 
 If you want Weapon Menu to support your mod out of the box:
 
-* Your mod must have unique player class/actor name.
+* Your mod must have unique player class/actor name or some actor that class name is unique. This is needed to recognize your mod and distinguish it from other mods.
 
 * Please supply a list of weapons with slots and tags, in order that they should appear in the menu. For example, for standard Doom 2 weapons it would be:
 
@@ -149,6 +149,7 @@ Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterfac
 * take printable weapon names from tags through ZScript (keep beautified class
 names as a fallback)
 * maybe rewrite wmauto in ZScript
+* detect Doom IWAD and hide SSG
 
 ## Info
 
@@ -163,5 +164,7 @@ License: CC BY 4.0
 Credits:
 * WMSWTCH*.wav are from [Freedoom](https://freedoom.github.io/).
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
-* [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308)
+* [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308).
+* Thanks to id Software for Doom.
+* Thanks to the following people and all contributors for the ZDoom and GZDoom source ports: Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson.
 * Thanks to Gutawer and argv for example of ZScript HUD.
