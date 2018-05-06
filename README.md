@@ -143,6 +143,13 @@ If you want Weapon Menu to support your mod out of the box:
 
 Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterface.txt), so it can be integrated into your HUD.
 
+## Todo
+
+* save custom weapon order (weapon slot and position in slot) between maps
+* take printable weapon names from tags through ZScript (keep beautified class
+names as a fallback)
+* maybe rewrite wmauto in ZScript
+
 ## Info
 
 Author: m8f (mmaulwurff@gmail.com)
