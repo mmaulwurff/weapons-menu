@@ -617,7 +617,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "FKPlayer") == 0)
   {
-    if (WM_IsFactotum())   { return 49; }
     if (WM_IsFlakesDoom()) { return 50; }
     else                   { return 14; }
   }
@@ -700,12 +699,6 @@ function bool WM_IsEVP(void)
 {
   bool isEVP = CheckClass("EVPBFGBall");
   return isEVP;
-}
-
-function bool WM_IsFactotum(void)
-{
-  bool isFactotum = CheckClass("FKMachete");
-  return isFactotum;
 }
 
 function bool WM_IsFlakesDoom(void)

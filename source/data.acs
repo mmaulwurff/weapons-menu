@@ -60,7 +60,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 46. Harmony
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
   "PerkDPlayer",         // 48. EVP v17
-  "FKPlayer",            // 49. Factotum (29/04/18)
+  "FTPlayer",            // 49. Factotum (05/05/18)
   "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18)
 };
 
