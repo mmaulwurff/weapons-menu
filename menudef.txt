@@ -83,6 +83,9 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
+  Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
+  StaticText "(Slot keys will open menu only if there"
+  StaticText "are more than one weapons in slot)"
 
   StaticText ""
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
