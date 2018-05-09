@@ -48,7 +48,7 @@
 1. [HXRTC Project Final Edition (Revised 17 feb 2018)](https://forum.zdoom.org/viewtopic.php?f=43&t=48074)
 1. [Kriegsland: Blutorden (2.3 04/02/18)](https://forum.zdoom.org/viewtopic.php?f=43&t=57053)
 1. [Complex Doom V27a3](https://forum.zdoom.org/viewtopic.php?f=43&t=58535)
-1. [Weapons of Saturn (October 31, 2017)](https://forum.zdoom.org/viewtopic.php?f=43&t=36821)
+1. [Weapons of Saturn](https://forum.zdoom.org/viewtopic.php?f=43&t=36821) (05/08/2018)
 1. [Hard-Doom v8.2f](https://forum.zdoom.org/viewtopic.php?f=43&t=45145)
 1. Heretic IWAD weapons (not tested)
 1. [Chex Quest](http://www.chucktropolis.com/gamers.htm)

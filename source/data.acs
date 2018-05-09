@@ -78,7 +78,7 @@ int weaponCounts[SETS_NUMBER] =
   50, // HXRTC Project!
   22 + 5, // Kriegsland
   18, // Complex Doom
-  11, // Weapons of Saturn
+  12, // Weapons of Saturn
   14, // Hard-Doom
   8,  // Heretic
   9,  // Chex Quest
@@ -178,7 +178,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     8,
   },
 
-  { 1, 1, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
+  { 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
 
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 
@@ -458,7 +458,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { // Weapons of Saturn
     "Motorsaw", "Knuckles",
-    "1911", "Beretta",
+    "MP40", "1911", "Beretta",
     "Coachgun", "Riotgun",
     "Minigun", "MachineRifle",
     "SaturnV",
@@ -1221,7 +1221,7 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { // Weapons of Saturn
     "Chain Saw", "Knuckles",
-    "1911", "Beretta",
+    "MP40", "1911", "Beretta",
     "Coach Gun", "Riot Gun",
     "Rotary Cannon", "Machine Rifle",
     "Saturn V",
