@@ -1610,13 +1610,20 @@ function void WM_InstantSwitch(bool enable)
   SetPlayerProperty(0, enable, PROP_INSTANTWEAPONSWITCH);
 }
 
+#define N_MODS_NO_HOLSTER 2
+
 script "WM_HolsterWeapon" (void)
 {
   if (selectedWeapon == holsteredWeapon) { terminate; }
-  if (currentSet == 47)
+
+  int forbiddenMods[N_MODS_NO_HOLSTER] = { 16, 47 };
+  for (int i = 0; i < N_MODS_NO_HOLSTER; ++i)
   {
-    Log(s:"Weapon holstering is not supported in Doom Delta.");
-    terminate;
+    if (currentSet == forbiddenMods[i])
+    {
+      Log(s:"Weapon holstering is not supported in this mod.");
+      terminate;
+    }
   }
 
   int playerN = PlayerNumber();
