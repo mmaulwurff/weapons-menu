@@ -164,18 +164,20 @@ function int WM_GetWeaponBySlotInInv(int slotNumber)
 function bool WM_IsOnlyInSlot(int weaponNumber)
 {
   int slot = WM_GetWeaponSlot(weaponNumber);
-  bool checkPrev = (weaponNumber > 0);
-  bool checkNext = (weaponNumber < weaponCount - 1);
 
-  if (checkPrev)
-    if (WM_GetWeaponSlot(weaponNumber - 1) == slot)
-      if (CheckInventory(WM_GetWeaponName(weaponNumber - 1)))
+  for (int prev = weaponNumber - 1; prev >= 0; --prev)
+  {
+    if (WM_GetWeaponSlot(prev) == slot)
+      if (CheckInventory(WM_GetWeaponName(prev)))
         { return false; }
+  }
 
-  if (checkNext)
-    if (WM_GetWeaponSlot(weaponNumber + 1) == slot)
-      if (CheckInventory(WM_GetWeaponName(weaponNumber + 1)))
+  for (int next = weaponNumber + 1; next < weaponCount; ++next)
+  {
+    if (WM_GetWeaponSlot(next) == slot)
+      if (CheckInventory(WM_GetWeaponName(next)))
         { return false; }
+  }
 
   return true;
 }
