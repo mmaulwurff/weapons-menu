@@ -104,4 +104,24 @@ class WMZscriptHelper : Actor
 
     activator.player.PendingWeapon = null;
   }
+
+  static void GetInventoryList(Actor activator)
+  {
+    if (!activator || !activator.player) { return; }
+
+    Console.printf("Inventory Menu");
+
+    string inventoryContents = "";
+    for (let inv = activator.player.mo.Inv; inv; inv = inv.Inv)
+    {
+      // [argv] look through the player pawn's inventory for weapons
+      if (inv.bINVBAR)
+      {
+        inventoryContents.AppendFormat("%s>%s>", inv.GetClassName(), inv.GetTag());
+      }
+    }
+
+    CVar messageCVar =  CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", activator.player);
+    messageCVar.SetString(inventoryContents);
+  }
 }
