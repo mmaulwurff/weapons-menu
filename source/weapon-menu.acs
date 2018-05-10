@@ -2,8 +2,13 @@
 #include "zcommon.acs"
 #include "data.acs"
 
-#define MINIMAL_HOLD_TIME 1873
-#define messageIdStart 191919
+#define messageIdStart   191919
+#define msgIdWeapon      messageIdStart
+#define msgIdSelected    messageIdStart + MAX_WEAPONS_NUMBER
+#define msgIdHighlighted messageIdStart + MAX_WEAPONS_NUMBER + 1
+#define msgIdError       messageIdStart + MAX_WEAPONS_NUMBER + 2
+#define msgIdAmmo        messageIdStart + MAX_WEAPONS_NUMBER + 3
+#define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER + 4
 
 #define resetWeapon -1
 #define holsteredWeapon -2
@@ -202,15 +207,16 @@ function void WM_UpdateMenu(void)
 
 function void WM_ClearScreen(void)
 {
-  // when menu is disabled, weapon count is 0
-  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart, CR_RED, 0.0, 0.0, 0);
-  for (int i = 1; i < weaponCount; ++i)
+  int id  = msgIdWeapon;
+  int end = msgIdWeapon + weaponCount;
+  do // when menu is disabled, weapon count is 0, so always clear first message.
   {
-    int id = messageIdStart + i;
-    HudMessage(s:""; HUDMSG_PLAIN, id, CR_RED, 0.0, 0.0, 0);
-  }
-  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount, 0, 0, 0, 0);
-  HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount + 1, 0, 0, 0, 0);
+    HudMessage(s:""; HUDMSG_PLAIN, id, 0, 0, 0, 0);
+    ++id;
+  } while (id < end);
+
+  HudMessage(s:""; HUDMSG_PLAIN, msgIdSelected,    0, 0, 0, 0);
+  HudMessage(s:""; HUDMSG_PLAIN, msgIdHighlighted, 0, 0, 0, 0);
 }
 
 function void WM_PrintMenu(void)
@@ -224,7 +230,7 @@ function void WM_PrintMenu(void)
     int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
     int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
     HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
-               HUDMSG_PLAIN, messageIdStart, CR_RED, stubXStart, stubYStart, 0);
+               HUDMSG_PLAIN, msgIdError, CR_RED, stubXStart, stubYStart, 0);
     return;
   }
 
@@ -254,7 +260,7 @@ function void WM_PrintMenu(void)
     {
       str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
       HudMessage(s:"Selected: ", s:selectedName;
-                 HUDMSG_PLAIN, messageIdStart + weaponCount,
+                 HUDMSG_PLAIN, msgIdSelected,
                  selectedWeaponColor, 0.5, yStart + stepMultiplied * 2, 0);
     }
 
@@ -268,13 +274,13 @@ function void WM_PrintMenu(void)
       message = StrParam(s:message, s:" ", s:ammo);
     }
     HudMessage(s:message;
-               HUDMSG_PLAIN, messageIdStart + weaponCount + 1,
+               HUDMSG_PLAIN, msgIdHighlighted,
                highlightedWeaponColor, 0.5, yStart + stepMultiplied * 4, 0);
   }
   else
   {
-    HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount, 0, 0, 0, 0);
-    HudMessage(s:""; HUDMSG_PLAIN, messageIdStart + weaponCount + 1, 0, 0, 0, 0);
+    HudMessage(s:""; HUDMSG_PLAIN, msgIdSelected,    0, 0, 0, 0);
+    HudMessage(s:""; HUDMSG_PLAIN, msgIdHighlighted, 0, 0, 0, 0);
   }
 
   int position          = 0;
@@ -372,7 +378,7 @@ function void WM_PrintHudWeapon(
   int ammoMode
 )
 {
-  int id = messageIdStart + weaponNumber;
+  int id = msgIdWeapon + weaponNumber;
   int y = yStart;
   int x = xStart;
   if (displayMode == 2) { x += position * stepMultiplied; } // horizontal
@@ -480,8 +486,7 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
   {
     str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
     HudMessage(s:printableWeaponName, s:": no ammo.";
-               HUDMSG_PLAIN, messageIdStart + MAX_WEAPONS_NUMBER, CR_RED,
-               0.5, 0.5, 1.0);
+               HUDMSG_PLAIN, msgIdAmmo, CR_RED, 0.5, 0.5, 1.0);
 
     WM_SetHighlightedWeapon(selectedWeapon);
   }
@@ -912,8 +917,7 @@ function void WM_MaybeDisplayNameTag(void)
     int nametagcolor = GetCVar("nametagcolor");
     str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
     HudMessage(s:selectedName;
-               HUDMSG_FADEOUT, messageIdStart + weaponCount + 2,
-               nametagcolor, 0.5, 0.9, 2.0, 1.0);
+               HUDMSG_FADEOUT, msgIdTag, nametagcolor, 0.5, 0.9, 2.0, 1.0);
 
   }
 }
