@@ -1,6 +1,8 @@
 #library "LIBWEAPONMENU"
 #include "zcommon.acs"
+
 #include "data.acs"
+#include "inventory.acs"
 
 #define messageIdStart   191919
 #define msgIdWeapon      messageIdStart
@@ -30,13 +32,6 @@ int step = 0;
 bool selectedWatchEnabled = true;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
-
-#define N_INVENTORY_ITEMS 100
-
-str inventoryClasses[N_INVENTORY_ITEMS];
-str inventoryNames[N_INVENTORY_ITEMS];
-
-bool inventoryMode = false;
 
 function bool WM_IsHiddenWeapon(int wNumber)
 {
@@ -1650,46 +1645,4 @@ script "WM_HolsterWeapon" (void)
   WM_SetLastUsedWeapon(selectedWeapon);
   WM_SetSelectedWeapon(holsteredWeapon);
   ScriptCall("WMZScriptHelper", "HolsterWeapon");
-}
-
-script "WM_InventoryMenu" (void)
-{
-  ScriptCall("WMZScriptHelper", "GetInventoryList");
-
-  int playerN = PlayerNumber();
-  str inventoryContents = GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
-
-  int inventoryContentsLength = StrLen(inventoryContents);
-
-  int current = 0;
-  str currentName = "";
-  bool isClassName = true;
-
-  for (int i = 0; i < inventoryContentsLength && current < N_INVENTORY_ITEMS; ++i)
-  {
-    int character = GetChar(inventoryContents, i);
-    if (character != '>')
-    {
-      currentName = StrParam(s:currentName, c:character);
-    }
-    else
-    {
-      if (isClassName)
-      {
-        inventoryClasses[current] = currentName;
-      }
-      else
-      {
-        inventoryNames[current] = currentName;
-        ++current;
-      }
-      isClassName = !isClassName;
-      currentName = "";
-    }
-  }
-
-  for (int j = 0; j < current; ++j)
-  {
-    Log(s:inventoryClasses[j], s:" : ", s:inventoryNames[j]);
-  }
 }

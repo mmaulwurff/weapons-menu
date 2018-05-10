@@ -5,21 +5,25 @@ acc source/weapon-menu.acs acs/weapon-menu.o \
 rm -f weapon-menu.pk3 \
 && \
 zip weapon-menu.pk3 \
-    acs/weapon-menu.o keyconf.txt \
-    loadacs.txt README.md \
-    cvarinfo.txt \
-    menudef.txt \
-    source/weapon-menu.acs \
-    WeaponMenuInterface.txt \
+    acs/weapon-menu.o \
     sounds/WMSWTCH1.wav \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \
-    sndinfo.txt \
-    autodetection.cfg \
-    zscript.txt \
+    source/data.acs \
+    source/inventory.acs \
+    source/weapon-menu.acs \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \
+    README.md \
+    WeaponMenuInterface.txt \
+    autodetection.cfg \
+    cvarinfo.txt \
+    keyconf.txt \
+    loadacs.txt \
+    menudef.txt \
+    sndinfo.txt \
+    zscript.txt \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \
