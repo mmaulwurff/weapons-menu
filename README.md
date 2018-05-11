@@ -31,6 +31,7 @@
    * Holster weapon.
    * Toggle laser sight.
    * Open inventory menu.
+   * Toggle Zoom. Zoom factor can be configured in options.
 
    Every key bind is optional. You can always use standard key binds
    if you want vanilla behavior.
