@@ -19,3 +19,7 @@ acs/*
 !sounds
 sounds/*
 !sounds/*.wav
+
+!sprites
+sprites/*
+!sprites/*.png

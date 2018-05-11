@@ -125,3 +125,36 @@ class WMZscriptHelper : Actor
     messageCVar.SetString(inventoryContents);
   }
 }
+
+class WM_PuffBase : Actor
+{
+  Default
+  {
+    Mass 0;
+    Radius 1;
+    Height 2;
+    +NOBLOCKMAP;
+    +NOGRAVITY;
+    +BLOODLESSIMPACT;
+    +PUFFONACTORS;
+    +DONTSPLASH;
+    +NOTRIGGER;
+    +FORCEXYBILLBOARD;
+  }
+
+  States
+    {
+    Spawn:
+      TNT1 A 0;
+      WDOB A 1 BRIGHT;
+      Stop;
+    }
+}
+
+class WM_Laser0 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO0 A 1 BRIGHT; Stop; }}
+class WM_Laser1 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO1 A 1 BRIGHT; Stop; }}
+class WM_Laser2 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO2 A 1 BRIGHT; Stop; }}
+class WM_Laser3 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO3 A 1 BRIGHT; Stop; }}
+class WM_Laser4 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO4 A 1 BRIGHT; Stop; }}
+
+class WM_InvisiblePuff : WM_PuffBase {States {Spawn: TNT1 A 0; Stop;}}

@@ -12,6 +12,7 @@ zip weapon-menu.pk3 \
     source/data.acs \
     source/inventory.acs \
     source/weapon-menu.acs \
+    sprites/WDOTA0.png \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \
@@ -23,6 +24,7 @@ zip weapon-menu.pk3 \
     loadacs.txt \
     menudef.txt \
     sndinfo.txt \
+    textures.txt \
     zscript.txt \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \

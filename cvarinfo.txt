@@ -34,6 +34,8 @@ user float M8fWeaponMenuHolsterSpeedMultiplier = 0.0;
 
 user int M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
 
+user int m8f_wm_ShowLaserSight = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

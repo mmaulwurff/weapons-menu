@@ -104,11 +104,18 @@ OptionMenu "M8FWeaponsMenuOptions"
 
   StaticText ""
   StaticText "Gameplay Changes"
+
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
   StaticText "Instant switching doesn't work for mods with"
   StaticText "custom select or deselect animations"
+
+  StaticText ""
   Slider "Speed with holstered weapon", "M8fWeaponMenuHolsterSpeedMultiplier", 0.0, 3.0, 0.2
   StaticText "Set this to 0.0 to disable speed change"
+
+  StaticText ""
+  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "M8FWeaponMenuYesNoOptions"
+  StaticText "Laser sight will not be shown on slot 1"
 
   StaticText ""
   StaticText "Commands"
