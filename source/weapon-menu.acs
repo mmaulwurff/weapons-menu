@@ -1895,7 +1895,14 @@ script "WM_InventoryMenu" (void)
   else
   {
     WM_UpdateInventoryMenu();
-    WM_ChangeState(STATE_INVENTORY);
+    if (nInventoryItems != 0)
+    {
+      WM_ChangeState(STATE_INVENTORY);
+    }
+    else
+    {
+      Log(s:"Inventory is empty.");
+    }
   }
 }
 
@@ -1951,14 +1958,17 @@ function void WM_UpdateInventoryMenu(void)
 
   nInventoryItems = current;
 
-  if (prevHighlightedIndex == -1)
+  if (nInventoryItems != 0)
   {
-    highlightedInventory = 0;
-    highlightedInventoryClass = inventoryClasses[highlightedInventory];
-  }
-  else
-  {
-    highlightedInventory = prevHighlightedIndex;
+    if (prevHighlightedIndex == -1)
+    {
+      highlightedInventory = 0;
+      highlightedInventoryClass = inventoryClasses[highlightedInventory];
+    }
+    else
+    {
+      highlightedInventory = prevHighlightedIndex;
+    }
   }
 }
 
