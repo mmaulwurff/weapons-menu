@@ -72,8 +72,8 @@ function int WM_GetInitialState(void)
 {
   if (WM_IsTitlemap()) { return STATE_TERMINATED; }
 
-  int currentClassI = WM_GetWeaponSet();
-  if (currentClassI == ERROR_NOT_FOUND) { return STATE_DISABLED; }
+  currentSet = WM_GetWeaponSet();
+  if (currentSet == ERROR_NOT_FOUND) { return STATE_DISABLED; }
 
   return STATE_ENABLED;
 }
@@ -936,7 +936,7 @@ script "ShowWeaponMenu" ENTER
         }
         else
         {
-          Log(s:"Unknown weapon is selected!");
+          Log(s:"Unknown weapon is selected: ", s:GetWeapon());
         }
       }
     }
