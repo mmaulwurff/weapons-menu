@@ -39,6 +39,10 @@ addmenukey "Fire quick access weapon" "pukename WM_FireFavoriteWeapon 0"
 addmenukey "AltFire quick access weapon" "pukename WM_FireFavoriteWeapon 1"
 addmenukey "Holster weapon" "pukename WM_HolsterWeapon"
 
+alias wm_laser_off "m8f_wm_ShowLaserSight 0"
+alias wm_laser_on "m8f_wm_ShowLaserSight 1"
+addmenukey "Toggle Laser Sight" "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
+
 addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
 addmenukey "Increase weapon slot" "pukename WM_IncreaseSlot"
 addmenukey "Decrease weapon slot" "pukename WM_DecreaseSlot"
