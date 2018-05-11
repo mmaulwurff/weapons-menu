@@ -64,6 +64,8 @@ OptionValue "M8fWeaponMenuInstantSwitchOptions"
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
+
+  StaticText "Display Options", "Blue"
   Option "Available Weapon Color", "M8FAvailableWeaponColor", "TextColors"
   Option "Not Available Weapon Color", "M8FNotAvailableWeaponColor", "TextColors"
   Option "Highlighted Weapon Color", "M8FHighlightedWeaponColor", "TextColors"
@@ -75,19 +77,18 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Slot numbers:", "M8FWeaponMenuNumbersLeft", "M8FWeaponMenuNumbersLeftOptions"
 
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
-
-  Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
-
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
-  Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
-
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
-  Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
-  StaticText "(Slot keys will open menu only if there"
-  StaticText "are more than one weapons in slot)"
 
   StaticText ""
+  Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
+  ScaleSlider "Text scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
+  StaticText "(Also affects Messages scale)"
+  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
+
+  StaticText ""
+  StaticText "Position Options", "Blue"
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
   StaticText "(also affects alignment)"
 
@@ -97,13 +98,19 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "be out of screen with big values)"
 
   StaticText ""
-  Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
-  ScaleSlider "Text scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
-  StaticText "(Also affects Messages scale)"
-  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
+  StaticText "Sound", "Blue"
+  Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
 
   StaticText ""
-  StaticText "Gameplay Changes"
+  StaticText "Behavior options", "Blue"
+  Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
+
+  Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
+  StaticText "(Slot keys will open menu only if there"
+  StaticText "are more than one weapons in slot)"
+
+  StaticText ""
+  StaticText "Gameplay Changes", "Blue"
 
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
   StaticText "Instant switching doesn't work for mods with"
@@ -118,10 +125,10 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "Laser sight will not be shown on slot 1"
 
   StaticText ""
-  StaticText "Commands"
+  StaticText "Commands", "Blue"
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"
   StaticText "Or settings will be applied on next menu opening"
-  Command "Reset autodetected weapons", "pukename WM_ResetAutodetection"
+  SafeCommand "Reset autodetected weapons", "pukename WM_ResetAutodetection"
 }
 
 AddOptionMenu "OptionsMenu"
