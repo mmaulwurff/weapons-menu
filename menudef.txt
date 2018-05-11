@@ -61,6 +61,13 @@ OptionValue "M8fWeaponMenuInstantSwitchOptions"
   2, "Always"
 }
 
+OptionValue "m8f_wm_FavoriteFireOptions"
+{
+  0, "Normal fire"
+  1, "Alt fire"
+  2, "No fire"
+}
+
 OptionMenu "M8FWeaponsMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -108,6 +115,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
   StaticText "(Slot keys will open menu only if there"
   StaticText "are more than one weapons in slot)"
+  Option "Favorite Fire Mode", "m8f_wm_FavoriteFireMode", "m8f_wm_FavoriteFireOptions"
 
   StaticText ""
   StaticText "Gameplay Changes", "Blue"

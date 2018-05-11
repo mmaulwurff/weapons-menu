@@ -36,6 +36,11 @@ user int M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
 
 user int m8f_wm_ShowLaserSight = 0;
 
+// 0 - normal fire
+// 1 - alt fire
+// 2 - no fire
+user int m8f_wm_FavoriteFireMode = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

@@ -1732,7 +1732,7 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
   return isReady;
 }
 
-script "WM_FireFavoriteWeapon" (int alt)
+script "WM_FireFavoriteWeapon" (void)
 {
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
@@ -1745,10 +1745,13 @@ script "WM_FireFavoriteWeapon" (int alt)
   int returnTo = selectedWeapon;
   selectedWatchEnabled = false;
 
+  int fireMode = GetUserCVar(playerN, "m8f_wm_FavoriteFireMode");
   bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
   if (instant) { WM_InstantSwitch(true); }
   WM_SelectWeapon(favorite, false);
   if (instant) { Delay(1); WM_InstantSwitch(false); }
+
+  Delay(10);
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
   int i = 0;
@@ -1775,8 +1778,15 @@ script "WM_FireFavoriteWeapon" (int alt)
   }
 
   if (alreadyFired) { Delay(1); }
-  else if (alt) { ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); }
-  else          { ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); }
+  else
+  {
+    switch (fireMode)
+    {
+    case 0: ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); break;
+    case 1: ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); break;
+    case 2: break;
+    }
+  }
 
   isReady = WM_IsWeaponDeselectable(favoriteClass);
   while (!isReady)
