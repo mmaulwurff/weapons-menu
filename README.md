@@ -1,17 +1,18 @@
-# Weapon Menu Mod for GZDoom
+# Weapon Menu Plus (mod for GZDoom)
 
 ## Features
 
 1. Allows fast and reliable weapon selection: you see what you are about to select.
 1. Works with any HUD.
 1. Works with almost any weapon set.
+1. Menu for inventory items too!
 1. Controls in Options -> Customize controls -> "Weapon Menu Keys".
 
    * Fire/Select: if menu is opened, close it and select weapon. If
-     menu is closed, fire.
-   * Alt fire/close menu: the same, but do not select new weapon, just close menu.
+     menu is closed, fire. If inventory menu is opened, use highlighted item.
+   * Alt fire/close menu: close menu, don't select or use anything.
    * Toggle menu: open menu/close menu and select a weapon.
-   * Next/previous weapon: if menu is opened, cycle through all available weapons.
+   * Next/previous: if menu is opened, cycle through available weapons or items.
      If menu is closed, cycles through weapons in standard Doom fashion.
      Option: "Open Menu on Next/Prev": if set to "Yes", menu is opened and
      next/previous weapon is highlighted, but not yet selected.
@@ -19,14 +20,17 @@
    * Last used weapon: select last used weapon.
      This key doesn't care if menu is opened or not.
    * Mark weapon for quick access/Select quick access weapon.
-   * Fire/Altfire quick access weapon:
+   * Fire quick access weapon:
      Draw quick access weapon, fire it once, and return to previous weapon.
+     There is an option for fires mode: fire, altfire and no fire.
    * Weapon slot 1-11: if menu is closed, open it.
      Cycle through all weapons in a slot.
    * Increase weapon priority: for example, if you increase priority of vanilla
      shotgun, single press on "3" will select shotgun instead of SSG.
    * Increase/decrease weapon slot: changes weapon slot.
    * Holster weapon.
+   * Toggle laser sight.
+   * Open inventory menu.
 
    Every key bind is optional. You can always use standard key binds
    if you want vanilla behavior.
