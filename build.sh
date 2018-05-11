@@ -10,7 +10,6 @@ zip weapon-menu.pk3 \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \
     source/data.acs \
-    source/inventory.acs \
     source/weapon-menu.acs \
     sprites/WDOTA0.png \
     MINIPLWK.lmp \
