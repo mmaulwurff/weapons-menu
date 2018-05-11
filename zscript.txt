@@ -109,15 +109,14 @@ class WMZscriptHelper : Actor
   {
     if (!activator || !activator.player) { return; }
 
-    Console.printf("Inventory Menu");
-
     string inventoryContents = "";
     for (let inv = activator.player.mo.Inv; inv; inv = inv.Inv)
     {
       // [argv] look through the player pawn's inventory for weapons
       if (inv.bINVBAR)
       {
-        inventoryContents.AppendFormat("%s>%s>", inv.GetClassName(), inv.GetTag());
+        int amount = inv.Amount;
+        inventoryContents.AppendFormat("%s>%s>%d>", inv.GetClassName(), inv.GetTag(), amount);
       }
     }
 

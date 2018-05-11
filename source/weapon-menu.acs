@@ -2,7 +2,6 @@
 #include "zcommon.acs"
 
 #include "data.acs"
-#include "inventory.acs"
 
 #define messageIdStart   191919
 #define msgIdWeapon      messageIdStart
@@ -54,6 +53,20 @@ str  lastUsedWeapon;
 bool selectedWatchEnabled = true;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
+
+// Inventory variables section /////////////////////////////////////////////////
+
+int highlightedInventory = 0;
+int highlightedInventoryClass;
+int nInventoryItems;
+
+#define N_INVENTORY_ITEMS 100
+
+str inventoryClasses[N_INVENTORY_ITEMS];
+str inventoryNames  [N_INVENTORY_ITEMS];
+str inventoryAmounts[N_INVENTORY_ITEMS];
+
+// Get status section //////////////////////////////////////////////////////////
 
 function bool IsEnabled(void)    { return globalState >= STATE_ENABLED; }
 function bool IsTerminated(void) { return globalState == STATE_TERMINATED; }
@@ -110,7 +123,7 @@ function void WM_EnterState(int newState)
 {
   globalState = newState;
   WM_SetCVar(IsEnabled(), "M8fWeaponMenuIsEnabled");
-  WM_SetCVar(IsOpened(),  "M8fWeaponMenuIsOpened");
+  WM_SetCVar(IsOpened() || IsInventory(), "M8fWeaponMenuIsOpened");
 
   switch (newState)
     {
@@ -139,7 +152,12 @@ function void WM_LeaveOpened(void)
   WM_ClearScreen();
 }
 
-function void WM_LeaveInventory(void) {}
+function void WM_LeaveInventory(void)
+{
+  WM_PlaySwitchSound();
+  WM_ClearScreen();
+}
+
 function void WM_LeaveClosedVisible(void) {}
 
 function void WM_EnterUninitialized(void) {}
@@ -197,7 +215,12 @@ function void WM_EnterOpened(void)
   WM_UpdateMenu();
 }
 
-function void WM_EnterInventory(void) {}
+function void WM_EnterInventory(void)
+{
+  WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon());
+  WM_PlaySwitchSound();
+  WM_PrintInventoryMenu();
+}
 
 function void WM_EnterClosedVisible(void)
 {
@@ -372,7 +395,8 @@ function void WM_UpdateMenu(void)
 function void WM_ClearScreen(void)
 {
   int id  = msgIdWeapon;
-  int end = msgIdWeapon + weaponCount;
+  int end = msgIdWeapon + MAX_WEAPONS_NUMBER;
+
   do // when menu is disabled, weapon count is 0, so always clear first message.
   {
     HudMessage(s:""; HUDMSG_PLAIN, id, 0, 0, 0, 0);
@@ -884,7 +908,7 @@ script "ShowWeaponMenu" ENTER
   {
     // CVar may have been reset by other games while this game was saved.
     WM_SetCVar(IsEnabled(), "M8fWeaponMenuIsEnabled");
-    WM_SetCVar(IsOpened(),  "M8fWeaponMenuIsOpened");
+    WM_SetCVar(IsOpened() || IsInventory(),  "M8fWeaponMenuIsOpened");
 
     if (updateCount < updatePeriod) { ++updateCount; }
     else
@@ -902,6 +926,12 @@ script "ShowWeaponMenu" ENTER
       {
         bool updated = WM_UpdateIsInInventory();
         if (updated) { WM_UpdateMenu(); }
+      }
+
+      if (IsInventory())
+      {
+        WM_UpdateInventoryMenu();
+        WM_PrintInventoryMenu();
       }
     }
 
@@ -936,7 +966,10 @@ script "ShowWeaponMenu" ENTER
         }
         else
         {
-          Log(s:"Unknown weapon is selected: ", s:GetWeapon());
+          if (selectedWeapon != WEAPON_HOLSTERED)
+          {
+            Log(s:"Unknown weapon is selected: ", s:GetWeapon());
+          }
         }
       }
     }
@@ -958,9 +991,22 @@ script "ApplyWeaponMenuSettings" (void)
   WM_UpdateMenu();
 }
 
-script "ToggleWeaponMenu" (int highlightSelected)
+script "ToggleWeaponMenu" (int closeWithoutAction)
 {
-  if (IsOpened() && highlightSelected)
+  if (IsInventory())
+  {
+    if (closeWithoutAction)
+    {
+      WM_ChangeState(STATE_CLOSED);
+    }
+    else
+    {
+      UseInventory(highlightedInventoryClass);
+    }
+    terminate;
+  }
+
+  if (IsOpened() && closeWithoutAction)
   {
     WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon());
   }
@@ -982,6 +1028,19 @@ function void WM_ToggleWeaponMenu(void)
 
 script "ScrollNextWeapon" (void)
 {
+  if (IsInventory())
+  {
+    int oldHighlighted = highlightedInventory;
+    highlightedInventory = (highlightedInventory + 1) % nInventoryItems;
+    if (oldHighlighted != highlightedInventory)
+    {
+      WM_PlaySwitchSound();
+      highlightedInventoryClass = inventoryClasses[highlightedInventory];
+    }
+    WM_PrintInventoryMenu();
+    terminate;
+  }
+
   if (WM_IsOpenOnScroll() && !IsOpened())
   {
     WM_ChangeState(STATE_OPENED);
@@ -1044,13 +1103,27 @@ function void WM_MaybeDisplayNameTag(void)
 
 script "ScrollPreviousWeapon" (void)
 {
-  int i;
-  int stopper = weaponCount;
+  if (IsInventory())
+  {
+    int oldHighlighted = highlightedInventory;
+    highlightedInventory = (highlightedInventory + nInventoryItems - 1)
+      % nInventoryItems;
+    if (oldHighlighted != highlightedInventory)
+    {
+      WM_PlaySwitchSound();
+      highlightedInventoryClass = inventoryClasses[highlightedInventory];
+    }
+    WM_PrintInventoryMenu();
+    terminate;
+  }
 
   if (WM_IsOpenOnScroll() && !IsOpened())
   {
     WM_ToggleWeaponMenu();
   }
+
+  int i;
+  int stopper = weaponCount;
 
   if (IsOpened())
   {
@@ -1096,6 +1169,11 @@ script "ScrollPreviousWeapon" (void)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
+  if (IsInventory())
+  {
+    WM_ChangeState(STATE_CLOSED);
+  }
+
   if (IsOpened())
   {
     int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
@@ -1794,4 +1872,140 @@ function void WM_ShowLaserSight(void)
 
   LineAttack(0, angle, pitch, 0, puff, "None", maxDistance,
              FHF_NORANDOMPUFFZ | FHF_NOIMPACTDECAL);
+}
+
+// Inventory menu section //////////////////////////////////////////////////////
+
+script "WM_InventoryMenu" (void)
+{
+  if (IsInventory())
+  {
+    WM_ChangeState(STATE_CLOSED);
+  }
+  else
+  {
+    WM_UpdateInventoryMenu();
+    WM_ChangeState(STATE_INVENTORY);
+  }
+}
+
+function void WM_UpdateInventoryMenu(void)
+{
+  ScriptCall("WMZScriptHelper", "GetInventoryList");
+
+  int playerN = PlayerNumber();
+  str inventoryContents = GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+
+  int inventoryContentsLength = StrLen(inventoryContents);
+
+  int current = 0;
+  str currentToken = "";
+  int iArray = 0;
+
+  int prevHighlightedIndex = -1;
+  for (int i = 0; i < inventoryContentsLength && current < N_INVENTORY_ITEMS; ++i)
+  {
+    int character = GetChar(inventoryContents, i);
+    if (character != '>')
+    {
+      currentToken = StrParam(s:currentToken, c:character);
+    }
+    else
+    {
+      switch (iArray)
+      {
+      case 0:
+        inventoryClasses[current] = currentToken;
+        if (StrCmp(highlightedInventoryClass, currentToken) == 0)
+        {
+          prevHighlightedIndex = current;
+        }
+        break;
+      case 1: inventoryNames  [current] = currentToken; break;
+      case 2: inventoryAmounts[current] = currentToken; ++current; break;
+      }
+
+      iArray = (iArray + 1) % 3;
+      currentToken = "";
+    }
+  }
+
+  /*
+  for (int j = 0; j < current; ++j)
+  {
+    Log(s:inventoryClasses[j],
+        s:" : ", s:inventoryNames[j],
+        s:" : ", s:inventoryAmounts[j]);
+  }
+  ///*///
+
+  nInventoryItems = current;
+
+  if (prevHighlightedIndex == -1)
+  {
+    highlightedInventory = 0;
+    highlightedInventoryClass = inventoryClasses[highlightedInventory];
+  }
+  else
+  {
+    highlightedInventory = prevHighlightedIndex;
+  }
+}
+
+function void WM_PrintInventoryMenu(void)
+{
+  int playerN = PlayerNumber();
+  bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
+  if (disableOutput) { return; }
+
+  WM_SetupFont();
+
+  int availableColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+  int highlightedColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+  int displayMode       = GetUserCVar(playerN, "M8fWeaponMenuDisplayMode");
+  int xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
+  int yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+  int stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+  bool highToLow        = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+
+  int stepMultiplied = (step * stepMultiplier) >> 16;
+
+  int iBegin;
+  int iEnd;
+  int iStep;
+  if (highToLow) {iBegin = nInventoryItems-1; iEnd = -1;              iStep = -1;}
+  else           {iBegin = 0;                 iEnd = nInventoryItems; iStep =  1;}
+
+  int position = 0;
+  for (int i = iBegin; i != iEnd; i += iStep)
+  {
+    int color;
+    if (i == highlightedInventory) { color = highlightedColor; }
+    else                           { color = availableColor;   }
+
+    WM_PrintInventoryItem(i, position, color, xStart, yStart, stepMultiplied);
+    ++position;
+  }
+}
+
+function void WM_PrintInventoryItem(
+  int i,
+  int position,
+  int color,
+  int xStart,
+  int yStart,
+  int stepMultiplied
+)
+{
+  int id = msgIdWeapon + i;
+  int y = yStart + position * stepMultiplied;
+  int x = xStart;
+
+  str itemString = StrParam(s:inventoryNames[i]);
+  if (StrCmp(inventoryAmounts[i], "1") != 0)
+  {
+    itemString = StrParam(s:itemString, s:" [", s:inventoryAmounts[i], s:"]");
+  }
+
+  HudMessage(s:" ", s:itemString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
 }

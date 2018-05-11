@@ -47,12 +47,12 @@ user int m8f_wm_ShowLaserSight = 0;
 // Just check it for existence, then check number.
 // All API versions with the same major version number are backwards-compatible.
 // Read-only.
-user int M8fWeaponMenuApiVersionMajor = 1;
+user int M8fWeaponMenuApiVersionMajor = 2;
 
 // New minor API version marks new functionality without breaking
 // backward compatibility.
 // Read-only.
-user int M8fWeaponMenuApiVersionMinor = 2;
+user int M8fWeaponMenuApiVersionMinor = 0;
 
 // Set this to true to disable Weapon Menu native (built-in) output.
 // Native output is ACS HudMessage.

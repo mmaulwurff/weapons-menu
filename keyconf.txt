@@ -2,29 +2,30 @@ AddKeySection "Weapon Menu Keys" WeaponMenuKeys
 
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-addmenukey "Fire/Select" +fire_close_menu
+addmenukey "Fire/Select+Close/Use" +fire_close_menu
 alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
-addmenukey "Alt Fire/Close menu" +alt_fire_close_menu
-alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened close_menu +altattack"
+addmenukey "Alt Fire/Close" +alt_fire_close_menu
+alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu_no_action +altattack"
 alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
 
-alias toggle_menu "WeaponMenuToggle"
-alias close_menu "pukename ToggleWeaponMenu false"
+alias toggle_menu_no_action "pukename ToggleWeaponMenu 1"
+alias toggle_menu           "pukename ToggleWeaponMenu 0"
 
-alias WeaponMenuToggle "pukename ToggleWeaponMenu true"
-addmenukey "Toggle menu" toggle_menu
+addmenukey "Open Menu/Select+Close/Use" toggle_menu
 defaultbind m toggle_menu
+
+addmenukey "Open Inventory Menu/Close" "pukename WM_InventoryMenu"
 
 alias WeaponMenuNext "pukename scrollnextweapon"
 alias WeaponMenuPrev "pukename scrollpreviousweapon"
 
-addmenukey "Next weapon" next_weapon_menu
+addmenukey "Next" next_weapon_menu
 alias next_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuNext weapnext"
 defaultbind n next_weapon_menu
 
-addmenukey "Previous weapon" prev_weapon_menu
+addmenukey "Previous" prev_weapon_menu
 alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
 defaultbind p prev_weapon_menu
 
