@@ -116,6 +116,7 @@ OptionMenu "M8FWeaponsMenuOptions"
   StaticText "(Slot keys will open menu only if there"
   StaticText "are more than one weapons in slot)"
   Option "Favorite Fire Mode", "m8f_wm_FavoriteFireMode", "m8f_wm_FavoriteFireOptions"
+  Slider "Zoom Factor", "m8f_wm_ZoomFactor", 1.1, 3.0, 0.1
 
   StaticText ""
   StaticText "Gameplay Changes", "Blue"

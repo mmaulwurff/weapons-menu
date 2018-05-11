@@ -132,6 +132,15 @@ class WMZscriptHelper : Actor
     CVar messageCVar =  CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", activator.player);
     messageCVar.SetString(inventoryContents);
   }
+
+  static void SetZoomFactor(Actor activator, double zoom)
+  {
+    let player = activator.player;
+    if (!activator || !player) { return; }
+
+    zoom = 1 / clamp(zoom, 0.1, 50.0);
+    player.ReadyWeapon.FOVScale = zoom;
+  }
 }
 
 class WM_PuffBase : Actor

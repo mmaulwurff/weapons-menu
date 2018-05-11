@@ -43,6 +43,8 @@ alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on "m8f_wm_ShowLaserSight 1"
 addmenukey "Toggle Laser Sight" "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
 
+addmenukey "Toggle Zoom" "pukename WM_ToggleZoom"
+
 addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
 addmenukey "Increase weapon slot" "pukename WM_IncreaseSlot"
 addmenukey "Decrease weapon slot" "pukename WM_DecreaseSlot"

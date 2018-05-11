@@ -54,6 +54,8 @@ bool selectedWatchEnabled = true;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
+bool zoomed = false;
+
 // Inventory variables section /////////////////////////////////////////////////
 
 int highlightedInventory = 0;
@@ -646,6 +648,7 @@ function int WM_FindInWeaponList(str weaponName)
 function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 {
   if (weaponNumber == selectedWeapon) { return; }
+  if (zoomed) { WM_ToggleZoom(); }
 
   str  weaponName = WM_GetWeaponName(weaponNumber);
   bool success    = SetWeapon(weaponName);
@@ -886,6 +889,13 @@ function bool WM_IsOpenOnScroll(void)
   return GetUserCVar(playerN, "M8fWeaponMenuOpenOnScroll");
 }
 
+function bool WM_IsMelee(void)
+{
+  if (selectedWeapon == WEAPON_HOLSTERED) return true;
+  if (WM_GetWeaponSlot(selectedWeapon) == 1) return true;
+  return false;
+}
+
 // Scripts section /////////////////////////////////////////////////////////////
 
 script "ShowWeaponMenu" ENTER
@@ -963,20 +973,11 @@ script "ShowWeaponMenu" ENTER
           WM_SetSelectedWeapon(highlightedWeapon);
           WM_UpdateMenu();
         }
-        else
-        {
-          if (selectedWeapon != WEAPON_HOLSTERED)
-          {
-            Log(s:"Unknown weapon is selected: ", s:GetWeapon());
-          }
-        }
       }
     }
 
     bool showLaserSight = GetUserCVar(playerN, "m8f_wm_ShowLaserSight");
-    if (showLaserSight
-        && WM_GetWeaponSlot(selectedWeapon) != 1
-        && selectedWeapon != WEAPON_HOLSTERED)
+    if (showLaserSight && !WM_IsMelee())
     {
       WM_ShowLaserSight();
     }
@@ -1814,6 +1815,7 @@ function void WM_InstantSwitch(bool enable)
 script "WM_HolsterWeapon" (void)
 {
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+  if (zoomed) { WM_ToggleZoom(); }
 
   int forbiddenMods[N_MODS_NO_HOLSTER] = { 16, 47 };
   for (int i = 0; i < N_MODS_NO_HOLSTER; ++i)
@@ -1837,6 +1839,8 @@ script "WM_HolsterWeapon" (void)
   WM_SetSelectedWeapon(WEAPON_HOLSTERED);
   ScriptCall("WMZScriptHelper", "HolsterWeapon");
 }
+
+// Laser sight section /////////////////////////////////////////////////////////
 
 #define N_PUFFS 5
 
@@ -2021,4 +2025,29 @@ function void WM_PrintInventoryItem(
 
   str itemString = StrParam(s:inventoryNames[i]);
   HudMessage(s:" ", s:itemString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
+}
+
+// Zoom Section ////////////////////////////////////////////////////////////////
+
+script "WM_ToggleZoom" (void)
+{
+  WM_ToggleZoom();
+}
+
+function void WM_ToggleZoom(void)
+{
+  if (WM_IsMelee()) { return; }
+
+  if (zoomed)
+  {
+    ScriptCall("WMZScriptHelper", "SetZoomFactor", 1.0);
+  }
+  else
+  {
+    int playerN   = PlayerNumber();
+    int zoomFactor = GetUserCVar(playerN, "m8f_wm_ZoomFactor");
+    ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor);
+  }
+
+  zoomed = !zoomed;
 }
