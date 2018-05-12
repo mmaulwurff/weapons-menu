@@ -1990,13 +1990,13 @@ function void WM_PrintInventoryMenu(void)
 
   WM_SetupFont();
 
-  int availableColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-  int highlightedColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-  int displayMode       = GetUserCVar(playerN, "M8fWeaponMenuDisplayMode");
-  int xStart            = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-  int yStart            = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-  int stepMultiplier    = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
-  bool highToLow        = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+  int availableColor   = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+  int highlightedColor = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+  bool highToLow       = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
+
+  int xStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuX");
+  int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
+  int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
 
   int stepMultiplied = (step * stepMultiplier) >> 16;
 

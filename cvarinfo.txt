@@ -1,9 +1,12 @@
 user float M8FWeaponMenuXStart = 0.0;
 user float M8FWeaponMenuYStart = 0.0;
+user float M8FWeaponMenuStepMultiplier = 1.0;
+
+user float m8f_wm_InventoryMenuX = 0.0;
+user float m8f_wm_InventoryMenuY = 0.0;
+user float m8f_wm_StepMultiplier = 1.0;
 
 user int M8FWeaponMenuFont = 0;
-
-user float M8FWeaponMenuStepMultiplier = 1.0;
 
 // 0 - vertical with names
 // 1 - vertical without names

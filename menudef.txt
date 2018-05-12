@@ -128,6 +128,18 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
 OptionMenu "m8f_wm_InventoryMenuOptions"
 {
   Title "Inventory Menu Options"
+
+  StaticText "Position Options", "Blue"
+  Slider "Horizontal Position", "m8f_wm_InventoryMenuX", 0.0, 1.0, 0.05, 2
+  StaticText "also affects alignment", "Black"
+
+  StaticText ""
+  Slider "Vertical Position", "m8f_wm_InventoryMenuY", 0.0, 1.0, 0.02, 2
+  StaticText "note that bottom of menu can", "Black"
+  StaticText "be out of screen with big values", "Black"
+
+  StaticText ""
+  Slider "Step size multiplier", "m8f_wm_StepMultiplier", 0.3, 3.0, 0.1
 }
 
 OptionMenu "m8f_wm_GameplayOptions"
