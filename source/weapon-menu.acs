@@ -2037,6 +2037,7 @@ script "WM_ToggleZoom" (void)
 function void WM_ToggleZoom(void)
 {
   if (WM_IsMelee()) { return; }
+  if (!WM_IsWeaponReady(WM_GetWeaponName(selectedWeapon))) { return; }
 
   if (zoomed)
   {

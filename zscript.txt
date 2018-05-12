@@ -69,7 +69,8 @@ class WMZscriptHelper : Actor
   static void IsWeaponReady(Actor activator, string weaponClass)
   {
     PlayerPawn p = PlayerPawn(activator);
-    bool isReady = p.player.WeaponState & WF_WEAPONREADY;
+    bool isReady = (p.player.WeaponState & WF_WEAPONREADY)
+      || (p.player.WeaponState & WF_WEAPONREADYALT);
     CVar messageCVar = CVar.GetCVar("M8fWeaponMenuWeaponReady", activator.player);
     messageCVar.SetInt(isReady);
   }
