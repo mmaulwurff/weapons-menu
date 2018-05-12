@@ -37,3 +37,11 @@ sprite WDO4A0, 8, 8
   XScale 0.5
   YScale 0.6
 }
+
+sprite WDO5A0, 8, 8
+{
+  Sprite WDOTA0, 0, 0
+  Offset 4, 4
+  XScale 16.0
+  YScale 19.2
+}
