@@ -892,7 +892,11 @@ function bool WM_IsOpenOnScroll(void)
 function bool WM_IsMelee(void)
 {
   if (selectedWeapon == WEAPON_HOLSTERED) return true;
-  if (WM_GetWeaponSlot(selectedWeapon) == 1) return true;
+
+  int playerN = PlayerNumber();
+  int isSlot1Melee = !GetUserCVar(playerN, "m8f_wm_IsNotSlot1Melee");
+
+  if (isSlot1Melee && WM_GetWeaponSlot(selectedWeapon) == 1) return true;
   return false;
 }
 

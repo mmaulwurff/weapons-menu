@@ -16,7 +16,7 @@ OptionValue "M8FWeaponMenuNumbersLeftOptions"
   1, "Left"
 }
 
-OptionValue "M8FWeaponMenuYesNoOptions"
+OptionValue "m8f_wm_YesNo"
 {
   0, "No"
   1, "Yes"
@@ -85,7 +85,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
 
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
-  Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
+  Option "Always show menu", "M8fWeaponMenuAlwaysShow", "m8f_wm_YesNo"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
   Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
 
@@ -110,9 +110,9 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
 
   StaticText ""
   StaticText "Behavior options", "Blue"
-  Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
+  Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "m8f_wm_YesNo"
 
-  Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
+  Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "m8f_wm_YesNo"
   StaticText "Slot keys will open menu only if there", "Black"
   StaticText "are more than one weapons in slot", "Black"
 
@@ -150,11 +150,14 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText "Set this to 0.0 to disable speed change", "Black"
 
   StaticText ""
-  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "M8FWeaponMenuYesNoOptions"
+  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "m8f_wm_YesNo"
   StaticText "Laser sight will not be shown on slot 1", "Black"
 
   StaticText ""
-  Option "Turn Laser Sight On/Off on Zoom In/Out", "m8f_wm_LaserOnZoom", "OnOff"
+  Option "Turn Laser Sight On/Off on Zoom In/Out", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
+
+  StaticText ""
+  Option "Allow Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"
 }
 
 OptionMenu "m8f_wm_Controls"
