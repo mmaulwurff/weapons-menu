@@ -2,52 +2,30 @@ AddKeySection "Weapon Menu Keys" WeaponMenuKeys
 
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-addmenukey "Fire/Select+Close/Use" +fire_close_menu
 alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
-addmenukey "Alt Fire/Close" +alt_fire_close_menu
 alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu_no_action +altattack"
 alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
 
 alias toggle_menu_no_action "pukename ToggleWeaponMenu 1"
 alias toggle_menu           "pukename ToggleWeaponMenu 0"
 
-addmenukey "Open Menu/Select+Close/Use" toggle_menu
 defaultbind m toggle_menu
-
-addmenukey "Open Inventory Menu/Close" "pukename WM_InventoryMenu"
 
 alias WeaponMenuNext "pukename scrollnextweapon"
 alias WeaponMenuPrev "pukename scrollpreviousweapon"
 
-addmenukey "Next" next_weapon_menu
 alias next_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuNext weapnext"
 defaultbind n next_weapon_menu
 
-addmenukey "Previous" prev_weapon_menu
 alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
 defaultbind p prev_weapon_menu
 
 alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
-addmenukey "Open Weapon Menu Options" WeaponMenuOptions
-
-addmenukey "Last Used Weapon" "pukename SelectLastUsedWeapon"
-
-addmenukey "Mark weapon for quick access" "pukename WM_MarkWeaponAsFavorite"
-addmenukey "Select quick access weapon" "pukename WM_SelectFavoriteWeapon"
-addmenukey "Fire quick access weapon" "pukename WM_FireFavoriteWeapon"
-addmenukey "Holster weapon" "pukename WM_HolsterWeapon"
 
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on "m8f_wm_ShowLaserSight 1"
-addmenukey "Toggle Laser Sight" "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
-
-addmenukey "Toggle Zoom" "pukename WM_ToggleZoom"
-
-addmenukey "Increase weapon priority" "pukename WM_IncreasePriority"
-addmenukey "Increase weapon slot" "pukename WM_IncreaseSlot"
-addmenukey "Decrease weapon slot" "pukename WM_DecreaseSlot"
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"
@@ -108,19 +86,6 @@ alias -smart_select_10 "M8fWMCycle 0"
 
 alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect11"
 alias -smart_select_11 "M8fWMCycle 0"
-
-addmenukey "weapon slot 1" +smart_select_1
-addmenukey "weapon slot 2" +smart_select_2
-addmenukey "weapon slot 3" +smart_select_3
-addmenukey "weapon slot 4" +smart_select_4
-addmenukey "weapon slot 5" +smart_select_5
-addmenukey "weapon slot 6" +smart_select_6
-addmenukey "weapon slot 7" +smart_select_7
-addmenukey "weapon slot 8" +smart_select_8
-addmenukey "weapon slot 9" +smart_select_9
-addmenukey "weapon slot 0" +smart_select_0
-addmenukey "weapon slot 10" +smart_select_10
-addmenukey "weapon slot 11" +smart_select_11
 
 alias wm_rem1 "pukename WM_RememberWeapon 1"
 alias wm_rem2 "pukename WM_RememberWeapon 2"
