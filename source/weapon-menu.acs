@@ -2039,15 +2039,27 @@ function void WM_ToggleZoom(void)
   if (WM_IsMelee()) { return; }
   if (!WM_IsWeaponReady(WM_GetWeaponName(selectedWeapon))) { return; }
 
+  int playerN = PlayerNumber();
+  bool isLaserConnected = GetUserCVar(playerN, "m8f_wm_LaserOnZoom");
+
   if (zoomed)
   {
     ScriptCall("WMZScriptHelper", "SetZoomFactor", 1.0);
+
+    if (isLaserConnected)
+    {
+      SetUserCVar(playerN, "m8f_wm_ShowLaserSight", 0);
+    }
   }
   else
   {
-    int playerN   = PlayerNumber();
     int zoomFactor = GetUserCVar(playerN, "m8f_wm_ZoomFactor");
     ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor);
+
+    if (isLaserConnected)
+    {
+      SetUserCVar(playerN, "m8f_wm_ShowLaserSight", 1);
+    }
   }
 
   zoomed = !zoomed;

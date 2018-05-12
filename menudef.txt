@@ -152,6 +152,9 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText ""
   Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "M8FWeaponMenuYesNoOptions"
   StaticText "Laser sight will not be shown on slot 1", "Black"
+
+  StaticText ""
+  Option "Turn Laser Sight On/Off on Zoom In/Out", "m8f_wm_LaserOnZoom", "OnOff"
 }
 
 OptionMenu "m8f_wm_Controls"

@@ -43,6 +43,8 @@ user int m8f_wm_FavoriteFireMode = 0;
 
 user float m8f_wm_ZoomFactor = 1.5;
 
+user int m8f_wm_LaserOnZoom = 0;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
