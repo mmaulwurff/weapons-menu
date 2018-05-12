@@ -752,7 +752,7 @@ function void WM_MaybeTacticalChainsaw(void)
   ++weaponCount;
 }
 
-#define N_MATCHED_CLASSES 16
+#define N_MATCHED_CLASSES 19
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -783,6 +783,11 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     { "DimitriPlayer", 47 },
     { "ThiPlayer",     47 },
     { "BetaPlayer",    47 },
+
+    // Brutal Doom
+    { "BDoomer",        28 },
+    { "Doomer2",        28 },
+    { "TacticalDoomer", 28 },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
