@@ -68,7 +68,7 @@ OptionValue "m8f_wm_FavoriteFireOptions"
   2, "No fire"
 }
 
-OptionMenu "M8FWeaponsMenuOptions"
+OptionMenu "m8f_wm_WeaponMenuOptions"
 {
   Title "Weapon Menu Options"
 
@@ -87,22 +87,22 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "M8FWeaponMenuYesNoOptions"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
+  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
 
   StaticText ""
   Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
   ScaleSlider "Text scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
-  StaticText "(Also affects Messages scale)"
-  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
+  StaticText "Also affects Messages scale", "Black"
 
   StaticText ""
   StaticText "Position Options", "Blue"
   Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
-  StaticText "(also affects alignment)"
+  StaticText "also affects alignment", "Black"
 
   StaticText ""
   Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
-  StaticText "(note that bottom of menu can"
-  StaticText "be out of screen with big values)"
+  StaticText "note that bottom of menu can", "Black"
+  StaticText "be out of screen with big values", "Black"
 
   StaticText ""
   StaticText "Sound", "Blue"
@@ -113,35 +113,63 @@ OptionMenu "M8FWeaponsMenuOptions"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "M8FWeaponMenuYesNoOptions"
 
   Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "M8FWeaponMenuYesNoOptions"
-  StaticText "(Slot keys will open menu only if there"
-  StaticText "are more than one weapons in slot)"
-  Option "Favorite Fire Mode", "m8f_wm_FavoriteFireMode", "m8f_wm_FavoriteFireOptions"
-  Slider "Zoom Factor", "m8f_wm_ZoomFactor", 1.1, 3.0, 0.1
-
-  StaticText ""
-  StaticText "Gameplay Changes", "Blue"
-
-  Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
-  StaticText "Instant switching doesn't work for mods with"
-  StaticText "custom select or deselect animations"
-
-  StaticText ""
-  Slider "Speed with holstered weapon", "M8fWeaponMenuHolsterSpeedMultiplier", 0.0, 3.0, 0.2
-  StaticText "Set this to 0.0 to disable speed change"
-
-  StaticText ""
-  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "M8FWeaponMenuYesNoOptions"
-  StaticText "Laser sight will not be shown on slot 1"
+  StaticText "Slot keys will open menu only if there", "Black"
+  StaticText "are more than one weapons in slot", "Black"
 
   StaticText ""
   StaticText "Commands", "Blue"
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"
-  StaticText "Or settings will be applied on next menu opening"
+  StaticText "Or settings will be applied on next menu opening", "Black"
+
+  StaticText ""
   SafeCommand "Reset autodetected weapons", "pukename WM_ResetAutodetection"
+}
+
+OptionMenu "m8f_wm_InventoryMenuOptions"
+{
+  Title "Inventory Menu Options"
+}
+
+OptionMenu "m8f_wm_GameplayOptions"
+{
+  Title "Gameplay Options"
+
+  StaticText ""
+  Option "Quick Access Fire Mode", "m8f_wm_FavoriteFireMode", "m8f_wm_FavoriteFireOptions"
+
+  StaticText ""
+  Slider "Zoom Factor", "m8f_wm_ZoomFactor", 1.1, 3.0, 0.1
+
+  StaticText ""
+  Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
+  StaticText "Instant switching doesn't work for mods with", "Black"
+  StaticText "custom select or deselect animations", "Black"
+
+  StaticText ""
+  Slider "Speed with holstered weapon", "M8fWeaponMenuHolsterSpeedMultiplier", 0.0, 3.0, 0.2
+  StaticText "Set this to 0.0 to disable speed change", "Black"
+
+  StaticText ""
+  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "M8FWeaponMenuYesNoOptions"
+  StaticText "Laser sight will not be shown on slot 1", "Black"
+}
+
+OptionMenu "m8f_wm_Controls"
+{
+  Title "Weapon Menu Plus Controls"
+}
+
+OptionMenu "m8f_wm_WeaponMenuPlusOptions"
+{
+  Title "Weapon Menu Plus Options"
+  Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
+  Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
+  Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
+  Submenu "Controls",               "m8f_wm_Controls"
 }
 
 AddOptionMenu "OptionsMenu"
 {
   StaticText ""
-  Submenu "Weapon Menu Options", "M8FWeaponsMenuOptions"
+  Submenu "Weapon Menu Plus Options", "m8f_wm_WeaponMenuPlusOptions"
 }
