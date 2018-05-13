@@ -1,12 +1,16 @@
 # Weapon Menu Plus (mod for GZDoom)
 
+What is Weapon Menu Plus?
+* It is a weapon mod without weapons;
+* It is an extension for GZDoom weapon and inventory handling capabilities;
+* It is universal addon for any mod.
+
 ## Features
 
 1. Allows fast and reliable weapon selection: you see what you are about to select.
 1. Works with any HUD.
-1. Works with almost any weapon set.
 1. Menu for inventory items too!
-1. Controls in Options -> Customize controls -> "Weapon Menu Keys".
+1. Controls in Options -> Weapon Menu Plus Options -> Controls.
 
    * Fire/Select: if menu is opened, close it and select weapon. If
      menu is closed, fire. If inventory menu is opened, use highlighted item.
@@ -36,13 +40,22 @@
    Every key bind is optional. You can always use standard key binds
    if you want vanilla behavior.
 
-1. Configurable colors, fonts, and positions: Options -> Weapon Menu Options.
+1. Configurable colors, fonts, and positions: Options -> Weapon Menu Plus Options.
 
    Be sure you adjust menu position, font and text scale in Options to
    fit your screen and weapon set size. Options take effect after menu
    is reopened.
 
-## Weapon Menu supports the following weapons out of the box
+## Mod support
+
+Weapon menu supports every possible weapon set in Universal Mode.
+
+When loaded with a mod without extended support (see below), Universal
+Mode is engaged automatically. The only difference between Universal
+Mode and Extended Support Mode is that not acquired weapons cannot be
+shown in the menu in Universal Mode.
+
+## Mods with extended support
 
 1. Original Doom/Doom 2 weapons
 1. [PerK's Smoother Weapon Animations Enhanced](https://forum.zdoom.org/viewtopic.php?f=43&t=32628)
@@ -85,65 +98,6 @@
 1. [Factotum](https://forum.zdoom.org/viewtopic.php?f=43&t=58486#p1027620) (05/05/18)
 1. [Flakes Doom](https://forum.zdoom.org/viewtopic.php?f=43&t=54560#p961736) v2.6b (06/03/18). Note: weapons are visible only if you have them.
 
-## Other weapons are supported, but require initial setup
-
-When you load weapon set that is by not supported by Weapon Menu out
-of the box, a message will appear with a suggestion to try 'wmauto' script:
-
-1. After you load Weapon Menu with your weapon mod, after the level starts, enter 'wmauto' in console.
-
-2. Relax and wait until the detection process is finished. The script
-   will report the progress. Do not do anything while script works,
-   even if you think script does strange things or does nothing. Doing
-   something will mess up the results.
-
-3. When script is finished, it reloads the level, taking away all
-   weapons except starting weapons, so it is wise to run it at the
-   start of a new game.
-
-4. Then detected weapon set will be remembered until the new detection
-   will be run, so you can play a megawad or a bunch of maps with the
-   same weapon mod. Remembered weapon set will be also stored in a
-   save. But if you detect one weapon set, save the game with it, then
-   detect another weapon set and load first save with first weapon
-   set, detection data will only last until new level is started. Then
-   you will have to detect again and lose acquired weapons or play
-   without the Menu.
-
-5. Detection system has the following limits:
-   * no more than 250 weapons in a weapon set.
-   * weapon names are composed of internal names, so they may be inaccurate.
-   * the script will detect all the weapons that are in a mod (within limits),
-     even if they are unobtainable in a game. So it is recommended to use an
-     option to hide not acquired weapons.
-   * autodetection may have problems with mods that feature weapon upgrades.
-
-## Note for weapon mod developers
-
-If you want Weapon Menu to support your mod out of the box:
-
-* Your mod must have unique player class/actor name or some actor that class name is unique. This is needed to recognize your mod and distinguish it from other mods.
-
-* Please supply a list of weapons with slots and tags, in order that they should appear in the menu. For example, for standard Doom 2 weapons it would be:
-
-```
-| slot | class name     | displayed name  |
-|------+----------------+-----------------|
-|    1 | Chainsaw       | Chainsaw        |
-|    1 | Fist           | Brass Knuckles  |
-|    2 | Pistol         | Pistol          |
-|    3 | SuperShotgun   | Super Shotgun   |
-|    3 | Shotgun        | Shotgun         |
-|    4 | Chaingun       | Chaingun        |
-|    5 | RocketLauncher | Rocket Launcher |
-|    6 | PlasmaRifle    | Plasma Rifle    |
-|    7 | BFG9000        | BFG 9000        |
-```
-
-* If your mod has weapons that are very rare, or bonus, or secret, they can be marked so to be hidden from the menu until player gets them.
-
-* If you want to test your weapon mod support by yourself, see comments in source/data.acs file.
-
 ## Note for HUD developers
 
 Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterface.txt), so it can be integrated into your HUD.
@@ -151,10 +105,8 @@ Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterfac
 ## Todo
 
 * save custom weapon order (weapon slot and position in slot) between maps
-* take printable weapon names from tags through ZScript (keep beautified class
-names as a fallback)
-* maybe rewrite wmauto in ZScript
 * detect Doom IWAD and hide SSG
+* option to show weapon and/or inventory sprites instead of text tags
 
 ## Info
 
@@ -173,3 +125,4 @@ Credits:
 * Thanks to id Software for Doom.
 * Thanks to the following people and all contributors for the ZDoom and GZDoom source ports: Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson.
 * Thanks to Gutawer and argv for example of ZScript HUD.
+* Thanks to Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
