@@ -29,13 +29,10 @@ What is Weapon Menu Plus?
      There is an option for fires mode: fire, altfire and no fire.
    * Weapon slot 1-11: if menu is closed, open it.
      Cycle through all weapons in a slot.
-   * Increase weapon priority: for example, if you increase priority of vanilla
-     shotgun, single press on "3" will select shotgun instead of SSG.
-   * Increase/decrease weapon slot: changes weapon slot.
-   * Holster weapon.
-   * Toggle laser sight.
-   * Open inventory menu.
-   * Toggle Zoom. Zoom factor can be configured in options.
+   * Keys for changing weapon order: priority in slot and weapon slot itself.
+   * Additional weapon-related keys: holster weapon, laser sight, zoom, zero-damage hitscan attack ("Throw Junk").
+   * Open/close inventory menu.
+   * Mark/use quick inventory access items.
 
    Every key bind is optional. You can always use standard key binds
    if you want vanilla behavior.
