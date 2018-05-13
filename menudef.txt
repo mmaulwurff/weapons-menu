@@ -110,6 +110,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText ""
   StaticText "Sound", "Blue"
   Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
+  Option "Play sound on weapon change", "m8f_wm_PlaySoundOnWeaponChange", "OnOff"
 
   StaticText ""
   StaticText "Behavior options", "Blue"
