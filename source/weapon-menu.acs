@@ -140,11 +140,6 @@ function void WM_LeaveUninitialized(void)
   {
     WM_GetFallbackWeapons();
     WM_UpdateIsInInventory();
-    Log(s:"Weapon Menu Plus - Universal Mode");
-  }
-  else
-  {
-    Log(s:"Weapon Menu Plus - Extended Support Mode");
   }
 }
 
@@ -1721,6 +1716,9 @@ script "WM_PrintInfo" (void)
       s:WM_GetWeaponName(favorite));
   Log(s:"Speed: ", f:GetActorProperty(0, APROP_Speed));
   Log(s:"State: ", i:globalState);
+
+  if (currentSet == FALLBACK_SET) { Log(s:"Weapon Menu Plus - Universal Mode"); }
+  else { Log(s:"Weapon Menu Plus - Extended Support Mode"); }
 }
 
 script "WM_ResetAutodetection" (void)

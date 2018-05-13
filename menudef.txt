@@ -131,6 +131,9 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText "Or settings will be applied on next menu opening", "Black"
 
   StaticText ""
+  Command "Print Debug Info", "pukename WM_PrintInfo"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_InventoryMenuOptions"
