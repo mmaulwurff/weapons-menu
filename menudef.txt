@@ -247,6 +247,13 @@ OptionMenu "m8f_wm_Controls"
   StaticText ""
 }
 
+OptionMenu "m8f_wm_Commands"
+{
+  Title "Commands"
+  Command "Clear decals", "wm_cleardecals"
+  StaticText ""
+}
+
 OptionMenu "m8f_wm_WeaponMenuPlusOptions"
 {
   Title "Weapon Menu Plus Options"
@@ -254,6 +261,7 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
   Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
+  Submenu "Commands",               "m8f_wm_Commands"
   StaticText ""
 }
 

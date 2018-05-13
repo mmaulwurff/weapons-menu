@@ -20,6 +20,8 @@ alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
 
+alias wm_cleardecals "eval $cl_maxdecals m8f_wm_SavedMaxDecals; cl_maxdecals 0; eval $m8f_wm_SavedMaxDecals cl_maxdecals"
+
 defaultbind m toggle_menu
 defaultbind n next_weapon_menu
 defaultbind p prev_weapon_menu
