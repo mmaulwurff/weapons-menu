@@ -1,8 +1,10 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER 51
 #define MAX_WEAPONS_NUMBER 250
-#define AUTO_SET 26
+
+#define AUTO_SET     26
+#define FALLBACK_SET 29
+#define SETS_NUMBER  51
 
 // List of known weapon classes.
 // When adding to this list, don't forget to increase SETS_NUMBER.
@@ -37,10 +39,10 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1
-  "Autodetected",        // 26. Autodetected
+  "m8f_wm_Autodetected", // 26. Autodetected
   "Purist",              // 27. Brutal Doom 21 test feb24 - Purist
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode
-  "wm_reserved",         // 29. Reserved
+  "m8f_wm_Fallback",     // 29. Fallback mode
   "wm_reserved",         // 30. Reserved
   "CollabWeaponGuy",     // 31. Combined Arms v1.0
   "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
@@ -1037,7 +1039,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 // List of weapon names (tags).
 // Number of names here must be equal to weapon count in weaponCounts array.
-str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
+str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { // Doom
     "Chainsaw", "Brass Knuckles",
@@ -1778,3 +1780,6 @@ str printableNames[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
 }; // end of printable names
+
+// used in fallback mode
+int priority[MAX_WEAPONS_NUMBER];

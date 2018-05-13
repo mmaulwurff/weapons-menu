@@ -84,6 +84,9 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Slot numbers:", "M8FWeaponMenuNumbersLeft", "M8FWeaponMenuNumbersLeftOptions"
 
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
+  StaticText "Note: forced to Hide in Universal Mode", "Black"
+
+  StaticText ""
   Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "m8f_wm_YesNo"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"

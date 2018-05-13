@@ -34,18 +34,16 @@ class WMZscriptHelper : Actor
 {
   static void TellAmmo(Actor activator, string weaponClass, bool showSecond)
   {
-    CVar messageCVar =  CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", activator.player);
-
     if (!activator || !activator.player)
     {
-      messageCVar.SetString("");
+      SendResult(activator, "");
       return;
     }
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
-      messageCVar.SetString("");
+      SendResult(activator, "");
       return;
     }
 
@@ -63,7 +61,7 @@ class WMZscriptHelper : Actor
       message = String.Format("%s (%d/%d)", message, amm2.amount, amm2.maxAmount);
     }
 
-    messageCVar.SetString(message);
+    SendResult(activator, message);
   }
 
   static void IsWeaponReady(Actor activator, string weaponClass)
@@ -130,8 +128,44 @@ class WMZscriptHelper : Actor
       }
     }
 
-    CVar messageCVar =  CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", activator.player);
-    messageCVar.SetString(inventoryContents);
+    SendResult(activator, inventoryContents);
+  }
+
+  static void GetWeaponList(Actor activator)
+  {
+    PlayerInfo player = activator.player;
+    if (!activator || !player) { return; }
+
+    string weaponData = "";
+    int nClasses = AllActorClasses.Size();
+
+    for (int i = 0; i < nClasses; ++i)
+    {
+      let type = (class<Weapon>)(AllActorClasses[i]);
+      if (type != null && type != "Weapon")
+      {
+        // List the weapon only if it is set in a weapon slot.
+        int slot;
+        int located;
+        int priority;
+        [located, slot, priority] = player.weapons.LocateWeapon(type);
+        if (located)
+        {
+          readonly<Weapon> def = GetDefaultByType(type);
+          string tag           = def.GetTag();
+          string className     = type.GetClassName();
+          weaponData.AppendFormat("%s>%s>%d>%d>", className, tag, slot, priority);
+        }
+      }
+    }
+
+    SendResult(activator, weaponData);
+  }
+
+  static void SendResult(Actor a, string result)
+  {
+    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", a.player);
+    messageCVar.SetString(result);
   }
 
   static void SetZoomFactor(Actor activator, double zoom)

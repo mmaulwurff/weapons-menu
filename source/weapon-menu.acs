@@ -20,18 +20,16 @@
 // To write to global variables, use only special functions.
 
 #define STATE_UNINITIALIZED  0
-#define STATE_DISABLED       1
-#define STATE_TERMINATED     2
-#define STATE_ENABLED        3
-#define STATE_CLOSED         4
-#define STATE_OPENED         5
-#define STATE_INVENTORY      6
-#define STATE_CLOSED_VISIBLE 7
+#define STATE_TERMINATED     1
+#define STATE_ENABLED        2
+#define STATE_CLOSED         3
+#define STATE_OPENED         4
+#define STATE_INVENTORY      5
+#define STATE_CLOSED_VISIBLE 6
 //
 // (UNINITIALIZED) -titlemap-> [TERMINATED]
-// (UNINITIALIZED) -unknown-class-> [DISABLED]
-// (UNINITIALIZED) -known-class-and-always-open-> OPENED
-// (UNINITIALIZED) -known-class-> CLOSED
+// (UNINITIALIZED) -always-open-> OPENED
+// (UNINITIALIZED) --> CLOSED
 //
 // CLOSED -open->  OPENED
 // OPENED -close-> CLOSED
@@ -69,7 +67,6 @@ str inventoryNames  [N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
-function bool IsEnabled(void)    { return globalState >= STATE_ENABLED; }
 function bool IsTerminated(void) { return globalState == STATE_TERMINATED; }
 function bool IsOpened(void)     { return globalState == STATE_OPENED; }
 function bool IsInventory(void)  { return globalState == STATE_INVENTORY; }
@@ -87,7 +84,6 @@ function int WM_GetInitialState(void)
   if (WM_IsTitlemap()) { return STATE_TERMINATED; }
 
   currentSet = WM_GetWeaponSet();
-  if (currentSet == ERROR_NOT_FOUND) { return STATE_DISABLED; }
 
   return STATE_ENABLED;
 }
@@ -110,7 +106,6 @@ function void WM_LeaveState(int oldState)
   switch (oldState)
     {
     case STATE_UNINITIALIZED:  WM_LeaveUninitialized(); break;
-    case STATE_DISABLED:       WM_LeaveDisabled();      break;
     case STATE_TERMINATED:     WM_LeaveTerminated();    break;
     case STATE_Enabled:        WM_LeaveEnabled();       break;
     case STATE_CLOSED:         WM_LeaveClosed();        break;
@@ -123,13 +118,12 @@ function void WM_LeaveState(int oldState)
 function void WM_EnterState(int newState)
 {
   globalState = newState;
-  WM_SetCVar(IsEnabled(), "M8fWeaponMenuIsEnabled");
+  WM_SetCVar(true, "M8fWeaponMenuIsEnabled");
   WM_SetCVar(IsOpened() || IsInventory(), "M8fWeaponMenuIsOpened");
 
   switch (newState)
     {
     case STATE_UNINITIALIZED:  WM_EnterUninitialized(); break;
-    case STATE_DISABLED:       WM_EnterDisabled();      break;
     case STATE_TERMINATED:     WM_EnterTerminated();    break;
     case STATE_Enabled:        WM_EnterEnabled();       break;
     case STATE_CLOSED:         WM_EnterClosed();        break;
@@ -141,9 +135,14 @@ function void WM_EnterState(int newState)
 
 function void WM_LeaveUninitialized(void)
 {
+  if (currentSet == FALLBACK_SET)
+  {
+    WM_GetFallbackWeapons();
+    WM_UpdateIsInInventory();
+    Log(s:"Weapon menu: Universal Mode.");
+  }
 }
 
-function void WM_LeaveDisabled(void) {}
 function void WM_LeaveTerminated(void) {}
 function void WM_LeaveEnabled(void) {}
 function void WM_LeaveClosed(void) {}
@@ -162,13 +161,6 @@ function void WM_LeaveInventory(void)
 function void WM_LeaveClosedVisible(void) {}
 
 function void WM_EnterUninitialized(void) {}
-
-function void WM_EnterDisabled(void)
-{
-  Log(s:"Weapon Menu: unknown player class: ",
-      s:GetActorClass(0),
-      s:", menu is disabled.\nYou can try 'wmauto' in console.");
-}
 
 function void WM_EnterTerminated(void) {}
 
@@ -190,8 +182,6 @@ function void WM_EnterEnabled(void)
   WM_SetupAddons();
   WM_UpdateIsInInventory();
   WM_InitApiCvars();
-
-  Log(s:"Weapon menu is loaded.");
 
   if (IsAlwaysShow()) { WM_ChangeState(STATE_CLOSED_VISIBLE); }
   else                { WM_ChangeState(STATE_CLOSED); }
@@ -242,10 +232,13 @@ function bool WM_IsHiddenWeapon(int wNumber)
     // Chex Quest: Super Large Zorcher is deathmatch-only
   case 19: return (wNumber == 3);
 
+    // Parkour
   case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
+
+    // Brutal Doom
   case 28: return (wNumber == 3 || wNumber == 9);
-  case 29: return (wNumber == 3 || wNumber == 9);
-  case 30: return (wNumber == 3 || wNumber == 9);
+
+    // Combined Arms
   case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
 
     // Accessories to Murder
@@ -316,7 +309,7 @@ function str WM_GetWeaponName(int weaponNumber)
 
 function str WM_GetPrintableWeaponName(int weaponNumber)
 {
-  return printableNames[currentSet][weaponNumber];
+  return tags[currentSet][weaponNumber];
 }
 
 // Returns weaponNumber of next weapon in this slot, or -1 if there is no more
@@ -414,15 +407,6 @@ function void WM_PrintMenu(void)
   bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
   if (disableOutput) { return; }
 
-  if (!IsEnabled())
-  {
-    int stubXStart = GetUserCVar(playerN, "M8FWeaponMenuXStart");
-    int stubYStart = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-    HudMessage(s:"Weapon Menu: \nUnrecognized weapon set.\nTo start Autodetection, type\nwmauto in console.";
-               HUDMSG_PLAIN, msgIdError, CR_RED, stubXStart, stubYStart, 0);
-    return;
-  }
-
   WM_SetupFont();
 
   int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
@@ -430,7 +414,10 @@ function void WM_PrintMenu(void)
   int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
   int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
-  bool showNotAvailable  = GetUserCVar(playerN, "M8FShowNotAvailable");
+  bool showNotAvailable;
+  if (currentSet == FALLBACK_SET) { showNotAvailable = false; }
+  else { showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable"); }
+
   bool highToLow         = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   bool numbersOnTheLeft  = GetUserCVar(playerN, "M8FWeaponMenuNumbersLeft");
 
@@ -627,7 +614,6 @@ function void WM_SetupFont(void)
 
 // Control functions section ///////////////////////////////////////////////////
 
-// Must be called only from states that are IsEnabled().
 function int WM_FindRealSelectedWeapon(void)
 {
   return WM_FindInWeaponList(GetWeapon());
@@ -677,7 +663,7 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 
 function void WM_InitApiCvars(void)
 {
-  int playerN     = PlayerNumber();
+  int playerN = PlayerNumber();
 
   SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
@@ -707,6 +693,8 @@ function void WM_PlaySwitchSound(void)
 
 function void WM_SetupAddons(void)
 {
+  if (currentSet == FALLBACK_SET) { return; }
+
   WM_MaybeTacticalChainsaw();
   WM_MaybeUACSurvivalPack();
 }
@@ -715,8 +703,8 @@ function void WM_AddWeapon(int slot, str class, str name)
 {
   slots[currentSet][weaponCount] = slot;
   names[currentSet][weaponCount] = class;
-  printableNames[currentSet][weaponCount] = name;
-  ++weaponCount;
+  tags [currentSet][weaponCount] = name;
+  ++weaponCounts[currentSet];
 }
 
 function void WM_MaybeUACSurvivalPack(void)
@@ -748,7 +736,7 @@ function void WM_MaybeTacticalChainsaw(void)
   }
   slots[currentSet][0] = 0;
   names[currentSet][0] = tacticalClass;
-  printableNames[currentSet][0] = "Tactical Chainsaw";
+  tags [currentSet][0] = "Tactical Chainsaw";
   ++weaponCount;
 }
 
@@ -852,7 +840,7 @@ function int WM_GetWeaponSet(void)
     }
   }
 
-  return ERROR_NOT_FOUND;
+  return FALLBACK_SET;
 }
 
 function bool WM_IsTitlemap(void)
@@ -913,6 +901,9 @@ script "ShowWeaponMenu" ENTER
 
   if (state == STATE_TERMINATED) { terminate; }
 
+  // for some reason without delay only vanilla weapons will be listed.
+  if (currentSet == FALLBACK_SET) { Delay(1); }
+
   WM_ChangeState(state);
 
   int updatePeriod = 10;
@@ -925,7 +916,7 @@ script "ShowWeaponMenu" ENTER
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
-    WM_SetCVar(IsEnabled(), "M8fWeaponMenuIsEnabled");
+    WM_SetCVar(true, "M8fWeaponMenuIsEnabled");
     WM_SetCVar(IsOpened() || IsInventory(),  "M8fWeaponMenuIsOpened");
 
     if (updateCount < updatePeriod) { ++updateCount; }
@@ -963,25 +954,22 @@ script "ShowWeaponMenu" ENTER
     // Check if currently selected weapon corresponds to what player is holding.
     // Handles situation when player drops a weapon, or switches to new weapon
     // on pickup.
-    if (IsEnabled())
+    if (selectedWatchEnabled && !WM_IsSelected(selectedWeapon))
     {
-      if (selectedWatchEnabled && !WM_IsSelected(selectedWeapon))
+      str currentWeaponClass = GetWeapon();
+      int currentWeaponI     = WM_FindInWeaponList(currentWeaponClass);
+
+      if (currentWeaponI != ERROR_NOT_FOUND)
       {
-        str currentWeaponClass = GetWeapon();
-        int currentWeaponI     = WM_FindInWeaponList(currentWeaponClass);
-
-        if (currentWeaponI != ERROR_NOT_FOUND)
+        str selectedClass = WM_GetWeaponName(selectedWeapon);
+        if (CheckInventory(selectedClass))
         {
-          str selectedClass = WM_GetWeaponName(selectedWeapon);
-          if (CheckInventory(selectedClass))
-          {
-            WM_SetLastUsedWeapon(selectedClass);
-          }
-
-          WM_SetHighlightedWeapon(currentWeaponI);
-          WM_SetSelectedWeapon(highlightedWeapon);
-          WM_UpdateMenu();
+          WM_SetLastUsedWeapon(selectedClass);
         }
+
+        WM_SetHighlightedWeapon(currentWeaponI);
+        WM_SetSelectedWeapon(highlightedWeapon);
+        WM_UpdateMenu();
       }
     }
 
@@ -1436,7 +1424,7 @@ function void WM_LoadRemembered(void)
 
     names[AUTO_SET][i] = GetUserCVarString(playerN, weaponClassVarName);
     slots[AUTO_SET][i] = GetUserCVar      (playerN, weaponSlotVarName);
-    printableNames[AUTO_SET][i] = WM_BeautifyWeaponName(names[AUTO_SET][i]);
+    tags [AUTO_SET][i] = WM_BeautifyWeaponName(names[AUTO_SET][i]);
   }
 }
 
@@ -1579,6 +1567,12 @@ function bool WM_IsBigLetter(int character)
 
 script "WM_IncreasePriority" (void)
 {
+  if (currentSet == FALLBACK_SET)
+  {
+    Log(s:"Changing weapon slot is not available in fallback mode.");
+    terminate;
+  }
+
   str name = WM_GetPrintableWeaponName(highlightedWeapon);
   if (highlightedWeapon == 0)
   {
@@ -1615,9 +1609,9 @@ function void WM_SwapWeapons(int w1, int w2)
   SetUserCVarString(playerN, weaponClassVarName1, WM_GetWeaponName(w1));
   SetUserCVarString(playerN, weaponClassVarName2, WM_GetWeaponName(w2));
 
-  int printableNamesTmp = printableNames[currentSet][w1];
-  printableNames[currentSet][w1] = printableNames[currentSet][w2];
-  printableNames[currentSet][w2] = printableNamesTmp;
+  int tagTmp = tags[currentSet][w1];
+  tags[currentSet][w1] = tags[currentSet][w2];
+  tags[currentSet][w2] = tagTmp;
 
   str weaponNameVarName1 = StrParam(s:"M8fWeaponMenuWeaponName", i:w1);
   str weaponNameVarName2 = StrParam(s:"M8fWeaponMenuWeaponName", i:w2);
@@ -1632,11 +1626,19 @@ function void WM_SwapWeapons(int w1, int w2)
   str slotVarName2 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w2);
   SetUserCVar(playerN, slotVarName1, WM_GetWeaponSlot(w1));
   SetUserCVar(playerN, slotVarName2, WM_GetWeaponSlot(w2));
+
+  int priorityTmp = priority[w1];
+  priority[w1] = priority[w2];
+  priority[w2] = priorityTmp;
 }
 
 script "WM_IncreaseSlot" (void)
 {
-  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+  if (currentSet == FALLBACK_SET)
+  {
+    Log(s:"Changing weapon slot is not available in fallback mode.");
+    terminate;
+  }
 
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 11) { terminate; }
@@ -1665,7 +1667,11 @@ script "WM_IncreaseSlot" (void)
 
 script "WM_DecreaseSlot" (void)
 {
-  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+  if (currentSet == FALLBACK_SET)
+  {
+    Log(s:"Changing weapon slot is not available in fallback mode.");
+    terminate;
+  }
 
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 1) { terminate; }
@@ -2070,4 +2076,145 @@ function void WM_ToggleZoom(void)
 function bool WM_IsZoomed(void)
 {
   return zoomFactor != 1.0;
+}
+
+// Fallback Mode Section ///////////////////////////////////////////////////////
+
+function void WM_GetFallbackWeapons(void)
+{
+  ScriptCall("WMZScriptHelper", "GetWeaponList");
+
+  int playerN = PlayerNumber();
+  str weaponData = GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+
+  int weaponDataLength = StrLen(weaponData);
+
+  int current = 0;
+  str currentToken = "";
+  int iArray = 0;
+
+  // received data format:
+  // Class>Tag>Slot>Class>Tag>Slot ...
+
+  for (int i = 0; i < weaponDataLength && current < MAX_WEAPONS_NUMBER; ++i)
+  {
+    int character = GetChar(weaponData, i);
+    if (character != '>')
+    {
+      currentToken = StrParam(s:currentToken, c:character);
+    }
+    else
+    {
+      switch (iArray)
+      {
+      case 0: names[FALLBACK_SET][current] = currentToken; break;
+      case 1: tags [FALLBACK_SET][current] = currentToken; break;
+      case 2:
+        slots[FALLBACK_SET][current] = WM_StrToInt(currentToken);
+        break;
+      case 3:
+        priority[current] = WM_StrToInt(currentToken);
+        ++current;
+        break;
+      }
+
+      iArray = (iArray + 1) % 4;
+      currentToken = "";
+    }
+  }
+
+  weaponCounts[FALLBACK_SET] = current;
+  weaponCount = current;
+
+  WM_SortFallbackByPriority();
+  WM_SortFallbackBySlot();
+
+  /*
+  for (int j = 0; j < current; ++j)
+  {
+    Log(s:names[FALLBACK_SET][j],
+        s:" : ", s:tags [FALLBACK_SET][j],
+        s:" : ", d:slots[FALLBACK_SET][j],
+        s:" : ", d:priority[j]
+        );
+  }
+  Log(i:weaponCounts[FALLBACK_SET]);
+  ///*///
+}
+
+// works only for positive numbers
+function int WM_StrToInt(str stringNumber)
+{
+  int result = 0;
+  int length = StrLen(stringNumber);
+
+  for (int i = 0; i < length; ++i)
+  {
+    result *= 10;
+    result += GetChar(stringNumber, i) - '0';
+  }
+
+  return result;
+}
+
+function void WM_SortFallbackByPriority(void)
+{
+  // Quicksort, because it's simple and faster than insertion sort.
+  WM_QuicksortByPriority(0, weaponCount - 1);
+}
+
+function void WM_QuicksortByPriority(int lo, int hi)
+{
+  if (lo < hi)
+  {
+    int p = WM_QuicksortByPriorityPartition(lo, hi);
+    WM_QuicksortByPriority(lo,    p - 1);
+    WM_QuicksortByPriority(p + 1, hi   );
+  }
+}
+
+function int WM_QuicksortByPriorityPartition(int lo, int hi)
+{
+  int pivot = priority[hi];
+  int i = lo - 1;
+
+  for (int j = lo; j <= hi - 1; ++j)
+  {
+    if (priority[j] > pivot)
+    {
+      ++i;
+      WM_SwapWeapons(i, j);
+    }
+  }
+  WM_SwapWeapons(i + 1, hi);
+
+  return i + 1;
+}
+
+function void WM_SortFallbackBySlot(void)
+{
+  // Insertion sort, because it's stable and simple.
+  WM_InsertionSortBySlot();
+}
+
+function void WM_InsertionSortBySlot(void)
+{
+  for (int i = 1; i < weaponCount; ++i)
+  {
+    for (int j = i;
+         j > 0 && WM_SlotIsHigher(WM_GetWeaponSlot(j - 1), WM_GetWeaponSlot(j));
+         --j)
+    {
+      WM_SwapWeapons(j, j - 1);
+    }
+  }
+}
+
+// The main purpose of this function is that slot 0 is considered higher than
+// other slots
+function bool WM_SlotIsHigher(int slot1, int slot2)
+{
+  if (slot1 == 0) { slot1 = 99; }
+  if (slot2 == 0) { slot2 = 99; }
+  return slot1 > slot2;
 }
