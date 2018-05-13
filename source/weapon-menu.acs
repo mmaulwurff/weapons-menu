@@ -57,13 +57,14 @@ int zoomFactor = 1.0;
 // Inventory variables section /////////////////////////////////////////////////
 
 int highlightedInventory = 0;
-int highlightedInventoryClass;
+str highlightedInventoryClass;
 int nInventoryItems;
 
 #define N_INVENTORY_ITEMS 100
 
 str inventoryClasses[N_INVENTORY_ITEMS];
 str inventoryNames  [N_INVENTORY_ITEMS];
+str inventoryAmounts[N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
@@ -1960,10 +1961,11 @@ function void WM_UpdateInventoryMenu(void)
           prevHighlightedIndex = current;
         }
         break;
-      case 1: inventoryNames[current] = currentToken; ++current; break;
+      case 1: inventoryNames[current] = currentToken; break;
+      case 2: inventoryAmounts[current] = currentToken; ++current; break;
       }
 
-      iArray = (iArray + 1) % 2;
+      iArray = (iArray + 1) % 3;
       currentToken = "";
     }
   }
@@ -2042,7 +2044,7 @@ function void WM_PrintInventoryItem(
   int y = yStart + position * stepMultiplied;
   int x = xStart;
 
-  str itemString = StrParam(s:inventoryNames[i]);
+  str itemString = StrParam(s:inventoryNames[i], s:inventoryAmounts[i]);
   HudMessage(s:" ", s:itemString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
 }
 
@@ -2217,4 +2219,28 @@ function bool WM_SlotIsHigher(int slot1, int slot2)
   if (slot1 == 0) { slot1 = 99; }
   if (slot2 == 0) { slot2 = 99; }
   return slot1 > slot2;
+}
+
+// Inventory Controls Section //////////////////////////////////////////////////
+
+#define N_QUICK_INVENTORY_ITEMS 3
+
+str quickInventoryItems[N_QUICK_INVENTORY_ITEMS];
+
+script "WM_MarkAsQuickInventoryItem" (int n)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
+
+  if (!IsInventory()) { terminate; }
+
+  quickInventoryItems[n] = highlightedInventoryClass;
+  str inventoryName = inventoryNames[highlightedInventory];
+  Log(s:inventoryName, s:" is marked as quick access #", i:n + 1);
+}
+
+script "WM_UseQuickInventoryItem" (int n)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
+
+  UseInventory(quickInventoryItems[n]);
 }

@@ -125,7 +125,6 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText "Or settings will be applied on next menu opening", "Black"
 
   StaticText ""
-  SafeCommand "Reset autodetected weapons", "pukename WM_ResetAutodetection"
 }
 
 OptionMenu "m8f_wm_InventoryMenuOptions"
@@ -143,6 +142,8 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
 
   StaticText ""
   Slider "Step size multiplier", "m8f_wm_StepMultiplier", 0.3, 3.0, 0.1
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_GameplayOptions"
@@ -173,6 +174,8 @@ OptionMenu "m8f_wm_GameplayOptions"
 
   StaticText ""
   Option "Allow Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"
@@ -218,6 +221,19 @@ OptionMenu "m8f_wm_Controls"
   Control "Increase weapon priority", "pukename WM_IncreasePriority"
   Control "Increase weapon slot", "pukename WM_IncreaseSlot"
   Control "Decrease weapon slot", "pukename WM_DecreaseSlot"
+
+  StaticText ""
+  StaticText "Inventory Controls", "Blue"
+  Control "Mark item for quick access #1", "pukename WM_MarkAsQuickInventoryItem 0"
+  Control "Mark item for quick access #2", "pukename WM_MarkAsQuickInventoryItem 1"
+  Control "Mark item for quick access #3", "pukename WM_MarkAsQuickInventoryItem 2"
+  StaticText "Usage: open inventory menu, highlight desired", "Black"
+  StaticText "item, mark it with assigned key", "Black"
+  StaticText ""
+  Control "Use quick access item #1", "pukename WM_UseQuickInventoryItem 0"
+  Control "Use quick access item #2", "pukename WM_UseQuickInventoryItem 1"
+  Control "Use quick access item #3", "pukename WM_UseQuickInventoryItem 2"
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_WeaponMenuPlusOptions"
@@ -227,6 +243,7 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
   Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
+  StaticText ""
 }
 
 AddOptionMenu "OptionsMenu"

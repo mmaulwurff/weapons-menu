@@ -119,11 +119,11 @@ class WMZscriptHelper : Actor
         int amount       = inv.Amount;
         if (amount > 0)
         {
-          inventoryContents.AppendFormat("%s>%s [%d]>", className, tag, amount);
+          inventoryContents.AppendFormat("%s>%s> [%d]>", className, tag, amount);
         }
         else
         {
-          inventoryContents.AppendFormat("%s>%s>", className, tag);
+          inventoryContents.AppendFormat("%s>%s>>", className, tag);
         }
       }
     }
