@@ -17,7 +17,6 @@ user string m8f_wm_LastUsedWeapon = "None";
 user int M8fWeaponMenuFavoriteWeapon = 0;
 
 user bool M8fWeaponMenuOpenOnScroll = false;
-
 user bool M8fWeaponMenuAlwaysShow = false;
 
 user string M8fWeaponMenuAmmoInformerResult;
@@ -34,21 +33,17 @@ user int M8fWeaponMenuShowAmmoCounts = 2;
 user int M8fWeaponMenuInstantSwitch = 0;
 
 user float M8fWeaponMenuHolsterSpeedMultiplier = 0.0;
+user float m8f_wm_ZoomFactor = 1.5;
 
 user int M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
-
 user int m8f_wm_ShowLaserSight = 0;
+user int m8f_wm_LaserOnZoom = 0;
+user int m8f_wm_IsNotSlot1Melee = 0;
 
 // 0 - normal fire
 // 1 - alt fire
 // 2 - no fire
 user int m8f_wm_FavoriteFireMode = 0;
-
-user float m8f_wm_ZoomFactor = 1.5;
-
-user int m8f_wm_LaserOnZoom = 0;
-
-user int m8f_wm_IsNotSlot1Melee = 0;
 
 ////////////////////////////////////////////////////////////////////////////////
 
