@@ -9,6 +9,7 @@ zip weapon-menu.pk3 \
     sounds/WMSWTCH1.wav \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \
+    sounds/WMTHROW.lmp \
     source/data.acs \
     source/weapon-menu.acs \
     sprites/WDOTA0.png \

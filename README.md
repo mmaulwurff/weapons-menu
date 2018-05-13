@@ -116,7 +116,7 @@ Author: m8f (mmaulwurff@gmail.com)
 License: GPLv3 (see copying.txt)
 
 Credits:
-* WMSWTCH*.wav and WMPF*.lmp are from [Freedoom](https://freedoom.github.io/).
+* All sounds and puff sprites are from [Freedoom](https://freedoom.github.io/).
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
 * [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308).
 * Thanks to id Software for Doom.

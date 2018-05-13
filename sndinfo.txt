@@ -1,3 +1,5 @@
 wmenu/switch1 WMSWTCH1
 wmenu/switch2 WMSWTCH2
 wmenu/switch3 WMSWTCH3
+
+wmenu/throw WMTHROW

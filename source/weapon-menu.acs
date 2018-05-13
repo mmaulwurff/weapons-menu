@@ -2254,6 +2254,7 @@ script "WM_UseQuickInventoryItem" (int n)
 
 script "WM_FireJunk" (void)
 {
+  PlaySound(0, "wmenu/throw");
   Delay(5);
   int angle = GetActorAngle(0);
   int pitch = GetActorPitch(0);
