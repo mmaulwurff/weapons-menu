@@ -116,7 +116,7 @@ Author: m8f (mmaulwurff@gmail.com)
 
 [Forum topic](https://forum.zdoom.org/viewtopic.php?f=43&t=59498)
 
-License: CC BY 4.0
+License: GPLv3 (see copying.txt)
 
 Credits:
 * WMSWTCH*.wav and WMPF*.lmp are from [Freedoom](https://freedoom.github.io/).
