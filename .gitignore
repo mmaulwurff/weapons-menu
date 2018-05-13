@@ -23,3 +23,4 @@ sounds/*
 !sprites
 sprites/*
 !sprites/*.png
+!sprites/*.lmp

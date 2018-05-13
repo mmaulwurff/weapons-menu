@@ -4,8 +4,8 @@ class WMInstaSwitcher : CustomInventory
 {
   States
   {
-    Pickup:
-      TNT1 A 0 SetPlayerProperty(0, 1, PROP_INSTANTWEAPONSWITCH);
+  Pickup:
+    TNT1 A 0 SetPlayerProperty(0, 1, PROP_INSTANTWEAPONSWITCH);
   }
 }
 
@@ -18,15 +18,15 @@ class WMWeaponStub : Pistol
 
   States
   {
-    Ready:
-      TNT1 A 1 A_WeaponReady;
-      loop;
-    Deselect:
-        TNT1 A 1 A_Lower;
-        Loop;
-     Select:
-        TNT1 A 1 A_Raise;
-        Loop;
+  Ready:
+    TNT1 A 1 A_WeaponReady;
+    loop;
+  Deselect:
+    TNT1 A 1 A_Lower;
+    Loop;
+  Select:
+    TNT1 A 1 A_Raise;
+    Loop;
   }
 }
 
@@ -211,3 +211,32 @@ class WM_Laser4 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO4 A 1 BRIGHT; Stop; 
 class WM_Laser5 : WM_PuffBase {States { Spawn: TNT1 A 0; WDO5 A 1 BRIGHT; Stop; }}
 
 class WM_InvisiblePuff : WM_PuffBase {States {Spawn: TNT1 A 0; Stop;}}
+
+class WM_JunkPuff : BulletPuff
+{
+  Default
+  {
+    +BLOODLESSIMPACT;
+    +PUFFONACTORS;
+    +NOBLOCKMAP;
+    +NOGRAVITY;
+    -ALLOWPARTICLES;
+    +RANDOMIZE;
+    RenderStyle "Translucent";
+    Alpha 0.5;
+    VSpeed 0.2;
+    Mass 5;
+    XScale 0.25;
+    YScale 0.25;
+  }
+
+   States
+   {
+   Spawn:
+     TNT1 A 0;
+    // Intentional fall-through
+   Melee:
+     WMPF CD 4;
+     Stop;
+  }
+}

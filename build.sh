@@ -12,6 +12,8 @@ zip weapon-menu.pk3 \
     source/data.acs \
     source/weapon-menu.acs \
     sprites/WDOTA0.png \
+    sprites/WMPFC0.lmp \
+    sprites/WMPFD0.lmp \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \

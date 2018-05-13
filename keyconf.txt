@@ -9,21 +9,20 @@ alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
 alias toggle_menu_no_action "pukename ToggleWeaponMenu 1"
 alias toggle_menu           "pukename ToggleWeaponMenu 0"
 
-defaultbind m toggle_menu
-
 alias WeaponMenuNext "pukename scrollnextweapon"
 alias WeaponMenuPrev "pukename scrollpreviousweapon"
 
 alias next_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuNext weapnext"
-defaultbind n next_weapon_menu
-
 alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
-defaultbind p prev_weapon_menu
 
 alias WeaponMenuOptions "openmenu M8FWeaponsMenuOptions"
 
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
-alias wm_laser_on "m8f_wm_ShowLaserSight 1"
+alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
+
+defaultbind m toggle_menu
+defaultbind n next_weapon_menu
+defaultbind p prev_weapon_menu
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"

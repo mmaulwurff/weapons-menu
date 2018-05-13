@@ -2244,3 +2244,13 @@ script "WM_UseQuickInventoryItem" (int n)
 
   UseInventory(quickInventoryItems[n]);
 }
+
+// Fire Junk Section ///////////////////////////////////////////////////////////
+
+script "WM_FireJunk" (void)
+{
+  Delay(5);
+  int angle = GetActorAngle(0);
+  int pitch = GetActorPitch(0);
+  LineAttack(0, angle, pitch, 0, "WM_JunkPuff", "None", 2048.0, FHF_NOIMPACTDECAL);
+}
