@@ -140,7 +140,11 @@ function void WM_LeaveUninitialized(void)
   {
     WM_GetFallbackWeapons();
     WM_UpdateIsInInventory();
-    Log(s:"Weapon menu: Universal Mode.");
+    Log(s:"Weapon Menu Plus - Universal Mode");
+  }
+  else
+  {
+    Log(s:"Weapon Menu Plus - Extended Support Mode");
   }
 }
 
@@ -813,7 +817,10 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
 function int WM_GetWeaponSet(void)
 {
-  int playerN      = PlayerNumber();
+  int playerN = PlayerNumber();
+  bool forceFallbackMode = GetUserCVar(playerN, "m8f_wm_ForceFallbackMode");
+  if (forceFallbackMode) { return FALLBACK_SET; }
+
   str remClass     = GetUserCVarString(playerN, "M8fWeaponMenuRememberedClass");
   str currentClass = GetActorClass(0);
 

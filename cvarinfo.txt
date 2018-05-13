@@ -45,6 +45,8 @@ user int m8f_wm_IsNotSlot1Melee = 0;
 // 2 - no fire
 user int m8f_wm_FavoriteFireMode = 0;
 
+user bool m8f_wm_ForceFallbackMode = false;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

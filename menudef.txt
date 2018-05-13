@@ -120,6 +120,12 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText "are more than one weapons in slot", "Black"
 
   StaticText ""
+  Option "Force Universal Mode", "m8f_wm_ForceFallbackMode", "m8f_wm_YesNo"
+  StaticText "Use this if mod with Extended Support", "Black"
+  StaticText "is not processed properly.", "Black"
+  StaticText "Applies on next map", "Black"
+
+  StaticText ""
   StaticText "Commands", "Blue"
   Command "Apply settings", "pukename ApplyWeaponMenuSettings"
   StaticText "Or settings will be applied on next menu opening", "Black"
