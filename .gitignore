@@ -1,8 +1,10 @@
 # Ignore everything
 *
 
-# Except txt
+# Except txt, but not changelog
 !*.txt
+changelog.txt
+
 !*.md
 !*.sh
 !*.lmp

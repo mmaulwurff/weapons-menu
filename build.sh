@@ -4,6 +4,8 @@ acc source/weapon-menu.acs acs/weapon-menu.o \
 && \
 rm -f weapon-menu.pk3 \
 && \
+git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
+&& \
 zip weapon-menu.pk3 \
     acs/weapon-menu.o \
     sounds/WMSWTCH1.wav \
@@ -21,6 +23,7 @@ zip weapon-menu.pk3 \
     README.md \
     WeaponMenuInterface.txt \
     autodetection.cfg \
+    changelog.txt \
     cvarinfo.txt \
     keyconf.txt \
     loadacs.txt \
