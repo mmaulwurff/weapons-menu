@@ -255,6 +255,10 @@ OptionMenu "m8f_wm_Commands"
 {
   Title "Commands"
   Command "Clear decals", "wm_cleardecals"
+
+  SafeCommand "Restart this level", "wm_restart_this_level"
+  StaticText ""
+
   StaticText ""
 }
 

@@ -25,6 +25,8 @@ alias wm_cleardecals "eval $cl_maxdecals m8f_wm_SavedMaxDecals; cl_maxdecals 0; 
 alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
+alias wm_restart_this_level "map *; menuconsole; menuconsole"
+
 defaultbind m toggle_menu
 defaultbind n next_weapon_menu
 defaultbind p prev_weapon_menu
