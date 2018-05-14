@@ -1767,17 +1767,26 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
   return isReady;
 }
 
+bool returnToLast;
+int returnTo;
+bool favoriteFiring = false;
+
 script "WM_FireFavoriteWeapon" (void)
 {
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
   int playerN = PlayerNumber();
+  int cycleValue = GetUserCVar(playerN, "M8fWMCycle");
+  int keyPressedMore = !((cycleValue <= 1) && (cycleValue != 0));
+  if (keyPressedMore) { terminate; }
+
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   str favoriteClass = WM_GetWeaponName(favorite);
   if (!CheckInventory(favoriteClass)) { terminate; }
+  favoriteFiring = true;
 
-  bool returnToLast = (favorite != selectedWeapon);
-  int returnTo = selectedWeapon;
+  returnToLast = (favorite != selectedWeapon);
+  returnTo = selectedWeapon;
   selectedWatchEnabled = false;
 
   int fireMode = GetUserCVar(playerN, "m8f_wm_FavoriteFireMode");
@@ -1823,7 +1832,18 @@ script "WM_FireFavoriteWeapon" (void)
     }
   }
 
-  isReady = WM_IsWeaponDeselectable(favoriteClass);
+  favoriteFiring = false;
+}
+
+script "WM_FireFavoriteSwitchBack" (void)
+{
+  Log(s:"back");
+  while (favoriteFiring) { Delay(1); }
+
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  str favoriteClass = WM_GetWeaponName(favorite);
+  bool isReady = WM_IsWeaponDeselectable(favoriteClass);
   while (!isReady)
   {
     Delay(1);
@@ -1832,6 +1852,7 @@ script "WM_FireFavoriteWeapon" (void)
 
   if (returnToLast && CheckInventory(WM_GetWeaponName(returnTo)))
   {
+    bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
     if (instant) { WM_InstantSwitch(true); }
     WM_SelectWeapon(returnTo, false);
     if (instant) { Delay(1); WM_InstantSwitch(false); }

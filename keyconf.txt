@@ -22,6 +22,9 @@ alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
 
 alias wm_cleardecals "eval $cl_maxdecals m8f_wm_SavedMaxDecals; cl_maxdecals 0; eval $m8f_wm_SavedMaxDecals cl_maxdecals"
 
+alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
+alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
+
 defaultbind m toggle_menu
 defaultbind n next_weapon_menu
 defaultbind p prev_weapon_menu
