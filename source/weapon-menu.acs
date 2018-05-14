@@ -1786,7 +1786,7 @@ script "WM_FireFavoriteWeapon" (void)
   WM_SelectWeapon(favorite, false);
   if (instant) { Delay(1); WM_InstantSwitch(false); }
 
-  Delay(10);
+  if (fireMode == 2) { Delay(10); } // No fire mode
 
   bool isReady = WM_IsWeaponReady(favoriteClass);
   int i = 0;
