@@ -17,6 +17,9 @@ zip weapon-menu.pk3 \
     sprites/WDOTA0.png \
     sprites/WMPFC0.lmp \
     sprites/WMPFD0.lmp \
+    zscript/helper.txt \
+    zscript/junk.txt \
+    zscript/laser.txt \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \

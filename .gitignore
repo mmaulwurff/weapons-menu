@@ -26,3 +26,7 @@ sounds/*
 sprites/*
 !sprites/*.png
 !sprites/*.lmp
+
+!zscript
+*zscript/*
+!zscript/*.txt
