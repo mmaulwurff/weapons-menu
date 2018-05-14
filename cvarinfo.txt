@@ -50,6 +50,8 @@ user bool m8f_wm_ForceFallbackMode = false;
 
 user int m8f_wm_SavedMaxDecals;
 
+server bool m8f_wm_PistolStart = false;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API

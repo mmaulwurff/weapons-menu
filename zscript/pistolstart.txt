@@ -1,0 +1,67 @@
+class PistolStartEventHandler : StaticEventHandler
+{
+  override void PlayerEntered(PlayerEvent e)
+  {
+    CVar pistolStartCvar = CVar.FindCVar("m8f_wm_PistolStart");
+    bool pistolStart = pistolStartCvar.GetInt();
+    if (!pistolStart) { return; }
+
+    let player = PlayerPawn(players[e.PlayerNumber].mo);
+
+    // reset health and armor
+    player.A_SetHealth(player.GetSpawnHealth());
+    player.TakeInventory("BasicArmor", 999);
+
+    DropItem drop = player.GetDropItems();
+
+    //First, remove all weapons, except those with the UNDROPPABLE flag
+    for (let item = player.Inv; item; item = item.Inv)
+    {
+      if(item is "Weapon" && !item.bUNDROPPABLE)
+      {
+        player.A_TakeInventory(item.GetClassName());
+      }
+    }
+
+    // If the player has any weapons in StartItem, set them here
+    // They're not supposed to come with ammo, so clear that after this
+    if (drop != null)
+    {
+      for(DropItem di = drop; di != null; di=di.Next)
+      {
+        if(di.Name == 'None') { continue; }
+
+        let weptype = (class<weapon>)(di.Name);
+
+        if(weptype != null)
+        {
+          player.A_SetInventory(di.Name, di.Amount);
+        }
+      }
+    }
+
+    //Remove all ammo, except that with the UNDROPPABLE flag
+    for (let item = player.Inv; item; item = item.Inv)
+    {
+      if(item is "Ammo" && !item.bUNDROPPABLE)
+      {
+        player.A_TakeInventory(item.GetClassName());
+      }
+    }
+
+    //If the player has any ammo in StartItem, set it here
+    if (drop != null)
+    {
+      for(DropItem di = drop; di != null; di = di.Next)
+      {
+        if (di.Name == 'None') { continue; }
+
+        let ammotype = (class<ammo>)(di.Name);
+        if (ammotype != null)
+        {
+          player.A_SetInventory(di.Name,di.Amount);
+        }
+      }
+    }
+  }
+}

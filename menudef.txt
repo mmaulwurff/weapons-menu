@@ -186,6 +186,9 @@ OptionMenu "m8f_wm_GameplayOptions"
   Option "Allow Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"
 
   StaticText ""
+  Option "Force Pistol Start", "m8f_wm_PistolStart", "m8f_wm_YesNo"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"

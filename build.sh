@@ -20,6 +20,7 @@ zip weapon-menu.pk3 \
     zscript/helper.txt \
     zscript/junk.txt \
     zscript/laser.txt \
+    zscript/pistolstart.txt \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \
@@ -30,6 +31,7 @@ zip weapon-menu.pk3 \
     cvarinfo.txt \
     keyconf.txt \
     loadacs.txt \
+    mapinfo.txt \
     menudef.txt \
     sndinfo.txt \
     textures.txt \
