@@ -102,7 +102,6 @@ Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterfac
 ## Todo
 
 * save custom weapon order (weapon slot and position in slot) between maps
-* detect Doom IWAD and hide SSG
 * option to show weapon and/or inventory sprites instead of text tags
 
 ## Info

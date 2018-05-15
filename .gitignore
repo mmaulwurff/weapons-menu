@@ -28,5 +28,11 @@ sprites/*
 !sprites/*.lmp
 
 !zscript
-*zscript/*
+zscript/*
 !zscript/*.txt
+
+!filter/
+filter/*
+!filter/doom.*
+filter/doom.*/*
+!filter/doom.*/language.enu

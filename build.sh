@@ -8,6 +8,9 @@ git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
 && \
 zip weapon-menu.pk3 \
     acs/weapon-menu.o \
+    filter/doom.doom1/language.enu \
+    filter/doom.doom2/language.enu \
+    filter/doom.freedoom/language.enu \
     sounds/WMSWTCH1.wav \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \
@@ -30,6 +33,7 @@ zip weapon-menu.pk3 \
     changelog.txt \
     cvarinfo.txt \
     keyconf.txt \
+    language.enu \
     loadacs.txt \
     mapinfo.txt \
     menudef.txt \

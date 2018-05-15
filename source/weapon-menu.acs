@@ -40,9 +40,13 @@
 int globalState = 0;
 
 // Global variables. Must be used only in enabled states.
+
+// cached variables. Their values don't change during the game.
 int  currentSet;
 int  weaponCount;
 int  step;
+bool isDoom1;
+bool isDoom2;
 
 int  highlightedWeapon;
 int  selectedWeapon;
@@ -168,6 +172,8 @@ function void WM_EnterEnabled(void)
 {
   weaponCount = weaponCounts[currentSet];
   step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
+  isDoom1     = WM_IsDoom1();
+  isDoom2     = WM_IsDoom2();
 
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon());
   WM_SetHighlightedWeapon(selectedWeapon);
@@ -223,6 +229,9 @@ function bool WM_IsHiddenWeapon(int wNumber)
 {
   switch (currentSet)
   {
+
+    // hide vanilla doom SSG in Doom 1
+  case 0: return (wNumber == 3 && isDoom1);
 
     // Smooth Doom Rifle
   case  1: return (wNumber == 2);
@@ -853,12 +862,6 @@ function bool WM_IsTitlemap(void)
 {
   str mapLumpName = StrParam(n:PRINTNAME_LEVEL);
   return (StrICmp(mapLumpName, "TITLEMAP") == 0);
-}
-
-function bool WM_IsFreedoom(void)
-{
-  str checkString = StrParam(l:"CC_IMP");
-  return (StrICmp(checkString, "serpentipede") == 0);
 }
 
 function bool WM_IsHarmony(void)
@@ -2073,4 +2076,27 @@ script "WM_FireJunk" (void)
   int angle = GetActorAngle(0);
   int pitch = GetActorPitch(0);
   LineAttack(0, angle, pitch, 0, "WM_JunkPuff", "None", 2048.0, FHF_NOIMPACTDECAL);
+}
+
+// Game Detection Section //////////////////////////////////////////////////////
+
+function bool WM_IsDoom1(void)
+{
+  str filtered = StrParam(l:"WM_GAME");
+  bool doom1 = (StrCmp(filtered, "1") == 0);
+  return doom1;
+}
+
+function bool WM_IsDoom2(void)
+{
+  str filtered = StrParam(l:"WM_GAME");
+  bool doom2 = (StrCmp(filtered, "2") == 0);
+  return doom2;
+}
+
+function bool WM_IsFreedoom(void)
+{
+  str filtered = StrParam(l:"WM_GAME");
+  bool freedoom = (StrCmp(filtered, "3") == 0);
+  return freedoom;
 }
