@@ -1,4 +1,4 @@
 gameinfo
 {
-  AddEventHandlers = "PistolStartEventHandler"
+  AddEventHandlers = "PistolStartEventHandler", "WM_AmmoEventHandler"
 }

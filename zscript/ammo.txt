@@ -1,0 +1,34 @@
+class WM_AmmoEventHandler : EventHandler
+{
+  override void WorldThingSpawned(WorldEvent e)
+  {
+    Actor thing = e.thing;
+
+    Inventory i = Inventory(thing);
+    if (i == null) { return; }
+    if (i.owner) { return; }
+
+    Ammo a = Ammo(thing);
+    if (a != null)
+    {
+      CVar  ammoMultiplierCVar = CVar.FindCVar("m8f_wm_AmmoMultiplier");
+      float ammoMultiplier     = ammoMultiplierCVar.GetFloat();
+      a.Amount *= ammoMultiplier;
+      if (a.Amount == 0) { a.Amount = 1; }
+    }
+    else
+    {
+      Weapon w = Weapon(thing);
+      if (w != null)
+      {
+        CVar  ammoMultiplierCVar = CVar.FindCVar("m8f_wm_AmmoMultiplier");
+        float ammoMultiplier     = ammoMultiplierCVar.GetFloat();
+
+        w.AmmoGive1 *= ammoMultiplier;
+        w.AmmoGive2 *= ammoMultiplier;
+        if (w.AmmoGive1 == 0 ) { w.AmmoGive1 = 1; }
+        if (w.AmmoGive2 == 0 ) { w.AmmoGive2 = 1; }
+      }
+    }
+  }
+}

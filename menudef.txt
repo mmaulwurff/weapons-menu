@@ -188,6 +188,12 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText "you may not be able to select weapon.", "Black"
 
   StaticText ""
+  Slider "Ammo multiplier", "m8f_wm_AmmoMultiplier", 0.1, 10.0, 0.1
+  StaticText "Ammo pickups will give at least 1 ammo.", "Black"
+  StaticText "Changes take effect on new drops only,", "Black"
+  StaticText "or on new level start.", "Black"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"

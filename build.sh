@@ -24,6 +24,7 @@ zip weapon-menu.pk3 \
     zscript/junk.txt \
     zscript/laser.txt \
     zscript/pistolstart.txt \
+    zscript/ammo.txt \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \
