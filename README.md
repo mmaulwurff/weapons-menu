@@ -119,7 +119,10 @@ Credits:
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
 * [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308).
 * Pistol Start code is based on [StrongholdEventHandler](https://github.com/Realm667/Re-Releases/blob/master/stronghold/zscript.txt) by Ed the Bat.
-* Thanks to id Software for Doom.
-* Thanks to the following people and all contributors for the ZDoom and GZDoom source ports: Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson.
-* Thanks to Gutawer and argv for example of ZScript HUD.
-* Thanks to Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
+
+Thanks:
+* id Software for Doom.
+* The following people and all contributors for the ZDoom and GZDoom source ports: Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson.
+* Gutawer and argv for example of ZScript HUD.
+* Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
+* Simon Judd for SLADE3.
