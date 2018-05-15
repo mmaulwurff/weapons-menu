@@ -2110,3 +2110,15 @@ script "WM_GiveThisAmmo" (void)
   str weaponClass = WM_GetWeaponName(selectedWeapon);
   ScriptCall("WMZscriptHelper", "GiveThisAmmo", weaponClass);
 }
+
+// Infinite Slot 1 Ammo Section ////////////////////////////////////////////////
+
+script "WM_GiveMinSlot2Ammo" (void)
+{
+  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+  int slot = WM_GetWeaponSlot(selectedWeapon);
+  if (slot != 2) { terminate; }
+
+  str weaponClass = WM_GetWeaponName(selectedWeapon);
+  ScriptCall("WMZscriptHelper", "GiveMinAmmo", weaponClass);
+}

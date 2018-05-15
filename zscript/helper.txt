@@ -162,4 +162,16 @@ class WMZscriptHelper : Actor
     if (amm1) { activator.GiveInventory(amm1.GetClassName(), 10); }
     if (amm2) { activator.GiveInventory(amm2.GetClassName(), 10); }
   }
+
+  static void GiveMinAmmo(Actor activator, string weaponClass)
+  {
+    if (!activator || !activator.player) { return; }
+
+    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (!w) { return; }
+
+    Ammo amm1 = w.Ammo1;
+    int use = w.AmmoUse1;
+    if (amm1) { activator.GiveInventory(amm1.GetClassName(), use); }
+  }
 }
