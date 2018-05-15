@@ -1599,7 +1599,6 @@ script "WM_FireFavoriteWeapon" (void)
 
 script "WM_FireFavoriteSwitchBack" (void)
 {
-  Log(s:"back");
   while (favoriteFiring) { Delay(1); }
 
   int playerN = PlayerNumber();
