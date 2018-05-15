@@ -864,27 +864,6 @@ function bool WM_IsTitlemap(void)
   return (StrICmp(mapLumpName, "TITLEMAP") == 0);
 }
 
-function bool WM_IsHarmony(void)
-{
-  str checkString = StrParam(l:"C1TEXT");
-  str harmString = "HEADING DOWN YOU FINALLY HAVE";
-  int harmLength = StrLen(harmString);
-  bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
-  return isHarmony;
-}
-
-function bool WM_IsEVP(void)
-{
-  bool isEVP = CheckClass("EVPBFGBall");
-  return isEVP;
-}
-
-function bool WM_IsFlakesDoom(void)
-{
-  bool isFlakesDoom = CheckClass("FKHAR");
-  return isFlakesDoom;
-}
-
 function bool WM_IsOpenOnScroll(void)
 {
   int playerN = PlayerNumber();
@@ -2099,4 +2078,35 @@ function bool WM_IsFreedoom(void)
   str filtered = StrParam(l:"WM_GAME");
   bool freedoom = (StrCmp(filtered, "3") == 0);
   return freedoom;
+}
+
+function bool WM_IsHarmony(void)
+{
+  str checkString = StrParam(l:"C1TEXT");
+  str harmString = "HEADING DOWN YOU FINALLY HAVE";
+  int harmLength = StrLen(harmString);
+  bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
+  return isHarmony;
+}
+
+function bool WM_IsEVP(void)
+{
+  bool isEVP = CheckClass("EVPBFGBall");
+  return isEVP;
+}
+
+function bool WM_IsFlakesDoom(void)
+{
+  bool isFlakesDoom = CheckClass("FKHAR");
+  return isFlakesDoom;
+}
+
+// Give Some Ammo Section //////////////////////////////////////////////////////
+
+script "WM_GiveThisAmmo" (void)
+{
+  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+
+  str weaponClass = WM_GetWeaponName(selectedWeapon);
+  ScriptCall("WMZscriptHelper", "GiveThisAmmo", weaponClass);
 }

@@ -254,10 +254,18 @@ OptionMenu "m8f_wm_Controls"
 OptionMenu "m8f_wm_Commands"
 {
   Title "Commands"
+
+  StaticText "Visuals", "Blue"
   Command "Clear decals", "wm_cleardecals"
 
-  SafeCommand "Restart this level", "wm_restart_this_level"
   StaticText ""
+  StaticText "Cheats", "Blue"
+  Command "Give some ammo for this weapon", "pukename wm_givethisammo"
+  StaticText "When you need to cheat, but IDFA is too much", "Black"
+
+  StaticText ""
+  StaticText "Game", "Blue"
+  SafeCommand "Restart this level", "wm_restart_this_level"
 
   StaticText ""
 }
