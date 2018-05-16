@@ -225,7 +225,7 @@ OptionMenu "m8f_wm_Controls"
   Control "Toggle Laser Sight", "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
   Control "Toggle Zoom", "pukename WM_ToggleZoom"
   Control "Throw Junk", "pukename WM_FireJunk"
-  StaticText "Zero damage hitscan attack", "Black"
+  StaticText "0 damage hitscan attack. Also alerts enemies", "Black"
 
   StaticText ""
   StaticText "Weapon Slot Keys", "Blue"
