@@ -21,6 +21,10 @@ class WM_AmmoEventHandler : EventHandler
       Weapon w = Weapon(thing);
       if (w != null)
       {
+        CVar  kickbackMultiplierCVar = CVar.FindCVar("m8f_wm_KickbackMultiplier");
+        float kickbackMultiplier     = kickbackMultiplierCVar.GetFloat();
+        w.Kickback *= kickBackMultiplier;
+
         CVar  ammoMultiplierCVar = CVar.FindCVar("m8f_wm_AmmoMultiplier");
         float ammoMultiplier     = ammoMultiplierCVar.GetFloat();
 

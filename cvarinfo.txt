@@ -53,6 +53,7 @@ user int m8f_wm_SavedMaxDecals;
 
 server bool m8f_wm_PistolStart = false;
 server float m8f_wm_AmmoMultiplier = 1.0;
+server float m8f_wm_KickbackMultiplier = 1.0;
 
 ////////////////////////////////////////////////////////////////////////////////
 

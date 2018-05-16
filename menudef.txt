@@ -194,6 +194,12 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText "or on new level start.", "Black"
 
   StaticText ""
+  Slider "Kickback multiplier", "m8f_wm_KickbackMultiplier", 0.0, 10.0, 0.25
+  StaticText "Hitscan only.", "Black"
+  StaticText "Changes take effect only for weapons picked", "Black"
+  StaticText "up after new level start.", "Black"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"
