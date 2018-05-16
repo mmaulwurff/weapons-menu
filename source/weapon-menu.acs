@@ -1051,6 +1051,8 @@ script "ScrollNextWeapon" (void)
 
   else
   {
+    if (WM_IsZoomed()) { WM_ToggleZoom(); }
+
     i = selectedWeapon;
     if (i == WEAPON_HOLSTERED) { i = 0; }
     do
@@ -1128,6 +1130,8 @@ script "ScrollPreviousWeapon" (void)
 
   else
   {
+    if (WM_IsZoomed()) { WM_ToggleZoom(); }
+
     i = selectedWeapon;
     if (i == WEAPON_HOLSTERED) { i = weaponCount - 1; }
     do
@@ -1510,14 +1514,14 @@ function str WM_GetAmmoString(str weaponClass, int ammoMode)
   bool showSecondary = ammoMode == 2;
   int playerN = PlayerNumber();
   ScriptCall("WMZscriptHelper", "TellAmmo", weaponClass, showSecondary);
-  return GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
 
 function bool WM_IsWeaponReady(str weaponClass)
 {
   int playerN = PlayerNumber();
   ScriptCall("WMZscriptHelper", "IsWeaponReady", weaponClass);
-  bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
+  bool isReady = GetUserCVar(playerN, "m8f_wm_ResultInt");
   return isReady;
 }
 
@@ -1525,8 +1529,8 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
 {
   int playerN = PlayerNumber();
   ScriptCall("WMZscriptHelper", "IsWeaponDeselectable", weaponClass);
-  bool isReady = GetUserCVar(playerN, "M8fWeaponMenuWeaponReady");
-  return isReady;
+  bool isDeselectable = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return isDeselectable;
 }
 
 bool returnToLast;
@@ -1735,7 +1739,7 @@ function void WM_UpdateInventoryMenu(void)
   ScriptCall("WMZScriptHelper", "GetInventoryList");
 
   int playerN = PlayerNumber();
-  str inventoryContents = GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+  str inventoryContents = GetUserCVarString(playerN, "m8f_wm_ResultString");
 
   int inventoryContentsLength = StrLen(inventoryContents);
 
@@ -1856,9 +1860,18 @@ script "WM_ToggleZoom" (void)
   WM_ToggleZoom();
 }
 
+function bool WM_IsWeaponBeingDeselected(void)
+{
+  ScriptCall("WMZScriptHelper", "IsWeaponBeingDeselected");
+  int  playerN = PlayerNumber();
+  bool isDeselected = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return isDeselected;
+}
+
 function void WM_ToggleZoom(void)
 {
   if (WM_IsMelee()) { return; }
+  if (WM_IsWeaponBeingDeselected()) { return; }
 
   int  playerN = PlayerNumber();
   bool isLaserConnected = GetUserCVar(playerN, "m8f_wm_LaserOnZoom");
@@ -1887,7 +1900,7 @@ function void WM_GetFallbackWeapons(void)
   ScriptCall("WMZScriptHelper", "GetWeaponList");
 
   int playerN = PlayerNumber();
-  str weaponData = GetUserCVarString(playerN, "M8fWeaponMenuAmmoInformerResult");
+  str weaponData = GetUserCVarString(playerN, "m8f_wm_ResultString");
 
   int weaponDataLength = StrLen(weaponData);
 

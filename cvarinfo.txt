@@ -19,8 +19,8 @@ user int M8fWeaponMenuFavoriteWeapon = 0;
 user bool M8fWeaponMenuOpenOnScroll = false;
 user bool M8fWeaponMenuAlwaysShow = false;
 
-user string M8fWeaponMenuAmmoInformerResult;
-user int M8fWeaponMenuWeaponReady;
+user string m8f_wm_ResultString;
+user int    m8f_wm_ResultInt;
 
 // 0 - do not show
 // 1 - show only primary ammo

@@ -4,14 +4,14 @@ class WMZscriptHelper : Actor
   {
     if (!activator || !activator.player)
     {
-      SendResult(activator, "");
+      SendResultString(activator, "");
       return;
     }
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
-      SendResult(activator, "");
+      SendResultString(activator, "");
       return;
     }
 
@@ -29,7 +29,7 @@ class WMZscriptHelper : Actor
       message = String.Format("%s (%d/%d)", message, amm2.amount, amm2.maxAmount);
     }
 
-    SendResult(activator, message);
+    SendResultString(activator, message);
   }
 
   static void IsWeaponReady(Actor activator, string weaponClass)
@@ -37,16 +37,24 @@ class WMZscriptHelper : Actor
     PlayerPawn p = PlayerPawn(activator);
     bool isReady = (p.player.WeaponState & WF_WEAPONREADY)
       || (p.player.WeaponState & WF_WEAPONREADYALT);
-    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuWeaponReady", activator.player);
-    messageCVar.SetInt(isReady);
+    SendResultInt(activator, isReady);
   }
 
   static void IsWeaponDeselectable(Actor activator, string weaponClass)
   {
     PlayerPawn p = PlayerPawn(activator);
-    bool isReady = p.player.WeaponState & WF_WEAPONSWITCHOK;
-    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuWeaponReady", activator.player);
-    messageCVar.SetInt(isReady);
+    bool isDeselectable = p.player.WeaponState & WF_WEAPONSWITCHOK;
+    SendResultInt(activator, isDeselectable);
+  }
+
+  static void IsWeaponBeingDeselected(Actor activator)
+  {
+    if (!activator) { return; }
+    let player = activator.player;
+    if (!player) { return; }
+
+    bool isDeselected = player.PendingWeapon.GetClassName() != "Object";
+    SendResultInt(activator, isDeselected);
   }
 
   static void FireWeapon(Actor activator, string weaponClass)
@@ -96,7 +104,7 @@ class WMZscriptHelper : Actor
       }
     }
 
-    SendResult(activator, inventoryContents);
+    SendResultString(activator, inventoryContents);
   }
 
   static void GetWeaponList(Actor activator)
@@ -132,22 +140,33 @@ class WMZscriptHelper : Actor
       }
     }
 
-    SendResult(activator, weaponData);
+    SendResultString(activator, weaponData);
   }
 
-  static void SendResult(Actor a, string result)
+  static void SendResultString(Actor a, string result)
   {
-    CVar messageCVar = CVar.GetCVar("M8fWeaponMenuAmmoInformerResult", a.player);
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultString", a.player);
     messageCVar.SetString(result);
+  }
+
+  static void SendResultInt(Actor a, int result)
+  {
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", a.player);
+    messageCVar.SetInt(result);
   }
 
   static void SetZoomFactor(Actor activator, double zoom)
   {
+    if (!activator) { return; }
     let player = activator.player;
-    if (!activator || !player) { return; }
+    if (!player) { return; }
 
     zoom = 1 / clamp(zoom, 0.1, 50.0);
     player.ReadyWeapon.FOVScale = zoom;
+
+    int yShift = 16;
+    if (zoom == 1.0) { player.ReadyWeapon.YAdjust -= yShift; }
+    else             { player.ReadyWeapon.YAdjust += yShift; }
   }
 
   static void GiveThisAmmo(Actor activator, string weaponClass)
