@@ -12,6 +12,7 @@ class WM_PuffBase : Actor
     +DONTSPLASH;
     +NOTRIGGER;
     +FORCEXYBILLBOARD;
+    +NOTONAUTOMAP;
   }
 
   States
