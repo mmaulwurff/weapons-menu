@@ -122,7 +122,8 @@ Credits:
 
 Thanks:
 * id Software for Doom.
-* The following people and all contributors for the ZDoom and GZDoom source ports: Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson.
+* Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson, and all contributors for the ZDoom and GZDoom source ports.
 * Gutawer and argv for example of ZScript HUD.
 * Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
 * Simon Judd for SLADE3.
+* Kinsie for Kinsie's Gameplay Mod Test Map.
