@@ -224,6 +224,10 @@ OptionMenu "m8f_wm_Controls"
   Control "Holster weapon", "pukename WM_HolsterWeapon"
   Control "Toggle Laser Sight", "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
   Control "Toggle Zoom", "pukename WM_ToggleZoom"
+  StaticText "If you are using Zoom, you must switch weapons", "Black"
+  StaticText "only with Weapon Menu keys", "Black"
+
+  StaticText ""
   Control "Throw Junk", "pukename WM_FireJunk"
   StaticText "0 damage hitscan attack. Also alerts enemies", "Black"
 
