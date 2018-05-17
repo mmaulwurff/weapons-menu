@@ -155,18 +155,21 @@ class WMZscriptHelper : Actor
     messageCVar.SetInt(result);
   }
 
-  static void SetZoomFactor(Actor activator, double zoom)
+  static void SetZoomFactor(Actor activator, double zoom, string weaponClass)
   {
     if (!activator) { return; }
     let player = activator.player;
-    if (!player) { return; }
+
+    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (!w) { return; }
 
     zoom = 1 / clamp(zoom, 0.1, 50.0);
-    player.ReadyWeapon.FOVScale = zoom;
+
+    w.FOVScale = zoom;
 
     int yShift = 16;
-    if (zoom == 1.0) { player.ReadyWeapon.YAdjust -= yShift; }
-    else             { player.ReadyWeapon.YAdjust += yShift; }
+    if (zoom == 1.0) { w.YAdjust -= yShift; }
+    else             { w.YAdjust += yShift; }
   }
 
   static void GiveThisAmmo(Actor activator, string weaponClass)

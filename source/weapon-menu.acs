@@ -955,6 +955,7 @@ script "ShowWeaponMenu" ENTER
           WM_SetLastUsedWeapon(selectedClass);
         }
 
+        if (WM_IsZoomed()) { WM_ToggleZoomWeapon(selectedClass); }
         WM_SetHighlightedWeapon(currentWeaponI);
         WM_SetSelectedWeapon(highlightedWeapon);
         WM_UpdateMenu();
@@ -1868,7 +1869,7 @@ function bool WM_IsWeaponBeingDeselected(void)
   return isDeselected;
 }
 
-function void WM_ToggleZoom(void)
+function void WM_ToggleZoomWeapon(str weaponClass)
 {
   if (WM_IsMelee()) { return; }
   if (WM_IsWeaponBeingDeselected()) { return; }
@@ -1880,12 +1881,17 @@ function void WM_ToggleZoom(void)
   if (isZoomed) { zoomFactor = 1.0; }
   else          { zoomFactor = GetUserCVar(playerN, "m8f_wm_ZoomFactor"); }
 
-  ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor);
+  ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor, weaponClass);
 
   if (isLaserConnected)
   {
     SetUserCVar(playerN, "m8f_wm_ShowLaserSight", WM_IsZoomed());
   }
+}
+
+function void WM_ToggleZoom(void)
+{
+  WM_ToggleZoomWeapon(WM_GetWeaponName(selectedWeapon));
 }
 
 function bool WM_IsZoomed(void)
