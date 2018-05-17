@@ -43,6 +43,11 @@ user int m8f_wm_IsNotSlot1Melee = 0;
 user bool m8f_wm_PlaySoundOnWeaponChange = false;
 user bool m8f_wm_InfiniteSlot2Ammo = false;
 
+// 0 - red
+// 1 - green
+// 2 - blue
+user int m8f_wm_LaserColor = 0;
+
 // 0 - normal fire
 // 1 - alt fire
 // 2 - no fire

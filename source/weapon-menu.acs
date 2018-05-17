@@ -1666,7 +1666,7 @@ script "WM_HolsterWeapon" (void)
 
 #define N_PUFFS 6
 
-str puffs[N_PUFFS] =
+str puffsRed[N_PUFFS] =
 {
   "WM_Laser5",
   "WM_Laser0",
@@ -1674,6 +1674,26 @@ str puffs[N_PUFFS] =
   "WM_Laser2",
   "WM_Laser3",
   "WM_Laser4",
+};
+
+str puffsBlue[N_PUFFS] =
+{
+  "WM_LaserB5",
+  "WM_LaserB0",
+  "WM_LaserB1",
+  "WM_LaserB2",
+  "WM_LaserB3",
+  "WM_LaserB4",
+};
+
+str puffsGreen[N_PUFFS] =
+{
+  "WM_LaserG5",
+  "WM_LaserG0",
+  "WM_LaserG1",
+  "WM_LaserG2",
+  "WM_LaserG3",
+  "WM_LaserG4",
 };
 
 function void WM_ShowLaserSight(void)
@@ -1702,7 +1722,16 @@ function void WM_ShowLaserSight(void)
 
   if (zoomFactor >= 1.8) { --iPuff; }
 
-  str puff = puffs[iPuff];
+  int playerN = PlayerNumber();
+  str laserColor = GetUserCVar(playerN, "m8f_wm_LaserColor");
+
+  str puff;
+  switch (laserColor)
+    {
+    case 0: puff = puffsRed[iPuff]; break;
+    case 1: puff = puffsGreen[iPuff]; break;
+    case 2: puff = puffsBlue[iPuff]; break;
+    }
 
   /*
   Log(i:distance);

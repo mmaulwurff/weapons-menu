@@ -18,6 +18,8 @@ zip weapon-menu.pk3 \
     source/data.acs \
     source/weapon-menu.acs \
     sprites/WDOTA0.png \
+    sprites/WDOTB0.png \
+    sprites/WDOTG0.png \
     sprites/WMPFC0.lmp \
     sprites/WMPFD0.lmp \
     zscript/helper.txt \
@@ -40,6 +42,8 @@ zip weapon-menu.pk3 \
     menudef.txt \
     sndinfo.txt \
     textures.txt \
+    textures.green \
+    textures.blue \
     zscript.txt \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
