@@ -168,6 +168,8 @@ OptionMenu "m8f_wm_GameplayOptions"
   Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "m8f_wm_YesNo"
   Option "Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"
   Option "Switch Laser Sight on Zoom", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
+  Slider "Speed while zoomed", "m8f_wm_ZoomSpeedMultiplier", 0.1, 1.0, 0.1
+
 
   StaticText ""
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"

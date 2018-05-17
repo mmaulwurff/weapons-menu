@@ -34,6 +34,7 @@ user int M8fWeaponMenuInstantSwitch = 0;
 
 user float M8fWeaponMenuHolsterSpeedMultiplier = 0.0;
 user float m8f_wm_ZoomFactor = 1.5;
+user float m8f_wm_ZoomSpeedMultiplier = 1.0;
 
 user int M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
 user int m8f_wm_ShowLaserSight = 0;
