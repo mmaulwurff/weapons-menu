@@ -1905,6 +1905,7 @@ function void WM_ToggleZoomWeapon(str weaponClass)
 
   int  playerN = PlayerNumber();
   bool isLaserConnected = GetUserCVar(playerN, "m8f_wm_LaserOnZoom");
+  bool lowerWeapon = GetUserCVar(playerN, "m8f_wm_LowerWeaponOnZoom");
 
   bool isZoomed = WM_IsZoomed();
   if (isZoomed)
@@ -1919,7 +1920,7 @@ function void WM_ToggleZoomWeapon(str weaponClass)
     SetActorProperty(0, APROP_SPEED, zoomSpeedMultiplier);
   }
 
-  ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor, weaponClass);
+  ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor, weaponClass, lowerWeapon);
 
   if (isLaserConnected)
   {

@@ -36,10 +36,11 @@ user float M8fWeaponMenuHolsterSpeedMultiplier = 0.0;
 user float m8f_wm_ZoomFactor = 1.5;
 user float m8f_wm_ZoomSpeedMultiplier = 1.0;
 
-user int M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
-user int m8f_wm_ShowLaserSight = 0;
-user int m8f_wm_LaserOnZoom = 0;
-user int m8f_wm_IsNotSlot1Melee = 0;
+user int  M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
+user int  m8f_wm_ShowLaserSight = 0;
+user int  m8f_wm_LaserOnZoom = 0;
+user bool m8f_wm_LowerWeaponOnZoom = true;
+user int  m8f_wm_IsNotSlot1Melee = 0;
 user bool m8f_wm_PlaySoundOnWeaponChange = false;
 user bool m8f_wm_InfiniteSlot2Ammo = false;
 
