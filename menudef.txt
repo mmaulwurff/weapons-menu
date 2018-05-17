@@ -170,7 +170,6 @@ OptionMenu "m8f_wm_GameplayOptions"
   Option "Switch Laser Sight on Zoom", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
   Slider "Speed while zoomed", "m8f_wm_ZoomSpeedMultiplier", 0.1, 1.0, 0.1
 
-
   StaticText ""
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
   StaticText "Instant switching doesn't work for mods with", "Black"
@@ -290,6 +289,30 @@ OptionMenu "m8f_wm_Commands"
   StaticText ""
 }
 
+OptionMenu "m8f_wm_GZDoomWeapon"
+{
+  Title "GZDoom Weapon Settings"
+
+  StaticText "HUD", "Blue"
+  Option "$HUDMNU_CROSSHAIR", "crosshair", "Crosshairs"
+  Option "$HUDMNU_FORCECROSSHAIR", "crosshairforce", "OnOff"
+
+  StaticText ""
+  StaticText "Gameplay", "Blue"
+  Option "Switch weapon on pickups", "neverswitchonpickup", "OffOn"
+  Slider "Autoaim", "autoaim", 0.0, 35.0, 35.0
+
+  StaticText ""
+  StaticText "Display", "Blue"
+  Option "$DSPLYMNU_ROCKETTRAILS", "cl_rockettrails", "RocketTrailTypes"
+  Option "$DSPLYMNU_BLOODTYPE", "cl_bloodtype", "BloodTypes"
+  Option "$DSPLYMNU_PUFFTYPE", "cl_pufftype", "PuffTypes"
+  Slider "$DSPLYMNU_MAXPARTICLES", "r_maxparticles", 100, 10000, 100, 0
+  Slider "$DSPLYMNU_MAXDECALS", "cl_maxdecals", 0, 10000, 100, 0
+
+  StaticText ""
+}
+
 OptionMenu "m8f_wm_WeaponMenuPlusOptions"
 {
   Title "Weapon Menu Plus Options"
@@ -297,6 +320,7 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
   Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
+  Submenu "GZDoom Weapon Settings", "m8f_wm_GZDoomWeapon"
   Submenu "Commands",               "m8f_wm_Commands"
   StaticText ""
 }
