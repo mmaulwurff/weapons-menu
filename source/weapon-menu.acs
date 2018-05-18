@@ -236,8 +236,6 @@ function bool WM_IsHiddenWeapon(int wNumber)
     // Smooth Doom Rifle
   case  1: return (wNumber == 2);
 
-  case 13: return (wNumber == 5); // HXRTC Project: Omicron Raygun
-
     // Chex Quest: Super Large Zorcher is deathmatch-only
   case 19: return (wNumber == 3);
 
