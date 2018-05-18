@@ -323,15 +323,35 @@ OptionMenu "m8f_wm_GZDoomWeapon"
   StaticText ""
 }
 
+OptionMenu "m8f_wm_CrossmodOptions"
+{
+  Title "Cross-mod Options"
+
+  StaticText "Slomo Bullettime", "Blue"
+  StaticText "Slomo Bullettime must be loaded for thise to work!", "Black"
+  StaticText ""
+  Option "Toggle Slomo on Weapon Menu Zoom In",  "m8f_wm_SlomoOnZoomIn",    "OnOff"
+  Option "Toggle Slomo on Weapon Menu Zoom Out", "m8f_wm_SlomoOnZoomOut",   "OnOff"
+  Option "Toggle Slomo on Weapon Menu open",     "m8f_wm_SlomoOnMenuOpen",  "OnOff"
+  Option "Toggle Slomo on Weapon Menu close",    "m8f_wm_SlomoOnMenuClose", "OnOff"
+  StaticText "Toggles on Menu close and zoom out are ", "Black"
+  StaticText "best used with infinite Slomo.", "Black"
+
+  StaticText ""
+}
+
 OptionMenu "m8f_wm_WeaponMenuPlusOptions"
 {
   Title "Weapon Menu Plus Options"
+
   Submenu "Controls",               "m8f_wm_Controls"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
   Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
-  Submenu "GZDoom Weapon Settings", "m8f_wm_GZDoomWeapon"
+  Submenu "GZDoom Weapon Options",  "m8f_wm_GZDoomWeapon"
+  Submenu "Cross-mod Options",      "m8f_wm_CrossmodOptions"
   Submenu "Commands",               "m8f_wm_Commands"
+
   StaticText ""
 }
 

@@ -154,6 +154,7 @@ function void WM_LeaveClosed(void) {}
 
 function void WM_LeaveOpened(void)
 {
+  WM_MaybeToggleSlomoOnClose();
   WM_ClearScreen();
 }
 
@@ -209,6 +210,7 @@ function void WM_EnterClosed(void)
 
 function void WM_EnterOpened(void)
 {
+  WM_MaybeToggleSlomoOnOpen();
   WM_UpdateIsInInventory();
   WM_UpdateMenu();
 }
@@ -1923,6 +1925,7 @@ function void WM_ToggleZoomWeapon(str weaponClass)
     zoomFactor = 1.0;
     isZoomed = false;
     SetActorProperty(0, APROP_SPEED, 1.0);
+    WM_MaybeToggleSlomoOnZoomOut();
   }
   else
   {
@@ -1930,6 +1933,7 @@ function void WM_ToggleZoomWeapon(str weaponClass)
     isZoomed = true;
     int zoomSpeedMultiplier = GetUserCvar(playerN, "m8f_wm_ZoomSpeedMultiplier");
     SetActorProperty(0, APROP_SPEED, zoomSpeedMultiplier);
+    WM_MaybeToggleSlomoOnZoomIn();
   }
 
   ScriptCall("WMZScriptHelper", "SetZoomFactor", zoomFactor, weaponClass, lowerWeapon, isZoomed);
@@ -2191,4 +2195,46 @@ script "WM_GiveMinSlot2Ammo" (void)
 
   str weaponClass = WM_GetWeaponName(selectedWeapon);
   ScriptCall("WMZscriptHelper", "GiveMinAmmo", weaponClass);
+}
+
+// Slomo Bullettime Section ////////////////////////////////////////////////////
+
+function void WM_MaybeToggleSlomoOnOpen(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnMenuOpen");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnClose(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnMenuClose");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnZoomIn(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnZoomIn");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnZoomOut(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnZoomOut");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
 }
