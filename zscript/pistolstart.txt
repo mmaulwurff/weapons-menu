@@ -14,17 +14,11 @@ class PistolStartEventHandler : StaticEventHandler
 
     DropItem drop = player.GetDropItems();
 
-    //First, remove all weapons, except those with the UNDROPPABLE flag
-    for (let item = player.Inv; item; item = item.Inv)
-    {
-      if(item is "Weapon" && !item.bUNDROPPABLE)
-      {
-        player.A_TakeInventory(item.GetClassName());
-      }
-    }
+    player.ClearInventory();
 
     // If the player has any weapons in StartItem, set them here
     // They're not supposed to come with ammo, so clear that after this
+    string lastStartWeapon = "";
     if (drop != null)
     {
       for(DropItem di = drop; di != null; di=di.Next)
@@ -35,9 +29,15 @@ class PistolStartEventHandler : StaticEventHandler
 
         if(weptype != null)
         {
+          lastStartWeapon = di.Name;
           player.A_SetInventory(di.Name, di.Amount);
         }
       }
+    }
+    if (lastStartWeapon != "")
+    {
+      let weaponInInv = player.FindInventory(lastStartWeapon);
+      player.UseInventory(weaponInInv);
     }
 
     //Remove all ammo, except that with the UNDROPPABLE flag

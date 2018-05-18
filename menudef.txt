@@ -192,7 +192,6 @@ OptionMenu "m8f_wm_GameplayOptions"
 
   StaticText ""
   Option "Force Pistol Start", "m8f_wm_PistolStart", "m8f_wm_YesNo"
-  StaticText "Don't use this with Trailblazer!", "Black"
 
   StaticText ""
   Option "Infinite Ammo for Slot 2", "m8f_wm_InfiniteSlot2Ammo", "m8f_wm_YesNo"
