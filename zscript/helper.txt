@@ -158,7 +158,8 @@ class WMZscriptHelper : Actor
   static void SetZoomFactor(Actor activator
                             , double zoom
                             , string weaponClass
-                            , bool lowerWeapon)
+                            , bool lowerWeapon
+                            , bool isZoomed)
   {
     if (!activator) { return; }
     let player = activator.player;
@@ -173,8 +174,8 @@ class WMZscriptHelper : Actor
     if (lowerWeapon)
     {
       int yShift = 16;
-      if (zoom == 1.0) { w.YAdjust -= yShift; }
-      else             { w.YAdjust += yShift; }
+      if (!isZoomed) { w.YAdjust -= yShift; }
+      else           { w.YAdjust += yShift; }
     }
   }
 
