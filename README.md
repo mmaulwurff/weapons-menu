@@ -47,10 +47,10 @@ What is Weapon Menu Plus?
 
 Weapon menu supports every possible weapon set in Universal Mode.
 
-When loaded with a mod without extended support (see below), Universal
-Mode is engaged automatically. The only difference between Universal
-Mode and Extended Support Mode is that not acquired weapons cannot be
-shown in the menu in Universal Mode.
+When loaded with a mod without Extended Support (see below), Universal
+Mode is engaged automatically. Unlike between Universal Mode, Extended
+Support Mode provides fine-tuned weapon tags and an ability to show
+weapons that player has not acquired yet.
 
 ## Mods with extended support
 
@@ -60,7 +60,6 @@ shown in the menu in Universal Mode.
 1. [Beautiful Doom 6.3.2](https://forum.zdoom.org/viewtopic.php?f=43&t=50004)
 1. [Final Doomer 2.4](https://forum.zdoom.org/viewtopic.php?f=43&t=55061)
 1. [Faspons (Feb 24)](https://forum.zdoom.org/viewtopic.php?f=43&t=48985)
-1. [HXRTC Project Final Edition (Revised 17 feb 2018)](https://forum.zdoom.org/viewtopic.php?f=43&t=48074)
 1. [Kriegsland: Blutorden (2.3 04/02/18)](https://forum.zdoom.org/viewtopic.php?f=43&t=57053)
 1. [Complex Doom V27a3](https://forum.zdoom.org/viewtopic.php?f=43&t=58535)
 1. [Weapons of Saturn](https://forum.zdoom.org/viewtopic.php?f=43&t=36821) (05/08/2018)
