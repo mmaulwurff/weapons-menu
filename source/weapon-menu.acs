@@ -1014,6 +1014,7 @@ script "ScrollNextWeapon" (void)
 {
   if (IsInventory())
   {
+    if (nInventoryItems == 0) { terminate; }
     int oldHighlighted = highlightedInventory;
     highlightedInventory = (highlightedInventory + 1) % nInventoryItems;
     if (oldHighlighted != highlightedInventory)
@@ -1092,6 +1093,7 @@ script "ScrollPreviousWeapon" (void)
 {
   if (IsInventory())
   {
+    if (nInventoryItems == 0) { terminate; }
     int oldHighlighted = highlightedInventory;
     highlightedInventory = (highlightedInventory + nInventoryItems - 1)
       % nInventoryItems;
@@ -1830,6 +1832,8 @@ function void WM_UpdateInventoryMenu(void)
 
 function void WM_PrintInventoryMenu(void)
 {
+  WM_ClearScreen();
+
   int playerN = PlayerNumber();
   bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
   if (disableOutput) { return; }
@@ -1843,6 +1847,12 @@ function void WM_PrintInventoryMenu(void)
   int xStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuX");
   int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
   int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
+
+  if (nInventoryItems == 0)
+  {
+    HudMessage(s:"[Inventory is empty]";
+               HUDMSG_PLAIN, msgIdWeapon, availableColor, xStart, yStart, 0);
+  }
 
   int stepMultiplied = (step * stepMultiplier) >> 16;
 
