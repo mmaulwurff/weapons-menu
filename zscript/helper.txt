@@ -85,26 +85,43 @@ class WMZscriptHelper : Actor
     if (!activator || !activator.player) { return; }
 
     string inventoryContents = "";
-    for (let inv = activator.player.mo.Inv; inv; inv = inv.Inv)
+    int nClasses = AllActorClasses.Size();
+
+    for (int i = 0; i < nClasses; ++i)
     {
-      // [argv] look through the player pawn's inventory for weapons
-      if (inv.bINVBAR)
-      {
-        string className = inv.GetClassName();
-        string tag       = SeparateCamelCase(inv.GetTag());
-        int amount       = inv.Amount;
-        if (amount > 0)
-        {
-          inventoryContents.AppendFormat("%s>%s> [%d]>", className, tag, amount);
-        }
-        else
-        {
-          inventoryContents.AppendFormat("%s>%s>>", className, tag);
-        }
-      }
+      let type = (class<Inventory>)(AllActorClasses[i]);
+      if (type == null) { continue; }
+
+      readonly<Inventory> inv = GetDefaultByType(type);
+      if (!inv.bINVBAR || inv.bAUTOACTIVATE) { continue; }
+
+      string className = inv.GetClassName();
+      string tag       = SeparateCamelCase(inv.GetTag());
+      inventoryContents.AppendFormat("%s>%s>", className, tag);
     }
 
     SendResultString(activator, inventoryContents);
+  }
+
+  static void GetSelectedInventory(Actor activator)
+  {
+    if (!activator || !activator.player) { return; }
+    PlayerPawn player = PlayerPawn(activator);
+    if (player.InvSel != null)
+    {
+      SendResultString(activator, player.InvSel.GetClassName());
+    }
+    else
+    {
+      SendResultString(activator, "wm_none");
+    }
+  }
+
+  static void SetSelectedInventory(Actor activator, string itemClass)
+  {
+    if (!activator || !activator.player) { return; }
+    PlayerPawn player = PlayerPawn(activator);
+    player.InvSel = player.FindInventory(itemClass);
   }
 
   static void GetWeaponList(Actor activator)

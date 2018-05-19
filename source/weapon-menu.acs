@@ -61,15 +61,12 @@ bool isZoomed;
 
 // Inventory variables section /////////////////////////////////////////////////
 
-int highlightedInventory = 0;
-str highlightedInventoryClass;
 int nInventoryItems;
 
-#define N_INVENTORY_ITEMS 100
+#define N_INVENTORY_ITEMS 250
 
 str inventoryClasses[N_INVENTORY_ITEMS];
 str inventoryNames  [N_INVENTORY_ITEMS];
-str inventoryAmounts[N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
@@ -190,6 +187,7 @@ function void WM_EnterEnabled(void)
   WM_SetupAddons();
   WM_UpdateIsInInventory();
   WM_InitApiCvars();
+  WM_FillInventoryItems();
 
   if (IsAlwaysShow()) { WM_ChangeState(STATE_CLOSED_VISIBLE); }
   else                { WM_ChangeState(STATE_CLOSED); }
@@ -932,7 +930,6 @@ script "ShowWeaponMenu" ENTER
 
       if (IsInventory())
       {
-        WM_UpdateInventoryMenu();
         WM_PrintInventoryMenu();
       }
 
@@ -994,7 +991,15 @@ script "ToggleWeaponMenu" (int closeWithoutAction)
     }
     else
     {
-      UseInventory(highlightedInventoryClass);
+      str selectedInventory = WM_GetSelectedInventory();
+      if (StrCmp(selectedInventory, "wm_none") != 0)
+      {
+        UseInventory(selectedInventory);
+      }
+      else
+      {
+        WM_ChangeState(STATE_CLOSED);
+      }
     }
     terminate;
   }
@@ -1019,18 +1024,78 @@ function void WM_ToggleWeaponMenu(void)
   }
 }
 
+function int WM_FindSelectedInventoryIndex(void)
+{
+  // find currently selected
+  str selectedInventoryClass = WM_GetSelectedInventory();
+  for (int i = 0; i < nInventoryItems; ++i)
+  {
+    if (StrCmp(selectedInventoryClass, inventoryClasses[i]) == 0)
+    {
+      return i;
+    }
+  }
+  return ERROR_NOT_FOUND;
+}
+
+function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
+{
+  for (int i = 1; i < nInventoryItems; ++i)
+  {
+    int availableIndex = (selectedInventoryIndex + i) % nInventoryItems;
+    if (CheckInventory(inventoryClasses[availableIndex]))
+    {
+      return availableIndex;
+    }
+  }
+  return ERROR_NOT_FOUND;
+}
+
+function int WM_FindPrevAvailableInventory(int selectedInventoryIndex)
+{
+  for (int i = 1; i < nInventoryItems; ++i)
+  {
+    int availableIndex = (selectedInventoryIndex + nInventoryItems - i) % nInventoryItems;
+    if (CheckInventory(inventoryClasses[availableIndex]))
+    {
+      return availableIndex;
+    }
+  }
+  return ERROR_NOT_FOUND;
+}
+
+function void WM_SetSelectedInventory(int selectedIndex, int availableIndex)
+{
+  if (selectedIndex == availableIndex || availableIndex == ERROR_NOT_FOUND) { return; }
+
+  WM_PlaySwitchSound();
+  str inventoryClass = inventoryClasses[availableIndex];
+  ScriptCall("WMZscriptHelper", "SetSelectedInventory", inventoryClass);
+}
+
+function void WM_SelectNextInventory(void)
+{
+  int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
+  if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
+
+  int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex);
+  WM_SetSelectedInventory(selectedInventoryIndex, nextAvailableInventoryIndex);
+}
+
+function void WM_SelectPreviousInventory(void)
+{
+  int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
+  if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
+
+  int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex);
+  WM_SetSelectedInventory(selectedInventoryIndex, prevAvailableInventoryIndex);
+}
+
 script "ScrollNextWeapon" (void)
 {
   if (IsInventory())
   {
-    if (nInventoryItems == 0) { terminate; }
-    int oldHighlighted = highlightedInventory;
-    highlightedInventory = (highlightedInventory + 1) % nInventoryItems;
-    if (oldHighlighted != highlightedInventory)
-    {
-      WM_PlaySwitchSound();
-      highlightedInventoryClass = inventoryClasses[highlightedInventory];
-    }
+    WM_SelectNextInventory();
     WM_PrintInventoryMenu();
     terminate;
   }
@@ -1102,15 +1167,7 @@ script "ScrollPreviousWeapon" (void)
 {
   if (IsInventory())
   {
-    if (nInventoryItems == 0) { terminate; }
-    int oldHighlighted = highlightedInventory;
-    highlightedInventory = (highlightedInventory + nInventoryItems - 1)
-      % nInventoryItems;
-    if (oldHighlighted != highlightedInventory)
-    {
-      WM_PlaySwitchSound();
-      highlightedInventoryClass = inventoryClasses[highlightedInventory];
-    }
+    WM_SelectPreviousInventory();
     WM_PrintInventoryMenu();
     terminate;
   }
@@ -1726,7 +1783,6 @@ script "WM_InventoryMenu" (void)
   }
   else
   {
-    WM_UpdateInventoryMenu();
     if (nInventoryItems != 0)
     {
       WM_ChangeState(STATE_INVENTORY);
@@ -1738,7 +1794,7 @@ script "WM_InventoryMenu" (void)
   }
 }
 
-function void WM_UpdateInventoryMenu(void)
+function void WM_FillInventoryItems(void)
 {
   ScriptCall("WMZScriptHelper", "GetInventoryList");
 
@@ -1751,7 +1807,6 @@ function void WM_UpdateInventoryMenu(void)
   str currentToken = "";
   int iArray = 0;
 
-  int prevHighlightedIndex = -1;
   for (int i = 0; i < inventoryContentsLength && current < N_INVENTORY_ITEMS; ++i)
   {
     int character = GetChar(inventoryContents, i);
@@ -1765,16 +1820,11 @@ function void WM_UpdateInventoryMenu(void)
       {
       case 0:
         inventoryClasses[current] = currentToken;
-        if (StrCmp(highlightedInventoryClass, currentToken) == 0)
-        {
-          prevHighlightedIndex = current;
-        }
         break;
-      case 1: inventoryNames[current] = currentToken; break;
-      case 2: inventoryAmounts[current] = currentToken; ++current; break;
+      case 1: inventoryNames[current] = currentToken; ++current; break;
       }
 
-      iArray = (iArray + 1) % 3;
+      iArray = (iArray + 1) % 2;
       currentToken = "";
     }
   }
@@ -1782,26 +1832,11 @@ function void WM_UpdateInventoryMenu(void)
   /*
   for (int j = 0; j < current; ++j)
   {
-    Log(s:inventoryClasses[j],
-        s:" : ", s:inventoryNames[j],
-        s:" : ", s:inventoryAmounts[j]);
+    Log(s:inventoryClasses[j], s:" : ", s:inventoryNames[j]);
   }
   ///*///
 
   nInventoryItems = current;
-
-  if (nInventoryItems != 0)
-  {
-    if (prevHighlightedIndex == -1)
-    {
-      highlightedInventory = 0;
-      highlightedInventoryClass = inventoryClasses[highlightedInventory];
-    }
-    else
-    {
-      highlightedInventory = prevHighlightedIndex;
-    }
-  }
 }
 
 function void WM_PrintInventoryMenu(void)
@@ -1822,12 +1857,6 @@ function void WM_PrintInventoryMenu(void)
   int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
   int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
 
-  if (nInventoryItems == 0)
-  {
-    HudMessage(s:"[Inventory is empty]";
-               HUDMSG_PLAIN, msgIdWeapon, availableColor, xStart, yStart, 0);
-  }
-
   int stepMultiplied = (step * stepMultiplier) >> 16;
 
   int iBegin;
@@ -1836,16 +1865,34 @@ function void WM_PrintInventoryMenu(void)
   if (highToLow) {iBegin = nInventoryItems-1; iEnd = -1;              iStep = -1;}
   else           {iBegin = 0;                 iEnd = nInventoryItems; iStep =  1;}
 
+  str selectedInventoryClass = WM_GetSelectedInventory();
   int position = 0;
   for (int i = iBegin; i != iEnd; i += iStep)
   {
-    int color;
-    if (i == highlightedInventory) { color = highlightedColor; }
-    else                           { color = availableColor;   }
+    int inventoryClass = inventoryClasses[i];
+    int amount = CheckInventory(inventoryClass);
+    if (amount == 0) { continue; }
 
-    WM_PrintInventoryItem(i, position, color, xStart, yStart, stepMultiplied);
+    int color;
+    if (StrCmp(inventoryClass, selectedInventoryClass) == 0)
+    {
+      color = highlightedColor;
+    }
+    else
+    {
+      color = availableColor;
+    }
+
+    WM_PrintInventoryItem(i, position, color, xStart, yStart, stepMultiplied, amount);
     ++position;
   }
+
+  if (position == 0)
+  {
+    HudMessage(s:"[Inventory is empty]";
+               HUDMSG_PLAIN, msgIdWeapon, availableColor, xStart, yStart, 0);
+  }
+
 }
 
 function void WM_PrintInventoryItem(
@@ -1854,14 +1901,19 @@ function void WM_PrintInventoryItem(
   int color,
   int xStart,
   int yStart,
-  int stepMultiplied
+  int stepMultiplied,
+  int amount
 )
 {
   int id = msgIdWeapon + i;
   int y = yStart + position * stepMultiplied;
   int x = xStart;
 
-  str itemString = StrParam(s:inventoryNames[i], s:inventoryAmounts[i]);
+  str itemString;
+
+  if (amount == 1) { itemString = inventoryNames[i]; }
+  else { itemString = StrParam(s:inventoryNames[i], s:" [", d:amount, s:"]"); }
+
   HudMessage(s:" ", s:itemString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
 }
 
@@ -2070,15 +2122,21 @@ function bool WM_SlotIsHigher(int slot1, int slot2)
 
 str quickInventoryItems[N_QUICK_INVENTORY_ITEMS];
 
+function str WM_GetSelectedInventory(void)
+{
+  ScriptCall("WMZscriptHelper", "GetSelectedInventory");
+  int playerN = PlayerNumber();
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}
+
 script "WM_MarkAsQuickInventoryItem" (int n)
 {
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
   if (!IsInventory()) { terminate; }
 
-  quickInventoryItems[n] = highlightedInventoryClass;
-  str inventoryName = inventoryNames[highlightedInventory];
-  Log(s:inventoryName, s:" is marked as quick access #", i:n + 1);
+  quickInventoryItems[n] = WM_GetSelectedInventory();
+  Log(s:"Currently selected item is marked as quick access #", i:n + 1);
 }
 
 script "WM_UseQuickInventoryItem" (int n)
