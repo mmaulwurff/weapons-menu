@@ -874,12 +874,12 @@ function bool WM_IsOpenOnScroll(void)
 function bool WM_IsMelee(void)
 {
   if (selectedWeapon == WEAPON_HOLSTERED) return true;
+  if (WM_GetWeaponSlot(selectedWeapon) != 1) return false;
 
   int playerN = PlayerNumber();
   int isSlot1Melee = !GetUserCVar(playerN, "m8f_wm_IsNotSlot1Melee");
 
-  if (isSlot1Melee && WM_GetWeaponSlot(selectedWeapon) == 1) return true;
-  return false;
+  return isSlot1Melee;
 }
 
 // Scripts section /////////////////////////////////////////////////////////////
@@ -900,6 +900,10 @@ script "ShowWeaponMenu" ENTER
 
   int playerN = PlayerNumber();
   int oldInstant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
+
+  int distanceCheckTid = UniqueTID();
+  int laserColor = GetUserCVar(playerN, "m8f_wm_LaserColor");
+  bool showLaserSight = GetUserCVar(playerN, "m8f_wm_ShowLaserSight");
 
   // options
   while (true)
@@ -931,6 +935,9 @@ script "ShowWeaponMenu" ENTER
         WM_UpdateInventoryMenu();
         WM_PrintInventoryMenu();
       }
+
+      laserColor = GetUserCVar(playerN, "m8f_wm_LaserColor");
+      showLaserSight = GetUserCVar(playerN, "m8f_wm_ShowLaserSight");
     }
 
     /* debug output
@@ -963,10 +970,9 @@ script "ShowWeaponMenu" ENTER
       }
     }
 
-    bool showLaserSight = GetUserCVar(playerN, "m8f_wm_ShowLaserSight");
-    if (showLaserSight && !WM_IsMelee())
+    if (showLaserSight) if (!WM_IsMelee())
     {
-      WM_ShowLaserSight();
+      WM_ShowLaserSight(distanceCheckTid, laserColor);
     }
 
     Delay(1);
@@ -1669,82 +1675,45 @@ script "WM_HolsterWeapon" (void)
 
 #define N_PUFFS 6
 
-str puffsRed[N_PUFFS] =
+str puffs[3][N_PUFFS] =
 {
-  "WM_Laser5",
-  "WM_Laser0",
-  "WM_Laser1",
-  "WM_Laser2",
-  "WM_Laser3",
-  "WM_Laser4",
+  { "WM_Laser5", "WM_Laser0", "WM_Laser1", "WM_Laser2", "WM_Laser3", "WM_Laser4" },
+  { "WM_LaserG5", "WM_LaserG0", "WM_LaserG1", "WM_LaserG2", "WM_LaserG3", "WM_LaserG4"},
+  { "WM_LaserB5", "WM_LaserB0", "WM_LaserB1", "WM_LaserB2", "WM_LaserB3", "WM_LaserB4"},
 };
 
-str puffsBlue[N_PUFFS] =
-{
-  "WM_LaserB5",
-  "WM_LaserB0",
-  "WM_LaserB1",
-  "WM_LaserB2",
-  "WM_LaserB3",
-  "WM_LaserB4",
-};
+#define MAX_DISTANCE 4096.0
+#define PUFF_FLAGS FHF_NORANDOMPUFFZ | FHF_NOIMPACTDECAL
 
-str puffsGreen[N_PUFFS] =
-{
-  "WM_LaserG5",
-  "WM_LaserG0",
-  "WM_LaserG1",
-  "WM_LaserG2",
-  "WM_LaserG3",
-  "WM_LaserG4",
-};
-
-function void WM_ShowLaserSight(void)
+function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
 {
   int angle = GetActorAngle(0);
   int pitch = GetActorPitch(0);
-  int distanceCheckTid = UniqueTID();
-  int maxDistance = 4096.0;
-  LineAttack(0, angle, pitch, 0, "WM_InvisiblePuff", "None", maxDistance,
-             FHF_NORANDOMPUFFZ | FHF_NOIMPACTDECAL, distanceCheckTid);
-  int distanceX = GetActorX(distanceCheckTid) >> 10;
-  int distanceY = GetActorY(distanceCheckTid) >> 10;
-  int myX = GetActorX(0) >> 10;
-  int myY = GetActorY(0) >> 10;
-  int distanceXDelta = (distanceX - myX);
-  int distanceYDelta = (distanceY - myY);
-  int distance = FixedMul(distanceXDelta, distanceXDelta) +
-    FixedMul(distanceYDelta, distanceYDelta);
+  LineAttack(0, angle, pitch, 0, "WM_InvisiblePuff", "None", MAX_DISTANCE,
+             PUFF_FLAGS, distanceCheckTid);
 
-  if (distance < 30) { return; }
+  int distance = VectorLength(GetActorX(distanceCheckTid) - GetActorX(0),
+                              GetActorY(distanceCheckTid) - GetActorY(0));
+
+  if (distance < 1572864) { return; }
 
   int iPuff = 0;
-  if      (distance <   4000) { iPuff = 1; }
-  else if (distance <  15000) { iPuff = 2; }
-  else if (distance <  60000) { iPuff = 3; }
-  else if (distance < 180000) { iPuff = 4; }
-  else                        { iPuff = 5; }
+  if      (distance <  10485760) { iPuff = 1; }
+  else if (distance <  26214400) { iPuff = 2; }
+  else if (distance <  52428800) { iPuff = 3; }
+  else if (distance < 104857600) { iPuff = 4; }
+  else                           { iPuff = 5; }
 
   if (zoomFactor >= 1.8) { --iPuff; }
 
-  int playerN = PlayerNumber();
-  str laserColor = GetUserCVar(playerN, "m8f_wm_LaserColor");
-
-  str puff;
-  switch (laserColor)
-    {
-    case 0: puff = puffsRed[iPuff]; break;
-    case 1: puff = puffsGreen[iPuff]; break;
-    case 2: puff = puffsBlue[iPuff]; break;
-    }
+  str puff = puffs[laserColor][iPuff];
 
   /*
   Log(i:distance);
   Log(s:puff);
   ///*///
 
-  LineAttack(0, angle, pitch, 0, puff, "None", maxDistance,
-             FHF_NORANDOMPUFFZ | FHF_NOIMPACTDECAL);
+  LineAttack(0, angle, pitch, 0, puff, "None", MAX_DISTANCE, PUFF_FLAGS);
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
