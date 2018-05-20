@@ -397,7 +397,9 @@ function void WM_UpdateMenu(void)
 function void WM_ClearScreen(void)
 {
   int id  = msgIdWeapon;
-  int end = msgIdWeapon + MAX_WEAPONS_NUMBER;
+  int end = msgIdWeapon;
+  if (nInventoryItems > weaponCount) { end += weaponCount; }
+  else                               { end += nInventoryItems; }
 
   do // when menu is disabled, weapon count is 0, so always clear first message.
   {
@@ -1857,7 +1859,7 @@ function void WM_PrintInventoryMenu(void)
   int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
   int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
 
-  int stepMultiplied = (step * stepMultiplier) >> 16;
+  int stepMultiplied = (0.05 * stepMultiplier) >> 16;
 
   int iBegin;
   int iEnd;
@@ -1905,7 +1907,7 @@ function void WM_PrintInventoryItem(
   int amount
 )
 {
-  int id = msgIdWeapon + i;
+  int id = msgIdWeapon + position;
   int y = yStart + position * stepMultiplied;
   int x = xStart;
 
@@ -2129,14 +2131,23 @@ function str WM_GetSelectedInventory(void)
   return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
 
+function str WM_GetInventoryTag(str itemClass)
+{
+  ScriptCall("WMZscriptHelper", "GetInventoryTag", itemClass);
+  int playerN = PlayerNumber();
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}
+
 script "WM_MarkAsQuickInventoryItem" (int n)
 {
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
-  if (!IsInventory()) { terminate; }
+  str selectedInventory = WM_GetSelectedInventory();
+  if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }
 
-  quickInventoryItems[n] = WM_GetSelectedInventory();
-  Log(s:"Currently selected item is marked as quick access #", i:n + 1);
+  quickInventoryItems[n] = selectedInventory;
+  str tag = WM_GetInventoryTag(selectedInventory);
+  Log(s:tag, s:": marked as quick access #", i:n + 1);
 }
 
 script "WM_UseQuickInventoryItem" (int n)

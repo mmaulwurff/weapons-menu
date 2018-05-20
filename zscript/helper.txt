@@ -103,6 +103,13 @@ class WMZscriptHelper : Actor
     SendResultString(activator, inventoryContents);
   }
 
+  static void GetInventoryTag(Actor activator, string itemClass)
+  {
+    if (!activator) { return; }
+    string tag = activator.FindInventory(itemClass).GetTag();
+    SendResultString(activator, tag);
+  }
+
   static void GetSelectedInventory(Actor activator)
   {
     if (!activator || !activator.player) { return; }
