@@ -4,6 +4,13 @@ class WM_AmmoEventHandler : EventHandler
   {
     Actor thing = e.thing;
 
+    CVar disableGibbingCVar = CVar.FindCVar("m8f_wm_DisableGibbing");
+    bool disableGibbing = disableGibbingCVar.GetInt();
+    if (disableGibbing)
+    {
+      thing.bNOEXTREMEDEATH = true;
+    }
+
     Inventory i = Inventory(thing);
     if (i == null) { return; }
     if (i.owner) { return; }

@@ -213,6 +213,9 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText "up after new level start.", "Black"
 
   StaticText ""
+  Option "Disable gibbing", "m8f_wm_DisableGibbing", "m8f_wm_YesNo"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"

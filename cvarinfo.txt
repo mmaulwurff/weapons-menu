@@ -71,6 +71,8 @@ user string m8f_wm_QuickInventoryItem1;
 user string m8f_wm_QuickInventoryItem2;
 user string m8f_wm_QuickInventoryItem3;
 
+server bool m8f_wm_DisableGibbing = false;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
