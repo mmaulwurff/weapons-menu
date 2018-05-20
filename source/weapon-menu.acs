@@ -1598,6 +1598,7 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
 
 bool returnToLast;
 int returnTo;
+bool wasZoomed;
 bool favoriteFiring = false;
 
 script "WM_FireFavoriteWeapon" (void)
@@ -1614,6 +1615,7 @@ script "WM_FireFavoriteWeapon" (void)
   if (!CheckInventory(favoriteClass)) { terminate; }
   favoriteFiring = true;
 
+  wasZoomed = WM_IsZoomed();
   returnToLast = (favorite != selectedWeapon);
   returnTo = selectedWeapon;
   selectedWatchEnabled = false;
@@ -1684,6 +1686,7 @@ script "WM_FireFavoriteSwitchBack" (void)
     if (instant) { WM_InstantSwitch(true); }
     WM_SelectWeapon(returnTo, false);
     if (instant) { Delay(1); WM_InstantSwitch(false); }
+    if (wasZoomed) { WM_ToggleZoom(); }
   }
 
   selectedWatchEnabled = true;
