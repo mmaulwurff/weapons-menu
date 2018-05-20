@@ -2122,8 +2122,6 @@ function bool WM_SlotIsHigher(int slot1, int slot2)
 
 #define N_QUICK_INVENTORY_ITEMS 3
 
-str quickInventoryItems[N_QUICK_INVENTORY_ITEMS];
-
 function str WM_GetSelectedInventory(void)
 {
   ScriptCall("WMZscriptHelper", "GetSelectedInventory");
@@ -2138,6 +2136,29 @@ function str WM_GetInventoryTag(str itemClass)
   return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
 
+function str WM_GetQuickInventoryCVarName(int n)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { return ""; }
+
+  str cvarName = StrParam(s:"m8f_wm_QuickInventoryItem", d:n);
+  return cvarName;
+}
+
+function str WM_GetQuickInventoryItem(int n)
+{
+  str cvarName = WM_GetQuickInventoryCVarName(n);
+  int playerN = PlayerNumber();
+  str quickInventory = GetUserCVarString(playerN, cvarName);
+  return quickInventory;
+}
+
+function void WM_SetQuickInventoryItem(int n, str quickInventory)
+{
+  str cvarName = WM_GetQuickInventoryCVarName(n);
+  int playerN = PlayerNumber();
+  SetUserCVarString(playerN, cvarName, quickInventory);
+}
+
 script "WM_MarkAsQuickInventoryItem" (int n)
 {
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
@@ -2145,7 +2166,7 @@ script "WM_MarkAsQuickInventoryItem" (int n)
   str selectedInventory = WM_GetSelectedInventory();
   if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }
 
-  quickInventoryItems[n] = selectedInventory;
+  WM_SetQuickInventoryItem(n, selectedInventory);
   str tag = WM_GetInventoryTag(selectedInventory);
   Log(s:tag, s:": marked as quick access #", i:n + 1);
 }
@@ -2154,7 +2175,7 @@ script "WM_UseQuickInventoryItem" (int n)
 {
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
-  UseInventory(quickInventoryItems[n]);
+  UseInventory(WM_GetQuickInventoryItem(n));
 }
 
 // Fire Junk Section ///////////////////////////////////////////////////////////

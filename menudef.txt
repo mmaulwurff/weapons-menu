@@ -271,12 +271,11 @@ OptionMenu "m8f_wm_Controls"
   Control "Mark item for quick access #1", "pukename WM_MarkAsQuickInventoryItem 0"
   Control "Mark item for quick access #2", "pukename WM_MarkAsQuickInventoryItem 1"
   Control "Mark item for quick access #3", "pukename WM_MarkAsQuickInventoryItem 2"
-  StaticText "Usage: open inventory menu, highlight desired", "Black"
-  StaticText "item, mark it with assigned key", "Black"
   StaticText ""
   Control "Use quick access item #1", "pukename WM_UseQuickInventoryItem 0"
   Control "Use quick access item #2", "pukename WM_UseQuickInventoryItem 1"
   Control "Use quick access item #3", "pukename WM_UseQuickInventoryItem 2"
+
   StaticText ""
 }
 

@@ -67,6 +67,10 @@ user bool m8f_wm_SlomoOnMenuClose = false;
 user bool m8f_wm_SlomoOnZoomIn    = false;
 user bool m8f_wm_SlomoOnZoomOut   = false;
 
+user string m8f_wm_QuickInventoryItem1;
+user string m8f_wm_QuickInventoryItem2;
+user string m8f_wm_QuickInventoryItem3;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
