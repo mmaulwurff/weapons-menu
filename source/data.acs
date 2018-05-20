@@ -2,7 +2,6 @@
 
 #define MAX_WEAPONS_NUMBER 250
 
-#define AUTO_SET     26
 #define FALLBACK_SET 29
 #define SETS_NUMBER  51
 

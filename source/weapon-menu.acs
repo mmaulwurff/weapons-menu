@@ -1570,12 +1570,6 @@ script "WM_PrintInfo" (void)
   else { Log(s:"Weapon Menu Plus - Extended Support Mode"); }
 }
 
-script "WM_ResetAutodetection" (void)
-{
-  int playerN = PlayerNumber();
-  SetUserCVarString(playerN, "M8fWeaponMenuRememberedClass", "");
-}
-
 function str WM_GetAmmoString(str weaponClass, int ammoMode)
 {
   if (ammoMode == 0) { return ""; }
