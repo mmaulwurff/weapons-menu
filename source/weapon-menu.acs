@@ -537,7 +537,7 @@ function void WM_PrintMenu(void)
     break;
 
   case 6:
-    x = 0.5 - (itemCount / 2) * stepMultiplied;
+    x = 0.5 - ((itemCount - 1) * stepMultiplied) / 2;
     xStep = stepMultiplied;
     yStep = 0.0;
     showTags = false;
