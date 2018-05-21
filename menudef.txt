@@ -336,6 +336,7 @@ OptionMenu "m8f_wm_CrossmodOptions"
   Option "Toggle Slomo on Weapon Menu Zoom Out", "m8f_wm_SlomoOnZoomOut",   "OnOff"
   Option "Toggle Slomo on Weapon Menu open",     "m8f_wm_SlomoOnMenuOpen",  "OnOff"
   Option "Toggle Slomo on Weapon Menu close",    "m8f_wm_SlomoOnMenuClose", "OnOff"
+  Option "Toggle Slomo on Quick Access Fire",    "m8f_wm_SlomoOnQuickAccess", "OnOff"
   StaticText "Toggles on Menu close and zoom out are ", "Black"
   StaticText "best used with infinite Slomo.", "Black"
 

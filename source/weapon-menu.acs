@@ -1749,6 +1749,8 @@ script "WM_FireFavoriteWeapon" (void)
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   str favoriteClass = WM_GetWeaponName(favorite);
   if (!CheckInventory(favoriteClass)) { terminate; }
+
+  WM_MaybeToggleSlomoOnQuick();
   favoriteFiring = true;
 
   wasZoomed = WM_IsZoomed();
@@ -2425,6 +2427,16 @@ function void WM_MaybeToggleSlomoOnZoomOut(void)
 {
   int playerN = PlayerNumber();
   bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnZoomOut");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnQuick(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnQuickAccess");
   if (slomoOnMenuOpen)
   {
     SetCVar("m8f_sm_externaltoggle", 1);
