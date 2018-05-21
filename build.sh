@@ -17,6 +17,7 @@ zip weapon-menu.pk3 \
     sounds/WMTHROW.lmp \
     source/data.acs \
     source/weapon-menu.acs \
+    sprites/NOWEAPON.png \
     sprites/WDOTA0.png \
     sprites/WDOTB0.png \
     sprites/WDOTG0.png \

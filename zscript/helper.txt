@@ -275,6 +275,7 @@ class WMZscriptHelper : Actor
     if (!w) { return; }
 
     string icon = TexMan.GetName(w.SpawnState.GetSpriteTexture(0));
+    if (icon == "TNT1A0") { icon = "NOWEAPONOFF"; }
     SendResultString(a, icon);
   }
 }
