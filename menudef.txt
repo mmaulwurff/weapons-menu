@@ -307,6 +307,9 @@ OptionMenu "m8f_wm_GZDoomWeapon"
   Option "Switch weapon on pickups", "neverswitchonpickup", "OffOn"
   Slider "Autoaim", "autoaim", 0.0, 35.0, 35.0
 
+  Option "$CMPTMNU_MISSILECLIP", "compat_MISSILECLIP", "YesNo"
+  StaticText "Rockets fly through decorations", "Black"
+
   StaticText ""
   StaticText "Display", "Blue"
   Option "$DSPLYMNU_ROCKETTRAILS", "cl_rockettrails", "RocketTrailTypes"
