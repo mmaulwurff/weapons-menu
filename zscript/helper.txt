@@ -265,14 +265,16 @@ class WMZscriptHelper : Actor
     return (65 <= code && code <= 90);
   }
 
-  static void GetWeaponIcon(Actor activator, string weaponClass)
+  static void GetWeaponIcon(Actor a, string weaponClass)
   {
-    if (!activator) { return; }
+    if (!a) { return; }
 
-    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (weaponClass == "Artifact") { SendResultString(a, "BSKLA0"); return; }
+
+    Weapon w = Weapon(a.FindInventory(weaponClass));
     if (!w) { return; }
 
     string icon = TexMan.GetName(w.SpawnState.GetSpriteTexture(0));
-    SendResultString(activator, icon);
+    SendResultString(a, icon);
   }
 }
