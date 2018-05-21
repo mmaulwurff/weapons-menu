@@ -575,29 +575,39 @@ function void WM_PrintMenu(void)
     case 9: infoX =  1.0;  break;
     }
 
-    if (selectedWeapon != WEAPON_HOLSTERED)
+    str ammo;
+    if (selectedWeapon != WEAPON_HOLSTERED && selectedWeapon != highlightedWeapon)
     {
-      str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
-      HudMessage(s:" Selected: ", s:selectedName, s:" ";
+      str message = WM_GetPrintableWeaponName(selectedWeapon);
+      if (ammoMode != 0)
+      {
+        str selectedClass = WM_GetWeaponName(selectedWeapon);
+        ammo = WM_GetAmmoString(selectedClass, ammoMode);
+        if (StrLen(ammo) != 0)
+        {
+          message = StrParam(s:message, s:" - ", s:ammo);
+        }
+      }
+      HudMessage(s:" ", s:message, s:" ";
                  HUDMSG_PLAIN, msgIdSelected,
-                 selectedWeaponColor, infoX, y + stepMultiplied * 2, 0);
+                 selectedWeaponColor, infoX, y + stepMultiplied * 4, 0);
     }
 
     str highlightedName = WM_GetPrintableWeaponName(highlightedWeapon);
-    str message = highlightedName;
+    message = highlightedName;
 
     if (ammoMode != 0)
     {
       str highlightedClass = WM_GetWeaponName(highlightedWeapon);
-      str ammo = WM_GetAmmoString(highlightedClass, ammoMode);
+      ammo = WM_GetAmmoString(highlightedClass, ammoMode);
       if (StrLen(ammo) != 0)
       {
-        message = StrParam(s:message, s:" ", s:ammo);
+        message = StrParam(s:message, s:" - ", s:ammo);
       }
     }
-    HudMessage(s:" Highlighted: ", s:message, s:" ";
+    HudMessage(s:" ", s:message, s:" ";
                HUDMSG_PLAIN, msgIdHighlighted,
-               highlightedWeaponColor, infoX, y + stepMultiplied * 4, 0);
+               highlightedWeaponColor, infoX, y + stepMultiplied * 2, 0);
   }
   else
   {
