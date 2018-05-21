@@ -285,6 +285,7 @@ OptionMenu "m8f_wm_Commands"
   StaticText ""
   StaticText "Game", "Blue"
   SafeCommand "Restart this level", "wm_restart_this_level"
+  SafeCommand "Next level", "wm_next_level"
 
   StaticText ""
   StaticText "Debug", "Blue"

@@ -30,6 +30,7 @@ alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavori
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
 alias wm_restart_this_level "map *; menuconsole; menuconsole"
+alias wm_next_level "nextmap; menuconsole; menuconsole"
 
 defaultbind m toggle_menu
 defaultbind n next_weapon_menu
