@@ -264,4 +264,15 @@ class WMZscriptHelper : Actor
     int code = letter.CharCodeAt(0);
     return (65 <= code && code <= 90);
   }
+
+  static void GetWeaponIcon(Actor activator, string weaponClass)
+  {
+    if (!activator) { return; }
+
+    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (!w) { return; }
+
+    string icon = TexMan.GetName(w.SpawnState.GetSpriteTexture(0));
+    SendResultString(activator, icon);
+  }
 }

@@ -11,6 +11,7 @@
 #define msgIdError       messageIdStart + MAX_WEAPONS_NUMBER * 2 + 2
 #define msgIdAmmo        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 3
 #define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
+#define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5
 
 #define ERROR_NOT_FOUND  -1
 // numbers [-1, -9] are reserved for error codes
@@ -422,6 +423,7 @@ function void WM_ClearScreen(void)
 
   HudMessage(s:""; HUDMSG_PLAIN, msgIdSelected,    0, 0, 0, 0);
   HudMessage(s:""; HUDMSG_PLAIN, msgIdHighlighted, 0, 0, 0, 0);
+  HudMessage(s:""; HUDMSG_PLAIN, msgIdIcon,        0, 0, 0, 0);
 }
 
 function void WM_PrintMenu(void)
@@ -445,6 +447,7 @@ function void WM_PrintMenu(void)
   int  ammoMode       = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
   int  displayMode    = GetUserCVar(playerN, "m8f_wm_DisplayMode");
   int  y              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
+  int  yStart = y;
   int  stepMultiplier = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
   int  stepMultiplied = (step * stepMultiplier) >> 16;
 
@@ -456,6 +459,7 @@ function void WM_PrintMenu(void)
   int  xStep;
   int  yStep;
   int  itemCount = 0; // used only in 6 and 9
+  int  iconX;
 
   if (displayMode == 6 || displayMode == 9) // dry run to count items
   {
@@ -479,6 +483,7 @@ function void WM_PrintMenu(void)
     showTags = true;
     slotOnLeft = true;
     withSlot = false;
+    iconX = 0.08;
     break;
 
   case 1:
@@ -488,6 +493,7 @@ function void WM_PrintMenu(void)
     showTags = false;
     slotOnLeft = true;
     withSlot = false;
+    iconX = 0.08;
     break;
 
   case 2:
@@ -497,6 +503,7 @@ function void WM_PrintMenu(void)
     showTags = false;
     slotOnLeft = true;
     withSlot = false;
+    iconX = 0.08;
     break;
 
   case 3:
@@ -506,6 +513,7 @@ function void WM_PrintMenu(void)
     showTags = true;
     slotOnLeft = true;
     withSlot = true;
+    iconX = -0.5;
     break;
 
   case 4:
@@ -515,6 +523,7 @@ function void WM_PrintMenu(void)
     showTags = true;
     slotOnLeft = false;
     withSlot = true;
+    iconX = -0.5;
     break;
 
   case 5:
@@ -524,6 +533,7 @@ function void WM_PrintMenu(void)
     showTags = false;
     slotOnLeft = true;
     withSlot = false;
+    iconX = -0.5;
     break;
 
   case 6:
@@ -533,6 +543,7 @@ function void WM_PrintMenu(void)
     showTags = false;
     slotOnLeft = true;
     withSlot = false;
+    iconX = -0.5;
     break;
 
   case 7:
@@ -542,6 +553,7 @@ function void WM_PrintMenu(void)
     showTags = true;
     slotOnLeft = false;
     withSlot = false;
+    iconX = -0.92;
     break;
 
   case 8:
@@ -551,15 +563,17 @@ function void WM_PrintMenu(void)
     showTags = false;
     slotOnLeft = false;
     withSlot = false;
+    iconX = -0.92;
     break;
 
   case 9:
-    x = 1.0 - itemCount * stepMultiplied;
+    x = 1.0 - (itemCount - 1) * stepMultiplied;
     xStep = stepMultiplied;
     yStep = 0.0;
     showTags = false;
     slotOnLeft = false;
     withSlot = false;
+    iconX = -0.92;
     break;
   }
 
@@ -568,7 +582,7 @@ function void WM_PrintMenu(void)
     int infoX = 0.5;
     switch (displayMode)
     {
-    case 1: infoX = -0.02; break;
+    case 1: infoX = -0.04; break;
     case 2: infoX =  0.0;  break;
     case 5: infoX = -0.52; break;
     case 8: infoX =  0.96; break;
@@ -608,6 +622,7 @@ function void WM_PrintMenu(void)
     HudMessage(s:" ", s:message, s:" ";
                HUDMSG_PLAIN, msgIdHighlighted,
                highlightedWeaponColor, infoX, y + stepMultiplied * 2, 0);
+
   }
   else
   {
@@ -639,6 +654,21 @@ function void WM_PrintMenu(void)
 
     x += xStep;
     y += yStep;
+  }
+
+  int showIcons = GetUserCVar(playerN, "m8f_wm_ShowIcons");
+  if (showIcons)
+  {
+    ScriptCall("WMZscriptHelper", "GetWeaponIcon", WM_GetWeaponName(highlightedWeapon));
+    str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
+    if (StrLen(icon) > 0)
+    {
+      SetFont(icon);
+      HudMessage(s:"A";
+                 HUDMSG_PLAIN, msgIdIcon,
+                 highlightedWeaponColor, iconX, -(yStart - stepMultiplied), 0);
+      WM_SetupFont();
+    }
   }
 }
 

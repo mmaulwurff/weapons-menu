@@ -110,6 +110,10 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText "T - tag, S - slot.", "Black"
 
   StaticText ""
+  Option "Show weapon Icons", "m8f_wm_ShowIcons", "OnOff"
+  StaticText "Experimental: icons may be missing or incorrect", "Black"
+
+  StaticText ""
   StaticText "Sound", "Blue"
   Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
   Option "Play sound on weapon change", "m8f_wm_PlaySoundOnWeaponChange", "OnOff"
