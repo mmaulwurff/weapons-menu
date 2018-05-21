@@ -1,4 +1,3 @@
-user float M8FWeaponMenuXStart = 0.0;
 user float M8FWeaponMenuYStart = 0.0;
 user float M8FWeaponMenuStepMultiplier = 1.0;
 
@@ -6,12 +5,25 @@ user float m8f_wm_InventoryMenuX = 0.0;
 user float m8f_wm_InventoryMenuY = 0.0;
 user float m8f_wm_StepMultiplier = 1.0;
 
-user int M8FWeaponMenuFont = 0;
+// 0 - left,   vertical,   with names                        [VST      ]
+// 1 - left,   vertical,   no names                          [VS       ]
+// 2 - left,   horizontal, no names                          [HS       ]
+// 3 - center, vertical,   with names, numbers on the left   [   VST   ]
+// 4 - center, vertical,   with names, numbers on the right  [   VTS   ]
+// 5 - center, vertical,   no names                          [   VS    ]
+// 6 - center, horizontal, no names                          [   HS    ] ?
+// 7 - right,  vertical,   with names                        [      VTS]
+// 8 - right,  vertical,   no names                          [       VS]
+// 9 - right,  horizontal, no names                          [       HS]
+user int m8f_wm_DisplayMode = 0;
 
-// 0 - vertical with names
-// 1 - vertical without names
-// 2 - horizontal without names
-user int M8fWeaponMenuDisplayMode = 0;
+// 0 - Small Font
+// 1 - Console Font
+// 2 - Big Font
+// 3 - Miniplicity
+// 4 - Miniplicity Condensed
+// 5 - Mementwo
+user int M8FWeaponMenuFont = 5;
 
 user string m8f_wm_LastUsedWeapon = "None";
 user int M8fWeaponMenuFavoriteWeapon = 0;
@@ -129,7 +141,7 @@ user int M8fSelectedWeaponColor     = 3;
 
 user bool M8fWeaponMenuHighToLow = true;
 user bool M8fShowNotAvailable    = true;
-user bool M8fWeaponMenuNumbersLeft = true;
+
 user bool M8fWeaponMenuHighlightSelected = true;
 
 // True if sound is played on highlighing a weapon in menu.

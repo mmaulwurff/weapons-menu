@@ -32,13 +32,6 @@ OptionValue "M8FWeaponMenuFontOptions"
   5, "Mementwo"
 }
 
-OptionValue "M8FWeaponMenuDisplayModeOptions"
-{
-  0, "Vertical with Names"
-  1, "Vertical without Names"
-  2, "Horizontal without Names"
-}
-
 OptionValue "M8FWeaponMenuShowAmmoOptions"
 {
   0, "No"
@@ -75,9 +68,24 @@ OptionValue "m8f_wm_LaserColorOptions"
   2, "Blue"
 }
 
+OptionValue "m8f_wm_DisplayModeOptions"
+{
+  0, "[VST______]"
+  1, "[VS_______]"
+  2, "[HS_______]"
+  3, "[___VST___]"
+  4, "[___VTS___]"
+  5, "[___VS____]"
+  6, "[___HS____]"
+  7, "[______VTS]"
+  8, "[_______VS]"
+  9, "[_______HS]"
+}
+
 OptionMenu "m8f_wm_WeaponMenuOptions"
 {
   Title "Weapon Menu Options"
+  StaticText "Settings will be applied next time you open Weapon Menu", "Black"
 
   StaticText "Display Options", "Blue"
   Option "Available Weapon Color", "M8FAvailableWeaponColor", "TextColors"
@@ -86,33 +94,20 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Selected Weapon Color", "M8FSelectedWeaponColor", "TextColors"
 
   StaticText ""
-  Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
-
-  Option "Slot numbers:", "M8FWeaponMenuNumbersLeft", "M8FWeaponMenuNumbersLeftOptions"
-
-  Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
-  StaticText "Note: forced to Hide in Universal Mode", "Black"
-
-  StaticText ""
-  Option "Display Mode", "M8fWeaponMenuDisplayMode", "M8FWeaponMenuDisplayModeOptions"
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "m8f_wm_YesNo"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
-  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
-
-  StaticText ""
+  Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
   Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
-  ScaleSlider "Text scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
-  StaticText "Also affects Messages scale", "Black"
+  ScaleSlider "GZDoom messages scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
+  Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
+  StaticText "Note: Extended Support only", "Black"
 
   StaticText ""
-  StaticText "Position Options", "Blue"
-  Slider "Menu Horizontal Position", "M8FWeaponMenuXStart", 0.0, 1.0, 0.05, 2
-  StaticText "also affects alignment", "Black"
-
-  StaticText ""
-  Slider "Menu Vertical Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
-  StaticText "note that bottom of menu can", "Black"
-  StaticText "be out of screen with big values", "Black"
+  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
+  Slider "Menu Y Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
+  Option "Display Mode and X Position", "m8f_wm_DisplayMode", "m8f_wm_DisplayModeOptions"
+  StaticText "Legend: V - vertical, H - horizontal,", "Black"
+  StaticText "T - tag, S - slot.", "Black"
 
   StaticText ""
   StaticText "Sound", "Blue"
@@ -125,21 +120,13 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
 
   Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "m8f_wm_YesNo"
   StaticText "Slot keys will open menu only if there", "Black"
-  StaticText "are more than one weapons in slot", "Black"
+  StaticText "are more than one weapon in slot", "Black"
 
   StaticText ""
   Option "Force Universal Mode", "m8f_wm_ForceFallbackMode", "m8f_wm_YesNo"
   StaticText "Use this if mod with Extended Support", "Black"
   StaticText "is not processed properly.", "Black"
   StaticText "Applies on next map", "Black"
-
-  StaticText ""
-  StaticText "Commands", "Blue"
-  Command "Apply settings", "pukename ApplyWeaponMenuSettings"
-  StaticText "Or settings will be applied on next menu opening", "Black"
-
-  StaticText ""
-  Command "Print Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
 }
@@ -298,6 +285,10 @@ OptionMenu "m8f_wm_Commands"
   StaticText ""
   StaticText "Game", "Blue"
   SafeCommand "Restart this level", "wm_restart_this_level"
+
+  StaticText ""
+  StaticText "Debug", "Blue"
+  Command "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
 }

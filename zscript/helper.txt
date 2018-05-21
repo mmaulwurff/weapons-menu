@@ -20,13 +20,13 @@ class WMZscriptHelper : Actor
     Ammo amm1 = w.Ammo1;
     if (amm1)
     {
-      message = String.Format("(%d/%d)", amm1.amount, amm1.maxAmount);
+      message = String.Format("%d/%d", amm1.amount, amm1.maxAmount);
     }
 
     Ammo amm2 = w.Ammo2;
     if (showSecond && amm2 && amm1 != amm2)
     {
-      message = String.Format("%s (%d/%d)", message, amm2.amount, amm2.maxAmount);
+      message = String.Format("%s - %d/%d", message, amm2.amount, amm2.maxAmount);
     }
 
     SendResultString(activator, message);
