@@ -269,13 +269,95 @@ class WMZscriptHelper : Actor
   {
     if (!a) { return; }
 
-    if (weaponClass == "Artifact") { SendResultString(a, "BSKLA0"); return; }
+    // must be sorted!
+    // don't forget to update size!
+    static const string specialIcons[] =
+    {
+      "Artifact", "BSKLA0",
+      "FDAliensBFG9000"        , "ABFGZ0",
+      "FDAliensChaingun"       , "ACHGZ0",
+      "FDAliensChainsaw"       , "ASAWZ0",
+      "FDAliensFist"           , "AFISZ0",
+      "FDAliensPistol"         , "APISZ0",
+      "FDAliensPlasmaRifle"    , "APLAZ0",
+      "FDAliensRocketLauncher" , "AROKZ0",
+      "FDAliensShotgun"        , "ASHTZ0",
+      "FDAliensSuperShotgun"   , "ASSGZ0",
+      "FDBTSXBFG9000"        , "XBFGZ0",
+      "FDBTSXChaingun"       , "XCHGZ0",
+      "FDBTSXChainsaw"       , "XSAWZ0",
+      "FDBTSXFist"           , "XFISZ0",
+      "FDBTSXPistol"         , "XPISZ0",
+      "FDBTSXPlasmaRifle"    , "XPLAZ0",
+      "FDBTSXRocketLauncher" , "XROKZ0",
+      "FDBTSXShotgun"        , "XSHTZ0",
+      "FDBTSXSuperShotgun"   , "XSSGZ0",
+      "FDDoom2BFG9000"        , "DBFGZ0",
+      "FDDoom2Chaingun"       , "DCHGZ0",
+      "FDDoom2Chainsaw"       , "DSAWZ0",
+      "FDDoom2Fist"           , "DFISZ0",
+      "FDDoom2Pistol"         , "DPISZ0",
+      "FDDoom2PlasmaRifle"    , "DPLAZ0",
+      "FDDoom2RocketLauncher" , "DROKZ0",
+      "FDDoom2Shotgun"        , "DSHTZ0",
+      "FDDoom2SuperShotgun"   , "DSSGZ0",
+      "FDJPCPBFG9000"        , "JBFGZ0",
+      "FDJPCPChaingun"       , "JCHGZ0",
+      "FDJPCPFist"           , "JFISZ0",
+      "FDJPCPPistol"         , "JPISZ0",
+      "FDJPCPPlasmaRifle"    , "JPLAZ0",
+      "FDJPCPRocketLauncher" , "JROKZ0",
+      "FDJPCPShotgun"        , "JSHTZ0",
+      "FDJPCPSuperShotgun"   , "JSSGZ0",
+      "FDPlutBFG9000"       , "PBFGZ0",
+      "FDPlutChaingun"      , "PCHGZ0",
+      "FDPlutChainsaw"      , "PSAWZ0",
+      "FDPlutFist"          , "PFISZ0",
+      "FDPlutPistol"        , "PPISZ0",
+      "FDPlutPlasmaRifle"   , "PPLAZ0",
+      "FDPlutRocketLauncher", "PROKZ0",
+      "FDPlutShotgun"       , "PSHTZ0",
+      "FDPlutSuperShotgun"  , "PSSGZ0",
+      "FDTNTBFG9000"        , "TBFGZ0",
+      "FDTNTChaingun"       , "TCHGZ0",
+      "FDTNTChainsaw"       , "TSAWZ0",
+      "FDTNTFist"           , "TFISZ0",
+      "FDTNTPistol"         , "TPISZ0",
+      "FDTNTPlasmaRifle"    , "TPLAZ0",
+      "FDTNTRocketLauncher" , "TROKZ0",
+      "FDTNTShotgun"        , "TSHTZ0",
+      "FDTNTSuperShotgun"   , "TSSGZ0"
+    };
 
+    int size = 54;
+
+    // binary search
+    int L = 0;
+    int R = size - 1;
+    while (L <= R)
+    {
+      int m = (L + R) / 2;
+      string current = specialIcons[m * 2];
+      //Console.Printf("%d - %s vs %s", m, current, weaponClass);
+      if      (current <  weaponClass) { L = m + 1; continue; }
+      else if (current >  weaponClass) { R = m - 1; continue; }
+      else if (current == weaponClass)
+      {
+        SendResultString(a, specialIcons[m * 2 + 1]);
+        return;
+      }
+    }
+
+    string placeholder = "NOWEAPONOFF";
     Weapon w = Weapon(a.FindInventory(weaponClass));
-    if (!w) { return; }
+    if (!w)
+    {
+      SendResultString(a, placeholder);
+      return;
+    }
 
     string icon = TexMan.GetName(w.SpawnState.GetSpriteTexture(0));
-    if (icon == "TNT1A0") { icon = "NOWEAPONOFF"; }
+    if (icon == "TNT1A0") { icon = placeholder; }
     SendResultString(a, icon);
   }
 }

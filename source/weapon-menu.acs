@@ -1284,6 +1284,9 @@ script "ScrollNextWeapon" (void)
     }
   }
 
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
+
   WM_UpdateMenu();
 }
 
