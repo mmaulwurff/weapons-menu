@@ -405,8 +405,8 @@ function void WM_ClearScreen(void)
 {
   int id  = msgIdWeapon;
   int end = msgIdWeapon;
-  if (nInventoryItems > weaponCount) { end += weaponCount; }
-  else                               { end += nInventoryItems; }
+  if (nInventoryItems > weaponCount) { end += nInventoryItems; }
+  else                               { end += weaponCount;     }
 
   do // when menu is disabled, weapon count is 0, so always clear first message.
   {
