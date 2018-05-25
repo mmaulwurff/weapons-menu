@@ -892,7 +892,7 @@ function void WM_MaybeTacticalChainsaw(void)
   {
     WM_SwapWeapons(i, i-1);
   }
-  slots[currentSet][0] = 0;
+  slots[currentSet][0] = 1;
   names[currentSet][0] = tacticalClass;
   tags [currentSet][0] = "Tactical Chainsaw";
   ++weaponCount;
