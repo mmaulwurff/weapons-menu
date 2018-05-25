@@ -116,6 +116,7 @@ Credits:
   Copyright © 2001-2017 Contributors to the Freedoom project. All rights reserved.
 * [Fonts by Jimmy / Agent Spork / Memento Mori 2 Team](https://forum.zdoom.org/viewtopic.php?f=37&t=33409#p632308).
 * Pistol Start code is based on [StrongholdEventHandler](https://github.com/Realm667/Re-Releases/blob/master/stronghold/zscript.txt) by Ed the Bat.
+* Brass knuckles sprite is based on sprite from [Final Doomer](https://forum.zdoom.org/viewtopic.php?f=43&t=55061#p973066) by Sgt. Shivers.
 
 Thanks:
 * id Software for Doom.

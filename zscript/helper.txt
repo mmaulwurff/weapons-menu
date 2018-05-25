@@ -274,6 +274,8 @@ class WMZscriptHelper : Actor
     static const string specialIcons[] =
     {
       "Artifact", "BSKLA0",
+      "CFSFists", "WMBRASSOFF",
+      "EriFist" , "WMBRASSOFF",
       "FDAliensBFG9000"        , "ABFGZ0",
       "FDAliensChaingun"       , "ACHGZ0",
       "FDAliensChainsaw"       , "ASAWZ0",
@@ -326,10 +328,15 @@ class WMZscriptHelper : Actor
       "FDTNTPlasmaRifle"    , "TPLAZ0",
       "FDTNTRocketLauncher" , "TROKZ0",
       "FDTNTShotgun"        , "TSHTZ0",
-      "FDTNTSuperShotgun"   , "TSSGZ0"
+      "FDTNTSuperShotgun"   , "TSSGZ0",
+      "FKFist"    , "WMBRASSOFF",
+      "Fist"      , "WMBRASSOFF",
+      "Knuckles"  , "WMBRASSOFF",
+      "PerkFist"  , "WMBRASSOFF",
+      "XtremeFist", "WMBRASSOFF"
     };
 
-    int size = 54;
+    int size = 61;
 
     // binary search
     int L = 0;

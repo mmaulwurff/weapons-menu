@@ -51,3 +51,9 @@ sprite NOWEAPONOFF, 10, 4
   Sprite NOWEAPON, 0, 0
   Offset 5, 10
 }
+
+sprite WMBRASSOFF, 26, 18
+{
+  Sprite WMBRASS, 0, 0
+  Offset 13, 16
+}

@@ -21,6 +21,7 @@ zip weapon-menu.pk3 \
     sprites/WDOTA0.png \
     sprites/WDOTB0.png \
     sprites/WDOTG0.png \
+    sprites/WMBRASS.png \
     sprites/WMPFC0.lmp \
     sprites/WMPFD0.lmp \
     zscript/helper.txt \
