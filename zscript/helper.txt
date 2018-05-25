@@ -280,6 +280,8 @@ class WMZscriptHelper : Actor
       "bd_fist" , "wmbrassoff",
       "cfsfists", "wmbrassoff",
       "d3ps"    , "pista0",
+      "det_pipebomb"     , "scdsa0",
+      "det_satchelcharge", "pdeta0",
       "doubleknuckles", "wmbrassoff",
       "erifist" , "wmbrassoff",
       "fdaliensbfg9000"        , "abfgz0",
@@ -346,7 +348,7 @@ class WMZscriptHelper : Actor
       "z-gun", "hxzgunoff"
     };
 
-    int size = 70;
+    int size = 72;
 
     weaponClass.ToLower();
 

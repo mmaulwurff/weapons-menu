@@ -863,6 +863,7 @@ function void WM_AddWeapon(int slot, str class, str name)
   names[currentSet][weaponCount] = class;
   tags [currentSet][weaponCount] = name;
   ++weaponCounts[currentSet];
+  ++weaponCount;
 }
 
 function void WM_MaybeUACSurvivalPack(void)
@@ -895,6 +896,7 @@ function void WM_MaybeTacticalChainsaw(void)
   slots[currentSet][0] = 1;
   names[currentSet][0] = tacticalClass;
   tags [currentSet][0] = "Tactical Chainsaw";
+  ++weaponCounts[currentSet];
   ++weaponCount;
 }
 
