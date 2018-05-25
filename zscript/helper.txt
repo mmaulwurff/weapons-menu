@@ -274,9 +274,12 @@ class WMZscriptHelper : Actor
     // must be in lower case!
     static const string specialIcons[] =
     {
+      "argfist" , "wmbrassoff",
       "artifact", "bskla0",
+      "bd_chainsaw", "csawa0",
+      "bd_fist" , "wmbrassoff",
       "cfsfists", "wmbrassoff",
-      "d3ps", "pista0",
+      "d3ps"    , "pista0",
       "erifist" , "wmbrassoff",
       "fdaliensbfg9000"        , "abfgz0",
       "fdalienschaingun"       , "achgz0",
@@ -338,7 +341,7 @@ class WMZscriptHelper : Actor
       "xtremefist", "wmbrassoff"
     };
 
-    int size = 62;
+    int size = 65;
 
     weaponClass.ToLower();
 
