@@ -280,6 +280,7 @@ class WMZscriptHelper : Actor
       "bd_fist" , "wmbrassoff",
       "cfsfists", "wmbrassoff",
       "d3ps"    , "pista0",
+      "doubleknuckles", "wmbrassoff",
       "erifist" , "wmbrassoff",
       "fdaliensbfg9000"        , "abfgz0",
       "fdalienschaingun"       , "achgz0",
@@ -339,10 +340,11 @@ class WMZscriptHelper : Actor
       "knuckles"  , "wmbrassoff",
       "perkfist"  , "wmbrassoff",
       "pumpshotgun", "kssga0",
-      "xtremefist", "wmbrassoff"
+      "xtremefist", "wmbrassoff",
+      "z-gun", "hxzgunoff"
     };
 
-    int size = 66;
+    int size = 68;
 
     weaponClass.ToLower();
 

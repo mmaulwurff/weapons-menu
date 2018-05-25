@@ -663,10 +663,11 @@ function void WM_PrintMenu(void)
     str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
     if (StrLen(icon) > 0)
     {
+      int iconY = -(yStart - stepMultiplied * 2);
       SetFont(icon);
       HudMessage(s:"A";
                  HUDMSG_PLAIN, msgIdIcon,
-                 highlightedWeaponColor, iconX, -(yStart - stepMultiplied), 0);
+                 highlightedWeaponColor, iconX, iconY, 0);
       WM_SetupFont();
     }
   }
