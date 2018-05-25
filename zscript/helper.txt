@@ -336,15 +336,17 @@ class WMZscriptHelper : Actor
       "fdtntshotgun"        , "tshtz0",
       "fdtntsupershotgun"   , "tssgz0",
       "fist"      , "wmbrassoff",
+      "fistfixed" , "wmbrassoff",
       "fkfist"    , "wmbrassoff",
       "knuckles"  , "wmbrassoff",
       "perkfist"  , "wmbrassoff",
+      "pkfist"    , "wmbrassoff",
       "pumpshotgun", "kssga0",
       "xtremefist", "wmbrassoff",
       "z-gun", "hxzgunoff"
     };
 
-    int size = 68;
+    int size = 70;
 
     weaponClass.ToLower();
 
