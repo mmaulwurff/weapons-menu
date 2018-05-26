@@ -451,7 +451,6 @@ function void WM_PrintMenu(void)
   int  stepMultiplier = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
   int  stepMultiplied = (step * stepMultiplier) >> 16;
 
-
   bool showTags;
   bool slotOnLeft;
   bool withSlot;
@@ -1064,8 +1063,9 @@ script "ShowWeaponMenu" ENTER
 
       if (IsVisible())
       {
-        bool updated = WM_UpdateIsInInventory();
-        if (updated) { WM_UpdateMenu(); }
+        bool updated  = WM_UpdateIsInInventory();
+        int  ammoMode = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
+        if (updated || ammoMode) { WM_UpdateMenu(); }
       }
 
       if (IsInventory())
