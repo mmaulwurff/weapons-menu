@@ -341,6 +341,7 @@ class WMZscriptHelper : Actor
       "fistfixed" , "wmbrassoff",
       "fkfist"    , "wmbrassoff",
       "knuckles"  , "wmbrassoff",
+      "melee"     , "wmbrassoff",
       "perkfist"  , "wmbrassoff",
       "pkfist"    , "wmbrassoff",
       "pumpshotgun", "kssga0",
@@ -362,7 +363,7 @@ class WMZscriptHelper : Actor
       "z-gun", "hxzgunoff"
     };
 
-    int size = 86;
+    int size = 87;
 
     weaponClass.ToLower();
 
