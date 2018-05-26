@@ -32,6 +32,8 @@ alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 alias wm_restart_this_level "map *; menuconsole; menuconsole"
 alias wm_next_level "nextmap; menuconsole; menuconsole"
 
+alias wm_switch_to_powerful "pukename WM_SwitchToPowerful"
+
 defaultbind m toggle_menu
 defaultbind n next_weapon_menu
 defaultbind p prev_weapon_menu
@@ -95,20 +97,6 @@ alias -smart_select_10 "M8fWMCycle 0"
 
 alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; test $M8FWeaponMenuIsEnabled WeaponMenuSelect11"
 alias -smart_select_11 "M8fWMCycle 0"
-
-alias wm_rem1 "pukename WM_RememberWeapon 1"
-alias wm_rem2 "pukename WM_RememberWeapon 2"
-alias wm_rem3 "pukename WM_RememberWeapon 3"
-alias wm_rem4 "pukename WM_RememberWeapon 4"
-alias wm_rem5 "pukename WM_RememberWeapon 5"
-alias wm_rem6 "pukename WM_RememberWeapon 6"
-alias wm_rem7 "pukename WM_RememberWeapon 7"
-alias wm_rem8 "pukename WM_RememberWeapon 8"
-alias wm_rem9 "pukename WM_RememberWeapon 9"
-alias wm_rem0 "pukename WM_RememberWeapon 0"
-
-alias wm_rem_fin "pukename WM_Remember_Fin"
-alias wm_rem_start "pukename WM_Remember_Start"
 
 AddKeySection "Weapon Menu Plus Controls" "WeaponMenuKeys"
 AddMenuKey "Fire/Select+Close/Use" "+fire_close_menu"
