@@ -279,7 +279,9 @@ class WMZscriptHelper : Actor
       "bd_chainsaw", "csawa0",
       "bd_fist" , "wmbrassoff",
       "cfsfists", "wmbrassoff",
+      "cynetikstrikercannon", "csgiconoff",
       "d3ps"    , "pista0",
+      "darkmattergun", "dmgiconoff",
       "det_pipebomb"     , "scdsa0",
       "det_satchelcharge", "pdeta0",
       "doubleknuckles", "wmbrassoff",
@@ -345,6 +347,19 @@ class WMZscriptHelper : Actor
       "perkfist"  , "wmbrassoff",
       "pkfist"    , "wmbrassoff",
       "pumpshotgun", "kssga0",
+      "q3bfg10k"         , "bfgiconoff",
+      "q3chaingun"       , "cgiconoff",
+      "q3gauntlet"       , "gticonoff",
+      "q3grenadelauncher", "gliconoff",
+      "q3lightninggun"   , "lgiconoff",
+      "q3machinegun"     , "mgiconoff",
+      "q3nailgun"        , "ngiconoff",
+      "q3plasmagun"      , "pgiconoff",
+      "q3railgun"        , "rgiconoff",
+      "q3rocketlauncher" , "rliconoff",
+      "q3shotgun"        , "sgiconoff",
+      "qlheavymachinegun", "hmgiconoff",
+      "trakioncannon"    , "trkiconoff",
       "weapon_357"        , "hpkup102off",
       "weapon_9mmar"      , "hpkup103off",
       "weapon_crossbow"   , "hpkup109off",
@@ -363,7 +378,7 @@ class WMZscriptHelper : Actor
       "z-gun", "hxzgunoff"
     };
 
-    int size = 87;
+    int size = 102;
 
     weaponClass.ToLower();
 
