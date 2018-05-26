@@ -91,6 +91,7 @@ weapons that player has not acquired yet.
 1. [EVP](https://forum.zdoom.org/viewtopic.php?f=43&t=58191#p1023165) (v17.1)
 1. [Factotum](https://forum.zdoom.org/viewtopic.php?f=43&t=58486#p1027620) (05/05/18)
 1. [Flakes Doom](https://forum.zdoom.org/viewtopic.php?f=43&t=54560#p961736) v2.6b (06/03/18). Note: weapons are visible only if you have them.
+1. [abort_m](https://forum.zdoom.org/viewtopic.php?f=43&t=60054) (v1.0.3)
 
 ## Note for HUD developers
 

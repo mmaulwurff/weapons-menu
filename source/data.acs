@@ -16,7 +16,7 @@ str playerClassNames[SETS_NUMBER] =
   "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13)
   "EriPlayer",           //  2. Eriguns 1 - Standard weapons
   "AltPlayer",           //  3. Eriguns 1 - Extended weapons
-  "wm_reserved",         //  4. [Reserved]
+  "DoomPlayer",          //  4. abort_m
   "BD_DoomPlayer",       //  5. Beautiful Doom
   "FDPlutPlayer",        //  6. Final Doomer - Plutonia
   "FDTNTPlayer",         //  7. Final Doomer - TNT
@@ -73,7 +73,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Standard
   10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
   9, 13, // Eriguns 1
-  0,  // [Reserved]
+  11, // abort_m
   9,  // Beautiful Doom
   9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
   9,  // Faspons
@@ -131,7 +131,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 7, 8 },
 
-  {}, // [Reserved]
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 8 }, // abort_m
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Beautiful Doom
 
@@ -328,7 +328,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "EriGrenadeLauncher"
   },
 
-  {}, // Reserved
+  { // abort_m
+    "TileWeapon", "FingerPoke",
+    "PeaShooter",
+    "GunShotgun", "BoxOfPellets",
+    "BigPee",
+    "Lewd",
+    "AstolfoWeapon",
+    "ToolTim", "OuchWeapon",
+    "AbortButton"
+  },
 
   {
     "BD_Chainsaw", "BD_Fist",
@@ -1027,7 +1036,16 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Grenade Launcher"
   },
 
-  {}, // Reserved
+  { // abort_m
+    "Floor Tile", "Finger poke",
+    "Pea shooter",
+    "Gunshotgun", "Pellet Box",
+    "Big P",
+    "Assblaster",
+    "Astolfo plush",
+    "Tim Allen", "Ouch Face",
+    "Abort button"
+  },
 
   { // Beautiful Doom
     "Chainsaw", "Fist",
