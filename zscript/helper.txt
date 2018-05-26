@@ -344,11 +344,25 @@ class WMZscriptHelper : Actor
       "perkfist"  , "wmbrassoff",
       "pkfist"    , "wmbrassoff",
       "pumpshotgun", "kssga0",
+      "weapon_357"        , "hpkup102off",
+      "weapon_9mmar"      , "hpkup103off",
+      "weapon_crossbow"   , "hpkup109off",
+      "weapon_crowbar"    , "hpkup100off",
+      "weapon_egon"       , "hpkup112off",
+      "weapon_gauss"      , "hpkup111off",
+      "weapon_glock"      , "hpkup101off",
+      "weapon_handgrenade", "hpkup105off",
+      "weapon_hornetgun"  , "hpkup113off",
+      "weapon_rpg"        , "hpkup110off",
+      "weapon_satchel"    , "hpkup106off",
+      "weapon_shotgun"    , "hpkup104off",
+      "weapon_snark"      , "hpkup108off",
+      "weapon_tripmine"   , "hpkup107off",
       "xtremefist", "wmbrassoff",
       "z-gun", "hxzgunoff"
     };
 
-    int size = 72;
+    int size = 86;
 
     weaponClass.ToLower();
 

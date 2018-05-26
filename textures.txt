@@ -45,21 +45,3 @@ sprite WDO5A0, 8, 8
   XScale 16.0
   YScale 19.2
 }
-
-sprite NOWEAPONOFF, 10, 4
-{
-  Sprite NOWEAPON, 0, 0
-  Offset 5, 10
-}
-
-sprite WMBRASSOFF, 26, 18
-{
-  Sprite WMBRASS, 0, 0
-  Offset 13, 16
-}
-
-sprite optional HXZGUNOFF, 21, 12
-{
-  Sprite HXZGUN, 0, 0
-  Offset 10, 10
-}

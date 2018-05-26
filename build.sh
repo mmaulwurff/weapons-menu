@@ -42,9 +42,10 @@ zip weapon-menu.pk3 \
     mapinfo.txt \
     menudef.txt \
     sndinfo.txt \
-    textures.txt \
-    textures.green \
     textures.blue \
+    textures.green \
+    textures.icons \
+    textures.txt \
     zscript.txt \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
