@@ -39,7 +39,7 @@ str playerClassNames[SETS_NUMBER] =
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1
   "m8f_wm_Autodetected", // 26. Autodetected
-  "Purist",              // 27. Brutal Doom 21 test feb24 - Purist
+  "wm_reserved",         // 27. [Reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode
   "m8f_wm_Fallback",     // 29. Fallback mode
   "wm_reserved",         // 30. [Reserved]
@@ -91,7 +91,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Dead Marine
   12, // Parkour
   0,  // Special - autodetected
-  9,  // Brutal Doom - Purist
+  0,  // [Reserved]
   22, // Brutal Doom
   0,  // [Reserved]
   0,  // [Reserved]
@@ -192,7 +192,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Special - autodetected
 
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Brutal Doom - Purist
+  {}, // Reserved
+
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Brutal
 
   { }, // Reserved
@@ -521,15 +522,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Special - autodetected
 
-  { // Brutal Doom Purist
-    "ClassicSaw", "ClassicFist",
-    "ClassicPistol",
-    "ClassicSSG", "ClassicShotgun",
-    "ClassicChaingun",
-    "ClassicRocketLauncher",
-    "ClassicPlasmaRifle",
-    "VanillaBFG9000"
-  },
+  { }, // Reserved
 
   { // Brutal Doom
     "Melee_Attacks", "Chain_saw", "BrutalAxe",
@@ -1228,15 +1221,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Special - autodetected
 
-  { // Brutal Doom Purist
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
+  { }, // Reserved
 
   { // Brutal Doom
     "Melee", "Chainsaw", "Axe",
