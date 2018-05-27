@@ -97,11 +97,6 @@ weapons that player has not acquired yet.
 
 Weapon Menu has API: CVar (see cvarinfo.txt) and ZScript (see WeaponMenuInterface.txt), so it can be integrated into your HUD.
 
-## Todo
-
-* save custom weapon order (weapon slot and position in slot) between maps
-* option to show weapon and/or inventory sprites instead of text tags
-
 ## Info
 
 Author: m8f (mmaulwurff@gmail.com)
@@ -126,3 +121,4 @@ Thanks:
 * Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
 * Simon Judd for SLADE3.
 * Kinsie for Kinsie's Gameplay Mod Test Map.
+* ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, and other ZDoom Forum users for valuable feedback and bug reporting.
