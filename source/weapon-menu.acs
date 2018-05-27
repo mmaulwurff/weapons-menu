@@ -691,8 +691,8 @@ function str WM_MakeWeaponString(
   }
   else // no slot, just space
   {
-    if (slotOnLeft) { result = StrParam(s:"   ", s:result); }
-    else            { result = StrParam(s:result, s:"   "); }
+    if (slotOnLeft) { result = StrParam(s:"    ", s:result); }
+    else            { result = StrParam(s:result, s:"    "); }
   }
 
   if (ammoMode)
