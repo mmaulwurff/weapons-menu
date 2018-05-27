@@ -932,3 +932,11 @@ user int M8fWeaponMenuWeaponSlot248 = 0;
 user int M8fWeaponMenuWeaponSlot249 = 0;
 
 // End of Weapons Menu CVar API
+
+// Variables M8fWeaponMenuWeaponClassN,
+// M8fWeaponMenuWeaponNameN, and M8fWeaponMenuWeaponSlotN
+// are also used to remember custom weapon order. To check if weapon set
+// for new game corresponds to a previous weapon set, there are these two
+// variables:
+user int    m8f_wm_PreviousWeaponSet   = -1;
+user string m8f_wm_PreviousPlayerClass = "wm_none";

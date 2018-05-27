@@ -297,6 +297,10 @@ OptionMenu "m8f_wm_Commands"
   Command "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
+  StaticText "Weapon Menu", "Blue"
+  Command "Reset weapon order", "m8f_wm_PreviousWeaponSet -1"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_GZDoomWeapon"
