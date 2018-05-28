@@ -87,6 +87,8 @@ user string m8f_wm_QuickInventoryItem3;
 
 server bool m8f_wm_DisableGibbing = false;
 
+server bool m8f_wm_LightNotAcquiredWeapons = false;
+
 user int M8fWMCycle = 0;
 
 ////////////////////////////////////////////////////////////////////////////////

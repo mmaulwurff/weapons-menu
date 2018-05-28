@@ -154,9 +154,10 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   StaticText ""
 }
 
-OptionMenu "m8f_wm_GameplayOptions"
+OptionMenu "m8f_wm_ExtrasOptions"
 {
-  Title "Gameplay Options"
+  Title "Options for Extra Functions"
+  StaticText "Note that Extras can fail to work on certain mods.", "Black"
 
   StaticText ""
   Option "Quick Access Fire Mode", "m8f_wm_FavoriteFireMode", "m8f_wm_FavoriteFireOptions"
@@ -206,6 +207,12 @@ OptionMenu "m8f_wm_GameplayOptions"
   StaticText ""
   Option "Disable gibbing", "m8f_wm_DisableGibbing", "m8f_wm_YesNo"
   StaticText "Changes take effect on new level start.", "Black"
+
+  StaticText ""
+  Option "Light up not acquired weapons",  "m8f_wm_LightNotAcquiredWeapons", "OnOff"
+  StaticText "Changes are applied on next map.", "Black"
+  StaticText "Dynamic lights are required for this to work.", "Black"
+  StaticText "Doesn't work for mods with custom weapon pickups.", "Black"
 
   StaticText ""
 }
@@ -355,7 +362,7 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
   Submenu "Controls",               "m8f_wm_Controls"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
-  Submenu "Gameplay Options",       "m8f_wm_GameplayOptions"
+  Submenu "Extras",                 "m8f_wm_ExtrasOptions"
   Submenu "GZDoom Weapon Options",  "m8f_wm_GZDoomWeapon"
   Submenu "Cross-mod Options",      "m8f_wm_CrossmodOptions"
   Submenu "Commands",               "m8f_wm_Commands"

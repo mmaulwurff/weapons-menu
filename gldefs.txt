@@ -1,0 +1,11 @@
+pointlight wm_light
+{
+    color 1.0 1.0 1.0
+    offset 0 16 0
+    size 20
+}
+
+object WM_Lighter
+{
+  frame TNT1A { light wm_light }
+}

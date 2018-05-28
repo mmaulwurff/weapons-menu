@@ -34,6 +34,7 @@ zip weapon-menu.pk3 \
     MM2SFNTO.fon2 \
     README.md \
     WeaponMenuInterface.txt \
+    gldefs.txt \
     changelog.txt \
     cvarinfo.txt \
     keyconf.txt \

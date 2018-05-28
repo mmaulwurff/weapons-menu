@@ -39,6 +39,16 @@ class WM_AmmoEventHandler : EventHandler
         w.AmmoGive2 *= ammoMultiplier;
         if (w.AmmoGive1 == 0 ) { w.AmmoGive1 = 1; }
         if (w.AmmoGive2 == 0 ) { w.AmmoGive2 = 1; }
+
+        // spawn light
+        CVar lightUpCVar = CVar.FindCVar("m8f_wm_LightNotAcquiredWeapons");
+        bool lightUp     = lightUpCVar.GetInt();
+        if (lightUp)
+        {
+          vector3 p = w.SpawnPoint;
+          WM_Lighter light = WM_Lighter(Actor.Spawn("WM_Lighter", p));
+          light.checkedWeapon = w.GetClassName();
+        }
       }
     }
   }
