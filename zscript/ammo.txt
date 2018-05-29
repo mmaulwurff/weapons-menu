@@ -11,6 +11,19 @@ class WM_AmmoEventHandler : EventHandler
       thing.bNOEXTREMEDEATH = true;
     }
 
+    Weapon w = Weapon(thing);
+    if (w != null)
+    {
+      CVar  kickbackMultiplierCVar = CVar.FindCVar("m8f_wm_KickbackMultiplier");
+      float kickbackMultiplier     = kickbackMultiplierCVar.GetFloat();
+      w.Kickback *= kickBackMultiplier;
+
+      CVar  bobMultiplierCVar = CVar.FindCVar("m8f_wm_BobMultiplier");
+      float bobMultiplier     = bobMultiplierCVar.GetFloat();
+      w.BobRangeX *= bobMultiplier;
+      w.BobRangeY *= bobMultiplier;
+    }
+
     Inventory i = Inventory(thing);
     if (i == null) { return; }
     if (i.owner) { return; }
@@ -28,10 +41,6 @@ class WM_AmmoEventHandler : EventHandler
       Weapon w = Weapon(thing);
       if (w != null)
       {
-        CVar  kickbackMultiplierCVar = CVar.FindCVar("m8f_wm_KickbackMultiplier");
-        float kickbackMultiplier     = kickbackMultiplierCVar.GetFloat();
-        w.Kickback *= kickBackMultiplier;
-
         CVar  ammoMultiplierCVar = CVar.FindCVar("m8f_wm_AmmoMultiplier");
         float ammoMultiplier     = ammoMultiplierCVar.GetFloat();
 
