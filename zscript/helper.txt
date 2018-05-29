@@ -156,6 +156,8 @@ class WMZscriptHelper : Actor
           if (located)
           {
             readonly<Weapon> def = GetDefaultByType(type);
+            if (!def.CanPickup(activator)) { continue; }
+
             string tag           = SeparateCamelCase(def.GetTag());
             string className     = type.GetClassName();
             weaponData.AppendFormat("%s>%s>%d>%d>", className, tag, slot, priority);

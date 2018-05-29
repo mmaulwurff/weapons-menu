@@ -493,10 +493,7 @@ function void WM_PrintMenu(void)
   int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
   int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
-  bool showNotAvailable;
-  if (currentSet == FALLBACK_SET) { showNotAvailable = false; }
-  else { showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable"); }
-
+  bool showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable");
   bool highToLow      = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   int  ammoMode       = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
   int  displayMode    = GetUserCVar(playerN, "m8f_wm_DisplayMode");

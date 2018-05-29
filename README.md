@@ -45,53 +45,8 @@ What is Weapon Menu Plus?
 
 ## Mod support
 
-Weapon menu supports every possible weapon set in Universal Mode.
-
-When loaded with a mod without Extended Support (see below), Universal
-Mode is engaged automatically. Unlike between Universal Mode, Extended
-Support Mode provides fine-tuned weapon tags and an ability to show
-weapons that player has not acquired yet.
-
-## Mods with extended support
-
-1. Original Doom/Doom 2 weapons
-1. [PerK's Smoother Weapon Animations Enhanced](https://forum.zdoom.org/viewtopic.php?f=43&t=32628)
-1. [Eriguns 1 Standard and Extended](https://forum.zdoom.org/viewtopic.php?f=43&t=48208)
-1. [Beautiful Doom 6.3.2](https://forum.zdoom.org/viewtopic.php?f=43&t=50004)
-1. [Final Doomer 2.4](https://forum.zdoom.org/viewtopic.php?f=43&t=55061)
-1. [Faspons (Feb 24)](https://forum.zdoom.org/viewtopic.php?f=43&t=48985)
-1. [Kriegsland: Blutorden (2.3 04/02/18)](https://forum.zdoom.org/viewtopic.php?f=43&t=57053)
-1. [Complex Doom V27a3](https://forum.zdoom.org/viewtopic.php?f=43&t=58535)
-1. [Weapons of Saturn](https://forum.zdoom.org/viewtopic.php?f=43&t=36821) (05/08/2018)
-1. [Hard-Doom v8.2f](https://forum.zdoom.org/viewtopic.php?f=43&t=45145)
-1. [Chex Quest](http://www.chucktropolis.com/gamers.htm)
-1. [Argent (v0.5.3)](https://forum.zdoom.org/viewtopic.php?f=43&t=52363)
-1. [Doom 64 'weapons only' wad by Nevander (updated 5-29-2016) X version](https://forum.zdoom.org/viewtopic.php?f=43&t=51596)
-1. [Responsive Weapons + Faster Weapon Switching](https://forum.zdoom.org/viewtopic.php?f=19&t=38235)
-1. [Dead Marine (v0.9.3)](https://forum.zdoom.org/viewtopic.php?f=43&t=58521)
-1. [Parkour v1.1](https://forum.zdoom.org/viewtopic.php?f=43&t=26057)
-1. [Brutal Doom v21 (test feb24)](http://www.moddb.com/mods/brutal-doom/downloads/brutal-doom-v21-beta)
-1. [Combined Arms v1.0](https://forum.zdoom.org/viewtopic.php?f=43&t=51066)
-1. [Freedoom v0.11.3](https://freedoom.github.io/index.html)
-1. [Smooth Doom (2018-01-13)](https://forum.zdoom.org/viewtopic.php?f=43&t=45550)
-1. [Trailblazer v1.4c](https://forum.zdoom.org/viewtopic.php?f=43&t=47494)
-1. [WW-Cola3](https://forum.zdoom.org/viewtopic.php?f=43&t=55465)
-1. [Netronian Chaos v3](https://forum.zdoom.org/viewtopic.php?f=43&t=57964)
-1. [The Adventures of Square (Episodes 1-2)](http://adventuresofsquare.com/)
-1. [Doom Incarnate v1.5](https://forum.zdoom.org/viewtopic.php?f=43&t=58594#p1029236)
-1. [Project MSX 0.2a](https://forum.zdoom.org/viewtopic.php?t=25836#p492521)
-1. [Accessories to Murder](https://forum.zdoom.org/viewtopic.php?t=36877#p699326)
-1. [DoomRL Arsenal v1.05](https://forum.zdoom.org/viewtopic.php?t=37044#p703341)
-1. [High Noon Drifter v1.2c](https://forum.zdoom.org/viewtopic.php?f=43&t=57098#p1006858)
-1. [Tactical Chainsaw](https://www.doomworld.com/idgames/combos/ph_stuff)
-1. [UAC Survival Pack](http://www.moddb.com/mods/brutal-doom/addons/pipebombs-for-brutal-doom-v19)
-1. [X-Weapon](https://forum.zdoom.org/viewtopic.php?f=43&t=37254#p707405)
-1. [Harmony](http://rabotik.nl/harmony.htm)
-1. [Doom Delta](https://forum.zdoom.org/viewtopic.php?f=43&t=52262#p912321) (v2.0 11-2-2017)
-1. [EVP](https://forum.zdoom.org/viewtopic.php?f=43&t=58191#p1023165) (v17.1)
-1. [Factotum](https://forum.zdoom.org/viewtopic.php?f=43&t=58486#p1027620) (05/05/18)
-1. [Flakes Doom](https://forum.zdoom.org/viewtopic.php?f=43&t=54560#p961736) v2.6b (06/03/18). Note: weapons are visible only if you have them.
-1. [abort_m](https://forum.zdoom.org/viewtopic.php?f=43&t=60054) (v1.0.3)
+Weapon menu supports every possible weapon set. If you find a mod that
+doesn't work with Weapon Menu, please report.
 
 ## Note for HUD developers
 

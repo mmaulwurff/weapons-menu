@@ -100,7 +100,6 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
   ScaleSlider "GZDoom messages scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
-  StaticText "Note: Extended Support only", "Black"
 
   StaticText ""
   Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
@@ -125,12 +124,6 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "m8f_wm_YesNo"
   StaticText "Slot keys will open menu only if there", "Black"
   StaticText "are more than one weapon in slot", "Black"
-
-  StaticText ""
-  Option "Force Universal Mode", "m8f_wm_ForceFallbackMode", "m8f_wm_YesNo"
-  StaticText "Use this if mod with Extended Support", "Black"
-  StaticText "is not processed properly.", "Black"
-  StaticText "Applies on next map", "Black"
 
   StaticText ""
 }
