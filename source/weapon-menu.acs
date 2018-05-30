@@ -13,6 +13,8 @@
 #define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
 #define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5
 
+#define msgFlags HUDMSG_PLAIN | HUDMSG_NOTWITHFULLMAP | HUDMSG_NOTWITHOVERLAYMAP
+
 #define ERROR_NOT_FOUND  -1
 // numbers [-1, -9] are reserved for error codes
 
@@ -464,7 +466,7 @@ function void WM_ClearScreen(void)
 
   do // when menu is disabled, weapon count is 0, so always clear first message.
   {
-    HudMessage(s:""; HUDMSG_PLAIN, id, 0, 0, 0, 0);
+    HudMessage(s:""; msgFlags, id, 0, 0, 0, 0);
     ++id;
   } while (id < end);
 
@@ -472,12 +474,12 @@ function void WM_ClearScreen(void)
   end = msgIdWeapon + MAX_WEAPONS_NUMBER + weaponCount;
   for (id = msgIdWeapon + MAX_WEAPONS_NUMBER; id < end; ++id)
   {
-    HudMessage(s:""; HUDMSG_PLAIN, id, 0, 0, 0, 0);
+    HudMessage(s:""; msgFlags, id, 0, 0, 0, 0);
   }
 
-  HudMessage(s:""; HUDMSG_PLAIN, msgIdSelected,    0, 0, 0, 0);
-  HudMessage(s:""; HUDMSG_PLAIN, msgIdHighlighted, 0, 0, 0, 0);
-  HudMessage(s:""; HUDMSG_PLAIN, msgIdIcon,        0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdSelected,    0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdHighlighted, 0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdIcon,        0, 0, 0, 0);
 }
 
 function void WM_PrintMenu(void)
@@ -655,7 +657,7 @@ function void WM_PrintMenu(void)
         }
       }
       HudMessage(s:" ", s:message, s:" ";
-                 HUDMSG_PLAIN, msgIdSelected,
+                 msgFlags, msgIdSelected,
                  selectedWeaponColor, infoX, y + stepMultiplied * 4, 0);
     }
 
@@ -672,14 +674,14 @@ function void WM_PrintMenu(void)
       }
     }
     HudMessage(s:" ", s:message, s:" ";
-               HUDMSG_PLAIN, msgIdHighlighted,
+               msgFlags, msgIdHighlighted,
                highlightedWeaponColor, infoX, y + stepMultiplied * 2, 0);
 
   }
   else
   {
-    HudMessage(s:""; HUDMSG_PLAIN, msgIdSelected,    0, 0, 0, 0);
-    HudMessage(s:""; HUDMSG_PLAIN, msgIdHighlighted, 0, 0, 0, 0);
+    HudMessage(s:""; msgFlags, msgIdSelected,    0, 0, 0, 0);
+    HudMessage(s:""; msgFlags, msgIdHighlighted, 0, 0, 0, 0);
   }
 
   int iBegin;
@@ -718,7 +720,7 @@ function void WM_PrintMenu(void)
       int iconY = -(yStart - stepMultiplied * 2);
       SetFont(icon);
       HudMessage(s:"A";
-                 HUDMSG_PLAIN, msgIdIcon,
+                 msgFlags, msgIdIcon,
                  highlightedWeaponColor, iconX, iconY, 0);
       WM_SetupFont();
     }
@@ -776,14 +778,14 @@ function void WM_PrintHudWeapon(
   {
     int slotNumber = WM_GetWeaponSlot(weaponNumber);
     HudMessage(s:" ", i:slotNumber, s:" ";
-               HUDMSG_PLAIN, id + MAX_WEAPONS_NUMBER, color, x, y, 0);
+               msgFlags, id + MAX_WEAPONS_NUMBER, color, x, y, 0);
   }
 
   if (!showTags) { return; }
 
   str weaponString = WM_MakeWeaponString(weaponNumber, withSlot, slotOnLeft, ammoMode);
 
-  HudMessage(s:" ", s:weaponString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
+  HudMessage(s:" ", s:weaponString, s:" "; msgFlags, id, color, x, y, 0);
 }
 
 #define N_FONTS 6
@@ -855,7 +857,7 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
   {
     str printableWeaponName = WM_GetPrintableWeaponName(weaponNumber);
     HudMessage(s:printableWeaponName, s:": no ammo.";
-               HUDMSG_PLAIN, msgIdAmmo, CR_RED, 0.5, 0.5, 1.0);
+               msgFlags, msgIdAmmo, CR_RED, 0.5, 0.5, 1.0);
 
     WM_SetHighlightedWeapon(selectedWeapon);
   }
@@ -2090,7 +2092,7 @@ function void WM_PrintInventoryMenu(void)
   if (position == 0)
   {
     HudMessage(s:"[Inventory is empty]";
-               HUDMSG_PLAIN, msgIdWeapon, availableColor, xStart, yStart, 0);
+               msgFlags, msgIdWeapon, availableColor, xStart, yStart, 0);
   }
 
 }
@@ -2114,7 +2116,7 @@ function void WM_PrintInventoryItem(
   if (amount == 1) { itemString = inventoryNames[i]; }
   else { itemString = StrParam(s:inventoryNames[i], s:" [", d:amount, s:"]"); }
 
-  HudMessage(s:" ", s:itemString, s:" "; HUDMSG_PLAIN, id, color, x, y, 0);
+  HudMessage(s:" ", s:itemString, s:" "; msgFlags, id, color, x, y, 0);
 }
 
 // Zoom Section ////////////////////////////////////////////////////////////////
