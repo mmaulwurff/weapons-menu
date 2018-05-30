@@ -1008,6 +1008,7 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     if      (WM_IsFreedoom()) { return 44; }
     else if (WM_IsHarmony())  { return 46; }
     else if (WM_IsAbortM())   { return  4; }
+    else if (WM_IsCyanDoom()) { return 13; }
     else                      { return  0; }
   }
 
@@ -2435,6 +2436,14 @@ function bool WM_IsAbortM(void)
 {
   bool isAbortM = CheckClass("AbortButton");
   return isAbortM;
+}
+
+function bool WM_IsCyanDoom(void)
+{
+  bool isCyanDoom = CheckClass("STMinigun")
+    && CheckClass("Daedabus")
+    && CheckClass("VitalitySerum");
+  return isCyanDoom;
 }
 
 // Give Some Ammo Section //////////////////////////////////////////////////////
