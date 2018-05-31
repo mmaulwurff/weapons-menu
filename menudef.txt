@@ -126,6 +126,12 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText "are more than one weapon in slot", "Black"
 
   StaticText ""
+  Option "Force Universal Mode", "m8f_wm_ForceFallbackMode", "m8f_wm_YesNo"
+  StaticText "Enable if weapon set isn't recognized correctly.", "Black"
+  StaticText "If this happens, please report a bug.", "Black"
+  StaticText "Applies on next map.", "Black"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_InventoryMenuOptions"
