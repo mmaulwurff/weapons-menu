@@ -73,7 +73,8 @@ Thanks:
 * id Software for Doom.
 * Marisa Heit (randi), Christoph Oelckers (Graf Zahl), Braden Obrzut (Blzut3), Rachael Alexanderson, Alexey Lysiuk (_mental_), Magnus Norddahl (dpjudas), Chris Robinson, and all contributors for the ZDoom and GZDoom source ports.
 * Gutawer and argv for example of ZScript HUD.
-* Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
+* Blue Shadow, Gez, LordMisfit, Vaecrius, and other contributors to ZDoom Wiki.
 * Simon Judd for SLADE3.
 * Kinsie for Kinsie's Gameplay Mod Test Map.
+* wildweasel, GAA1992, Yholl, Sgt. Shivers, PillowBlaster, and other mod authors for inspiration and awesome weapon and gameplay mods.
 * ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, RikohZX, namsan, and other ZDoom Forum users for valuable feedback and bug reporting.
