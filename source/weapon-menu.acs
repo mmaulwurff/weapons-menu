@@ -12,6 +12,7 @@
 #define msgIdAmmo        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 3
 #define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
 #define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5
+#define msgIdBackground  messageIdStart + MAX_WEAPONS_NUMBER * 2 + 6
 
 #define msgFlags HUDMSG_PLAIN | HUDMSG_NOTWITHFULLMAP | HUDMSG_NOTWITHOVERLAYMAP
 
@@ -480,6 +481,7 @@ function void WM_ClearScreen(void)
   HudMessage(s:""; msgFlags, msgIdSelected,    0, 0, 0, 0);
   HudMessage(s:""; msgFlags, msgIdHighlighted, 0, 0, 0, 0);
   HudMessage(s:""; msgFlags, msgIdIcon,        0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdBackground,  0, 0, 0, 0);
 }
 
 function void WM_PrintMenu(void)
@@ -487,8 +489,6 @@ function void WM_PrintMenu(void)
   int playerN = PlayerNumber();
   bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
   if (disableOutput) { return; }
-
-  WM_SetupFont();
 
   int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
   int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
@@ -512,6 +512,7 @@ function void WM_PrintMenu(void)
   int  yStep;
   int  itemCount = 0; // used only in 6 and 9
   int  iconX;
+  int  backgroundMode;
 
   if (displayMode == 6 || displayMode == 9) // dry run to count items
   {
@@ -536,6 +537,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = false;
     iconX = 0.08;
+    backgroundMode = 0;
     break;
 
   case 1:
@@ -546,6 +548,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = false;
     iconX = 0.08;
+    backgroundMode = 0;
     break;
 
   case 2:
@@ -556,6 +559,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = false;
     iconX = 0.08;
+    backgroundMode = 1;
     break;
 
   case 3:
@@ -566,6 +570,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = true;
     iconX = -0.5;
+    backgroundMode = 1;
     break;
 
   case 4:
@@ -576,6 +581,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = false;
     withSlot = true;
     iconX = -0.5;
+    backgroundMode = 1;
     break;
 
   case 5:
@@ -586,6 +592,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = false;
     iconX = -0.5;
+    backgroundMode = 1;
     break;
 
   case 6:
@@ -596,6 +603,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = true;
     withSlot = false;
     iconX = -0.5;
+    backgroundMode = 1;
     break;
 
   case 7:
@@ -606,6 +614,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = false;
     withSlot = false;
     iconX = -0.92;
+    backgroundMode = 2;
     break;
 
   case 8:
@@ -616,6 +625,7 @@ function void WM_PrintMenu(void)
     slotOnLeft = false;
     withSlot = false;
     iconX = -0.92;
+    backgroundMode = 2;
     break;
 
   case 9:
@@ -626,8 +636,39 @@ function void WM_PrintMenu(void)
     slotOnLeft = false;
     withSlot = false;
     iconX = -0.92;
+    backgroundMode = 1;
     break;
   }
+
+  bool showBackground = GetUserCVar(playerN, "m8f_wm_ShowBackground");
+  if (showBackground)
+  {
+    str background;
+    int backgroundX;
+    int backgroundY;
+    switch (backgroundMode)
+    {
+    case 0: // left
+      backgroundX = 0.0;
+      backgroundY = 0.5;
+      background = "wmbgleft";
+      break;
+    case 1: // top
+      backgroundX = 0.5;
+      backgroundY = 0.0;
+      background = "wmbgtop";
+      break;
+    case 2: // right
+      backgroundX = 1.0;
+      backgroundY = 0.5;
+      background = "wmbgrght";
+      break;
+    }
+    SetFont(background);
+    HudMessage(s:"A"; msgFlags, msgIdBackground, 0, backgroundX, backgroundY, 0);
+  }
+
+  WM_SetupFont();
 
   if (!showTags) // print weapon info on center
   {

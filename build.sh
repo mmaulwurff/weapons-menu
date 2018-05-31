@@ -24,11 +24,14 @@ zip weapon-menu.pk3 \
     sprites/WMBRASS.png \
     sprites/WMPFC0.lmp \
     sprites/WMPFD0.lmp \
+    sprites/wmbgleft.png \
+    sprites/wmbgrght.png \
+    sprites/wmbgtop.png \
+    zscript/ammo.txt \
     zscript/helper.txt \
     zscript/junk.txt \
     zscript/laser.txt \
     zscript/pistolstart.txt \
-    zscript/ammo.txt \
     MINIPLWK.lmp \
     MINIPL_W.lmp \
     MM2SFNTO.fon2 \
