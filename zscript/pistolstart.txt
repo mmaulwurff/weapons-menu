@@ -1,24 +1,66 @@
 class PistolStartEventHandler : StaticEventHandler
 {
-  override void PlayerEntered(PlayerEvent e)
+  /** resets health, armor, and droppable inventory items
+   */
+  void ResetInventory(PlayerPawn player)
   {
-    CVar pistolStartCvar = CVar.FindCVar("m8f_wm_PistolStart");
-    bool pistolStart = pistolStartCvar.GetInt();
-    if (!pistolStart) { return; }
-
-    let player = PlayerPawn(players[e.PlayerNumber].mo);
-
     // reset health and armor
     player.A_SetHealth(player.GetSpawnHealth());
-    player.TakeInventory("BasicArmor", 999);
+    player.SetInventory("BasicArmor", 0);
+    player.SetInventory("HexenArmor", 1);
 
-    DropItem drop = player.GetDropItems();
-
+    // remove everything that is droppable
     player.ClearInventory();
 
+    // Restore default things
+    DropItem drop = player.GetDropItems();
+    if (drop != null)
+    {
+      for(DropItem di = drop; di != null; di=di.Next)
+      {
+        if(di.Name == 'None') { continue; }
+
+        let weapon = (class<Weapon>)(di.Name);
+        if (weapon != null) { continue; }
+
+        let ammo = (class<Ammo>)(di.Name);
+        if (ammo != null) { continue; }
+
+        let inv = (class<Inventory>)(di.Name);
+
+        if(inv != null)
+        {
+          player.A_SetInventory(di.Name, di.Amount);
+        }
+      }
+    }
+  }
+
+  /** resets weapons, even if they are undroppable
+   * ammo should be reset after resetting weapons.
+   */
+  void ResetWeapons(PlayerPawn player)
+  {
+    DropItem drop = player.GetDropItems();
+
+    // remove weapons even if they are undroppable
+    // removing an item invalidates the iterator, so
+    // 1. remember weapon classes
+    Array<string> weapons;
+    for (let item = player.Inv; item; item = item.Inv)
+    {
+      if (item is "Weapon") { weapons.push(item.GetClassName()); }
+    }
+
+    // 2. Remove remembered weapon clasess
+    int size = weapons.Size();
+    for (int i = 0; i < size; ++i)
+    {
+      player.A_TakeInventory(weapons[i]);
+    }
+
     // If the player has any weapons in StartItem, set them here
-    // They're not supposed to come with ammo, so clear that after this
-    string lastStartWeapon = "";
+    string lastStartWeapon = ""; // to set default weapon
     if (drop != null)
     {
       for(DropItem di = drop; di != null; di=di.Next)
@@ -39,14 +81,24 @@ class PistolStartEventHandler : StaticEventHandler
       let weaponInInv = player.FindInventory(lastStartWeapon);
       player.UseInventory(weaponInInv);
     }
+  }
 
-    //Remove all ammo, except that with the UNDROPPABLE flag
+  void ResetAmmo(PlayerPawn player)
+  {
+    DropItem drop = player.GetDropItems();
+
+    // Remove all ammo, except that with the UNDROPPABLE flag
+    // 1. Remember ammo classes
+    Array<string> ammos;
     for (let item = player.Inv; item; item = item.Inv)
     {
-      if(item is "Ammo" && !item.bUNDROPPABLE)
-      {
-        player.A_TakeInventory(item.GetClassName());
-      }
+      if(item is "Ammo") { ammos.Push(item.GetClassName()); }
+    }
+    // 2. Remove
+    int size = ammos.Size();
+    for (int i = 0; i < size; ++i)
+    {
+      player.A_TakeInventory(ammos[i]);
     }
 
     //If the player has any ammo in StartItem, set it here
@@ -63,5 +115,17 @@ class PistolStartEventHandler : StaticEventHandler
         }
       }
     }
+  }
+
+  override void PlayerEntered(PlayerEvent e)
+  {
+    CVar pistolStartCvar = CVar.FindCVar("m8f_wm_PistolStart");
+    bool pistolStart = pistolStartCvar.GetInt();
+    if (!pistolStart) { return; }
+
+    let player = PlayerPawn(players[e.PlayerNumber].mo);
+    ResetInventory(player);
+    ResetWeapons(player);
+    ResetAmmo(player);
   }
 }

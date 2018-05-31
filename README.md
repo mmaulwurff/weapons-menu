@@ -76,4 +76,4 @@ Thanks:
 * Blue Shadow, Gez, LordMisfit, Vaecrius and other contributors to ZDoom Wiki.
 * Simon Judd for SLADE3.
 * Kinsie for Kinsie's Gameplay Mod Test Map.
-* ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, RikohZX, and other ZDoom Forum users for valuable feedback and bug reporting.
+* ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, RikohZX, namsan, and other ZDoom Forum users for valuable feedback and bug reporting.
