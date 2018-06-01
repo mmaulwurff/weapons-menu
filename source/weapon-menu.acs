@@ -496,6 +496,7 @@ function void WM_PrintMenu(void)
   int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
 
   bool showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable");
+  bool doubleSpaceSlots = GetUserCVar(playerN, "m8f_wm_DoubleSpaceBetweenSlots");
   bool highToLow      = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   int  ammoMode       = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
   int  displayMode    = GetUserCVar(playerN, "m8f_wm_DisplayMode");
@@ -596,7 +597,9 @@ function void WM_PrintMenu(void)
     break;
 
   case 6:
-    x = 0.5 - ((itemCount - 1) * stepMultiplied) / 2;
+    x = 0.5 -
+      ((itemCount - 1 + WM_CountDuplicateSlots(showNotAvailable, doubleSpaceSlots))
+       * stepMultiplied) / 2;
     xStep = stepMultiplied;
     yStep = 0.0;
     showTags = false;
@@ -629,8 +632,9 @@ function void WM_PrintMenu(void)
     break;
 
   case 9:
-    x = 1.0 - (itemCount - 1) * stepMultiplied;
-    xStep = stepMultiplied;
+    x = 1.0;
+    highToLow = !highToLow;
+    xStep = -stepMultiplied;
     yStep = 0.0;
     showTags = false;
     slotOnLeft = false;
@@ -731,12 +735,26 @@ function void WM_PrintMenu(void)
   if (highToLow) { iBegin = weaponCount - 1; iEnd = -1;          iStep = -1; }
   else           { iBegin = 0;               iEnd = weaponCount; iStep =  1; }
 
+  int prevSlot = -1;
+
   for (i = iBegin; i != iEnd; i += iStep)
   {
     if (!WM_IsInInventory(i))
     {
       if (!showNotAvailable)    { continue; }
       if (WM_IsHiddenWeapon(i)) { continue; }
+    }
+
+    if (doubleSpaceSlots)
+    {
+      int currentSlot = WM_GetWeaponSlot(i);
+      bool otherSlot = (prevSlot != -1 && currentSlot != prevSlot);
+      if (otherSlot)
+      {
+        x += xStep;
+        y += yStep;
+      }
+      prevSlot = currentSlot;
     }
 
     int color;
@@ -766,6 +784,33 @@ function void WM_PrintMenu(void)
       WM_SetupFont();
     }
   }
+}
+
+function int WM_CountDuplicateSlots(bool showNotAvailable, bool doubleSpaceSlots)
+{
+  if (!doubleSpaceSlots) { return 0; }
+
+  int count = 0;
+  int prevSlot = -1;
+
+  for (int i = 0; i < weaponCount; ++i)
+  {
+    if (!WM_IsInInventory(i))
+    {
+      if (!showNotAvailable)    { continue; }
+      if (WM_IsHiddenWeapon(i)) { continue; }
+    }
+
+    int currentSlot = WM_GetWeaponSlot(i);
+    bool otherSlot = (prevSlot != -1 && currentSlot != prevSlot);
+    if (otherSlot)
+    {
+      ++count;
+    }
+    prevSlot = currentSlot;
+  }
+
+  return count;
 }
 
 function str WM_MakeWeaponString(
