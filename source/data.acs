@@ -61,7 +61,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 46. Harmony
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
   "PerkDPlayer",         // 48. EVP v17
-  "FTPlayer",            // 49. Factotum (05/05/18)
+  "FTPlayer",            // 49. Factotum [010618]
   "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18)
 };
 
@@ -113,7 +113,7 @@ int weaponCounts[SETS_NUMBER] =
   6,  // Harmony
   13, // Doom Delta
   9,  // EVP
-  10, // Factotum
+  11, // Factotum
   19, // Flakes Doom
 };
 
@@ -269,7 +269,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
 
-  { 1, 2, 2, 3, 4, 5, 5, 5, 6, 7 }, // Factotum
+  { 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9 }, // Factotum
 
   { // Flakes Doom
     1, 1, 1,
@@ -981,12 +981,14 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { // Factotum
     "FKMachete",
-    "FKPistolUP", "FKPistol",
+    "FKPistol", "FKPistolUP",
     "FKShotgun",
     "FKMachinegun",
-    "FKLauncherUP", "FKLauncher", "FKGrenades",
+    "FKLauncher", "FKLauncherUP",
     "FKPlasmaRifle",
     "FKCarbine",
+    "FKHoser",
+    "FKGrenades",
   },
 
   { // Flakes Doom
@@ -1698,12 +1700,14 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { // Factotum
     "Machete",
-    "Upgraded Beretta 92", "Beretta 92FS",
+    "Beretta 92FS", "Upgraded Beretta 92",
     "Franchi SPAS-12",
     "Calico M950",
-    "Upgraded M79", "Springfield M79", "Grenades",
+    "Springfield M79", "Upgraded M79",
     "Plasma Cannon",
     "Colt M4A1",
+    "FNH M249",
+    "Grenades",
   },
 
   { // Flakes Doom
