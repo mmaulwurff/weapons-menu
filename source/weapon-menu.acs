@@ -495,6 +495,7 @@ function void WM_PrintMenu(void)
   int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
   int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
   int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+  int noAmmoColor             = GetUserCVar(playerN, "m8f_wm_NoAmmoColor");
 
   bool showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable");
   bool doubleSpaceSlots = GetUserCVar(playerN, "m8f_wm_DoubleSpaceBetweenSlots");
@@ -759,10 +760,18 @@ function void WM_PrintMenu(void)
     }
 
     int color;
-    if      (i == highlightedWeapon) { color = highlightedWeaponColor;  }
-    else if (i == selectedWeapon)    { color = selectedWeaponColor;     }
-    else if (WM_IsInInventory(i))    { color = availableWeaponColor;    }
-    else                             { color = notAvailableWeaponColor; }
+    if      (i == highlightedWeapon) { color = highlightedWeaponColor; }
+    else if (i == selectedWeapon)
+    {
+      if (!WM_HasAmmo(WM_GetWeaponName(i))) { color = noAmmoColor; }
+      else { color = selectedWeaponColor; }
+    }
+    else if (WM_IsInInventory(i))
+    {
+      if (!WM_HasAmmo(WM_GetWeaponName(i))) { color = noAmmoColor; }
+      else { color = availableWeaponColor; }
+    }
+    else { color = notAvailableWeaponColor; }
 
     WM_PrintHudWeapon(i, color, x, y, slotOnLeft, withSlot, showTags, ammoMode);
 
@@ -785,6 +794,14 @@ function void WM_PrintMenu(void)
       WM_SetupFont();
     }
   }
+}
+
+function bool WM_HasAmmo(str weaponClass)
+{
+  ScriptCall("WMZScriptHelper", "HasAmmo", weaponClass);
+  int playerN = PlayerNumber();
+  bool hasAmmo = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return hasAmmo;
 }
 
 function int WM_CountDuplicateSlots(bool showNotAvailable, bool doubleSpaceSlots)

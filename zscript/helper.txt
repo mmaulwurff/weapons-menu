@@ -32,6 +32,37 @@ class WMZscriptHelper : Actor
     SendResultString(activator, message);
   }
 
+  static void HasAmmo(Actor activator, string weaponClass)
+  {
+    if (!activator || !activator.player)
+    {
+      SendResultInt(activator, 0);
+      return;
+    }
+
+    Weapon w = Weapon(activator.FindInventory(weaponClass));
+    if (!w)
+    {
+      SendResultInt(activator, 0);
+      return;
+    }
+
+    bool result = true;
+    Ammo amm1 = w.Ammo1;
+    Ammo amm2 = w.Ammo2;
+    bool hasAmmo1 = (amm1 != null);
+    bool hasAmmo2 = (amm2 != null);
+
+    if (!hasAmmo1 && !hasAmmo2) { result = true; }
+    else
+    {
+      if (hasAmmo1) { result  = amm1.amount >= w.AmmoUse1; }
+      if (hasAmmo2) { result |= amm2.amount >= w.AmmoUse2; }
+    }
+
+    SendResultInt(activator, result);
+  }
+
   static void IsWeaponReady(Actor activator, string weaponClass)
   {
     PlayerPawn p = PlayerPawn(activator);
