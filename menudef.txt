@@ -102,7 +102,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 
   StaticText ""
-  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.3, 3.0, 0.1
+  Slider "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.2, 3.0, 0.1
   Option "Double space between slots", "m8f_wm_DoubleSpaceBetweenSlots", "OnOff"
   Slider "Menu Y Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
   Option "Display Mode and X Position", "m8f_wm_DisplayMode", "m8f_wm_DisplayModeOptions"
@@ -150,7 +150,7 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   StaticText "be out of screen with big values", "Black"
 
   StaticText ""
-  Slider "Step size multiplier", "m8f_wm_StepMultiplier", 0.3, 3.0, 0.1
+  Slider "Step size multiplier", "m8f_wm_StepMultiplier", 0.2, 3.0, 0.1
 
   StaticText ""
 }
