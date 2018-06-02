@@ -75,6 +75,7 @@ str inventoryNames  [N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
+function bool IsUninitialized(void) { return globalState == STATE_UNINITIALIZED; }
 function bool IsTerminated(void) { return globalState == STATE_TERMINATED; }
 function bool IsOpened(void)     { return globalState == STATE_OPENED; }
 function bool IsInventory(void)  { return globalState == STATE_INVENTORY; }
@@ -1169,6 +1170,7 @@ function bool WM_IsMelee(void)
 
 script "ShowWeaponMenu" ENTER
 {
+  Log(s:"1");
   int state = WM_GetInitialState();
 
   if (state == STATE_TERMINATED) { terminate; }
@@ -1176,6 +1178,7 @@ script "ShowWeaponMenu" ENTER
   // for some reason without delay only vanilla weapons will be listed.
   if (currentSet == FALLBACK_SET) { Delay(1); }
 
+  Log(s:"2");
   WM_ChangeState(state);
 
   int updatePeriod = 10;
@@ -1264,11 +1267,15 @@ script "ShowWeaponMenu" ENTER
 
 script "ApplyWeaponMenuSettings" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   WM_UpdateMenu();
 }
 
 script "ToggleWeaponMenu" (int closeWithoutAction)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (IsInventory())
   {
     if (closeWithoutAction)
@@ -1379,6 +1386,8 @@ function void WM_SelectPreviousInventory(void)
 
 script "ScrollNextWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (IsInventory())
   {
     WM_SelectNextInventory();
@@ -1454,6 +1463,8 @@ function void WM_MaybeDisplayNameTag(void)
 
 script "ScrollPreviousWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (IsInventory())
   {
     WM_SelectPreviousInventory();
@@ -1516,6 +1527,8 @@ script "ScrollPreviousWeapon" (void)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (IsInventory())
   {
     WM_ChangeState(STATE_CLOSED);
@@ -1577,6 +1590,8 @@ script "SmartWeaponSelection" (int slotNumber)
 
 script "SelectLastUsedWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (CheckInventory(lastUsedWeapon))
   {
     WM_SelectWeapon(WM_FindInWeaponList(lastUsedWeapon), true);
@@ -1587,6 +1602,8 @@ script "SelectLastUsedWeapon" (void)
 
 script "WM_MarkWeaponAsFavorite" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
   WM_SetCVar(selectedWeapon, "M8fWeaponMenuFavoriteWeapon");
   Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
@@ -1594,6 +1611,8 @@ script "WM_MarkWeaponAsFavorite" (void)
 
 script "WM_SelectFavoriteWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   if (CheckInventory(WM_GetWeaponName(favorite)))
@@ -1707,6 +1726,8 @@ function void WM_SetLastUsedWeapon(str weaponClass)
 
 script "WM_IncreasePriority" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   str name = WM_GetPrintableWeaponName(highlightedWeapon);
   if (highlightedWeapon == 0)
   {
@@ -1777,6 +1798,8 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars)
 
 script "WM_IncreaseSlot" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 11) { terminate; }
 
@@ -1808,6 +1831,8 @@ script "WM_IncreaseSlot" (void)
 
 script "WM_DecreaseSlot" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 1) { terminate; }
 
@@ -1890,6 +1915,8 @@ bool favoriteFiring = false;
 
 script "WM_FireFavoriteWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
   int playerN = PlayerNumber();
@@ -1957,6 +1984,8 @@ script "WM_FireFavoriteWeapon" (void)
 
 script "WM_FireFavoriteSwitchBack" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   while (favoriteFiring) { Delay(1); }
 
   int playerN = PlayerNumber();
@@ -1990,6 +2019,8 @@ function void WM_InstantSwitch(bool enable)
 
 script "WM_HolsterWeapon" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
   if (WM_IsZoomed()) { WM_ToggleZoom(); }
 
@@ -2065,6 +2096,8 @@ function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
 
 script "WM_InventoryMenu" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (IsInventory())
   {
     WM_ChangeState(STATE_CLOSED);
@@ -2209,6 +2242,8 @@ function void WM_PrintInventoryItem(
 
 script "WM_ToggleZoom" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   WM_ToggleZoom();
 }
 
@@ -2447,6 +2482,8 @@ function void WM_SetQuickInventoryItem(int n, str quickInventory)
 
 script "WM_MarkAsQuickInventoryItem" (int n)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
   str selectedInventory = WM_GetSelectedInventory();
@@ -2538,6 +2575,8 @@ function bool WM_IsCyanDoom(void)
 
 script "WM_GiveThisAmmo" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
   str weaponClass = WM_GetWeaponName(selectedWeapon);
@@ -2548,6 +2587,8 @@ script "WM_GiveThisAmmo" (void)
 
 script "WM_GiveMinSlot2Ammo" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
   int slot = WM_GetWeaponSlot(selectedWeapon);
   if (slot != 2) { terminate; }
@@ -2612,6 +2653,8 @@ function void WM_MaybeToggleSlomoOnQuick(void)
 
 script "WM_SwitchToPowerful" (void)
 {
+  if (IsUninitialized()) { terminate; }
+
   for (int i = weaponCount - 1; i >= 0; --i)
   {
     str weaponClass = WM_GetWeaponName(i);
