@@ -223,17 +223,19 @@ class WMZscriptHelper : Actor
                             , double zoom
                             , string weaponClass
                             , bool lowerWeapon
-                            , bool isZoomed)
+                            , bool isZoomed
+                            , bool changeZoom)
   {
     if (!activator) { return; }
-    let player = activator.player;
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w) { return; }
 
-    zoom = 1 / clamp(zoom, 0.1, 50.0);
-
-    w.FOVScale = zoom;
+    if (changeZoom)
+    {
+      zoom = 1 / clamp(zoom, 0.1, 50.0);
+      w.FOVScale = zoom;
+    }
 
     if (lowerWeapon)
     {

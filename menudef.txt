@@ -166,6 +166,10 @@ OptionMenu "m8f_wm_ExtrasOptions"
 
   StaticText ""
   Slider "Zoom Factor", "m8f_wm_ZoomFactor", 1.0, 3.0, 0.1
+  StaticText "Set this to 1.0 if weapon has its own zoom.", "Black"
+  StaticText "Don't change this while zoomed.", "Black"
+
+  StaticText ""
   Slider "Speed while zoomed", "m8f_wm_ZoomSpeedMultiplier", 0.1, 1.0, 0.1
   Option "Switch Laser Sight on Zoom", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
   Option "Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"

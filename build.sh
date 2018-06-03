@@ -57,6 +57,6 @@ cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 gzdoom -glversion 3 -file \
        weapon-menu.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
-       "$1" \
+       "$1" "$2" \
        +map test \
        -nomonsters
