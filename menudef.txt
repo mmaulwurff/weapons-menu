@@ -22,14 +22,14 @@ OptionValue "m8f_wm_YesNo"
   1, "Yes"
 }
 
-OptionValue "M8FWeaponMenuFontOptions"
+OptionString "m8f_wm_font_values"
 {
-  0, "Small Font"
-  1, "Console Font"
-  2, "Big Font"
-  3, "Miniplicity"
-  4, "Miniplicity Condensed"
-  5, "Mementwo"
+  "SMALLFONT", "Small Font"
+  "CONFONT",   "Console Font"
+  "BIGFONT",   "Big Font"
+  "MINIPL_W",  "Miniplicity"
+  "MINIPLWK",  "Miniplicity Condensed"
+  "MM2SFNTO",  "Mementwo"
 }
 
 OptionValue "M8FWeaponMenuShowAmmoOptions"
@@ -98,7 +98,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   Option "Always show menu", "M8fWeaponMenuAlwaysShow", "m8f_wm_YesNo"
   Option "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
   Option "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
-  Option "Font", "M8FWeaponMenuFont", "M8FWeaponMenuFontOptions"
+  Option "Font", "m8f_wm_font", "m8f_wm_font_values"
   ScaleSlider "GZDoom messages scale", "con_scaletext", 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
   Option "Not acquired weapons:", "M8FShowNotAvailable", "M8FWeaponsMenuShowNotAvailable"
 

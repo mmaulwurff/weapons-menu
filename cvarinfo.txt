@@ -17,13 +17,7 @@ user float m8f_wm_StepMultiplier = 1.0;
 // 9 - right,  horizontal, no names                          [       HS]
 user int m8f_wm_DisplayMode = 0;
 
-// 0 - Small Font
-// 1 - Console Font
-// 2 - Big Font
-// 3 - Miniplicity
-// 4 - Miniplicity Condensed
-// 5 - Mementwo
-user int M8FWeaponMenuFont = 5;
+user string m8f_wm_font = "MM2SFNTO";
 
 user string m8f_wm_LastUsedWeapon = "None";
 user int M8fWeaponMenuFavoriteWeapon = 0;
