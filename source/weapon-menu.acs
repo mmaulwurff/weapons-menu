@@ -186,7 +186,7 @@ function void WM_EnterEnabled(void)
   WM_SetHighlightedWeapon(selectedWeapon);
 
   int playerN = PlayerNumber();
-  lastUsedWeapon = GetUserCVarString(playerN, "m8f_wm_LastUsedWeapon");
+  lastUsedWeapon = WM_Unwrap(GetUserCVarString(playerN, "m8f_wm_LastUsedWeapon"));
   if (!CheckInventory(lastUsedWeapon))
   {
     WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
@@ -1739,7 +1739,7 @@ function void WM_SetLastUsedWeapon(str weaponClass)
 {
   lastUsedWeapon = weaponClass;
   int playerN = PlayerNumber();
-  SetUserCVarString(playerN, "m8f_wm_LastUsedWeapon", lastUsedWeapon);
+  SetUserCVarString(playerN, "m8f_wm_LastUsedWeapon", WM_Wrap(lastUsedWeapon));
 }
 
 // Weapon Priority Section /////////////////////////////////////////////////////
