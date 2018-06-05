@@ -259,6 +259,19 @@ function void WM_MaybeLoadCustomWeaponOrder(void)
   }
 }
 
+function str WM_Unwrap(str wrappedString)
+{
+  int length = StrLen(wrappedString);
+  str unwrapped = StrMid(wrappedString, 1, length - 2);
+  return unwrapped;
+}
+
+function str WM_Wrap(str unwrappedString)
+{
+  str wrapped = StrParam(s:"\"", s:unwrappedString, s:"\"");
+  return wrapped;
+}
+
 function void WM_LoadDataFromCVars(void)
 {
   int playerN = PlayerNumber();
@@ -268,9 +281,9 @@ function void WM_LoadDataFromCVars(void)
     str weaponNameVarName  = StrParam(s:"M8fWeaponMenuWeaponName",  i:i);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
 
-    names[currentSet][i] = GetUserCVarString(playerN, weaponClassVarName);
-    tags [currentSet][i] = GetUserCVarString(playerN, weaponNameVarName);
-    slots[currentSet][i] = GetUserCVar      (playerN, weaponSlotVarName);
+    names[currentSet][i] = WM_Unwrap(GetUserCVarString(playerN, weaponClassVarName));
+    tags [currentSet][i] = WM_Unwrap(GetUserCVarString(playerN, weaponNameVarName));
+    slots[currentSet][i] = GetUserCVar(playerN, weaponSlotVarName);
   }
 }
 
@@ -280,7 +293,7 @@ function bool WM_CheckCVarWeaponsExisting(void)
   for (int i = 0; i < weaponCounts[currentSet]; ++i)
   {
     str weaponClassCVar = StrParam(s:"M8fWeaponMenuWeaponClass", i:i);
-    str weaponClass     = GetUserCVarString(playerN, weaponClassCVar);
+    str weaponClass     = WM_Unwrap(GetUserCVarString(playerN, weaponClassCVar));
     if (!CheckClass(weaponClass)) { return false; }
   }
   return true;
@@ -976,8 +989,8 @@ function void WM_InitApiCvars(void)
     str weaponNameVarName  = StrParam(s:"M8fWeaponMenuWeaponName",  i:i);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
 
-    SetUserCVarString(playerN, weaponClassVarName, WM_GetWeaponName(i));
-    SetUserCVarString(playerN, weaponNameVarName,  WM_GetPrintableWeaponName(i));
+    SetUserCVarString(playerN, weaponClassVarName, WM_Wrap(WM_GetWeaponName(i)));
+    SetUserCVarString(playerN, weaponNameVarName,  WM_Wrap(WM_GetPrintableWeaponName(i)));
     SetUserCVar      (playerN, weaponSlotVarName,  WM_GetWeaponSlot(i));
   }
 }
@@ -1768,8 +1781,8 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars)
   {
     str weaponClassVarName1 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w1);
     str weaponClassVarName2 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w2);
-    SetUserCVarString(playerN, weaponClassVarName1, WM_GetWeaponName(w1));
-    SetUserCVarString(playerN, weaponClassVarName2, WM_GetWeaponName(w2));
+    SetUserCVarString(playerN, weaponClassVarName1, WM_Wrap(WM_GetWeaponName(w1)));
+    SetUserCVarString(playerN, weaponClassVarName2, WM_Wrap(WM_GetWeaponName(w2)));
   }
 
   int tagTmp = tags[currentSet][w1];
