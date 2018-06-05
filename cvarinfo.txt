@@ -77,6 +77,8 @@ user bool m8f_wm_SlomoOnMenuClose = false;
 user bool m8f_wm_SlomoOnZoomIn    = false;
 user bool m8f_wm_SlomoOnZoomOut   = false;
 user bool m8f_wm_SlomoOnQuickAccess = false;
+user bool m8f_wm_SlomoOnInventoryOpen  = false;
+user bool m8f_wm_SlomoOnInventoryClose = false;
 
 user bool m8f_wm_TargetSpyOnZoom    = false;
 user bool m8f_wm_TSChangeLaserColor = false;

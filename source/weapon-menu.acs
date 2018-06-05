@@ -164,6 +164,7 @@ function void WM_LeaveOpened(void)
 
 function void WM_LeaveInventory(void)
 {
+  WM_MaybeToggleSlomoOnInvClose();
   WM_PlaySwitchSound();
   WM_ClearScreen();
 }
@@ -222,6 +223,7 @@ function void WM_EnterOpened(void)
 
 function void WM_EnterInventory(void)
 {
+  WM_MaybeToggleSlomoOnInvOpen();
   WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon());
   WM_PlaySwitchSound();
   WM_PrintInventoryMenu();
@@ -2685,6 +2687,26 @@ function void WM_MaybeToggleSlomoOnQuick(void)
 {
   int playerN = PlayerNumber();
   bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnQuickAccess");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnInvOpen(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnInventoryOpen");
+  if (slomoOnMenuOpen)
+  {
+    SetCVar("m8f_sm_externaltoggle", 1);
+  }
+}
+
+function void WM_MaybeToggleSlomoOnInvClose(void)
+{
+  int playerN = PlayerNumber();
+  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnInventoryClose");
   if (slomoOnMenuOpen)
   {
     SetCVar("m8f_sm_externaltoggle", 1);
