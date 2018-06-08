@@ -2503,14 +2503,13 @@ function str WM_GetInventoryTag(str itemClass)
 
 function str WM_GetQuickInventoryCVarName(int n)
 {
-  if (n >= N_QUICK_INVENTORY_ITEMS) { return ""; }
-
   str cvarName = StrParam(s:"m8f_wm_QuickInventoryItem", d:n);
   return cvarName;
 }
 
 function str WM_GetQuickInventoryItem(int n)
 {
+  if (n >= N_QUICK_INVENTORY_ITEMS) { return "none"; }
   str cvarName = WM_GetQuickInventoryCVarName(n);
   int playerN = PlayerNumber();
   str quickInventory = GetUserCVarString(playerN, cvarName);
@@ -2519,6 +2518,7 @@ function str WM_GetQuickInventoryItem(int n)
 
 function void WM_SetQuickInventoryItem(int n, str quickInventory)
 {
+  if (n >= N_QUICK_INVENTORY_ITEMS) { return; }
   str cvarName = WM_GetQuickInventoryCVarName(n);
   int playerN = PlayerNumber();
   SetUserCVarString(playerN, cvarName, quickInventory);
@@ -2542,7 +2542,21 @@ script "WM_UseQuickInventoryItem" (int n)
 {
   if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
-  UseInventory(WM_GetQuickInventoryItem(n));
+  str item = WM_GetQuickInventoryItem(n);
+  str tag  = WM_GetInventoryTag(item);
+
+  int count = CheckInventory(item);
+  if (count == 0)
+  {
+    Log(s:tag, s:": not in inventory.");
+    terminate;
+  }
+
+  bool success = UseInventory(item);
+  if (!success)
+  {
+    Log(s:"Could not use ", s:tag);
+  }
 }
 
 // Fire Junk Section ///////////////////////////////////////////////////////////

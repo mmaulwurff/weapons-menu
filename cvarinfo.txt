@@ -83,9 +83,9 @@ user bool m8f_wm_SlomoOnInventoryClose = false;
 user bool m8f_wm_TargetSpyOnZoom    = false;
 user bool m8f_wm_TSChangeLaserColor = false;
 
+user string m8f_wm_QuickInventoryItem0;
 user string m8f_wm_QuickInventoryItem1;
 user string m8f_wm_QuickInventoryItem2;
-user string m8f_wm_QuickInventoryItem3;
 
 server bool m8f_wm_DisableGibbing = false;
 

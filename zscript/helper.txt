@@ -146,7 +146,24 @@ class WMZscriptHelper : Actor
     let player = activator.player;
     if (!player) { return; }
 
-    string tag = activator.FindInventory(itemClass).GetTag();
+    class<Inventory> type = itemClass;
+    if (!type)
+    {
+      Console.Printf("Unknown inventory type: %s", itemClass);
+      SendResultString(player, "unknown");
+      return;
+    }
+
+    readonly<Inventory> defaultItem = GetDefaultByType(type);
+    if (!defaultItem)
+    {
+      Console.Printf("Unknown inventory type: %s", itemClass);
+      SendResultString(player, "unknown");
+      return;
+    }
+
+    string tag = defaultItem.GetTag();
+
     SendResultString(player, tag);
   }
 
