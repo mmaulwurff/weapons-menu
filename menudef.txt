@@ -216,6 +216,7 @@ OptionMenu "m8f_wm_ExtrasOptions"
 
   StaticText ""
   Option "Disable gibbing", "m8f_wm_DisableGibbing", "m8f_wm_YesNo"
+  Option "Disable weapon crushing", "m8f_wm_DisableWeaponCrushing", "m8f_wm_YesNo"
   StaticText "Changes take effect on new level start.", "Black"
 
   StaticText ""

@@ -1,15 +1,22 @@
 class WM_AmmoEventHandler : EventHandler
 {
+  void MaybeDisableCrushing(Actor a)
+  {
+    bool disableCrushing = CVar.FindCVar("m8f_wm_DisableWeaponCrushing").GetInt();
+    if (disableCrushing) { a.bDONTGIB = true; }
+  }
+
+  void MaybeDisableGibbing(Actor a)
+  {
+    bool disableGibbing = CVar.FindCVar("m8f_wm_DisableGibbing").GetInt();
+    if (disableGibbing) { a.bNOEXTREMEDEATH = true; }
+  }
+
   override void WorldThingSpawned(WorldEvent e)
   {
     Actor thing = e.thing;
 
-    CVar disableGibbingCVar = CVar.FindCVar("m8f_wm_DisableGibbing");
-    bool disableGibbing = disableGibbingCVar.GetInt();
-    if (disableGibbing)
-    {
-      thing.bNOEXTREMEDEATH = true;
-    }
+    MaybeDisableGibbing(thing);
 
     Weapon w = Weapon(thing);
     if (w != null)
@@ -22,6 +29,8 @@ class WM_AmmoEventHandler : EventHandler
       float bobMultiplier     = bobMultiplierCVar.GetFloat();
       w.BobRangeX *= bobMultiplier;
       w.BobRangeY *= bobMultiplier;
+
+      MaybeDisableCrushing(thing);
     }
 
     Inventory i = Inventory(thing);

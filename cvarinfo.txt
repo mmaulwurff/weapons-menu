@@ -88,6 +88,7 @@ user string m8f_wm_QuickInventoryItem1;
 user string m8f_wm_QuickInventoryItem2;
 
 server bool m8f_wm_DisableGibbing = false;
+server bool m8f_wm_DisableWeaponCrushing = false;
 
 server bool m8f_wm_LightNotAcquiredWeapons = false;
 
