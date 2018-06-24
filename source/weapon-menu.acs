@@ -999,14 +999,9 @@ function void WM_InitApiCvars(void)
 
 function void WM_PlaySwitchSound(void)
 {
-  int playerN = PlayerNumber();
-  int switchSound = GetUserCVar(playerN, "M8fWeaponMenuSwitchSound");
-
-  if (switchSound)
-  {
-    str sound = StrParam(s:"wmenu/switch", i:switchSound);
-    PlaySound(0, sound);
-  }
+  int playerN     = PlayerNumber();
+  str switchSound = GetUserCVarString(playerN, "m8f_wm_SwitchSound");
+  PlaySound(0, switchSound);
 }
 
 function void WM_SetupAddons(void)

@@ -39,12 +39,14 @@ OptionValue "M8FWeaponMenuShowAmmoOptions"
   2, "Primary and secondary"
 }
 
-OptionValue "M8fWeaponMenuSwitchSoundOptions"
+OptionString "m8f_wm_SwitchSoundOptions"
 {
-  0, "None"
-  1, "Click"
-  2, "Hum"
-  3, "Chk"
+  "wmenu/no"      , "None"
+  "wmenu/switch1" , "Click"
+  "wmenu/switch2" , "Hum"
+  "wmenu/switch3" , "Chk"
+  "menu/cursor"   , "Menu cursor"
+  "menu/change"   , "Menu change"
 }
 
 OptionValue "M8fWeaponMenuInstantSwitchOptions"
@@ -70,16 +72,16 @@ OptionValue "m8f_wm_LaserColorOptions"
 
 OptionValue "m8f_wm_DisplayModeOptions"
 {
-  0, "[VST______]"
-  1, "[VS_______]"
-  2, "[HS_______]"
-  3, "[___VST___]"
-  4, "[___VTS___]"
-  5, "[___VS____]"
-  6, "[___HS____]"
-  7, "[______VTS]"
-  8, "[_______VS]"
-  9, "[_______HS]"
+  0, "(VST______)"
+  1, "(VS_______)"
+  2, "(HS_______)"
+  3, "(___VST___)"
+  4, "(___VTS___)"
+  5, "(___VS____)"
+  6, "(___HS____)"
+  7, "(______VTS)"
+  8, "(_______VS)"
+  9, "(_______HS)"
 }
 
 OptionMenu "m8f_wm_WeaponMenuOptions"
@@ -117,7 +119,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
 
   StaticText ""
   StaticText "Sound", "Blue"
-  Option "Sound on weapon switch", "M8fWeaponMenuSwitchSound", "M8FWeaponMenuSwitchSoundOptions"
+  Option "Sound on weapon switch", "m8f_wm_SwitchSound", "m8f_wm_SwitchSoundOptions"
   Option "Play sound on weapon change", "m8f_wm_PlaySoundOnWeaponChange", "OnOff"
 
   StaticText ""
