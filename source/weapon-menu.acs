@@ -2230,7 +2230,7 @@ function void WM_PrintInventoryMenu(void)
 
   if (position == 0)
   {
-    HudMessage(s:"[Inventory is empty]";
+    HudMessage(s:" (Inventory is empty) ";
                msgFlags, msgIdWeapon, availableColor, xStart, yStart, 0);
   }
 
@@ -2253,7 +2253,7 @@ function void WM_PrintInventoryItem(
   str itemString;
 
   if (amount == 1) { itemString = inventoryNames[i]; }
-  else { itemString = StrParam(s:inventoryNames[i], s:" [", d:amount, s:"]"); }
+  else { itemString = StrParam(s:inventoryNames[i], s:" (", d:amount, s:")"); }
 
   HudMessage(s:" ", s:itemString, s:" "; msgFlags, id, color, x, y, 0);
 }

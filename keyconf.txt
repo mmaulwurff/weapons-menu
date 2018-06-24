@@ -116,4 +116,4 @@ AddMenuKey "Weapon Slot 9" "+smart_select_9"
 AddMenuKey "Weapon Slot 0" "+smart_select_0"
 
 AddMenuKey "See more controls in Weapon" ""
-AddMenuKey "Menu Plus Options -> Controls" ""
+AddMenuKey "Menu Plus Options - Controls" ""
