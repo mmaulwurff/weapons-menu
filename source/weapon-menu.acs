@@ -500,6 +500,40 @@ function void WM_ClearScreen(void)
   HudMessage(s:""; msgFlags, msgIdBackground,  0, 0, 0, 0);
 }
 
+function void WM_MaybeShowBackground(int backgroundMode)
+{
+  int playerN         = PlayerNumber();
+  bool showBackground = GetUserCVar(playerN, "m8f_wm_ShowBackground");
+
+  if (!showBackground) { return; }
+
+  str background;
+  int backgroundX;
+  int backgroundY;
+
+  switch (backgroundMode)
+  {
+  case 0: // left
+    backgroundX = 0.0;
+    backgroundY = 0.5;
+    background = "wmbgleft";
+    break;
+  case 1: // top
+    backgroundX = 0.5;
+    backgroundY = 0.0;
+    background = "wmbgtop";
+    break;
+  case 2: // right
+    backgroundX = 1.0;
+    backgroundY = 0.5;
+    background = "wmbgrght";
+    break;
+  }
+
+  SetFont(background);
+  HudMessage(s:"A"; msgFlags, msgIdBackground, 0, backgroundX, backgroundY, 0);
+}
+
 function void WM_PrintMenu(void)
 {
   int playerN = PlayerNumber();
@@ -661,34 +695,7 @@ function void WM_PrintMenu(void)
     break;
   }
 
-  bool showBackground = GetUserCVar(playerN, "m8f_wm_ShowBackground");
-  if (showBackground)
-  {
-    str background;
-    int backgroundX;
-    int backgroundY;
-    switch (backgroundMode)
-    {
-    case 0: // left
-      backgroundX = 0.0;
-      backgroundY = 0.5;
-      background = "wmbgleft";
-      break;
-    case 1: // top
-      backgroundX = 0.5;
-      backgroundY = 0.0;
-      background = "wmbgtop";
-      break;
-    case 2: // right
-      backgroundX = 1.0;
-      backgroundY = 0.5;
-      background = "wmbgrght";
-      break;
-    }
-    SetFont(background);
-    HudMessage(s:"A"; msgFlags, msgIdBackground, 0, backgroundX, backgroundY, 0);
-  }
-
+  WM_MaybeShowBackground(backgroundMode);
   WM_SetupFont();
 
   if (!showTags) // print weapon info on center
@@ -2183,13 +2190,16 @@ function void WM_PrintInventoryMenu(void)
   bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
   if (disableOutput) { return; }
 
+  int xStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuX");
+  int backgroundMode   = xStart / 0.5;
+
+  WM_MaybeShowBackground(backgroundMode);
   WM_SetupFont();
 
   int availableColor   = GetUserCVar(playerN, "M8FAvailableWeaponColor");
   int highlightedColor = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
   bool highToLow       = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
 
-  int xStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuX");
   int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
   int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
 

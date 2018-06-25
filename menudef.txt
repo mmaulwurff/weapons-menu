@@ -84,6 +84,13 @@ OptionValue "m8f_wm_DisplayModeOptions"
   9, "(_______HS)"
 }
 
+OptionValue "m8f_wm_InventoryMenuXOptions"
+{
+  0.0, "Left"
+  0.5, "Center"
+  1.0, "Right"
+}
+
 OptionMenu "m8f_wm_WeaponMenuOptions"
 {
   Title "Weapon Menu Options"
@@ -144,7 +151,7 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   Title "Inventory Menu Options"
 
   StaticText "Position Options", "Blue"
-  Slider "Horizontal Position", "m8f_wm_InventoryMenuX", 0.0, 1.0, 0.05, 2
+  Option "Horizontal Position", "m8f_wm_InventoryMenuX", "m8f_wm_InventoryMenuXOptions"
   StaticText "also affects alignment", "Black"
 
   StaticText ""
