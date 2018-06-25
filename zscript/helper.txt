@@ -439,6 +439,7 @@ class WMZscriptHelper : Actor
       "q3rocketlauncher" , "rliconoff",
       "q3shotgun"        , "sgiconoff",
       "qlheavymachinegun", "hmgiconoff",
+      "staff"            , "wmstaff_off",
       "trakioncannon"    , "trkiconoff",
       "weapon_357"        , "hpkup102off",
       "weapon_9mmar"      , "hpkup103off",
@@ -458,7 +459,7 @@ class WMZscriptHelper : Actor
       "z-gun", "hxzgunoff"
     };
 
-    int size = 104;
+    int size = 105;
 
     weaponClass.ToLower();
 

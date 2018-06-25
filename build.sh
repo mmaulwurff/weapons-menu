@@ -17,16 +17,8 @@ zip weapon-menu.pk3 \
     sounds/WMTHROW.lmp \
     source/data.acs \
     source/weapon-menu.acs \
-    sprites/NOWEAPON.png \
-    sprites/WDOTA0.png \
-    sprites/WDOTB0.png \
-    sprites/WDOTG0.png \
-    sprites/WMBRASS.png \
-    sprites/WMPFC0.lmp \
-    sprites/WMPFD0.lmp \
-    sprites/wmbgleft.png \
-    sprites/wmbgrght.png \
-    sprites/wmbgtop.png \
+    sprites/*.png \
+    sprites/*.lmp \
     zscript/ammo.txt \
     zscript/helper.txt \
     zscript/junk.txt \
