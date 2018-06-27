@@ -2202,6 +2202,7 @@ function void WM_PrintInventoryMenu(void)
 
   int yStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuY");
   int stepMultiplier   = GetUserCVar(playerN, "m8f_wm_StepMultiplier");
+  if (stepMultiplier < 0.0) { highToLow = !highToLow; }
 
   int stepMultiplied = (0.05 * stepMultiplier) >> 16;
 

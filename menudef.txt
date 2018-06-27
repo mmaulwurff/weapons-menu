@@ -160,7 +160,7 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   StaticText "be out of screen with big values", "Black"
 
   StaticText ""
-  Slider "Step size multiplier", "m8f_wm_StepMultiplier", 0.2, 3.0, 0.1
+  Slider "Step size multiplier", "m8f_wm_StepMultiplier", -3.0, 3.0, 0.1
 
   StaticText ""
 }
