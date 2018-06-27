@@ -1310,6 +1310,9 @@ script "ToggleWeaponMenu" (int closeWithoutAction)
       if (StrCmp(selectedInventory, "wm_none") != 0)
       {
         UseInventory(selectedInventory);
+        int playerN = PlayerNumber();
+        bool closeAfterUse = GetUserCVar(playerN, "m8f_wm_CloseInvMenuAfterUse");
+        if (closeAfterUse) { WM_ChangeState(STATE_CLOSED); }
       }
       else
       {

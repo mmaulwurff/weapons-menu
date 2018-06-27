@@ -163,6 +163,9 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   Slider "Step size multiplier", "m8f_wm_StepMultiplier", -3.0, 3.0, 0.1
 
   StaticText ""
+  Option "Close Inventory menu after use", "m8f_wm_CloseInvMenuAfterUse", "OnOff"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_ExtrasOptions"
