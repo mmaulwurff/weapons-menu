@@ -943,7 +943,7 @@ function int WM_FindInWeaponList(str weaponName)
 
 function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 {
-  if (weaponNumber == selectedWeapon) { return; }
+  if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
   if (WM_IsZoomed()) { WM_ToggleZoom(); }
 
   str  weaponName = WM_GetWeaponName(weaponNumber);
