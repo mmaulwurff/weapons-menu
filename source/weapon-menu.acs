@@ -21,6 +21,8 @@
 
 #define WEAPON_HOLSTERED -10
 
+#define N_QUICK_INVENTORY_ITEMS 10
+
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
@@ -2256,13 +2258,21 @@ function void WM_PrintInventoryItem(
 )
 {
   int id = msgIdWeapon + position;
-  int y = yStart + position * stepMultiplied;
-  int x = xStart;
+  int y  = yStart + position * stepMultiplied;
+  int x  = xStart;
 
-  str itemString;
+  str itemString = inventoryNames[i];
+  str itemClass  = inventoryClasses[i];
 
-  if (amount == 1) { itemString = inventoryNames[i]; }
-  else { itemString = StrParam(s:inventoryNames[i], s:" (", d:amount, s:")"); }
+  for (int n = 0; n < N_QUICK_INVENTORY_ITEMS; ++n)
+  {
+    if (StrCmp(itemClass, WM_GetQuickInventoryItem(n)) == 0)
+    {
+      itemString = StrParam(s:itemString, s:" (Q", d:n + 1, s:")");
+      break;
+    }
+  }
+  if (amount > 1) { itemString = StrParam(s:itemString, s:" (", d:amount, s:")"); }
 
   HudMessage(s:" ", s:itemString, s:" "; msgFlags, id, color, x, y, 0);
 }
@@ -2494,8 +2504,6 @@ function bool WM_SlotIsHigher(int slot1, int slot2)
 
 // Inventory Controls Section //////////////////////////////////////////////////
 
-#define N_QUICK_INVENTORY_ITEMS 3
-
 function str WM_GetSelectedInventory(void)
 {
   ScriptCall("WMZscriptHelper", "GetSelectedInventory");
@@ -2533,18 +2541,47 @@ function void WM_SetQuickInventoryItem(int n, str quickInventory)
   SetUserCVarString(playerN, cvarName, quickInventory);
 }
 
-script "WM_MarkAsQuickInventoryItem" (int n)
+script "WM_ToggleQuickInventoryItem" (void)
 {
   if (IsUninitialized()) { terminate; }
-
-  if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
 
   str selectedInventory = WM_GetSelectedInventory();
   if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }
 
-  WM_SetQuickInventoryItem(n, selectedInventory);
   str tag = WM_GetInventoryTag(selectedInventory);
-  Log(s:tag, s:": marked as quick access #", i:n + 1);
+
+  int i;
+
+  // if found in quick access, remove it and quit
+  for (i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    if (StrCmp(WM_GetQuickInventoryItem(i), selectedInventory) == 0)
+    {
+      WM_SetQuickInventoryItem(i, "");
+      Log(s:tag, s:": no longer in quick access.");
+      terminate;
+    }
+  }
+
+  // put in first empty quick access slot
+  for (i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    if (StrLen(WM_GetQuickInventoryItem(i)) == 0)
+    {
+      WM_SetQuickInventoryItem(i, selectedInventory);
+      Log(s:tag, s:": marked as quick access #", i:i + 1);
+      break;
+    }
+  }
+}
+
+script "WM_ClearQuickInventoryItems" (void)
+{
+  for (int i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    WM_SetQuickInventoryItem(i, "");
+  }
+  Log(s:"Quick Inventory Item List is cleared.");
 }
 
 script "WM_UseQuickInventoryItem" (int n)

@@ -83,9 +83,16 @@ user bool m8f_wm_SlomoOnInventoryClose = false;
 user bool m8f_wm_TargetSpyOnZoom    = false;
 user bool m8f_wm_TSChangeLaserColor = false;
 
-user string m8f_wm_QuickInventoryItem0;
-user string m8f_wm_QuickInventoryItem1;
-user string m8f_wm_QuickInventoryItem2;
+user string m8f_wm_QuickInventoryItem0 = "";
+user string m8f_wm_QuickInventoryItem1 = "";
+user string m8f_wm_QuickInventoryItem2 = "";
+user string m8f_wm_QuickInventoryItem3 = "";
+user string m8f_wm_QuickInventoryItem4 = "";
+user string m8f_wm_QuickInventoryItem5 = "";
+user string m8f_wm_QuickInventoryItem6 = "";
+user string m8f_wm_QuickInventoryItem7 = "";
+user string m8f_wm_QuickInventoryItem8 = "";
+user string m8f_wm_QuickInventoryItem9 = "";
 
 server bool m8f_wm_DisableGibbing = false;
 server bool m8f_wm_DisableWeaponCrushing = false;

@@ -46,9 +46,12 @@ zip weapon-menu.pk3 \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \
-gzdoom -glversion 3 -file \
+gzdoom -glversion 3 \
+       -file \
        weapon-menu.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
        "$1" "$2" \
        +map test \
        -nomonsters
+
+       #-iwad ~/Programs/Games/wads/doom/HERETIC.WAD \
