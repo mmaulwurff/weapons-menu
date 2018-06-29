@@ -2664,18 +2664,6 @@ function bool WM_IsCyanDoom(void)
   return isCyanDoom;
 }
 
-// Give Some Ammo Section //////////////////////////////////////////////////////
-
-script "WM_GiveThisAmmo" (void)
-{
-  if (IsUninitialized()) { terminate; }
-
-  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
-
-  str weaponClass = WM_GetWeaponName(selectedWeapon);
-  ScriptCall("WMZscriptHelper", "GiveThisAmmo", weaponClass);
-}
-
 // Infinite Slot 1 Ammo Section ////////////////////////////////////////////////
 
 script "WM_GiveMinSlot2Ammo" (void)

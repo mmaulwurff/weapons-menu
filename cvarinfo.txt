@@ -66,12 +66,6 @@ user int m8f_wm_FavoriteFireMode = 0;
 
 user bool m8f_wm_ForceFallbackMode = false;
 
-user int m8f_wm_SavedMaxDecals;
-
-server float m8f_wm_AmmoMultiplier = 1.0;
-server float m8f_wm_KickbackMultiplier = 1.0;
-server float m8f_wm_BobMultiplier = 1.0;
-
 user bool m8f_wm_SlomoOnMenuOpen  = false;
 user bool m8f_wm_SlomoOnMenuClose = false;
 user bool m8f_wm_SlomoOnZoomIn    = false;
@@ -93,11 +87,6 @@ user string m8f_wm_QuickInventoryItem6 = "";
 user string m8f_wm_QuickInventoryItem7 = "";
 user string m8f_wm_QuickInventoryItem8 = "";
 user string m8f_wm_QuickInventoryItem9 = "";
-
-server bool m8f_wm_DisableGibbing = false;
-server bool m8f_wm_DisableWeaponCrushing = false;
-
-server bool m8f_wm_LightNotAcquiredWeapons = false;
 
 // used only as workaround for bug: https://forum.zdoom.org/viewtopic.php?t=61104
 user int M8fWMCycle = 0;

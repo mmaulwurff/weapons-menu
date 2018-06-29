@@ -1,4 +1,0 @@
-gameinfo
-{
-  AddEventHandlers = "WM_AmmoEventHandler"
-}

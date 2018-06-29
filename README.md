@@ -1,7 +1,6 @@
 # Weapon Menu Plus (mod for GZDoom)
 
 What is Weapon Menu Plus?
-* It is a weapon mod without weapons;
 * It is an extension for GZDoom weapon and inventory handling capabilities;
 * It is universal addon for any mod.
 

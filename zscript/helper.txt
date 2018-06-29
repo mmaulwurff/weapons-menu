@@ -279,19 +279,6 @@ class WMZscriptHelper : Actor
     }
   }
 
-  static void GiveThisAmmo(Actor activator, string weaponClass)
-  {
-    if (!activator) { return; }
-
-    Weapon w = Weapon(activator.FindInventory(weaponClass));
-    if (!w) { return; }
-
-    Ammo amm1 = w.Ammo1;
-    Ammo amm2 = w.Ammo2;
-    if (amm1) { activator.GiveInventory(amm1.GetClassName(), 10); }
-    if (amm2) { activator.GiveInventory(amm2.GetClassName(), 10); }
-  }
-
   static void GiveMinAmmo(Actor activator, string weaponClass)
   {
     if (!activator) { return; }
@@ -492,28 +479,5 @@ class WMZscriptHelper : Actor
     string icon = TexMan.GetName(iconID);
     if (icon == "TNT1A0") { icon = placeholder; }
     SendResultString(player, icon);
-  }
-}
-
-class WM_Lighter : Actor
-{
-  string checkedWeapon;
-
-  Default
-  {
-    +NOGRAVITY;
-  }
-
-  States
-  {
-  Spawn:
-    TNT1 A 0;
-    TNT1 A 0 a_jumpifinventory(checkedWeapon, 1, "NoLight", AAPTR_PLAYER1);
-  Light:
-    TNT1 A 10;// A_Log("light");
-    goto Spawn;
-  NoLight:
-    TNT1 B 35;// A_Log("no light");
-    loop;
   }
 }

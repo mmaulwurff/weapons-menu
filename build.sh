@@ -15,34 +15,16 @@ zip weapon-menu.pk3 \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \
     sounds/WMTHROW.lmp \
-    source/data.acs \
-    source/weapon-menu.acs \
+    source/*.acs \
     sprites/*.png \
     sprites/*.lmp \
-    zscript/ammo.txt \
-    zscript/helper.txt \
-    zscript/junk.txt \
-    zscript/laser.txt \
-    zscript/pistolstart.txt \
-    MINIPLWK.lmp \
-    MINIPL_W.lmp \
-    MM2SFNTO.fon2 \
-    README.md \
-    WeaponMenuInterface.txt \
-    gldefs.txt \
-    changelog.txt \
-    cvarinfo.txt \
-    keyconf.txt \
+    zscript/*.txt \
+    *.lmp \
+    *.fon2 \
+    *.md \
+    *.txt \
     language.enu \
-    loadacs.txt \
-    mapinfo.txt \
-    menudef.txt \
-    sndinfo.txt \
-    textures.blue \
-    textures.green \
-    textures.icons \
-    textures.txt \
-    zscript.txt \
+    textures.* \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \

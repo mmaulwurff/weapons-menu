@@ -207,34 +207,6 @@ OptionMenu "m8f_wm_ExtrasOptions"
   StaticText "you may not be able to select weapon.", "Black"
 
   StaticText ""
-  Slider "Ammo multiplier", "m8f_wm_AmmoMultiplier", 0.1, 10.0, 0.1
-  StaticText "Ammo pickups will give at least 1 ammo.", "Black"
-  StaticText "Changes take effect on new drops only,", "Black"
-  StaticText "or on new level start. May not work if", "Black"
-  StaticText "ammo is replaced with custom pickups.", "Black"
-
-  StaticText ""
-  Slider "Kickback multiplier", "m8f_wm_KickbackMultiplier", 0.0, 10.0, 0.5
-  StaticText "Hitscan only.", "Black"
-  StaticText "Changes take effect on new level start.", "Black"
-
-  StaticText ""
-  Slider "Weapon bobbing multiplier", "m8f_wm_BobMultiplier", 0.0, 3.0, 0.5
-  StaticText "Setting this to 0 disables bobbing.", "Black"
-  StaticText "Changes take effect on new level start.", "Black"
-
-  StaticText ""
-  Option "Disable gibbing", "m8f_wm_DisableGibbing", "m8f_wm_YesNo"
-  Option "Disable weapon crushing", "m8f_wm_DisableWeaponCrushing", "m8f_wm_YesNo"
-  StaticText "Changes take effect on new level start.", "Black"
-
-  StaticText ""
-  Option "Light up not acquired weapons",  "m8f_wm_LightNotAcquiredWeapons", "OnOff"
-  StaticText "Changes are applied on next map.", "Black"
-  StaticText "Dynamic lights are required for this to work.", "Black"
-  StaticText "Doesn't work for mods with custom weapon pickups.", "Black"
-
-  StaticText ""
 }
 
 OptionMenu "m8f_wm_Controls"
@@ -313,53 +285,12 @@ OptionMenu "m8f_wm_Commands"
 {
   Title "Commands"
 
-  StaticText "Visuals", "Blue"
-  Command "Clear decals", "wm_cleardecals"
-
-  StaticText ""
-  StaticText "Cheats", "Blue"
-  Command "Give some ammo for this weapon", "pukename wm_givethisammo"
-  StaticText "When you need to cheat, but IDFA is too much", "Black"
-
-  StaticText ""
-  StaticText "Game", "Blue"
-  SafeCommand "Restart this level", "wm_restart_this_level"
-  SafeCommand "Next level", "wm_next_level"
-
-  StaticText ""
   StaticText "Debug", "Blue"
   Command "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
   StaticText "Weapon Menu", "Blue"
   Command "Reset weapon order", "m8f_wm_PreviousWeaponSet -1"
-
-  StaticText ""
-}
-
-OptionMenu "m8f_wm_GZDoomWeapon"
-{
-  Title "GZDoom Weapon Settings"
-
-  StaticText "HUD", "Blue"
-  Option "$HUDMNU_CROSSHAIR", "crosshair", "Crosshairs"
-  Option "$HUDMNU_FORCECROSSHAIR", "crosshairforce", "OnOff"
-
-  StaticText ""
-  StaticText "Gameplay", "Blue"
-  Option "Switch weapon on pickups", "neverswitchonpickup", "OffOn"
-  Slider "Autoaim", "autoaim", 0.0, 35.0, 35.0
-
-  Option "$CMPTMNU_MISSILECLIP", "compat_MISSILECLIP", "YesNo"
-  StaticText "Rockets fly through decorations", "Black"
-
-  StaticText ""
-  StaticText "Display", "Blue"
-  Option "$DSPLYMNU_ROCKETTRAILS", "cl_rockettrails", "RocketTrailTypes"
-  Option "$DSPLYMNU_BLOODTYPE", "cl_bloodtype", "BloodTypes"
-  Option "$DSPLYMNU_PUFFTYPE", "cl_pufftype", "PuffTypes"
-  Slider "$DSPLYMNU_MAXPARTICLES", "r_maxparticles", 100, 10000, 100, 0
-  Slider "$DSPLYMNU_MAXDECALS", "cl_maxdecals", 0, 10000, 100, 0
 
   StaticText ""
 }
@@ -397,7 +328,6 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
   Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
   Submenu "Extras",                 "m8f_wm_ExtrasOptions"
-  Submenu "GZDoom Weapon Options",  "m8f_wm_GZDoomWeapon"
   Submenu "Cross-mod Options",      "m8f_wm_CrossmodOptions"
   Submenu "Commands",               "m8f_wm_Commands"
 
