@@ -4,7 +4,14 @@ acc source/weapon-menu.acs acs/weapon-menu.o \
 && \
 rm -f weapon-menu.pk3 \
 && \
-git log --pretty=format:"-%d %ai %s%n" > changelog.txt \
+git log --date=short --pretty=format:"-%d %ad %s%n" | \
+    grep -v "^$" | \
+    sed "s/HEAD -> master, //" | \
+    sed "s/, origin\/master//" | \
+    sed "s/ (HEAD -> master)//" | \
+    sed "s/ (origin\/master)//"  |\
+    sed "s/- (tag: \(v\?[0-9.]*\))/\n\1\n-/" \
+    > changelog.txt \
 && \
 zip weapon-menu.pk3 \
     acs/weapon-menu.o \
