@@ -480,4 +480,26 @@ class WMZscriptHelper : Actor
     if (icon == "TNT1A0") { icon = placeholder; }
     SendResultString(player, icon);
   }
+
+  static void GetAimPitch(Actor activator)
+  {
+    if (!activator) { return; }
+    let player = activator.player;
+    if (!player) { return; }
+
+    double slope = activator.BulletSlope(null, ALF_PORTALRESTRICT);
+    //Console.Printf("%d", slope);
+    SendResultInt(player, slope);
+  }
+
+  static void TargetIsPresent(Actor activator)
+  {
+    if (!activator) { return; }
+    let player = activator.player;
+    if (!player) { return; }
+
+    Actor target    = activator.AimTarget();
+    bool  isPresent = (target != null);
+    SendResultInt(player, isPresent);
+  }
 }

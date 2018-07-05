@@ -2077,10 +2077,26 @@ str puffs[3][N_PUFFS] =
 #define MAX_DISTANCE 4096.0
 #define PUFF_FLAGS FHF_NORANDOMPUFFZ | FHF_NOIMPACTDECAL
 
+function int WM_GetAimPitch(void)
+{
+  ScriptCall("WMZscriptHelper", "GetAimPitch");
+  int playerN = PlayerNumber();
+  return FixedMul(GetUserCVar(playerN, "m8f_wm_ResultInt"), 180.0);
+}
+
+function bool WM_TargetIsPresent(void)
+{
+  ScriptCall("WMZscriptHelper", "TargetIsPresent");
+  int playerN = PlayerNumber();
+  return GetUserCVar(playerN, "m8f_wm_ResultInt");
+}
+
 function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
 {
   int angle = GetActorAngle(0);
-  int pitch = GetActorPitch(0);
+  int pitch;
+  if (WM_TargetIsPresent()) { pitch = WM_GetAimPitch(); }
+  else                      { pitch = GetActorPitch(0); }
   LineAttack(0, angle, pitch, 0, "WM_InvisiblePuff", "None", MAX_DISTANCE,
              PUFF_FLAGS, distanceCheckTid);
 
@@ -2106,6 +2122,7 @@ function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
   ///*///
 
   LineAttack(0, angle, pitch, 0, puff, "None", MAX_DISTANCE, PUFF_FLAGS);
+  //WM_FireLaser(puff);
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
