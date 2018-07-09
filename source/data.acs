@@ -36,7 +36,7 @@ str playerClassNames[SETS_NUMBER] =
   "ArgPlayer",           // 21. Argent (v0.5.3)
   "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
-  "Xplayer",             // 24. Dead Marine v0.9.3
+  "wm_reserved",         // 24. [Reserved]
   "ParkourPlayer",       // 25. Parkour v1.1
   "m8f_wm_Autodetected", // 26. Autodetected
   "wm_reserved",         // 27. [Reserved]
@@ -88,7 +88,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // Argent
   15, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
-  9,  // Dead Marine
+  0,  // [Reserved]
   12, // Parkour
   0,  // Special - autodetected
   0,  // [Reserved]
@@ -186,7 +186,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
 
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
+  {}, // Reserved
 
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
 
@@ -516,15 +516,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG9000Fixed"
   },
 
-  { // Dead Marine
-    "XtremeSaw", "Xtremefist",
-    "XtremePistol",
-    "XtremeSSG", "XtremeShotgun",
-    "XtremeChaingun",
-    "XtremeRLauncher",
-    "XtremePlasma",
-    "XtremeBFG"
-  },
+  {}, // Reserved
 
   { // Parkour
     "PkChainsaw", "PkFist",
@@ -1235,15 +1227,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
-  { // Dead Marine
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
+  {}, // Reserved
 
   { // Parkour
     "Chainsaw", "Fists",
