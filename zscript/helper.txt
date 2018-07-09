@@ -443,10 +443,11 @@ class WMZscriptHelper : Actor
       "weapon_snark"      , "hpkup108off",
       "weapon_tripmine"   , "hpkup107off",
       "xtremefist", "wmbrassoff",
+      "xtremesaw" , "csawa0",
       "z-gun", "hxzgunoff"
     };
 
-    int size = 105;
+    int size = 106;
 
     weaponClass.ToLower();
 
