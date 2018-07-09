@@ -2122,6 +2122,7 @@ function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
   ///*///
 
   LineAttack(0, angle, pitch, 0, puff, "None", MAX_DISTANCE, PUFF_FLAGS);
+  //WM_FireLaser(puff);
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
