@@ -24,8 +24,8 @@ alias WeaponMenuOptions "openmenu m8f_wm_WeaponMenuPlusOptions"
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
 
-# Cycle variable is used as a workaround for
-# https://forum.zdoom.org/viewtopic.php?t=61104
+// Cycle variable is used as a workaround for
+// https://forum.zdoom.org/viewtopic.php?t=61104
 alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
