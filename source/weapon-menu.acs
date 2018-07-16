@@ -409,6 +409,7 @@ function str WM_GetWeaponTag(int weaponNumber)
 function int WM_GetWeaponSibling(int weaponNumber)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
+  int playerN        = PlayerNumber();
 
   for (int i = 0; i < weaponCount; ++i)
   {
@@ -417,6 +418,8 @@ function int WM_GetWeaponSibling(int weaponNumber)
         && WM_GetWeaponSlot(w) == thisWeaponSlot
         && !WM_SkipNoAmmo(w))
     {
+      int cycle = GetUserCVar(playerN, "m8fWmCycle");
+      if (w < weaponNumber && cycle != 1) { return -1; }
       return w;
     }
   }
@@ -1207,7 +1210,10 @@ script "ShowWeaponMenu" ENTER
   WM_ChangeState(state);
 
   int updatePeriod = 10;
-  int updateCount = 0;
+  int updateCount  =  0;
+
+  int keyRepeatPeriod = 4;
+  int keyRepeat       = 0;
 
   int playerN = PlayerNumber();
   int oldInstant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
@@ -1222,6 +1228,24 @@ script "ShowWeaponMenu" ENTER
     // CVar may have been reset by other games while this game was saved.
     WM_SetCVar(true, "M8fWeaponMenuIsEnabled");
     WM_SetCVar(IsOpened() || IsInventory(),  "M8fWeaponMenuIsOpened");
+
+    // emulating repeated key press
+    if (keyRepeat < keyRepeatPeriod) { ++keyRepeat; }
+    else
+    {
+      keyRepeat = 0;
+
+      bool isSmartPressed = GetUserCVar(playerN, "m8f_wm_SmartPressed");
+      if (isSmartPressed != -1)
+      {
+        bool cycle = GetUserCVar(playerN, "m8fwmCycle");
+        SetUserCVar(playerN, "m8fWmCycle", cycle + 1);
+        if (cycle > 1)
+        {
+          ACS_NamedExecute("SmartWeaponSelection", 0, isSmartPressed);
+        }
+      }
+    }
 
     if (updateCount < updatePeriod) { ++updateCount; }
     else

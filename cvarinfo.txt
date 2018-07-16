@@ -95,6 +95,7 @@ user string m8f_wm_QuickInventoryItem9 = "";
 
 // used only as workaround for bug: https://forum.zdoom.org/viewtopic.php?t=61104
 user int M8fWMCycle = 0;
+user int m8f_wm_SmartPressed = -1;
 
 // can contain sounds defined in soundinfo.
 user string m8f_wm_SwitchSound = "wmenu/no";
