@@ -24,7 +24,9 @@ user string m8f_wm_LastUsedWeapon = "None";
 user int M8fWeaponMenuFavoriteWeapon = 0;
 
 user bool M8fWeaponMenuOpenOnScroll = false;
-user bool M8fWeaponMenuAlwaysShow = false;
+user bool M8fWeaponMenuAlwaysShow   = false;
+user bool m8f_wm_SkipNoAmmo         = false;
+
 user bool m8f_wm_ShowIcons = false;
 user bool m8f_wm_ShowBackground = false;
 user bool m8f_wm_DoubleSpaceBetweenSlots = false;

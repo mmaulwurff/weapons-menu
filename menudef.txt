@@ -132,6 +132,7 @@ OptionMenu "m8f_wm_WeaponMenuOptions"
   StaticText ""
   StaticText "Behavior options", "Blue"
   Option "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "m8f_wm_YesNo"
+  Option "Skip weapons with no ammo", "m8f_wm_SkipNoAmmo", "OnOff"
 
   Option "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "m8f_wm_YesNo"
   StaticText "Slot keys will open menu only if there", "Black"

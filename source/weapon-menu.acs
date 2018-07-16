@@ -413,7 +413,9 @@ function int WM_GetWeaponSibling(int weaponNumber)
   for (int i = 0; i < weaponCount; ++i)
   {
     int w = (weaponNumber + i) % weaponCount;
-    if (w != weaponNumber && WM_GetWeaponSlot(w) == thisWeaponSlot)
+    if (w != weaponNumber
+        && WM_GetWeaponSlot(w) == thisWeaponSlot
+        && !WM_SkipNoAmmo(w))
     {
       return w;
     }
@@ -428,6 +430,7 @@ function int WM_GetWeaponBySlotInInv(int slotNumber)
   {
     if (slotNumber == WM_GetWeaponSlot(i))
       if (CheckInventory(WM_GetWeaponName(i)))
+        if (!WM_SkipNoAmmo(i))
     {
       return i;
     }
@@ -1431,39 +1434,37 @@ script "ScrollNextWeapon" (void)
     WM_ChangeState(STATE_OPENED);
   }
 
+  int start;
+  int n;
   int i;
-  int stopper = weaponCount;
 
   if (IsOpened())
   {
-    i = highlightedWeapon;
-    do
+    start = highlightedWeapon + 1;
+    for (n = 0; n < weaponCount; ++n)
     {
-      ++i;
-      if (i >= weaponCount) { i = 0; }
-      --stopper;
+      i = (start + n) % weaponCount;
+      if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
     }
-    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    if (stopper) { WM_PlaySwitchSound(); }
+    if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
   }
 
   else
   {
     if (WM_IsZoomed()) { WM_ToggleZoom(); }
 
-    i = selectedWeapon;
-    if (i == WEAPON_HOLSTERED) { i = 0; }
-    do
-    {
-      ++i;
-      if (i >= weaponCount) { i = 0; }
-      --stopper;
-    }
-    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
+    if (selectedWeapon == WEAPON_HOLSTERED) { start = 0;                  }
+    else                                    { start = selectedWeapon + 1; }
 
-    if (i != selectedWeapon)
+    for (n = 0; n < weaponCount; ++n)
+    {
+      i = (start + n) % weaponCount;
+      if (SetWeapon(WM_GetWeaponName(i)) && !WM_SkipNoAmmo(i)) { break; }
+    }
+
+    if (n != weaponCount - 1)
     {
       WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
       WM_SetSelectedWeapon(i);
@@ -1508,39 +1509,37 @@ script "ScrollPreviousWeapon" (void)
     WM_ToggleWeaponMenu();
   }
 
+  int start;
+  int n;
   int i;
-  int stopper = weaponCount;
 
   if (IsOpened())
   {
-    i = highlightedWeapon;
-    do
+    start = highlightedWeapon - 1;
+    for (n = 0; n < weaponCount; ++n)
     {
-      --i;
-      if (i < 0) { i = weaponCount - 1; }
-      --stopper;
+      i = (start - n + weaponCount) % weaponCount;
+      if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
     }
-    while (!WM_IsInInventory(i) && stopper);
 
     WM_SetHighlightedWeapon(i);
-    if (stopper) { WM_PlaySwitchSound(); }
+    if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
   }
 
   else
   {
     if (WM_IsZoomed()) { WM_ToggleZoom(); }
 
-    i = selectedWeapon;
-    if (i == WEAPON_HOLSTERED) { i = weaponCount - 1; }
-    do
-    {
-      --i;
-      if (i < 0) { i = weaponCount - 1; }
-      --stopper;
-    }
-    while (!SetWeapon(WM_GetWeaponName(i)) && stopper);
+    if (selectedWeapon == WEAPON_HOLSTERED) { start = weaponCount    - 1; }
+    else                                    { start = selectedWeapon - 1; }
 
-    if (i != selectedWeapon)
+    for (n = 0; n < weaponCount; ++n)
+    {
+      i = (start - n + weaponCount) % weaponCount;
+      if (SetWeapon(WM_GetWeaponName(i)) && !WM_SkipNoAmmo(i)) { break; }
+    }
+
+    if (n != weaponCount - 1)
     {
       WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
       WM_SetSelectedWeapon(i);
@@ -1554,6 +1553,16 @@ script "ScrollPreviousWeapon" (void)
   SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 
   WM_UpdateMenu();
+}
+
+function bool WM_SkipNoAmmo(int weaponIndex)
+{
+  int  playerN          = PlayerNumber();
+  bool shouldSkipNoAmmo = GetUserCvar(playerN, "m8f_wm_SkipNoAmmo");
+  if (!shouldSkipNoAmmo) { return false; }
+
+  bool hasAmmo = WM_HasAmmo(WM_GetWeaponName(weaponIndex));
+  return !hasAmmo;
 }
 
 script "SmartWeaponSelection" (int slotNumber)
