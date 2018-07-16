@@ -13,6 +13,12 @@ alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
 alias toggle_menu_no_action "pukename ToggleWeaponMenu 1"
 alias toggle_menu           "pukename ToggleWeaponMenu 0"
 
+alias +press_menu "pukename OpenWeaponMenu"
+alias -press_menu "pukename CloseWeaponMenu"
+
+alias +press_inv "pukename WM_OpenInventoryMenu"
+alias -press_inv "pukename WM_CloseInventoryMenu"
+
 alias WeaponMenuNext "pukename scrollnextweapon"
 alias WeaponMenuPrev "pukename scrollpreviousweapon"
 

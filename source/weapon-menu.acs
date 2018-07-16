@@ -1303,6 +1303,18 @@ script "ApplyWeaponMenuSettings" (void)
   WM_UpdateMenu();
 }
 
+script "OpenWeaponMenu" (void)
+{
+  if (IsOpened()) { terminate; }
+  ACS_NamedExecute("ToggleWeaponMenu", 0, 0);
+}
+
+script "CloseWeaponMenu" (void)
+{
+  if (!IsOpened()) { terminate; }
+  ACS_NamedExecute("ToggleWeaponMenu", 0, 0);
+}
+
 script "ToggleWeaponMenu" (int closeWithoutAction)
 {
   if (IsUninitialized()) { terminate; }
@@ -2172,6 +2184,18 @@ function void WM_ShowLaserSight(int distanceCheckTid, int laserColor)
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
+
+script "WM_OpenInventoryMenu" (void)
+{
+  if (IsInventory()) { terminate; }
+  ACS_NamedExecute("WM_InventoryMenu", 0);
+}
+
+script "WM_CloseInventoryMenu" (void)
+{
+  if (!IsInventory()) { terminate; }
+  ACS_NamedExecute("WM_InventoryMenu", 0);
+}
 
 script "WM_InventoryMenu" (void)
 {
