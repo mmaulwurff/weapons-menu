@@ -279,6 +279,24 @@ class WMZscriptHelper : Actor
     }
   }
 
+  static void SetFov(Actor activator, double fov)
+  {
+    if (!activator) { return; }
+    let player = activator.player;
+    if (!player) { return; }
+
+    player.SetFov(fov);
+  }
+
+  static void GetFov(Actor activator)
+  {
+    if (!activator) { return; }
+    let player = activator.player;
+    if (!player) { return; }
+
+    SendResultInt(player, player.FOV);
+  }
+
   static void GiveMinAmmo(Actor activator, string weaponClass)
   {
     if (!activator) { return; }

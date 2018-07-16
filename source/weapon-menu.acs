@@ -66,6 +66,8 @@ bool isInInventory[MAX_WEAPONS_NUMBER];
 int zoomFactor = 1.0;
 bool isZoomed;
 
+int originalFov;
+
 // Inventory variables section /////////////////////////////////////////////////
 
 int nInventoryItems;
@@ -930,6 +932,22 @@ function int WM_FindInWeaponList(str weaponName)
   return ERROR_NOT_FOUND;
 }
 
+function void WM_Unholster(void)
+{
+  int playerN                = PlayerNumber();
+  int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
+  if (holsterSpeedMultiplier != 0.0)
+  {
+    SetActorProperty(0, APROP_SPEED, 1.0);
+  }
+
+  bool fovChangeEnabled = GetUserCvar(playerN, "m8f_wm_HolsterFovEnabled");
+  if (fovChangeEnabled)
+  {
+    ScriptCall("WMZScriptHelper", "SetFov", originalFov);
+  }
+}
+
 function void WM_SelectWeapon(int weaponNumber, bool changeLast)
 {
   if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
@@ -941,11 +959,10 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
   if (success)
   {
     int playerN = PlayerNumber();
-    int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
-    if (holsterSpeedMultiplier != 0.0 && selectedWeapon == WEAPON_HOLSTERED)
-    {
-      SetActorProperty(0, APROP_SPEED, 1.0);
-    }
+    if (selectedWeapon == WEAPON_HOLSTERED)
+      {
+        WM_Unholster();
+      }
 
     if (changeLast) { WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon)); }
     WM_SetSelectedWeapon(weaponNumber);
@@ -2057,10 +2074,30 @@ script "WM_HolsterWeapon" (void)
     SetActorProperty(0, APROP_SPEED, holsterSpeedMultiplier);
   }
 
+  bool fovChangeEnabled = GetUserCvar(playerN, "m8f_wm_HolsterFovEnabled");
+  if (fovChangeEnabled)
+  {
+    originalFov = WM_GetFov();
+    int fovHolstered = GetUserCvar(playerN, "m8f_wm_HolsterFov");
+    WM_SetFov(fovHolstered);
+  }
+
   WM_ChangeState(STATE_CLOSED);
   WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
   WM_SetSelectedWeapon(WEAPON_HOLSTERED);
   ScriptCall("WMZScriptHelper", "HolsterWeapon");
+}
+
+function int WM_GetFov(void)
+{
+  int playerN = PlayerNumber();
+  ScriptCall("WMZScriptHelper", "GetFov");
+  return GetUserCVar(playerN, "m8f_wm_ResultInt") << 16;
+}
+
+function void WM_SetFov(int fov)
+{
+  ScriptCall("WMZScriptHelper", "SetFov", fov);
 }
 
 // Laser sight section /////////////////////////////////////////////////////////
