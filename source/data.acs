@@ -30,7 +30,7 @@ str playerClassNames[SETS_NUMBER] =
   "ComplexDoomPlayer",   // 15. Complex Doom V27a3
   "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
   "DoomMarine",          // 17. Hard-Doom v8.2f
-  "wm_reserved",         // 18. [Reserved]
+  "DoomPlayer",          // 18. REKKR
   "ChexPlayer",          // 19. Chex Quest (Single Player)
   "wm_reserved",         // 20. [Reserved]
   "ArgPlayer",           // 21. Argent (v0.5.3)
@@ -82,7 +82,7 @@ int weaponCounts[SETS_NUMBER] =
   18, // Complex Doom
   12, // Weapons of Saturn
   14, // Hard-Doom
-  0,  // [Reserved]
+  8,  // REKKR
   9,  // Chex Quest
   0,  // [Reserved]
   11, // Argent
@@ -174,7 +174,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 
-  {}, // Reserved
+  { 1, 1, 2, 3, 4, 5, 6, 7 }, // REKKR
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Chex Quest
 
@@ -468,7 +468,15 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG10K~", "BFG9000~",
   },
 
-  {}, // Reserved
+  { // REKKR
+    "Chainsaw", "Fist",
+    "Pistol",
+    "Shotgun",
+    "Chaingun",
+    "RocketLauncher",
+    "PlasmaRifle",
+    "BFG9000"
+  },
 
   { // Chex Quest
     "SuperBootspork", "Bootspoon",
@@ -1187,7 +1195,15 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG10K", "BFG9000",
   },
 
-  {}, // Reserved
+  { // REKKR
+    "Axe", "Fists",
+    "Soul Bow",
+    "Steelshot Launcher",
+    "Soul Launcher",
+    "Runic Staff",
+    "Holy Relic",
+    "Blessing of the Gods"
+  },
 
   { // Chex Quest
     "Super Bootspork", "Spoon",

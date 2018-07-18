@@ -1124,7 +1124,8 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "DoomPlayer") == 0)
   {
-    if      (WM_IsFreedoom()) { return 44; }
+    if      (WM_IsRekkr())    { return 18; }
+    else if (WM_IsFreedoom()) { return 44; }
     else if (WM_IsHarmony())  { return 46; }
     else if (WM_IsAbortM())   { return  4; }
     else if (WM_IsCyanDoom()) { return 13; }
@@ -2738,6 +2739,15 @@ function bool WM_IsFreedoom(void)
   str filtered = StrParam(l:"WM_GAME");
   bool freedoom = (StrCmp(filtered, "3") == 0);
   return freedoom;
+}
+
+function bool WM_IsRekkr(void)
+{
+  str  checkString = StrParam(l:"E1TEXT");
+  str  rekkrString = "You've been through war.";
+  int  rekkrLength = StrLen(rekkrString);
+  bool isRekkr     = StrICmp(rekkrString, StrLeft(checkString, rekkrLength)) == 0;
+  return isRekkr;
 }
 
 function bool WM_IsHarmony(void)
