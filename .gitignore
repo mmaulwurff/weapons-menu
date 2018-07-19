@@ -9,6 +9,8 @@ changelog.txt
 !*.sh
 !*.lmp
 !.gitignore
+!textures*
+*~
 
 !source
 source/*

@@ -801,7 +801,9 @@ function void WM_PrintMenu(void)
   int showIcons = GetUserCVar(playerN, "m8f_wm_ShowIcons");
   if (showIcons)
   {
-    ScriptCall("WMZscriptHelper", "GetWeaponIcon", WM_GetWeaponName(highlightedWeapon));
+    str weaponClass = WM_GetWeaponName(highlightedWeapon);
+    if (currentSet == 18) { weaponClass = StrParam(s:weaponClass, s:"_rekkr"); }
+    ScriptCall("WMZscriptHelper", "GetWeaponIcon", weaponClass);
     str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
     if (StrLen(icon) > 0)
     {

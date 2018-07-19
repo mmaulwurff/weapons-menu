@@ -39,6 +39,7 @@ zip weapon-menu.pk3 \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \
 gzdoom -glversion 3 \
+       \ #-iwad ~/Programs/Games/wads/doom/freedoom1.wad \
        -file \
        weapon-menu.pk3 \
        ~/Programs/Games/wads/maps/DOOMTEST.wad \
