@@ -76,4 +76,4 @@ License: GPLv3 (see copying.txt)
 * Simon Judd for SLADE3.
 * Kinsie for Kinsie's Gameplay Mod Test Map.
 * wildweasel, GAA1992, Yholl, Sgt. Shivers, PillowBlaster, and other mod authors for inspiration and awesome weapon and gameplay mods.
-* ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, RikohZX, namsan, Mere_Duke, and other ZDoom Forum users for valuable feedback and bug reporting.
+* ShockwaveS08, Trusty McLegit, Someone64, WallyTheBoogieBug, RikohZX, namsan, Mere_Duke, Rowsol, and other ZDoom Forum users for valuable feedback and bug reporting.

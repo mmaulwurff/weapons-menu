@@ -319,7 +319,7 @@ OptionMenu "m8f_wm_CrossmodOptions"
 
   StaticText ""
   StaticText "Target Spy", "Blue"
-  Option "Toggle Target Spy an Zoom In/Out", "m8f_wm_TargetSpyOnZoom", "OnOff"
+  Option "Toggle Target Spy at Zoom In/Out", "m8f_wm_TargetSpyOnZoom", "OnOff"
   Option "Change laser sight color on target", "m8f_wm_TSChangeLaserColor", "OnOff"
 
   StaticText ""
