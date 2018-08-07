@@ -29,7 +29,7 @@ What is Weapon Menu Plus?
    * Weapon slot 1-11: if menu is closed, open it.
      Cycle through all weapons in a slot.
    * Keys for changing weapon order: priority in slot and weapon slot itself.
-   * Additional weapon-related keys: holster weapon, laser sight, zoom, zero-damage hitscan attack ("Throw Junk").
+   * Additional weapon-related keys: holster weapon, zoom, zero-damage hitscan attack ("Throw Junk").
    * Open/close inventory menu.
    * Mark/use quick inventory access items.
 

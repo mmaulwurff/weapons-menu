@@ -63,13 +63,6 @@ OptionValue "m8f_wm_FavoriteFireOptions"
   2, "No fire"
 }
 
-OptionValue "m8f_wm_LaserColorOptions"
-{
-  0, "Red"
-  1, "Green"
-  2, "Blue"
-}
-
 OptionValue "m8f_wm_DisplayModeOptions"
 {
   0, "(VST______)"
@@ -183,11 +176,8 @@ OptionMenu "m8f_wm_ExtrasOptions"
   StaticText "Don't change this while zoomed.", "Black"
 
   StaticText ""
-  Slider "Speed while zoomed", "m8f_wm_ZoomSpeedMultiplier", 0.1, 1.0, 0.1
-  Option "Switch Laser Sight on Zoom", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
-  Option "Zoom and Laser Sight on Slot 1", "m8f_wm_IsNotSlot1Melee", "m8f_wm_YesNo"
-  Option "Show Laser Sight", "m8f_wm_ShowLaserSight", "m8f_wm_YesNo"
-  Option "Laser Sight Color", "m8f_wm_LaserColor", "m8f_wm_LaserColorOptions"
+  Slider "Speed while zoomed"     , "m8f_wm_ZoomSpeedMultiplier" , 0.1, 1.0, 0.1
+  Option "Zoom allowed on Slot 1" , "m8f_wm_IsNotSlot1Melee"     , "m8f_wm_YesNo"
 
   Option "Lower weapon while zoomed", "m8f_wm_LowerWeaponOnZoom", "m8f_wm_YesNo"
   StaticText "Don't change this while zoomed.", "Black"
@@ -243,15 +233,14 @@ OptionMenu "m8f_wm_Controls"
 
   StaticText ""
   StaticText "Advanced Features Controls", "Blue"
-  Control "Open Weapon Menu Options", "WeaponMenuOptions"
-  Control "Last Used Weapon", "pukename SelectLastUsedWeapon"
-  Control "Select most powerful weapon", "wm_switch_to_powerful"
-  Control "Mark weapon for quick access", "pukename WM_MarkWeaponAsFavorite"
-  Control "Select quick access weapon", "pukename WM_SelectFavoriteWeapon"
-  Control "Fire quick access weapon", "+wm_fire_favorite"
-  Control "Holster weapon", "pukename WM_HolsterWeapon"
-  Control "Toggle Laser Sight", "test $m8f_wm_ShowLaserSight wm_laser_off wm_laser_on"
-  Control "Toggle Zoom", "pukename WM_ToggleZoom"
+  Control "Open Weapon Menu Options"      , "WeaponMenuOptions"
+  Control "Last Used Weapon"              , "pukename SelectLastUsedWeapon"
+  Control "Select most powerful weapon"   , "wm_switch_to_powerful"
+  Control "Mark weapon for quick access"  , "pukename WM_MarkWeaponAsFavorite"
+  Control "Select quick access weapon"    , "pukename WM_SelectFavoriteWeapon"
+  Control "Fire quick access weapon"      , "+wm_fire_favorite"
+  Control "Holster weapon"                , "pukename WM_HolsterWeapon"
+  Control "Toggle Zoom"                   , "pukename WM_ToggleZoom"
   StaticText "If you are using Zoom, you must switch weapons", "Black"
   StaticText "only with Weapon Menu keys", "Black"
 
@@ -303,10 +292,11 @@ OptionMenu "m8f_wm_Commands"
 OptionMenu "m8f_wm_CrossmodOptions"
 {
   Title "Cross-mod Options"
+  StaticText "These options work only if mods are", "Black"
+  StaticText "loaded together with Weapon Menu.", "Black"
 
-  StaticText "Slomo Bullettime", "Blue"
-  StaticText "Slomo Bullettime must be loaded for thise to work!", "Black"
   StaticText ""
+  StaticText "Slomo Bullettime by Spaceman333", "Blue"
   Option "Toggle Slomo on Weapon Menu Zoom In",  "m8f_wm_SlomoOnZoomIn",    "OnOff"
   Option "Toggle Slomo on Weapon Menu Zoom Out", "m8f_wm_SlomoOnZoomOut",   "OnOff"
   Option "Toggle Slomo on Weapon Menu open",     "m8f_wm_SlomoOnMenuOpen",  "OnOff"
@@ -319,9 +309,12 @@ OptionMenu "m8f_wm_CrossmodOptions"
 
   StaticText ""
   StaticText "Target Spy", "Blue"
-  Option "Toggle Target Spy at Zoom In/Out", "m8f_wm_TargetSpyOnZoom", "OnOff"
+  Option "Toggle Target Spy at Zoom In/Out"  , "m8f_wm_TargetSpyOnZoom"   , "OnOff"
   Option "Change laser sight color on target", "m8f_wm_TSChangeLaserColor", "OnOff"
 
+  StaticText ""
+  StaticText "Laser Sight", "Blue"
+  Option "Switch Laser Sight on Zoom", "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
   StaticText ""
 }
 

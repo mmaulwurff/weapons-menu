@@ -52,17 +52,12 @@ user float m8f_wm_ZoomFactor          = 1.5;
 user float m8f_wm_ZoomSpeedMultiplier = 1.0;
 
 user int  M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
-user int  m8f_wm_ShowLaserSight = 0;
-user int  m8f_wm_LaserOnZoom = 0;
-user bool m8f_wm_LowerWeaponOnZoom = true;
-user int  m8f_wm_IsNotSlot1Melee = 0;
-user bool m8f_wm_PlaySoundOnWeaponChange = false;
-user bool m8f_wm_InfiniteSlot2Ammo = false;
 
-// 0 - red
-// 1 - green
-// 2 - blue
-user int m8f_wm_LaserColor = 0;
+user int  m8f_wm_LaserOnZoom             = 0;
+user bool m8f_wm_LowerWeaponOnZoom       = true;
+user int  m8f_wm_IsNotSlot1Melee         = 0;
+user bool m8f_wm_PlaySoundOnWeaponChange = false;
+user bool m8f_wm_InfiniteSlot2Ammo       = false;
 
 // 0 - normal fire
 // 1 - alt fire
@@ -80,7 +75,6 @@ user bool m8f_wm_SlomoOnInventoryOpen  = false;
 user bool m8f_wm_SlomoOnInventoryClose = false;
 
 user bool m8f_wm_TargetSpyOnZoom    = false;
-user bool m8f_wm_TSChangeLaserColor = false;
 
 user string m8f_wm_QuickInventoryItem0 = "";
 user string m8f_wm_QuickInventoryItem1 = "";
