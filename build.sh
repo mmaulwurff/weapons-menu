@@ -31,10 +31,7 @@ zip weapon-menu.pk3 \
     *.md \
     *.txt \
     language.enu \
-    textures.blue \
-    textures.green \
     textures.icons \
-    textures.txt \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \
 && \
