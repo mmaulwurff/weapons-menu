@@ -53,5 +53,5 @@ version "3.2.0"
 **
 */
 
-#include "zscript/helper.txt"
-#include "zscript/junk.txt"
+#include "zscript/m8f_wm_helper.txt"
+#include "zscript/m8f_wm_junk.txt"
