@@ -1776,6 +1776,10 @@ function void WM_SetSelectedWeapon(int weaponNumber)
 {
   selectedWeapon = weaponNumber;
   WM_SetCVar(selectedWeapon, "M8fWeaponMenuSelectedWeapon");
+
+  int playerN = PlayerNumber();
+  SetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag",
+                    WM_GetWeaponTag(selectedWeapon));
 }
 
 function void WM_SetLastUsedWeapon(str weaponClass)
@@ -1786,6 +1790,16 @@ function void WM_SetLastUsedWeapon(str weaponClass)
 }
 
 // Weapon Priority Section /////////////////////////////////////////////////////
+
+script "WM_ApplyTagChange" (void)
+{
+  int playerN           = PlayerNumber();
+  str newName           = GetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag");
+  str weaponNameVarName = StrParam(s:"M8fWeaponMenuWeaponName", i:selectedWeapon);
+
+  SetUserCVarString(playerN, weaponNameVarName, WM_Wrap(newName));
+  tags[currentSet][selectedWeapon] = newName;
+}
 
 script "WM_IncreasePriority" (void)
 {

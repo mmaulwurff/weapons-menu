@@ -106,6 +106,7 @@ alias -smart_select_11 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 alias m8f_wm_increase_priority "pukename WM_IncreasePriority; closemenu"
 alias m8f_wm_increase_slot     "pukename WM_IncreaseSlot;     closemenu"
 alias m8f_wm_decrease_slot     "pukename WM_DecreaseSlot;     closemenu"
+alias m8f_wm_apply_tag_change  "pukename WM_ApplyTagChange;   closemenu"
 
 // Controls Key Section
 

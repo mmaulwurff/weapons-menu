@@ -320,11 +320,21 @@ OptionMenu "m8f_wm_EditWeaponList"
   StaticText "Customized Weapon List is preserved in saves."     , "Black"
 
   StaticText ""
-  Command "Increase current weapon priority in slot" , "m8f_wm_increase_priority"
+  StaticText "All operations are on selected weapon."            , "Black"
 
   StaticText ""
-  Command "Put current weapon in next slot"          , "m8f_wm_increase_slot"
-  Command "Put current weapon in previous slot"      , "m8f_wm_decrease_slot"
+  StaticText "This menu is effective only in game."              , "Red"
+
+  StaticText ""
+  Command "Increase priority in slot" , "m8f_wm_increase_priority"
+
+  StaticText ""
+  Command "Put in next slot"          , "m8f_wm_increase_slot"
+  Command "Put in previous slot"      , "m8f_wm_decrease_slot"
+
+  StaticText ""
+  TextField "Edit Tag:"               , "m8f_wm_SelectedWeaponTag"
+  Command   "Apply"                   , "m8f_wm_apply_tag_change"
 
   StaticText ""
 }
@@ -334,11 +344,15 @@ OptionMenu "m8f_wm_Options"
   Title "Weapon Menu Plus Options"
 
   Submenu "Controls"               , "m8f_wm_Controls"
+
+  StaticText ""
   Submenu "Weapon Menu Options"    , "m8f_wm_WeaponMenuOptions"
   Submenu "Inventory Menu Options" , "m8f_wm_InventoryMenuOptions"
-  Submenu "Edit Weapon List"       , "m8f_wm_EditWeaponList"
-  Submenu "Extras"                 , "m8f_wm_ExtrasOptions"
+  Submenu "Extras Options"         , "m8f_wm_ExtrasOptions"
   Submenu "Cross-mod Options"      , "m8f_wm_CrossmodOptions"
+
+  StaticText ""
+  Submenu "Edit Weapon List"       , "m8f_wm_EditWeaponList"
   Submenu "Commands"               , "m8f_wm_Commands"
 
   StaticText ""

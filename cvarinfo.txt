@@ -94,6 +94,8 @@ user int m8f_wm_SmartPressed = -1;
 // can contain sounds defined in soundinfo.
 user string m8f_wm_SwitchSound = "wmenu/no";
 
+user string m8f_wm_SelectedWeaponTag;
+
 ////////////////////////////////////////////////////////////////////////////////
 
 // Weapons Menu CVar API
