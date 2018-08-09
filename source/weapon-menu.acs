@@ -1838,8 +1838,8 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars)
   {
     str weaponNameVarName1 = StrParam(s:"M8fWeaponMenuWeaponName", i:w1);
     str weaponNameVarName2 = StrParam(s:"M8fWeaponMenuWeaponName", i:w2);
-    SetUserCVarString(playerN, weaponNameVarName1, WM_GetPrintableWeaponName(w1));
-    SetUserCVarString(playerN, weaponNameVarName2, WM_GetPrintableWeaponName(w2));
+    SetUserCVarString(playerN, weaponNameVarName1, WM_Wrap(WM_GetPrintableWeaponName(w1)));
+    SetUserCVarString(playerN, weaponNameVarName2, WM_Wrap(WM_GetPrintableWeaponName(w2)));
   }
 
   int slotTmp = slots[currentSet][w1];
