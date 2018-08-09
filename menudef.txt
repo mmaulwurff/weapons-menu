@@ -234,6 +234,7 @@ OptionMenu "m8f_wm_Controls"
   StaticText ""
   StaticText "Advanced Features Controls", "Blue"
   Control "Open Weapon Menu Options"      , "WeaponMenuOptions"
+  Control "Edit Weapon List"              , "openmenu m8f_wm_EditWeaponList"
   Control "Last Used Weapon"              , "pukename SelectLastUsedWeapon"
   Control "Select most powerful weapon"   , "wm_switch_to_powerful"
   Control "Mark weapon for quick access"  , "pukename WM_MarkWeaponAsFavorite"
@@ -247,13 +248,6 @@ OptionMenu "m8f_wm_Controls"
   StaticText ""
   Control "Throw Junk", "pukename WM_FireJunk"
   StaticText "0 damage hitscan attack. Also alerts enemies", "Black"
-
-  StaticText ""
-  StaticText "Weapon Order Controls", "Blue"
-  Control "Increase weapon priority", "pukename WM_IncreasePriority"
-  Control "Increase weapon slot", "pukename WM_IncreaseSlot"
-  Control "Decrease weapon slot", "pukename WM_DecreaseSlot"
-  StaticText "Weapon Order is not saved between maps", "Black"
 
   StaticText ""
   StaticText "Inventory Controls", "Blue"
@@ -318,16 +312,34 @@ OptionMenu "m8f_wm_CrossmodOptions"
   StaticText ""
 }
 
-OptionMenu "m8f_wm_WeaponMenuPlusOptions"
+OptionMenu "m8f_wm_EditWeaponList"
+{
+  Title "Edit Weapon List"
+  StaticText "Customized Weapon List stays until new game"       , "Black"
+  StaticText "is started with other weapon mod or player class." , "Black"
+  StaticText "Customized Weapon List is preserved in saves."     , "Black"
+
+  StaticText ""
+  Command "Increase current weapon priority in slot" , "m8f_wm_increase_priority"
+
+  StaticText ""
+  Command "Put current weapon in next slot"          , "m8f_wm_increase_slot"
+  Command "Put current weapon in previous slot"      , "m8f_wm_decrease_slot"
+
+  StaticText ""
+}
+
+OptionMenu "m8f_wm_Options"
 {
   Title "Weapon Menu Plus Options"
 
-  Submenu "Controls",               "m8f_wm_Controls"
-  Submenu "Weapon Menu Options",    "m8f_wm_WeaponMenuOptions"
-  Submenu "Inventory Menu Options", "m8f_wm_InventoryMenuOptions"
-  Submenu "Extras",                 "m8f_wm_ExtrasOptions"
-  Submenu "Cross-mod Options",      "m8f_wm_CrossmodOptions"
-  Submenu "Commands",               "m8f_wm_Commands"
+  Submenu "Controls"               , "m8f_wm_Controls"
+  Submenu "Weapon Menu Options"    , "m8f_wm_WeaponMenuOptions"
+  Submenu "Inventory Menu Options" , "m8f_wm_InventoryMenuOptions"
+  Submenu "Edit Weapon List"       , "m8f_wm_EditWeaponList"
+  Submenu "Extras"                 , "m8f_wm_ExtrasOptions"
+  Submenu "Cross-mod Options"      , "m8f_wm_CrossmodOptions"
+  Submenu "Commands"               , "m8f_wm_Commands"
 
   StaticText ""
 }
@@ -335,5 +347,5 @@ OptionMenu "m8f_wm_WeaponMenuPlusOptions"
 AddOptionMenu "OptionsMenu"
 {
   StaticText ""
-  Submenu "Weapon Menu Plus Options", "m8f_wm_WeaponMenuPlusOptions"
+  Submenu "Weapon Menu Plus Options", "m8f_wm_Options"
 }
