@@ -526,6 +526,7 @@ class m8f_wm_Data : Thinker
     icons.push("fdtntshotgun"           , "tshtz0"      );
     icons.push("fdtntsupershotgun"      , "tssgz0"      );
     icons.push("fist"                   , "wmbrassoff"  );
+    icons.push("fists"                  , "wmbrassoff"  );
     icons.push("fistfixed"              , "wmbrassoff"  );
     icons.push("fkfist"                 , "wmbrassoff"  );
     icons.push("knuckles"               , "wmbrassoff"  );
