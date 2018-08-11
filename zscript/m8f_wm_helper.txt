@@ -43,7 +43,7 @@ class WMZscriptHelper : Actor
       return;
     }
 
-    bool result   = true;
+    bool result   = false;
     Ammo amm1     = w.Ammo1;
     Ammo amm2     = w.Ammo2;
     bool hasAmmo1 = (amm1 != null);
@@ -52,8 +52,8 @@ class WMZscriptHelper : Actor
     if (!hasAmmo1 && !hasAmmo2) { result = true; }
     else
     {
-      if (hasAmmo1) { result  = (amm1.amount >= w.AmmoUse1) && w.AmmoUse1 > 0; }
-      if (hasAmmo2) { result |= (amm2.amount >= w.AmmoUse2) && w.AmmoUse2 > 0; }
+      if (hasAmmo1) { result |= (amm1.amount >= w.AmmoUse1) && (amm1.amount > 0); }
+      if (hasAmmo2) { result |= (amm2.amount >= w.AmmoUse2) && (amm2.amount > 0); }
     }
 
     SendResultInt(player, result);
