@@ -406,7 +406,7 @@ function str WM_GetWeaponTag(int weaponNumber)
 
 // Returns weaponNumber of next weapon in this slot, or -1 if there is no more
 // weapons in this slot.
-function int WM_GetWeaponSibling(int weaponNumber)
+function int WM_GetWeaponSibling(int weaponNumber, bool doCycle)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
   int playerN        = PlayerNumber();
@@ -419,7 +419,7 @@ function int WM_GetWeaponSibling(int weaponNumber)
         && !WM_SkipNoAmmo(w))
     {
       int cycle = GetUserCVar(playerN, "m8fWmCycle");
-      if (w < weaponNumber && cycle != 1) { return -1; }
+      if (!doCycle && w < weaponNumber && cycle != 1) { return -1; }
       return w;
     }
   }
@@ -1588,6 +1588,32 @@ function bool WM_SkipNoAmmo(int weaponIndex)
   return !hasAmmo;
 }
 
+script "WM_NextWeaponInSlot" (void)
+{
+  int sibling = WM_GetNextWeaponInSlot(selectedWeapon, true);
+
+  if (sibling != -1 && sibling != selectedWeapon)
+    {
+      SetWeapon(WM_GetWeaponName(sibling));
+    }
+}
+
+function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle)
+{
+  int i       = weaponIndex;
+  int stopper = weaponCount;
+
+  do
+    {
+      i = WM_GetWeaponSibling(i, cycle);
+      if (i == -1) { break; }
+      --stopper;
+    }
+  while (!WM_IsInInventory(i) && stopper);
+
+  return i;
+}
+
 script "SmartWeaponSelection" (int slotNumber)
 {
   if (IsUninitialized()) { terminate; }
@@ -1599,19 +1625,11 @@ script "SmartWeaponSelection" (int slotNumber)
 
   if (IsOpened())
   {
-    int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
-    bool sameSlot = (slotNumber == currentSlot);
+    int  currentSlot = WM_GetWeaponSlot(highlightedWeapon);
+    bool sameSlot    = (slotNumber == currentSlot);
     if (sameSlot)
     {
-      int sibling = highlightedWeapon;
-      int stopper = weaponCount;
-      do
-      {
-        sibling = WM_GetWeaponSibling(sibling);
-        if (sibling == -1) break;
-        --stopper;
-      }
-      while (!WM_IsInInventory(sibling) && stopper);
+      int sibling = WM_GetNextWeaponInSlot(highlightedWeapon, false);
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {

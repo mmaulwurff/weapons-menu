@@ -36,10 +36,9 @@ alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavori
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
 alias wm_switch_to_powerful "pukename WM_SwitchToPowerful"
+alias wm_next_in_slot       "pukename WM_NextWeaponInSlot"
 
 defaultbind m toggle_menu
-defaultbind n next_weapon_menu
-defaultbind p prev_weapon_menu
 
 alias DoomSelect1 "slot 1"
 alias DoomSelect2 "slot 2"
