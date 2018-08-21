@@ -575,6 +575,7 @@ class m8f_wm_Data : Thinker
     icons.push("pistol_rekkr"           , "wmrbow_off"  );
     icons.push("fist_rekkr"             , "wmrfists_off");
     icons.push("64_fist"                , "wmbrassoff"  );
+    icons.push("punchdagger"            , "wmdagger_off");
 
     return self;
   }

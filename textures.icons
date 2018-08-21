@@ -367,3 +367,11 @@ sprite optional WMRFISTS_OFF, 240, 240
   xscale 6.0
   yscale 5.0
 }
+
+sprite optional WMDAGGER_OFF, 78, 43
+{
+  sprite PNCHD0, 0, 0
+  offset 39, 21
+  xscale 2.0
+  yscale 2.0
+}
