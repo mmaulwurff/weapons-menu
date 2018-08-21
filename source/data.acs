@@ -1230,7 +1230,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Crossbow: Poison Bolts",
     "Assault Gun",
     "Mini Missile Launcher",
-    "Grenade Launcher: High-Explosive",
+    "Grenade Launcher: HE",
     "Grenade Launcher: Phosphorus",
     "Flame Thrower",
     "Mauler: Scatter",
