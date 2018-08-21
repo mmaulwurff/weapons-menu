@@ -1594,7 +1594,8 @@ script "WM_NextWeaponInSlot" (void)
 
   if (sibling != -1 && sibling != selectedWeapon)
     {
-      SetWeapon(WM_GetWeaponName(sibling));
+      WM_SelectWeapon(sibling, true);
+      WM_MaybeDisplayNameTag();
     }
 }
 

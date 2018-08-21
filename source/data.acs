@@ -32,7 +32,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomMarine",          // 17. Hard-Doom v8.2f
   "DoomPlayer",          // 18. REKKR
   "ChexPlayer",          // 19. Chex Quest (Single Player)
-  "wm_reserved",         // 20. [Reserved]
+  "StrifePlayer",        // 20. Strife
   "ArgPlayer",           // 21. Argent (v0.5.3)
   "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
@@ -84,7 +84,7 @@ int weaponCounts[SETS_NUMBER] =
   14, // Hard-Doom
   8,  // REKKR
   9,  // Chex Quest
-  0,  // [Reserved]
+  11, // Strife
   11, // Argent
   15, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
@@ -178,7 +178,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Chex Quest
 
-  {}, // Reserved
+  { 1, 2, 2, 3, 4, 5, 5, 6, 7, 7, 8 }, // Strife
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 }, // Argent
 
@@ -488,7 +488,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "LAZDevice",
   },
 
-  {}, // Reserved
+  { // Strife
+    "PunchDagger",
+    "StrifeCrossbow", "StrifeCrossbow2",
+    "AssaultGun",
+    "MiniMissileLauncher",
+    "StrifeGrenadeLauncher", "StrifeGrenadeLauncher2",
+    "FlameThrower",
+    "Mauler", "Mauler2",
+    "Sigil"
+  },
 
   { // Argent
     "ArgChainsaw",
@@ -1215,7 +1224,19 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "LAZ Device",
   },
 
-  {}, // Reserved
+  { // Strife
+    "Dagger",
+    "Crossbow: Electric Bolts",
+    "Crossbow: Poison Bolts",
+    "Assault Gun",
+    "Mini Missile Launcher",
+    "Grenade Launcher: High-Explosive",
+    "Grenade Launcher: Phosphorus",
+    "Flame Thrower",
+    "Mauler: Scatter",
+    "Mauler: Torpedo",
+    "SIGIL"
+  },
 
   { // Argent
     "Chainsaw",
