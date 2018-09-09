@@ -576,6 +576,12 @@ class m8f_wm_Data : Thinker
     icons.push("fist_rekkr"             , "wmrfists_off");
     icons.push("64_fist"                , "wmbrassoff"  );
     icons.push("punchdagger"            , "wmdagger_off");
+    icons.push("mantisbunker"           , "mbpua0"      );
+    icons.push("bmssg"                  , "bsgpa0"      );
+    icons.push("bmshotgun"              , "bspua0"      );
+    icons.push("bmmachinegun"           , "dfmga0"      );
+    icons.push("bmgrenader"             , "ggpua0"      );
+    icons.push("bmplasmagun"            , "bmpla0"      );
 
     return self;
   }
