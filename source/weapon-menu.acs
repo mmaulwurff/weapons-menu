@@ -13,6 +13,8 @@
 #define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
 #define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5
 #define msgIdBackground  messageIdStart + MAX_WEAPONS_NUMBER * 2 + 6
+#define msgIdBackgroundA messageIdStart + MAX_WEAPONS_NUMBER * 2 + 7
+#define msgIdBackgroundB messageIdStart + MAX_WEAPONS_NUMBER * 2 + 8
 
 #define msgFlags HUDMSG_PLAIN | HUDMSG_NOTWITHFULLMAP | HUDMSG_NOTWITHOVERLAYMAP
 
@@ -22,6 +24,10 @@
 #define WEAPON_HOLSTERED -10
 
 #define N_QUICK_INVENTORY_ITEMS 10
+
+#define BACKGROUND_LEFT     0
+#define BACKGROUND_TOP      1
+#define BACKGROUND_RIGHT    2
 
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
@@ -495,6 +501,8 @@ function void WM_ClearScreen(void)
   HudMessage(s:""; msgFlags, msgIdHighlighted, 0, 0, 0, 0);
   HudMessage(s:""; msgFlags, msgIdIcon,        0, 0, 0, 0);
   HudMessage(s:""; msgFlags, msgIdBackground,  0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdBackgroundA, 0, 0, 0, 0);
+  HudMessage(s:""; msgFlags, msgIdBackgroundB, 0, 0, 0, 0);
 }
 
 function void WM_MaybeShowBackground(int backgroundMode)
@@ -504,31 +512,34 @@ function void WM_MaybeShowBackground(int backgroundMode)
 
   if (!showBackground) { return; }
 
-  str background;
-  int backgroundX;
-  int backgroundY;
-
   switch (backgroundMode)
   {
-  case 0: // left
-    backgroundX = 0.0;
-    backgroundY = 0.5;
-    background = "wmbgleft";
+  case BACKGROUND_LEFT:
+    SetFont("wmbgleft");
+    SetHudSize(600, 1, true);
+    HudMessage(s:"A"; msgFlags, msgIdBackground,  0, 0.0, -1.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundA, 0, 0.0,  0.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundB, 0, 0.0,  1.0, 0);
     break;
-  case 1: // top
-    backgroundX = 0.5;
-    backgroundY = 0.0;
-    background = "wmbgtop";
+
+  case BACKGROUND_TOP:
+    SetFont("wmbgtop");
+    SetHudSize(1, 600, true);
+    HudMessage(s:"A"; msgFlags, msgIdBackground,  0, -1.0, 100.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundA, 0,  0.0, 100.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundB, 0,  1.0, 100.0, 0);
     break;
-  case 2: // right
-    backgroundX = 1.0;
-    backgroundY = 0.5;
-    background = "wmbgrght";
+
+  case BACKGROUND_RIGHT:
+    SetFont("wmbgrght");
+    SetHudSize(600, 1, true);
+    HudMessage(s:"A"; msgFlags, msgIdBackground,  0, 600.0, -1.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundA, 0, 600.0,  0.0, 0);
+    HudMessage(s:"A"; msgFlags, msgIdBackgroundB, 0, 600.0,  1.0, 0);
     break;
   }
 
-  SetFont(background);
-  HudMessage(s:"A"; msgFlags, msgIdBackground, 0, backgroundX, backgroundY, 0);
+  SetHudSize(0, 0, true);
 }
 
 function void WM_PrintMenu(void)
@@ -579,116 +590,116 @@ function void WM_PrintMenu(void)
   switch (displayMode)
   {
   case 0:
-    x = 0.0;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = true;
-    slotOnLeft = true;
-    withSlot = false;
-    iconX = 0.08;
-    backgroundMode = 0;
+    x              = 0.0;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = true;
+    slotOnLeft     = true;
+    withSlot       = false;
+    iconX          = 0.08;
+    backgroundMode = BACKGROUND_LEFT;
     break;
 
   case 1:
-    x = 0.0;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = false;
-    slotOnLeft = true;
-    withSlot = false;
-    iconX = 0.08;
-    backgroundMode = 0;
+    x              = 0.0;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = false;
+    slotOnLeft     = true;
+    withSlot       = false;
+    iconX          = 0.08;
+    backgroundMode = BACKGROUND_LEFT;
     break;
 
   case 2:
-    x = 0.0;
-    xStep = stepMultiplied;
-    yStep = 0.0;
-    showTags = false;
-    slotOnLeft = true;
-    withSlot = false;
-    iconX = 0.08;
-    backgroundMode = 1;
+    x              = 0.0;
+    xStep          = stepMultiplied;
+    yStep          = 0.0;
+    showTags       = false;
+    slotOnLeft     = true;
+    withSlot       = false;
+    iconX          = 0.08;
+    backgroundMode = BACKGROUND_TOP;
     break;
 
   case 3:
-    x = 0.5;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = true;
-    slotOnLeft = true;
-    withSlot = true;
-    iconX = -0.5;
-    backgroundMode = 1;
+    x              = 0.5;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = true;
+    slotOnLeft     = true;
+    withSlot       = true;
+    iconX          = -0.5;
+    backgroundMode = BACKGROUND_TOP;
     break;
 
   case 4:
-    x = 0.5;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = true;
-    slotOnLeft = false;
-    withSlot = true;
-    iconX = -0.5;
-    backgroundMode = 1;
+    x              = 0.5;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = true;
+    slotOnLeft     = false;
+    withSlot       = true;
+    iconX          = -0.5;
+    backgroundMode = BACKGROUND_TOP;
     break;
 
   case 5:
-    x = 0.5;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = false;
-    slotOnLeft = true;
-    withSlot = false;
-    iconX = -0.5;
-    backgroundMode = 1;
+    x              = 0.5;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = false;
+    slotOnLeft     = true;
+    withSlot       = false;
+    iconX          = -0.5;
+    backgroundMode = BACKGROUND_TOP;
     break;
 
   case 6:
-    x = 0.5 -
-      ((itemCount - 1 + WM_CountDuplicateSlots(showNotAvailable, doubleSpaceSlots))
-       * stepMultiplied) / 2;
-    xStep = stepMultiplied;
-    yStep = 0.0;
-    showTags = false;
-    slotOnLeft = true;
-    withSlot = false;
-    iconX = -0.5;
-    backgroundMode = 1;
+    x              = 0.5 -
+                     ((itemCount - 1 + WM_CountDuplicateSlots(showNotAvailable, doubleSpaceSlots))
+                     * stepMultiplied) / 2;
+    xStep          = stepMultiplied;
+    yStep          = 0.0;
+    showTags       = false;
+    slotOnLeft     = true;
+    withSlot       = false;
+    iconX          = -0.5;
+    backgroundMode = BACKGROUND_TOP;
     break;
 
   case 7:
-    x = 1.0;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = true;
-    slotOnLeft = false;
-    withSlot = false;
-    iconX = -0.92;
-    backgroundMode = 2;
+    x              = 1.0;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = true;
+    slotOnLeft     = false;
+    withSlot       = false;
+    iconX          = -0.92;
+    backgroundMode = BACKGROUND_RIGHT;
     break;
 
   case 8:
-    x = 1.0;
-    xStep = 0.0;
-    yStep = stepMultiplied;
-    showTags = false;
-    slotOnLeft = false;
-    withSlot = false;
-    iconX = -0.92;
-    backgroundMode = 2;
+    x              = 1.0;
+    xStep          = 0.0;
+    yStep          = stepMultiplied;
+    showTags       = false;
+    slotOnLeft     = false;
+    withSlot       = false;
+    iconX          = -0.92;
+    backgroundMode = BACKGROUND_RIGHT;
     break;
 
   case 9:
-    x = 1.0;
-    highToLow = !highToLow;
-    xStep = -stepMultiplied;
-    yStep = 0.0;
-    showTags = false;
-    slotOnLeft = false;
-    withSlot = false;
-    iconX = -0.92;
-    backgroundMode = 1;
+    x              = 1.0;
+    highToLow      = !highToLow;
+    xStep          = -stepMultiplied;
+    yStep          = 0.0;
+    showTags       = false;
+    slotOnLeft     = false;
+    withSlot       = false;
+    iconX          = -0.92;
+    backgroundMode = BACKGROUND_TOP;
     break;
   }
 
