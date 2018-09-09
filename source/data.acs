@@ -5,6 +5,9 @@
 #define FALLBACK_SET 29
 #define SETS_NUMBER  51
 
+#define SET_VANILLA        0
+#define SET_PERK           1
+
 // List of known weapon classes.
 // When adding to this list, don't forget to increase SETS_NUMBER.
 // If weapon mod has single weapon set shared by several player classes, there is
@@ -43,7 +46,7 @@ str playerClassNames[SETS_NUMBER] =
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode
   "m8f_wm_Fallback",     // 29. Fallback mode
   "wm_reserved",         // 30. [Reserved]
-  "CollabWeaponGuy",     // 31. Combined Arms v1.0
+  "wm_reserved",         // 31. [Reserved]
   "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
   "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
@@ -95,7 +98,7 @@ int weaponCounts[SETS_NUMBER] =
   22, // Brutal Doom
   0,  // [Reserved]
   0,  // [Reserved]
-  12, // Combined Arms
+  0,  // [Reserved]
   12, // Trailblazer - Doom
   12, // Trailblazer - Heretic
   12, // Trailblazer - Hexen
@@ -198,8 +201,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7, 8, 8, 8 }, // Combined Arms
+  { }, // Reserved
 
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 }, // Trailblazer
   { 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 7 },
@@ -572,17 +574,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // Combined Arms
-    "SkillAxe", "CFSFists",
-    "D3PS",
-    "particlesmasher", "BitchinShotgun",
-    "Gnasher",
-    "CygnusRL",
-    "BusterRifle",
-    "daibatana",
-    "havocrebounder", "tsbrick", "FlareGun"
-  },
+  { }, // Reserved
 
   { // Trailblazer
     "Macheterang", "SpikebombWeapon",
@@ -1311,17 +1303,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // Combined Arms
-    "Lilk's Axe", "Fists",
-    "Genka-12",
-    "Particle Smasher", "Shotgun",
-    "Mk. 2 'Gnasher' Nailgun",
-    "Cygnus Rocket Launcher",
-    "Buster Rifle",
-    "Daibatana",
-    "Havoc Rebounder", "Plakanomicon", "ZT Prototype Flare Gun"
-  },
+  { }, // Reserved
 
   { // Trailblazer
     "Macheterang", "Spikebombs",
