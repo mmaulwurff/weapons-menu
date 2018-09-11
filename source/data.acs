@@ -54,7 +54,7 @@ str playerClassNames[SETS_NUMBER] =
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
   "Eilidh",              // 37. Netronian Chaos v3
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
-  "CaptainBlazkowicz",   // 39. Doom Incarnate, v1.5
+  "[reserved]",          // 39. [Reserved]
   "msx_player",          // 40. Project MSX 0.2a
   "DoomNukem",           // 41. Accessories to Murder
   "DoomRLMarine",        // 42. DoomRL Arsenal 1.05
@@ -106,7 +106,7 @@ int weaponCounts[SETS_NUMBER] =
   8,  // WW-Cola3 - Hexen
   24, // Netronian Chaos
   10, // Adventures of Square
-  16, // Doom Incarnate
+  0,  // [Reserved]
   8,  // Project MSX
   10, // Accessories to Murder
   217, // DoomRL Arsenal
@@ -223,16 +223,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 }, // Adventures of Square
 
-  { // Doom Incarnate
-    1, 1,
-    2, 2,
-    3, 3, 3,
-    4, 4,
-    5, 5,
-    6, 6,
-    7, 7,
-    9
-  },
+  { }, // Reserved
 
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Project MSX
 
@@ -644,16 +635,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Defibrillator"
   },
 
-  { // Doom Incarnate
-    "SMG", "Handgun",
-    "Paratrooper", "ScytheMagnum",
-    "Grimmhammer", "DoubleShotgun", "InfernoShotgun",
-    "GatlingGun", "AssaultRifle",
-    "NapalmKraftWerk", "Kampfpistole",
-    "LaserKraftWerk", "PlazmaRifle",
-    "Ubergewehr", "Lasergewehr",
-    "CrossedWield"
-  },
+  { }, // Reserved
 
   { // Project MSX
     "RegularFists",
@@ -1373,16 +1355,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Defibrillator"
   },
 
-  { // Doom Incarnate
-    "Sub-Machine Gun", "Handgun",
-    "Paratrooper Rifle", "Scythe Magnum",
-    "Grimmhammer", "Super Shotgun", "Inferno Shotgun",
-    "Gatling Gun", "Assault Rifle",
-    "NapalmKraftWerk", "Kampfpistole",
-    "LaserKraftWerk", "Plasma Rifle",
-    "Ubergewehr", "Lasergewehr",
-    "Crossed Wield"
-  },
+  { }, // Reserved
 
   { // Project MSX
     "Fists",
