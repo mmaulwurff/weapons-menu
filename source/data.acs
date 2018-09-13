@@ -2,11 +2,16 @@
 
 #define MAX_WEAPONS_NUMBER 250
 
-#define FALLBACK_SET 29
-#define SETS_NUMBER  51
+#define SETS_NUMBER  55
 
-#define SET_VANILLA        0
-#define SET_PERK           1
+#define SET_VANILLA            0
+#define SET_PERK               1
+#define SET_FALLBACK          29
+
+#define SET_GUNCASTER_HERETIC 51
+#define SET_GUNCASTER_DOOM    52
+#define SET_GUNCASTER_HEXEN   53
+#define SET_GUNCASTER_STRIFE  54
 
 // List of known weapon classes.
 // When adding to this list, don't forget to increase SETS_NUMBER.
@@ -33,7 +38,7 @@ str playerClassNames[SETS_NUMBER] =
   "ComplexDoomPlayer",   // 15. Complex Doom V27a3
   "SaturnPlayer",        // 16. Weapons of Saturn October 31, 2017
   "DoomMarine",          // 17. Hard-Doom v8.2f
-  "DoomPlayer",          // 18. REKKR
+  "DoomPlayer",          // 18. REKKR | reason: Dehacked
   "ChexPlayer",          // 19. Chex Quest (Single Player)
   "StrifePlayer",        // 20. Strife
   "ArgPlayer",           // 21. Argent (v0.5.3)
@@ -41,15 +46,17 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1
-  "m8f_wm_Autodetected", // 26. Autodetected
-  "wm_reserved",         // 27. [Reserved]
+  "[reserved]",          // 26. [reserved]
+  "[reserved]",          // 27. [reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode
   "m8f_wm_Fallback",     // 29. Fallback mode
   "wm_reserved",         // 30. [Reserved]
   "wm_reserved",         // 31. [Reserved]
+
   "Trailblazer_Doom",    // 32. Trailblazer v1.4b - Doom
   "Trailblazer_Heretic", // 33. Trailblazer v1.4b - Heretic
   "Trailblazer_Hexen",   // 34. Trailblazer v1.4b - Hexen
+
   "WWColaPlayer",        // 35. WW-Cola3
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
   "Eilidh",              // 37. Netronian Chaos v3
@@ -64,8 +71,15 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 46. Harmony
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)
   "PerkDPlayer",         // 48. EVP v17
+
   "FTPlayer",            // 49. Factotum [010618]
   "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18)
+
+  "Guncaster",           // 51. Guncaster - Heretic | v3.1
+  "GuncasterDoom",       // 52. Guncaster - Doom    | reason: weapons from all
+  "GuncasterHexen",      // 53. Guncaster - Hexen   | games get into the list.
+  "GuncasterStrife",     // 54. Guncaster - Strife  |
+
 };
 
 // List of weapon counts for every known weapon mod.
@@ -94,7 +108,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Dead Marine
   12, // Parkour
   0,  // Special - autodetected
-  0,  // [Reserved]
+  16, // Guncaster
   22, // Brutal Doom
   0,  // [Reserved]
   0,  // [Reserved]
@@ -118,6 +132,11 @@ int weaponCounts[SETS_NUMBER] =
   9,  // EVP
   11, // Factotum
   19, // Flakes Doom
+
+  8,  // Guncaster - Heretic
+  9,  // Guncaster - Doom
+  9,  // Guncaster - Hexen
+  9,  // Guncaster - Strife
 };
 
 // List of corresponding weapon slots.
@@ -193,9 +212,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
 
-  { }, // Special - autodetected
-
-  {}, // Reserved
+  { }, // Reserved
+  { }, // Reserved
 
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Brutal
 
@@ -273,6 +291,11 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     6, 6,
     7, 7, 7, 7,
   },
+
+  { 1, 2, 3,    4, 5, 5, 6, 7 }, // Guncaster - Heretic
+  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Doom
+  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Hexen
+  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Strife
 
 };
 
@@ -548,8 +571,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PkSuperChain",
   },
 
-  { }, // Special - autodetected
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Brutal Doom
@@ -992,6 +1014,46 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "FKROTTB9", "FKHexenUnmaker", "FKBFG9000", "FKUnmaker",
   },
 
+  { // Guncaster - Heretic
+    "Dergfist"    ,
+    "Longhorn"    ,
+    "Strucker"    ,
+    "Pulverizer"  ,
+    "Matriarch"   , "DynamiteWeapon",
+    "Augur"       ,
+    "OldDreadful"
+  },
+
+  { // Guncaster - Doom
+    "Dergfist"    ,
+    "Longhorn"    ,
+    "Ironblast"   , "Strucker",
+    "Pulverizer"  ,
+    "Matriarch"   , "DynamiteWeapon",
+    "Augur"       ,
+    "OldDreadful"
+  },
+
+  { // Guncaster - Hexen
+    "Dergfist"    ,
+    "Longhorn2"   ,
+    "Ironblast2"  , "Strucker2",
+    "Pulverizer2" ,
+    "Matriarch2"  , "DynamiteWeapon",
+    "Augur2"      ,
+    "OldDreadful2"
+  },
+
+  { // Guncaster - Strife
+    "Dergfist"    ,
+    "Longhorn"    ,
+    "Ironblast"   , "Strucker",
+    "Pulverizer"  ,
+    "Matriarch"   , "DynamiteWeapon",
+    "Augur"       ,
+    "OldDreadful"
+  },
+
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
@@ -1270,7 +1332,15 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Special - autodetected
 
-  { }, // Reserved
+  { // Guncaster
+    "Knuckle Sandwich",
+    "Longhorn"     , "Longhorn"     ,
+    "Ironblast"    , "Strucker"     , "Ironblast", "Strucker",
+    "Pulverizer"   , "Pulverizer"   ,
+    "Matriarch"    , "Matriarch "   , "Dynamite",
+    "Augur"        , "Augur"        ,
+    "Old Dreadful" , "Old Dreadful"
+  },
 
   { // Brutal Doom
     "Melee", "Chainsaw", "Axe",
@@ -1710,6 +1780,46 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Rocket Launcher", "Rocket Launcher", "Grenades",
     "Plasma Rifle", "Plasma Rifle",
     "BFG-9000", "Unmaker", "BFG-9000", "Unmaker",
+  },
+
+  { // Guncaster - Heretic
+    "Knuckle Sandwitch" ,
+    "Longhorn"          ,
+    "Strucker"          ,
+    "Pulverizer"        ,
+    "Matriarch"         , "Dynamite",
+    "Augur"             ,
+    "Old Dreadful"
+  },
+
+  { // Guncaster - Doom
+    "Knuckle Sandwitch" ,
+    "Longhorn"          ,
+    "Ironblast"         , "Strucker",
+    "Pulverizer"        ,
+    "Matriarch"         , "Dynamite",
+    "Augur"             ,
+    "Old Dreadful"
+  },
+
+  { // Guncaster - Hexen
+    "Knuckle Sandwitch" ,
+    "Longhorn"          ,
+    "Ironblast"         , "Strucker",
+    "Pulverizer"        ,
+    "Matriarch"         , "Dynamite",
+    "Augur"             ,
+    "Old Dreadful"
+  },
+
+  { // Guncaster - Strife
+    "Knuckle Sandwitch" ,
+    "Longhorn"          ,
+    "Ironblast"         , "Strucker",
+    "Pulverizer"        ,
+    "Matriarch"         , "Dynamite",
+    "Augur"             ,
+    "Old Dreadful"
   },
 
 }; // end of printable names

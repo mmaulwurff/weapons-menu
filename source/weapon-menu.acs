@@ -154,7 +154,7 @@ function void WM_EnterState(int newState)
 
 function void WM_LeaveUninitialized(void)
 {
-  if (currentSet == FALLBACK_SET)
+  if (currentSet == SET_FALLBACK)
   {
     WM_GetFallbackWeapons();
   }
@@ -253,7 +253,7 @@ function void WM_MaybeLoadCustomWeaponOrder(void)
 
   if (previousSet == currentSet && previousCount == weaponCounts[currentSet])
   {
-    if (currentSet != FALLBACK_SET)
+    if (currentSet != SET_FALLBACK)
     {
       WM_LoadDataFromCVars();
     }
@@ -1038,7 +1038,7 @@ function void WM_PlaySwitchSound(void)
 
 function void WM_SetupAddons(void)
 {
-  if (currentSet == FALLBACK_SET) { return; }
+  if (currentSet == SET_FALLBACK) { return; }
 
   WM_MaybeTacticalChainsaw();
   WM_MaybeUACSurvivalPack();
@@ -1164,7 +1164,7 @@ function int WM_GetWeaponSet(void)
 {
   int playerN = PlayerNumber();
   bool forceFallbackMode = GetUserCVar(playerN, "m8f_wm_ForceFallbackMode");
-  if (forceFallbackMode) { return FALLBACK_SET; }
+  if (forceFallbackMode) { return SET_FALLBACK; }
 
   str currentClass = GetActorClass(0);
 
@@ -1184,7 +1184,7 @@ function int WM_GetWeaponSet(void)
     }
   }
 
-  return FALLBACK_SET;
+  return SET_FALLBACK;
 }
 
 function bool WM_IsTitlemap(void)
@@ -1219,7 +1219,7 @@ script "ShowWeaponMenu" ENTER
   if (state == STATE_TERMINATED) { terminate; }
 
   // for some reason without delay only vanilla weapons will be listed.
-  if (currentSet == FALLBACK_SET) { Delay(1); }
+  if (currentSet == SET_FALLBACK) { Delay(1); }
 
   WM_ChangeState(state);
 
@@ -1985,7 +1985,7 @@ script "WM_PrintInfo" (void)
   Log(s:"Speed: ", f:GetActorProperty(0, APROP_Speed));
   Log(s:"State: ", i:globalState);
 
-  if (currentSet == FALLBACK_SET) { Log(s:"Weapon Menu Plus - Universal Mode"); }
+  if (currentSet == SET_FALLBACK) { Log(s:"Weapon Menu Plus - Universal Mode"); }
   else { Log(s:"Weapon Menu Plus - Extended Support Mode"); }
 }
 
@@ -2458,10 +2458,10 @@ function void WM_GetFallbackWeapons(void)
     {
       switch (iArray)
       {
-      case 0: names[FALLBACK_SET][current] = currentToken; break;
-      case 1: tags [FALLBACK_SET][current] = currentToken; break;
+      case 0: names[SET_FALLBACK][current] = currentToken; break;
+      case 1: tags [SET_FALLBACK][current] = currentToken; break;
       case 2:
-        slots[FALLBACK_SET][current] = WM_StrToInt(currentToken);
+        slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
         break;
       case 3:
         priority[current] = WM_StrToInt(currentToken);
@@ -2474,7 +2474,7 @@ function void WM_GetFallbackWeapons(void)
     }
   }
 
-  weaponCounts[FALLBACK_SET] = current;
+  weaponCounts[SET_FALLBACK] = current;
   weaponCount = current;
 
   WM_SortFallbackByPriority();
@@ -2483,13 +2483,13 @@ function void WM_GetFallbackWeapons(void)
   /*
   for (int j = 0; j < current; ++j)
   {
-    Log(s:names[FALLBACK_SET][j],
-        s:" : ", s:tags [FALLBACK_SET][j],
-        s:" : ", d:slots[FALLBACK_SET][j],
+    Log(s:names[SET_FALLBACK][j],
+        s:" : ", s:tags [SET_FALLBACK][j],
+        s:" : ", d:slots[SET_FALLBACK][j],
         s:" : ", d:priority[j]
         );
   }
-  Log(i:weaponCounts[FALLBACK_SET]);
+  Log(i:weaponCounts[SET_FALLBACK]);
   ///*///
 }
 

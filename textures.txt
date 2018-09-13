@@ -376,6 +376,15 @@ sprite optional WMDAGGER_OFF, 78, 43
   yscale 2.0
 }
 
+sprite optional wm_guncaster_knuckles, 256, 64
+{
+  sprite C1GPA0, 128, 0
+  sprite C1GPA0,   0, 0 { flipx }
+  offset 128, 64
+  xScale 4.0
+  yScale 4.0
+}
+
 graphic wmbgrght, 200, 1
 {
   graphic wmbgleft, 0, 0
