@@ -18,6 +18,7 @@ zip weapon-menu.pk3 \
     filter/doom.doom1/language.enu \
     filter/doom.doom2/language.enu \
     filter/doom.freedoom/language.enu \
+    filter/doom.freedoom.phase1/language.enu \
     sounds/WMSWTCH1.wav \
     sounds/WMSWTCH2.wav \
     sounds/WMSWTCH3.wav \

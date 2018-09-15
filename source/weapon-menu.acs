@@ -58,8 +58,11 @@ int globalState = 0;
 int  currentSet;
 int  weaponCount;
 int  step;
+
 bool isDoom1;
 bool isDoom2;
+bool isFreedoom1;
+bool isFreedoom2;
 
 int  highlightedWeapon;
 int  selectedWeapon;
@@ -191,6 +194,8 @@ function void WM_EnterEnabled(void)
   step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
   isDoom1     = WM_IsDoom1();
   isDoom2     = WM_IsDoom2();
+  isFreedoom1 = WM_IsFreedoom1();
+  isFreedoom2 = WM_IsFreedoom2();
 
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon());
   WM_SetHighlightedWeapon(selectedWeapon);
@@ -316,40 +321,23 @@ function bool WM_IsHiddenWeapon(int wNumber)
   switch (currentSet)
   {
 
-    // hide vanilla doom SSG in Doom 1
-  case 0: return (wNumber == 3 && isDoom1);
+  case SET_VANILLA:        return (wNumber == 3 && isDoom1);
+  case SET_FREEDOOM:       return (wNumber == 3 && isFreedoom1);
+  case SET_PERK:           return (wNumber == 2); // Smooth Doom Rifle
+  case SET_CHEX_QUEST:     return (wNumber == 3); // Super Large Zorcher is deathmatch-only
+  case SET_PARKOUR:        return (wNumber == 2 || wNumber == 10 || wNumber == 11);
+  case SET_BRUTAL_DOOM:    return (wNumber == 3 || wNumber == 9);
+  case SET_ACCESSORIES:    return (wNumber == 2 || wNumber == 3);
+  case SET_DOOMRL_ARSENAL: return true;
 
-    // Smooth Doom Rifle
-  case  1: return (wNumber == 2);
-
-    // Chex Quest: Super Large Zorcher is deathmatch-only
-  case 19: return (wNumber == 3);
-
-    // Parkour
-  case 25: return (wNumber == 2 || wNumber == 10 || wNumber == 11);
-
-    // Brutal Doom
-  case 28: return (wNumber == 3 || wNumber == 9);
-
-    // Combined Arms
-  case 31: return (wNumber == 9 || wNumber == 10 || wNumber == 11);
-
-    // Accessories to Murder
-  case 41: return (wNumber == 2 || wNumber == 3);
-
-    // DoomRL Arsenal
-  case 42: return true;
-
-    // High Noon Drifter:
-  case 43:
+  case SET_HIGH_NOON_DRIFTER:
     if (wNumber == 10) return true; // Double whips
     // Single SMG when Second SMG is acquired:
     if (wNumber ==  6 && WM_IsInInventory(5)) return true;
     if (wNumber ==  5) return true; // Double SMG
     return false;
 
-    // X-Weapon
-  case 45:
+  case SET_X_WEAPON:
     if (wNumber == 27 || wNumber == 28) return true;
     if (wNumber ==  4 && WM_IsInInventory( 2)) return true;
     if (wNumber ==  8 && WM_IsInInventory( 7)) return true;
@@ -368,19 +356,16 @@ function bool WM_IsHiddenWeapon(int wNumber)
     if (wNumber == 22) return true;
     return false;
 
-    // Doom Delta
-  case 47: return (wNumber == 8);
+  case SET_DOOM_DELTA: return (wNumber == 8);
 
-    // Factotum
-  case 49:
+  case SET_FACTOTUM:
     if (wNumber == 1 && WM_IsInInventory(2)) return true;
     if (wNumber == 5 && WM_IsInInventory(6)) return true;
     if (wNumber == 2) return true;
     if (wNumber == 6) return true;
     return false;
 
-    // Flakes Doom
-  case 50: return true; // TODO: make game detection and hide weapons properly
+  case SET_FLAKES_DOOM: return true; // TODO: make game detection and hide weapons properly
 
   }
 
@@ -813,7 +798,7 @@ function void WM_PrintMenu(void)
   if (showIcons)
   {
     str weaponClass = WM_GetWeaponName(highlightedWeapon);
-    if (currentSet == 18) { weaponClass = StrParam(s:weaponClass, s:"_rekkr"); }
+    if (currentSet == SET_REKKR) { weaponClass = StrParam(s:weaponClass, s:"_rekkr"); }
     ScriptCall("WMZscriptHelper", "GetWeaponIcon", weaponClass);
     str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
     if (StrLen(icon) > 0)
@@ -1095,34 +1080,29 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   str classes[N_MATCHED_CLASSES][2] =
   {
-    // DoomRL Arsenal
-    { "DoomRLMarine",        42 },
-    { "DoomRLScout",         42 },
-    { "DoomRLTechnician",    42 },
-    { "DoomRLRenegade",      42 },
-    { "DoomRLDemolitionist", 42 },
-    { "DoomRLCommando",      42 },
+    { "DoomRLMarine"        , SET_DOOMRL_ARSENAL },
+    { "DoomRLScout"         , SET_DOOMRL_ARSENAL },
+    { "DoomRLTechnician"    , SET_DOOMRL_ARSENAL },
+    { "DoomRLRenegade"      , SET_DOOMRL_ARSENAL },
+    { "DoomRLDemolitionist" , SET_DOOMRL_ARSENAL },
+    { "DoomRLCommando"      , SET_DOOMRL_ARSENAL },
 
-    // X-Weapon
-    { "XDoomPlayer",         45 },
-    { "XDoomPlayer2",        45 },
-    { "XDoomPlayer3",        45 },
-    { "XDoomPlayer4",        45 },
+    { "XDoomPlayer"         , SET_X_WEAPON       },
+    { "XDoomPlayer2"        , SET_X_WEAPON       },
+    { "XDoomPlayer3"        , SET_X_WEAPON       },
+    { "XDoomPlayer4"        , SET_X_WEAPON       },
 
-    // Harmony mods
-    { "HarmonyPlayer",       46 },
+    { "HarmonyPlayer"       , SET_HARMONY        },
 
-    // Doom Delta
-    { "LoreleiPlayer", 47 },
-    { "JohnPlayer",    47 },
-    { "DimitriPlayer", 47 },
-    { "ThiPlayer",     47 },
-    { "BetaPlayer",    47 },
+    { "LoreleiPlayer"       , SET_DOOM_DELTA     },
+    { "JohnPlayer"          , SET_DOOM_DELTA     },
+    { "DimitriPlayer"       , SET_DOOM_DELTA     },
+    { "ThiPlayer"           , SET_DOOM_DELTA     },
+    { "BetaPlayer"          , SET_DOOM_DELTA     },
 
-    // Brutal Doom
-    { "BDoomer",        28 },
-    { "Doomer2",        28 },
-    { "TacticalDoomer", 28 },
+    { "BDoomer"             , SET_BRUTAL_DOOM    },
+    { "Doomer2"             , SET_BRUTAL_DOOM    },
+    { "TacticalDoomer"      , SET_BRUTAL_DOOM    },
   };
 
   for (int i = 0; i < N_MATCHED_CLASSES; ++i)
@@ -1137,24 +1117,24 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "DoomPlayer") == 0)
   {
-    if      (WM_IsRekkr())    { return 18; }
-    else if (WM_IsFreedoom()) { return 44; }
-    else if (WM_IsHarmony())  { return 46; }
-    else if (WM_IsAbortM())   { return  4; }
-    else if (WM_IsCyanDoom()) { return 13; }
-    else                      { return  0; }
+    if      (WM_IsRekkr())    { return SET_REKKR;     }
+    else if (WM_IsHarmony())  { return SET_HARMONY;   }
+    else if (WM_IsAbortM())   { return SET_ABORT_M;   }
+    else if (WM_IsCyanDoom()) { return SET_CYAN_DOOM; }
+    else if (WM_IsFreedoom1() || WM_IsFreedoom2()) { return SET_FREEDOOM; }
+    else                      { return SET_VANILLA;   }
   }
 
   if (StrCmp(class, "PerkDPlayer") == 0)
   {
-    if (WM_IsEVP()) { return 48; }
-    else            { return  1; }
+    if (WM_IsEVP()) { return SET_EVP;  }
+    else            { return SET_PERK; }
   }
 
   if (StrCmp(class, "FKPlayer") == 0)
   {
-    if (WM_IsFlakesDoom()) { return 50; }
-    else                   { return 14; }
+    if (WM_IsFlakesDoom()) { return SET_FLAKES_DOOM; }
+    else                   { return SET_KRIEGSLAND;  }
   }
 
   return ERROR_NOT_FOUND;
@@ -2133,7 +2113,11 @@ script "WM_HolsterWeapon" (void)
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
   if (WM_IsZoomed()) { WM_ToggleZoom(); }
 
-  int forbiddenMods[N_MODS_NO_HOLSTER] = { 16, 47 };
+  int forbiddenMods[N_MODS_NO_HOLSTER] =
+  {
+    SET_WEAPONS_OF_SATURN ,
+    SET_DOOM_DELTA        ,
+  };
   for (int i = 0; i < N_MODS_NO_HOLSTER; ++i)
   {
     if (currentSet == forbiddenMods[i])
@@ -2689,23 +2673,30 @@ script "WM_FireJunk" (void)
 
 function bool WM_IsDoom1(void)
 {
-  str filtered = StrParam(l:"WM_GAME");
-  bool doom1 = (StrCmp(filtered, "1") == 0);
+  str  filtered = StrParam(l:"WM_GAME");
+  bool doom1    = (StrCmp(filtered, "1") == 0);
   return doom1;
 }
 
 function bool WM_IsDoom2(void)
 {
-  str filtered = StrParam(l:"WM_GAME");
-  bool doom2 = (StrCmp(filtered, "2") == 0);
+  str  filtered = StrParam(l:"WM_GAME");
+  bool doom2    = (StrCmp(filtered, "2") == 0);
   return doom2;
 }
 
-function bool WM_IsFreedoom(void)
+function bool WM_IsFreedoom1(void)
 {
-  str filtered = StrParam(l:"WM_GAME");
-  bool freedoom = (StrCmp(filtered, "3") == 0);
-  return freedoom;
+  str  filtered  = StrParam(l:"WM_GAME");
+  bool freedoom1 = (StrCmp(filtered, "4") == 0);
+  return freedoom1;
+}
+
+function bool WM_IsFreedoom2(void)
+{
+  str  filtered  = StrParam(l:"WM_GAME");
+  bool freedoom2 = (StrCmp(filtered, "3") == 0);
+  return freedoom2;
 }
 
 function bool WM_IsRekkr(void)
