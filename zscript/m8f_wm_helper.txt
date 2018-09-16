@@ -583,6 +583,7 @@ class m8f_wm_Data : Thinker
     icons.push("bmgrenader"             , "ggpua0"      );
     icons.push("bmplasmagun"            , "bmpla0"      );
     icons.push("dergfist"               , "wm_guncaster_knuckles");
+    icons.push("bayonette"              , "baygz0"      );
 
     return self;
   }
