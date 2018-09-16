@@ -2104,7 +2104,7 @@ function void WM_InstantSwitch(bool enable)
   SetPlayerProperty(0, enable, PROP_INSTANTWEAPONSWITCH);
 }
 
-#define N_MODS_NO_HOLSTER 2
+#define N_MODS_NO_HOLSTER 1
 
 script "WM_HolsterWeapon" (void)
 {
@@ -2115,8 +2115,7 @@ script "WM_HolsterWeapon" (void)
 
   int forbiddenMods[N_MODS_NO_HOLSTER] =
   {
-    SET_WEAPONS_OF_SATURN ,
-    SET_DOOM_DELTA        ,
+    SET_WEAPONS_OF_SATURN, // reason: A_Lower with 0 duration
   };
   for (int i = 0; i < N_MODS_NO_HOLSTER; ++i)
   {
