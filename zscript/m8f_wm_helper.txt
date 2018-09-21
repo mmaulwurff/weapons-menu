@@ -253,6 +253,13 @@ class WMZscriptHelper : Actor
     messageCVar.SetInt(result);
   }
 
+  static void SendResultDouble(PlayerInfo player, double result)
+  {
+    if (!player) { return; }
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
+    messageCVar.SetFloat(result);
+  }
+
   static void SetZoomFactor(Actor activator
                             , double zoom
                             , string weaponClass
@@ -294,7 +301,7 @@ class WMZscriptHelper : Actor
     let player = activator.player;
     if (!player) { return; }
 
-    SendResultInt(player, player.FOV);
+    SendResultDouble(player, player.FOV);
   }
 
   static void GiveMinAmmo(Actor activator, string weaponClass)
@@ -383,7 +390,7 @@ class WMZscriptHelper : Actor
 
     double slope = activator.BulletSlope(null, ALF_PORTALRESTRICT);
     //Console.Printf("%d", slope);
-    SendResultInt(player, slope);
+    SendResultDouble(player, slope);
   }
 
   static void TargetIsPresent(Actor activator)
