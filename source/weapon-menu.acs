@@ -1127,8 +1127,9 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "PerkDPlayer") == 0)
   {
-    if (WM_IsEVP()) { return SET_EVP;  }
-    else            { return SET_PERK; }
+    if (WM_IsEVP())     { return SET_EVP;     }
+    if (WM_IsVSmooth()) { return SET_VANILLA; }
+    else                { return SET_PERK;    }
   }
 
   if (StrCmp(class, "FKPlayer") == 0)
@@ -2720,6 +2721,14 @@ function bool WM_IsEVP(void)
 {
   bool isEVP = CheckClass("EVPBFGBall");
   return isEVP;
+}
+
+function bool WM_IsVSmooth(void)
+{
+  bool hasSmoothChainsaw = CheckClass("SmoothChainsaw");
+  bool hasSmoothFist     = CheckClass("PerkFist");
+
+  return hasSmoothChainsaw && !hasSmoothFist;
 }
 
 function bool WM_IsFlakesDoom(void)
