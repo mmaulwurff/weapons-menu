@@ -25,7 +25,7 @@ alias WeaponMenuPrev "pukename scrollpreviousweapon"
 alias next_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuNext weapnext"
 alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
 
-alias WeaponMenuOptions "openmenu m8f_wm_WeaponMenuPlusOptions"
+alias WeaponMenuOptions "openmenu m8f_wm_Options"
 
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
