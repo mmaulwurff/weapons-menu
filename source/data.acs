@@ -15,6 +15,7 @@
 #define SET_CHEX_QUEST        19
 
 #define SET_PARKOUR           25
+#define SET_VSMOOTH           26
 
 #define SET_BRUTAL_DOOM       28
 #define SET_FALLBACK          29
@@ -67,7 +68,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1 | reason: secret weapons
-  "[reserved]",          // 26. [reserved]
+  "PerkDPlayer",         // 26. VSmooth (Vanilla doom smooth weapons) | reason: Dehacked except 1 class
   "[reserved]",          // 27. [reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode | reason: secret weapons, shared set
   "m8f_wm_Fallback",     // 29. Fallback mode
@@ -128,8 +129,8 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Responsive Weapons + Faster Weapon Switching
   9,  // Dead Marine
   12, // Parkour
-  0,  // Special - autodetected
-  16, // Guncaster
+  9,  // VSmooth
+  0,  // [Reserved]
   22, // Brutal Doom
   0,  // [Reserved]
   0,  // [Reserved]
@@ -233,7 +234,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
 
-  { }, // Reserved
+  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // VSmooth
+
   { }, // Reserved
 
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Brutal
@@ -592,7 +594,16 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "PkSuperChain",
   },
 
-  { }, // Reserved
+  { // VSmooth
+    "SmoothChainsaw" , "Fist",
+    "Pistol"         ,
+    "SuperShotgun"   , "Shotgun",
+    "Chaingun"       ,
+    "RocketLauncher" ,
+    "PlasmaRifle"    ,
+    "BFG9000"
+  },
+
   { }, // Reserved
 
   { // Brutal Doom
@@ -1351,17 +1362,17 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Super Chaingun",
   },
 
-  { }, // Special - autodetected
-
-  { // Guncaster
-    "Knuckle Sandwich",
-    "Longhorn"     , "Longhorn"     ,
-    "Ironblast"    , "Strucker"     , "Ironblast", "Strucker",
-    "Pulverizer"   , "Pulverizer"   ,
-    "Matriarch"    , "Matriarch "   , "Dynamite",
-    "Augur"        , "Augur"        ,
-    "Old Dreadful" , "Old Dreadful"
+  { // VSmooth
+    "Chainsaw"        , "Brass Knuckles",
+    "Pistol"          ,
+    "Super Shotgun"   , "Shotgun",
+    "Chaingun"        ,
+    "Rocket Launcher" ,
+    "Plasma Rifle"    ,
+    "BFG 9000"
   },
+
+  {}, // Reserved
 
   { // Brutal Doom
     "Melee", "Chainsaw", "Axe",

@@ -1128,7 +1128,7 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
   if (StrCmp(class, "PerkDPlayer") == 0)
   {
     if (WM_IsEVP())     { return SET_EVP;     }
-    if (WM_IsVSmooth()) { return SET_VANILLA; }
+    if (WM_IsVSmooth()) { return SET_VSMOOTH; }
     else                { return SET_PERK;    }
   }
 
