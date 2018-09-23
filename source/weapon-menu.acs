@@ -202,7 +202,8 @@ function void WM_EnterEnabled(void)
 
   int playerN = PlayerNumber();
   lastUsedWeapon = WM_Unwrap(GetUserCVarString(playerN, "m8f_wm_LastUsedWeapon"));
-  if (!CheckInventory(lastUsedWeapon))
+
+  if (!WM_CheckInventory(lastUsedWeapon))
   {
     WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
   }
@@ -1666,7 +1667,7 @@ script "SelectLastUsedWeapon" (void)
 {
   if (IsUninitialized()) { terminate; }
 
-  if (CheckInventory(lastUsedWeapon))
+  if (WM_CheckInventory(lastUsedWeapon))
   {
     WM_SelectWeapon(WM_FindInWeaponList(lastUsedWeapon), true);
   }
@@ -1998,6 +1999,13 @@ function bool WM_IsWeaponDeselectable(str weaponClass)
   ScriptCall("WMZscriptHelper", "IsWeaponDeselectable", weaponClass);
   bool isDeselectable = GetUserCVar(playerN, "m8f_wm_ResultInt");
   return isDeselectable;
+}
+
+function bool WM_CheckInventory(str weaponClass)
+{
+  if (!CheckClass    (weaponClass)) { return false; }
+  if (!CheckInventory(weaponClass)) { return false; }
+  return true;
 }
 
 bool returnToLast;
