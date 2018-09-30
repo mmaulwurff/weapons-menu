@@ -1,8 +1,8 @@
 class m8f_wm_StringMap
 {
 
-  Array<string> keys;
-  Array<string> values;
+  private Array<string> keys;
+  private Array<string> values;
 
   void print()
   {

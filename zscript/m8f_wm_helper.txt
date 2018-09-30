@@ -1,6 +1,8 @@
 class WMZscriptHelper play
 {
 
+  // public section ////////////////////////////////////////////////////////////
+
   static void TellAmmo(Actor activator, string weaponClass, bool showSecond)
   {
     if (!activator) { return; }
@@ -240,27 +242,6 @@ class WMZscriptHelper play
     SendResultString(player, weaponData);
   }
 
-  private static void SendResultString(PlayerInfo player, string result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultString", player);
-    messageCVar.SetString(result);
-  }
-
-  private static void SendResultInt(PlayerInfo player, int result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
-    messageCVar.SetInt(result);
-  }
-
-  private static void SendResultDouble(PlayerInfo player, double result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
-    messageCVar.SetFloat(result);
-  }
-
   static void SetZoomFactor( Actor  activator
                            , double zoom
                            , string weaponClass
@@ -347,26 +328,27 @@ class WMZscriptHelper play
     SendResultString(player, icon);
   }
 
-  static void GetAimPitch(Actor activator)
-  {
-    if (!activator) { return; }
-    let player = activator.player;
-    if (!player) { return; }
+  // private section ///////////////////////////////////////////////////////////
 
-    double slope = activator.BulletSlope(null, ALF_PORTALRESTRICT);
-    //Console.Printf("%d", slope);
-    SendResultDouble(player, slope);
+  private static void SendResultString(PlayerInfo player, string result)
+  {
+    if (!player) { return; }
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultString", player);
+    messageCVar.SetString(result);
   }
 
-  static void TargetIsPresent(Actor activator)
+  private static void SendResultInt(PlayerInfo player, int result)
   {
-    if (!activator) { return; }
-    let player = activator.player;
     if (!player) { return; }
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
+    messageCVar.SetInt(result);
+  }
 
-    Actor target    = activator.AimTarget();
-    bool  isPresent = (target != null);
-    SendResultInt(player, isPresent);
+  private static void SendResultDouble(PlayerInfo player, double result)
+  {
+    if (!player) { return; }
+    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
+    messageCVar.SetFloat(result);
   }
 
 } // class WMZscriptHelper
