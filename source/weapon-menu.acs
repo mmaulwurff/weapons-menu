@@ -205,7 +205,7 @@ function void WM_EnterEnabled(void)
 
   if (!WM_CheckInventory(lastUsedWeapon))
   {
-    WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
+    WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon), playerN);
   }
 
   WM_SetupAddons();
@@ -965,11 +965,14 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast)
   {
     int playerN = PlayerNumber();
     if (selectedWeapon == WEAPON_HOLSTERED)
-      {
-        WM_Unholster();
-      }
+    {
+      WM_Unholster();
+    }
+    else if (changeLast)
+    {
+      WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon), playerN);
+    }
 
-    if (changeLast) { WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon)); }
     WM_SetSelectedWeapon(weaponNumber);
 
     WM_MaybePlaySoundOnWeaponChange();
@@ -1286,7 +1289,7 @@ script "ShowWeaponMenu" ENTER
         str selectedClass = WM_GetWeaponName(selectedWeapon);
         if (CheckInventory(selectedClass))
         {
-          WM_SetLastUsedWeapon(selectedClass);
+          WM_SetLastUsedWeapon(selectedClass, playerN);
         }
 
         if (WM_IsZoomed()) { WM_ToggleZoomWeapon(selectedClass); }
@@ -1450,6 +1453,7 @@ script "ScrollNextWeapon" (void)
     WM_ChangeState(STATE_OPENED);
   }
 
+  int playerN = PlayerNumber();
   int start;
   int n;
   int i;
@@ -1482,7 +1486,7 @@ script "ScrollNextWeapon" (void)
 
     if (n != weaponCount - 1)
     {
-      WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
+      WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i);
       WM_SetHighlightedWeapon(i);
       WM_MaybeDisplayNameTag();
@@ -1490,7 +1494,6 @@ script "ScrollNextWeapon" (void)
     }
   }
 
-  int playerN = PlayerNumber();
   SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 
   WM_UpdateMenu();
@@ -1525,6 +1528,7 @@ script "ScrollPreviousWeapon" (void)
     WM_ToggleWeaponMenu();
   }
 
+  int playerN = PlayerNumber();
   int start;
   int n;
   int i;
@@ -1557,7 +1561,7 @@ script "ScrollPreviousWeapon" (void)
 
     if (n != weaponCount - 1)
     {
-      WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
+      WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i);
       WM_SetHighlightedWeapon(i);
       WM_MaybeDisplayNameTag();
@@ -1565,7 +1569,6 @@ script "ScrollPreviousWeapon" (void)
     }
   }
 
-  int playerN = PlayerNumber();
   SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 
   WM_UpdateMenu();
@@ -1798,10 +1801,10 @@ function void WM_SetSelectedWeapon(int weaponNumber)
                     WM_GetWeaponTag(selectedWeapon));
 }
 
-function void WM_SetLastUsedWeapon(str weaponClass)
+function void WM_SetLastUsedWeapon(str weaponClass, int playerN)
 {
   lastUsedWeapon = weaponClass;
-  int playerN = PlayerNumber();
+
   SetUserCVarString(playerN, "m8f_wm_LastUsedWeapon", WM_Wrap(lastUsedWeapon));
 }
 
@@ -2155,7 +2158,7 @@ script "WM_HolsterWeapon" (void)
   }
 
   WM_ChangeState(STATE_CLOSED);
-  WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon));
+  WM_SetLastUsedWeapon(WM_GetWeaponName(selectedWeapon), playerN);
   WM_SetSelectedWeapon(WEAPON_HOLSTERED);
   ScriptCall("WMZScriptHelper", "HolsterWeapon");
 }
