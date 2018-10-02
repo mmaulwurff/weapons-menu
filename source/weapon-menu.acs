@@ -2657,18 +2657,6 @@ script "WM_UseQuickInventoryItem" (int n)
   }
 }
 
-// Fire Junk Section ///////////////////////////////////////////////////////////
-
-script "WM_FireJunk" (void)
-{
-  PlaySound(0, "wmenu/throw");
-  Delay(5);
-  NoiseAlert(0, 0);
-  int angle = GetActorAngle(0);
-  int pitch = GetActorPitch(0);
-  LineAttack(0, angle, pitch, 0, "WM_JunkPuff", "None", 2048.0, FHF_NOIMPACTDECAL);
-}
-
 // Game Detection Section //////////////////////////////////////////////////////
 
 function bool WM_IsDoom1(void)

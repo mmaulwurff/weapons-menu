@@ -100,14 +100,18 @@ alias -smart_select_10 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 11;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect11"
 alias -smart_select_11 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-// Edit Weapon List Section
+// Edit Weapon List Section ////////////////////////////////////////////////////
 
 alias m8f_wm_increase_priority "pukename WM_IncreasePriority; closemenu"
 alias m8f_wm_increase_slot     "pukename WM_IncreaseSlot;     closemenu"
 alias m8f_wm_decrease_slot     "pukename WM_DecreaseSlot;     closemenu"
 alias m8f_wm_apply_tag_change  "pukename WM_ApplyTagChange;   closemenu"
 
-// Controls Key Section
+// Aliases Section /////////////////////////////////////////////////////////////
+
+alias m8f_wm_throw_junk "netevent m8f_wm_throw_junk"
+
+// Controls Key Section ////////////////////////////////////////////////////////
 
 AddKeySection "Weapon Menu +: Basic Controls" "WeaponMenuKeys"
 
@@ -153,4 +157,4 @@ AddMenuKey "Select quick access weapon"   "pukename WM_SelectFavoriteWeapon"
 AddMenuKey "Fire quick access weapon"     "+wm_fire_favorite"
 AddMenuKey "Holster weapon"               "pukename WM_HolsterWeapon"
 AddMenuKey "Toggle Zoom"                  "pukename WM_ToggleZoom"
-AddMenuKey "Throw Junk"                   "pukename WM_FireJunk"
+AddMenuKey "Throw Junk"                   "m8f_wm_throw_junk"

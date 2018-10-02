@@ -277,7 +277,7 @@ OptionMenu "m8f_wm_AdvancedControls"
   StaticText "only with Weapon Menu keys."                    , "Black"
 
   StaticText ""
-  Control    "Throw Junk", "pukename WM_FireJunk"
+  Control    "Throw Junk", "m8f_wm_throw_junk"
   StaticText "0 damage hitscan attack. Also alerts enemies."  , "Black"
 
   StaticText ""
