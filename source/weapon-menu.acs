@@ -89,7 +89,6 @@ str inventoryNames  [N_INVENTORY_ITEMS];
 // Get status section //////////////////////////////////////////////////////////
 
 function bool IsUninitialized(void) { return globalState == STATE_UNINITIALIZED; }
-function bool IsTerminated(void) { return globalState == STATE_TERMINATED; }
 function bool IsOpened(void)     { return globalState == STATE_OPENED; }
 function bool IsInventory(void)  { return globalState == STATE_INVENTORY; }
 function bool IsVisible(void)    { return globalState == STATE_OPENED || globalState == STATE_CLOSED_VISIBLE; }
@@ -1725,16 +1724,6 @@ function bool WM_IsInInventory(int weaponNumber)
   return isInInventory[weaponNumber];
 }
 
-function int WM_CountIsInInventory(void)
-{
-  int result = 0;
-  for (int i = 0; i < weaponCount; ++i)
-  {
-    result += isInInventory[i];
-  }
-  return result;
-}
-
 function bool WM_IsSelected(int weaponNumber)
 {
   if (weaponNumber == WEAPON_HOLSTERED) { return true; }
@@ -1749,11 +1738,6 @@ function void WM_HighlightFirstInInventory(int slotNumber, int playerN)
     WM_SetHighlightedWeapon(weaponNumber, playerN);
     WM_PlaySwitchSound(playerN);
   }
-}
-
-function bool WM_IsValidWeaponNumber(int weaponNumber)
-{
-  return (0 <= weaponNumber && weaponNumber < weaponCount);
 }
 
 function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
