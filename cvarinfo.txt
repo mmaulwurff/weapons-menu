@@ -96,52 +96,12 @@ user string m8f_wm_SwitchSound = "wmenu/no";
 
 user string m8f_wm_SelectedWeaponTag;
 
-////////////////////////////////////////////////////////////////////////////////
+// Keyconf interface ///////////////////////////////////////////////////////////
 
-// Weapons Menu CVar API
-
-// Format:
-// Description.
-// Read/write permissions. Please do not write to read-only variables.
-
-// Just check it for existence, then check number.
-// All API versions with the same major version number are backwards-compatible.
-// Read-only.
-user int M8fWeaponMenuApiVersionMajor = 2;
-
-// New minor API version marks new functionality without breaking
-// backward compatibility.
-// Read-only.
-user int M8fWeaponMenuApiVersionMinor = 1;
-
-// Set this to true to disable Weapon Menu native (built-in) output.
-// Native output is ACS HudMessage.
-// Read/write.
-user bool M8fWeaponMenuDisableNativeOutput = false;
-
-// Weapon Menu can be disabled if current weapon set is not supported by it.
-// Read-only.
 user bool M8fWeaponMenuIsEnabled = false;
-
-// Weapon Menu can be opened and closed by user. Check this to know menu status.
-// Read-only.
 user bool M8fWeaponMenuIsOpened = false;
 
-// Contains number of weapons in current weapon set.
-// Read-only.
-user int M8fWeaponMenuWeaponCount = 0;
-
-// Index of highlighted weapon.
-// Highlighted weapon will be selected when menu is closed.
-// Read-only.
-user int M8fWeaponMenuHighlightedWeapon = 0;
-
-// Index of currently selected weapon.
-// Selected weapon is the weapon that user is holding at the moment.
-// Read-only.
-user int M8fWeaponMenuSelectedWeapon = 0;
-
-// Options
+// Options /////////////////////////////////////////////////////////////////////
 
 user int M8fAvailableWeaponColor    = 7;
 user int M8fNotAvailableWeaponColor = 2;
@@ -152,23 +112,9 @@ user int m8f_wm_NoAmmoColor         = 7;
 user bool M8fWeaponMenuHighToLow = true;
 user bool M8fShowNotAvailable    = true;
 
-user bool M8fWeaponMenuHighlightSelected = true;
+// Persistent state ////////////////////////////////////////////////////////////
 
-// True if sound is played on highlighing a weapon in menu.
-// Added in 1.1. Deprecated since 1.2. Always false. Changing this does no effect.
-// See M8fWeaponMenuSwitchSound.
-// Read/write.
-user bool M8fWeaponMenuEnableSound = false;
-
-// Sound that will be played on highlighting a weapon in menu.
-// Added in 1.1. Deprecated since 1.2. Always empty. Changing this does no effect.
-// See M8fWeaponMenuSwitchSound.
-// Read/write.
-user string M8fWeaponMenuHighlightSound = "";
-
-// Sound index that will be played on highlighting a weapon in menu.
-// Added in 1.2, deprecated in 2.1.
-user int M8fWeaponMenuSwitchSound = 0;
+user int M8fWeaponMenuWeaponCount = 0;
 
 // And here is the ugly part...
 

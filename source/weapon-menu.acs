@@ -138,8 +138,8 @@ function void WM_LeaveState(int oldState, int playerN)
 function void WM_EnterState(int newState, int playerN)
 {
   globalState = newState;
-  WM_SetCVar(true, "M8fWeaponMenuIsEnabled", playerN);
-  WM_SetCVar(IsOpened() || IsInventory(), "M8fWeaponMenuIsOpened", playerN);
+  SetUserCVar(playerN, "M8fWeaponMenuIsEnabled", true);
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
 
   switch (newState)
     {
@@ -522,9 +522,6 @@ function void WM_MaybeShowBackground(int backgroundMode, int playerN)
 
 function void WM_PrintMenu(int playerN)
 {
-  bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-  if (disableOutput) { return; }
-
   int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
   int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
   int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
@@ -1203,8 +1200,8 @@ script "ShowWeaponMenu" ENTER
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
-    WM_SetCVar(true, "M8fWeaponMenuIsEnabled", playerN);
-    WM_SetCVar(IsOpened() || IsInventory(),  "M8fWeaponMenuIsOpened", playerN);
+    SetUserCVar(playerN, "M8fWeaponMenuIsEnabled", true);
+    SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
 
     // emulating repeated key press
     if (keyRepeat < keyRepeatPeriod) { ++keyRepeat; }
@@ -1477,8 +1474,6 @@ script "ScrollNextWeapon" (void)
     }
   }
 
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
-
   WM_UpdateMenu(playerN);
 }
 
@@ -1552,8 +1547,6 @@ script "ScrollPreviousWeapon" (void)
       WM_MaybePlaySoundOnWeaponChange(playerN);
     }
   }
-
-  SetUserCVar(playerN, "M8fWeaponMenuHighlightedWeapon", highlightedWeapon);
 
   WM_UpdateMenu(playerN);
 }
@@ -1672,7 +1665,7 @@ script "WM_MarkWeaponAsFavorite" (void)
   int playerN = PlayerNumber();
 
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
-  WM_SetCVar(selectedWeapon, "M8fWeaponMenuFavoriteWeapon", playerN);
+  SetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon", selectedWeapon);
   Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
 }
 
@@ -1752,22 +1745,15 @@ function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
 
 // Global variables write access functions /////////////////////////////////////
 
-function void WM_SetCVar(int value, str cvarName, int playerN)
-{
-  SetUserCVar(playerN, cvarName, value);
-}
-
 function void WM_SetHighlightedWeapon(int weaponNumber, int playerN)
 {
   if (weaponNumber == WEAPON_HOLSTERED) { return; }
   highlightedWeapon = weaponNumber;
-  WM_SetCVar(highlightedWeapon, "M8fWeaponMenuHighlightedWeapon", playerN);
 }
 
 function void WM_SetSelectedWeapon(int weaponNumber, int playerN)
 {
   selectedWeapon = weaponNumber;
-  WM_SetCVar(selectedWeapon, "M8fWeaponMenuSelectedWeapon", playerN);
 
   SetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag",
                     WM_GetWeaponTag(selectedWeapon));
@@ -2230,9 +2216,6 @@ function void WM_FillInventoryItems(int playerN)
 function void WM_PrintInventoryMenu(int playerN)
 {
   WM_ClearScreen();
-
-  bool disableOutput = GetUserCVar(playerN, "M8fWeaponMenuDisableNativeOutput");
-  if (disableOutput) { return; }
 
   int xStart           = GetUserCVar(playerN, "m8f_wm_InventoryMenuX");
   int backgroundMode   = xStart / 0.5;
