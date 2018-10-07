@@ -72,7 +72,6 @@ bool selectedWatchEnabled = true;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
-int zoomFactor = 1.0;
 bool isZoomed;
 
 int originalFov;
@@ -2325,11 +2324,12 @@ function void WM_ToggleZoomWeapon(str weaponClass, int playerN)
   bool isLaserConnected = GetUserCVar(playerN, "m8f_wm_LaserOnZoom");
   bool lowerWeapon      = GetUserCVar(playerN, "m8f_wm_LowerWeaponOnZoom");
   int  zoomedZoomFactor = GetUserCVar(playerN, "m8f_wm_ZoomFactor");
+  int  zoomFactor;
 
   if (isZoomed)
   {
     zoomFactor = 1.0;
-    isZoomed = false;
+    isZoomed   = false;
     SetActorProperty(0, APROP_SPEED, 1.0);
     WM_MaybeToggleSlomoOnZoomOut(playerN);
     WM_MaybeDisableTargetSpy(playerN);
@@ -2337,7 +2337,7 @@ function void WM_ToggleZoomWeapon(str weaponClass, int playerN)
   else
   {
     zoomFactor = zoomedZoomFactor;
-    isZoomed = true;
+    isZoomed   = true;
     int zoomSpeedMultiplier = GetUserCvar(playerN, "m8f_wm_ZoomSpeedMultiplier");
     SetActorProperty(0, APROP_SPEED, zoomSpeedMultiplier);
     WM_MaybeToggleSlomoOnZoomIn(playerN);
