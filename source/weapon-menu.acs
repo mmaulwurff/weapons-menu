@@ -417,12 +417,14 @@ function int WM_GetWeaponBySlotInInv(int slotNumber, int playerN)
 {
   for (int i = 0; i < weaponCount; ++i)
   {
-    if (slotNumber == WM_GetWeaponSlot(i))
-      if (CheckInventory(WM_GetWeaponClass(i)))
-        if (!WM_SkipNoAmmo(i, playerN))
-    {
-      return i;
-    }
+    if (slotNumber != WM_GetWeaponSlot(i)) { continue; }
+
+    str weaponClass = WM_GetWeaponClass(i);
+    if (!CheckClass(weaponClass))     { continue; }
+    if (!CheckInventory(weaponClass)) { continue; }
+    if (WM_SkipNoAmmo(i, playerN))    { continue; }
+
+    return i;
   }
 
   return ERROR_NOT_FOUND;
@@ -434,16 +436,22 @@ function bool WM_IsOnlyInSlot(int weaponNumber)
 
   for (int prev = weaponNumber - 1; prev >= 0; --prev)
   {
-    if (WM_GetWeaponSlot(prev) == slot)
-      if (CheckInventory(WM_GetWeaponClass(prev)))
-        { return false; }
+    if (WM_GetWeaponSlot(prev) != slot) { continue; }
+    str prevWeaponClass = WM_GetWeaponClass(prev);
+    if (!CheckClass(prevWeaponClass))     { continue; }
+    if (!CheckInventory(prevWeaponClass)) { continue; }
+
+    return false;
   }
 
   for (int next = weaponNumber + 1; next < weaponCount; ++next)
   {
-    if (WM_GetWeaponSlot(next) == slot)
-      if (CheckInventory(WM_GetWeaponClass(next)))
-        { return false; }
+    if (WM_GetWeaponSlot(next) != slot) { continue; }
+    str nextWeaponClass = WM_GetWeaponClass(next);
+    if (!CheckClass(nextWeaponClass))     { continue; }
+    if (!CheckInventory(nextWeaponClass)) { continue; }
+
+    return false;
   }
 
   return true;
