@@ -13,6 +13,7 @@
 #define SET_WEAPONS_OF_SATURN 16
 #define SET_REKKR             18
 #define SET_CHEX_QUEST        19
+#define SET_DOOM_64           22
 
 #define SET_PARKOUR           25
 #define SET_VSMOOTH           26
@@ -64,7 +65,7 @@ str playerClassNames[SETS_NUMBER] =
   "ChexPlayer",          // 19. Chex Quest | reason: SSG is deathmatch-only
   "StrifePlayer",        // 20. Strife
   "ArgPlayer",           // 21. Argent (v0.5.3)
-  "64DoomPlayer",        // 22. Doom 64 'weapons only' X (updated 5-29-2016)
+  "64DoomPlayer",        // 22. Doom 64 'weapons only' (updated 5-29-2016), Doom 64 Retribution 1.4a | reason: tags
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1 | reason: secret weapons
@@ -125,7 +126,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Chex Quest
   11, // Strife
   11, // Argent
-  15, // Doom 64 X
+  16, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
   9,  // Dead Marine
   12, // Parkour
@@ -226,7 +227,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 6, 6, 7 }, // Argent
 
-  { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Doom 64 X
+  { 1, 1, 2, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8 }, // Doom 64
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Responsive Weapons + Faster Weapon Switching
 
@@ -552,7 +553,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "ArgBFG9000",
   },
 
-  { // Doom 64 X
+  { // Doom 64
     "64Chainsaw", "64Fist",
     "64Uzi", "64Pistol",
     "64Devastator", "64SuperShotgun", "64Shotgun",
@@ -560,6 +561,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "64Flamethrower", "64RocketLauncher",
     "64Railgun", "64PlasmaRifle",
     "Unmaker", "64BFG9000",
+    "64Unmaker",
   },
 
   { // Responsive Weapons + Faster Weapon Switching
@@ -1320,7 +1322,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000",
   },
 
-  { // Doom 64 X
+  { // Doom 64
     "Chainsaw", "Fist",
     "Uzi", "Pistol",
     "Devastator", "Super Shotgun", "Shotgun",
@@ -1328,6 +1330,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Flamethrower", "Rocket Launcher",
     "Railgun", "Plasma Rifle",
     "Unmaker", "BFG 9000",
+    "Unmaker",
   },
 
   { // Responsive Weapons + Faster Weapon Switching

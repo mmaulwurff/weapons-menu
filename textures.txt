@@ -385,6 +385,19 @@ sprite optional wm_guncaster_knuckles, 256, 64
   yScale 4.0
 }
 
+sprite optional wm_doom_64_fist, 128, 128
+{
+  // Doom 64 Weapons Only
+  sprite PUNGF0, -40, 0
+  // Doom 64 Retribution
+  sprite PUNFG0, -40, 0
+  offset 64, 64
+  xScale 4.0
+  yScale 4.0
+}
+
+// menu background (gradient) section //////////////////////////////////////////
+
 graphic wmbgrght, 200, 1
 {
   graphic wmbgleft, 0, 0
