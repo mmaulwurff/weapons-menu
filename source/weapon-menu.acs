@@ -138,10 +138,11 @@ function void WM_EnterState(int newState, int playerN)
 {
   globalState = newState;
   SetUserCVar(playerN, "M8fWeaponMenuIsEnabled", true);
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened",  IsOpened() || IsInventory());
+  SetUserCVar(playerN, "m8f_wm_WasInventory",    IsInventory());
 
   switch (newState)
-    {
+  {
     case STATE_UNINITIALIZED:  WM_EnterUninitialized(playerN); break;
     case STATE_TERMINATED:     WM_EnterTerminated(playerN);    break;
     case STATE_Enabled:        WM_EnterEnabled(playerN);       break;
@@ -149,7 +150,7 @@ function void WM_EnterState(int newState, int playerN)
     case STATE_OPENED:         WM_EnterOpened(playerN);        break;
     case STATE_INVENTORY:      WM_EnterInventory(playerN);     break;
     case STATE_CLOSED_VISIBLE: WM_EnterClosedVisible(playerN); break;
-    }
+  }
 }
 
 function void WM_LeaveUninitialized(int playerN)
@@ -1173,8 +1174,8 @@ function bool WM_IsOpenOnScroll(int playerN)
 
 function bool WM_IsMelee(int playerN)
 {
-  if (selectedWeapon == WEAPON_HOLSTERED) return true;
-  if (WM_GetWeaponSlot(selectedWeapon) != 1) return false;
+  if (selectedWeapon == WEAPON_HOLSTERED)    { return true;  }
+  if (WM_GetWeaponSlot(selectedWeapon) != 1) { return false; }
 
   int isSlot1Melee = !GetUserCVar(playerN, "m8f_wm_IsNotSlot1Melee");
 
@@ -1193,7 +1194,13 @@ script "ShowWeaponMenu" ENTER
   // for some reason without delay only vanilla weapons will be listed.
   if (currentSet == SET_FALLBACK) { Delay(1); }
 
+  bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
+  bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
+
   WM_ChangeState(state, playerN);
+
+  if      (wasInventory) { WM_ChangeState(STATE_INVENTORY, playerN); }
+  else if (wasOpened)    { WM_ChangeState(STATE_OPENED,    playerN); }
 
   int updatePeriod     = 10;
   int updateCount      =  0;
@@ -1202,8 +1209,6 @@ script "ShowWeaponMenu" ENTER
   int keyRepeat        = 0;
 
   int oldInstant       = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
-
-  int distanceCheckTid = UniqueTID();
 
   // options
   while (true)
