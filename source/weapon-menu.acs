@@ -1571,11 +1571,6 @@ function int WM_GetWeaponCount(void)
   return weaponCounts[currentSet];
 }
 
-function int WM_IsSelectedWatchEnabled(void)
-{
-  return selectedWatchEnabled;
-}
-
 function int WM_GetCurrentSet(void)
 {
   return currentSet;
