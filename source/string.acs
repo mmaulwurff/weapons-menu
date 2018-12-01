@@ -1,0 +1,27 @@
+function str WM_Unwrap(str wrappedString)
+{
+  int length = StrLen(wrappedString);
+  str unwrapped = StrMid(wrappedString, 1, length - 2);
+  return unwrapped;
+}
+
+function str WM_Wrap(str unwrappedString)
+{
+  str wrapped = StrParam(s:"\"", s:unwrappedString, s:"\"");
+  return wrapped;
+}
+
+// works only for positive numbers
+function int WM_StrToInt(str stringNumber)
+{
+  int result = 0;
+  int length = StrLen(stringNumber);
+
+  for (int i = 0; i < length; ++i)
+  {
+    result *= 10;
+    result += GetChar(stringNumber, i) - '0';
+  }
+
+  return result;
+}

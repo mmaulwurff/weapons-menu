@@ -1,0 +1,52 @@
+function bool WM_HasAmmo(str weaponClass, int playerN)
+{
+  ScriptCall("WMZScriptHelper", "HasAmmo", weaponClass);
+  bool hasAmmo = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return hasAmmo;
+}
+
+function int WM_GetFov(int playerN)
+{
+  ScriptCall("WMZScriptHelper", "GetFov");
+  return GetUserCVar(playerN, "m8f_wm_ResultInt") << 16;
+}
+
+function void WM_SetFov(int fov)
+{
+  ScriptCall("WMZScriptHelper", "SetFov", fov);
+}
+
+function str WM_GetAmmoString(str weaponClass, int ammoMode, int playerN)
+{
+  if (ammoMode == 0) { return ""; }
+
+  bool showSecondary = ammoMode == 2;
+  ScriptCall("WMZscriptHelper", "TellAmmo", weaponClass, showSecondary);
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}
+
+function bool WM_IsWeaponReady(str weaponClass, int playerN)
+{
+  ScriptCall("WMZscriptHelper", "IsWeaponReady", weaponClass);
+  bool isReady = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return isReady;
+}
+
+function bool WM_IsWeaponDeselectable(str weaponClass, int playerN)
+{
+  ScriptCall("WMZscriptHelper", "IsWeaponDeselectable", weaponClass);
+  bool isDeselectable = GetUserCVar(playerN, "m8f_wm_ResultInt");
+  return isDeselectable;
+}
+
+function str WM_GetSelectedInventory(int playerN)
+{
+  ScriptCall("WMZscriptHelper", "GetSelectedInventory");
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}
+
+function str WM_GetInventoryTag(str itemClass, int playerN)
+{
+  ScriptCall("WMZscriptHelper", "GetInventoryTag", itemClass);
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}

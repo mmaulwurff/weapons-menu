@@ -1,0 +1,49 @@
+#define messageIdStart   191919
+#define msgIdWeapon      messageIdStart
+#define msgIdSlot        messageIdStart + MAX_WEAPONS_NUMBER
+#define msgIdSelected    messageIdStart + MAX_WEAPONS_NUMBER * 2
+#define msgIdHighlighted messageIdStart + MAX_WEAPONS_NUMBER * 2 + 1
+#define msgIdError       messageIdStart + MAX_WEAPONS_NUMBER * 2 + 2
+#define msgIdAmmo        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 3
+#define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
+#define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5
+#define msgIdBackground  messageIdStart + MAX_WEAPONS_NUMBER * 2 + 6
+#define msgIdBackgroundA messageIdStart + MAX_WEAPONS_NUMBER * 2 + 7
+#define msgIdBackgroundB messageIdStart + MAX_WEAPONS_NUMBER * 2 + 8
+
+#define msgFlags HUDMSG_PLAIN | HUDMSG_NOTWITHFULLMAP | HUDMSG_NOTWITHOVERLAYMAP
+
+#define ERROR_NOT_FOUND  -1
+// numbers [-1, -9] are reserved for error codes
+
+#define WEAPON_HOLSTERED -10
+
+#define N_QUICK_INVENTORY_ITEMS 10
+
+#define BACKGROUND_LEFT     0
+#define BACKGROUND_TOP      1
+#define BACKGROUND_RIGHT    2
+
+// Global variables ////////////////////////////////////////////////////////////
+// To write to global variables, use only special functions.
+
+#define STATE_UNINITIALIZED  0
+#define STATE_TERMINATED     1
+#define STATE_ENABLED        2
+#define STATE_CLOSED         3
+#define STATE_OPENED         4
+#define STATE_INVENTORY      5
+#define STATE_CLOSED_VISIBLE 6
+//
+// (UNINITIALIZED) -titlemap-> [TERMINATED]
+// (UNINITIALIZED) -always-open-> OPENED
+// (UNINITIALIZED) --> CLOSED
+//
+// CLOSED -open->  OPENED
+// OPENED -close-> CLOSED
+// OPENED -close-and-always-open-> CLOSED_VISIBLE
+//
+// CLOSED -open-inventory-> INVENTORY
+// OPENED -open-inventory-> INVENTORY
+
+#define N_INVENTORY_ITEMS 250

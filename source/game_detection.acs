@@ -1,0 +1,81 @@
+// Game Detection Section //////////////////////////////////////////////////////
+
+function bool WM_IsDoom1(void)
+{
+  str  filtered = StrParam(l:"WM_GAME");
+  bool doom1    = (StrCmp(filtered, "1") == 0);
+  return doom1;
+}
+
+function bool WM_IsDoom2(void)
+{
+  str  filtered = StrParam(l:"WM_GAME");
+  bool doom2    = (StrCmp(filtered, "2") == 0);
+  return doom2;
+}
+
+function bool WM_IsFreedoom1(void)
+{
+  str  filtered  = StrParam(l:"WM_GAME");
+  bool freedoom1 = (StrCmp(filtered, "4") == 0);
+  return freedoom1;
+}
+
+function bool WM_IsFreedoom2(void)
+{
+  str  filtered  = StrParam(l:"WM_GAME");
+  bool freedoom2 = (StrCmp(filtered, "3") == 0);
+  return freedoom2;
+}
+
+function bool WM_IsRekkr(void)
+{
+  str  checkString = StrParam(l:"E1TEXT");
+  str  rekkrString = "You've been through war.";
+  int  rekkrLength = StrLen(rekkrString);
+  bool isRekkr     = StrICmp(rekkrString, StrLeft(checkString, rekkrLength)) == 0;
+  return isRekkr;
+}
+
+function bool WM_IsHarmony(void)
+{
+  str checkString = StrParam(l:"C1TEXT");
+  str harmString = "HEADING DOWN YOU FINALLY HAVE";
+  int harmLength = StrLen(harmString);
+  bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
+  return isHarmony;
+}
+
+function bool WM_IsEVP(void)
+{
+  bool isEVP = CheckClass("EVPBFGBall");
+  return isEVP;
+}
+
+function bool WM_IsVSmooth(void)
+{
+  bool hasSmoothChainsaw = CheckClass("SmoothChainsaw");
+  bool hasSmoothFist     = CheckClass("PerkFist");
+
+  return hasSmoothChainsaw && !hasSmoothFist;
+}
+
+function bool WM_IsFlakesDoom(void)
+{
+  bool isFlakesDoom = CheckClass("FKHAR");
+  return isFlakesDoom;
+}
+
+function bool WM_IsAbortM(void)
+{
+  bool isAbortM = CheckClass("AbortButton");
+  return isAbortM;
+}
+
+function bool WM_IsCyanDoom(void)
+{
+  bool isCyanDoom = CheckClass("STMinigun")
+    && CheckClass("Daedabus")
+    && CheckClass("VitalitySerum");
+  return isCyanDoom;
+}

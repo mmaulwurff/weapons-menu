@@ -1,0 +1,91 @@
+// Inventory Controls Section //////////////////////////////////////////////////
+
+function str WM_GetQuickInventoryCVarName(int n)
+{
+  str cvarName = StrParam(s:"m8f_wm_QuickInventoryItem", d:n);
+  return cvarName;
+}
+
+function str WM_GetQuickInventoryItem(int n, int playerN)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { return "none"; }
+  str cvarName = WM_GetQuickInventoryCVarName(n);
+  str quickInventory = GetUserCVarString(playerN, cvarName);
+  return quickInventory;
+}
+
+function void WM_SetQuickInventoryItem(int n, str quickInventory, int playerN)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { return; }
+  str cvarName = WM_GetQuickInventoryCVarName(n);
+  SetUserCVarString(playerN, cvarName, quickInventory);
+}
+
+script "WM_ToggleQuickInventoryItem" (void)
+{
+  if (IsUninitialized()) { terminate; }
+
+  int playerN           = PlayerNumber();
+  str selectedInventory = WM_GetSelectedInventory(playerN);
+  if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }
+
+  str tag = WM_GetInventoryTag(selectedInventory, playerN);
+
+  int i;
+
+  // if found in quick access, remove it and quit
+  for (i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    if (StrCmp(WM_GetQuickInventoryItem(i, playerN), selectedInventory) == 0)
+    {
+      WM_SetQuickInventoryItem(i, "", playerN);
+      Log(s:tag, s:": no longer in quick access.");
+      terminate;
+    }
+  }
+
+  // put in first empty quick access slot
+  for (i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    if (StrLen(WM_GetQuickInventoryItem(i, playerN)) == 0)
+    {
+      WM_SetQuickInventoryItem(i, selectedInventory, playerN);
+      Log(s:tag, s:": marked as quick access #", i:i + 1);
+      break;
+    }
+  }
+}
+
+script "WM_ClearQuickInventoryItems" (void)
+{
+  int playerN = PlayerNumber();
+
+  for (int i = 0; i < N_QUICK_INVENTORY_ITEMS; ++i)
+  {
+    WM_SetQuickInventoryItem(i, "", playerN);
+  }
+  Log(s:"Quick Inventory Item List is cleared.");
+}
+
+script "WM_UseQuickInventoryItem" (int n)
+{
+  if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
+
+  int playerN = PlayerNumber();
+
+  str item = WM_GetQuickInventoryItem(n, playerN);
+  str tag  = WM_GetInventoryTag(item, playerN);
+
+  int count = CheckInventory(item);
+  if (count == 0)
+  {
+    Log(s:tag, s:": not in inventory.");
+    terminate;
+  }
+
+  bool success = UseInventory(item);
+  if (!success)
+  {
+    Log(s:"Could not use ", s:tag);
+  }
+}

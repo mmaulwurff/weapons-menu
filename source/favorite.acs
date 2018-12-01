@@ -1,0 +1,138 @@
+bool returnToLast;
+int  returnTo;
+bool wasZoomed;
+bool favoriteFiring = false;
+
+script "WM_MarkWeaponAsFavorite" (void)
+{
+  if (IsUninitialized()) { terminate; }
+
+  int selectedWeapon = WM_GetSelectedWeapon();
+  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+
+  int playerN = PlayerNumber();
+  SetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon", selectedWeapon);
+  Log(s:WM_GetPrintableWeaponName(selectedWeapon), s:" is set as favorite weapon.");
+}
+
+script "WM_SelectFavoriteWeapon" (void)
+{
+  if (IsUninitialized()) { terminate; }
+
+  int playerN = PlayerNumber();
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  if (CheckInventory(WM_GetWeaponClass(favorite)))
+  {
+    WM_SelectWeapon(favorite, true, playerN);
+  }
+
+  WM_UpdateMenu(playerN);
+}
+
+script "WM_FireFavoriteWeapon" (void)
+{
+  if (IsUninitialized()) { terminate; }
+
+  int selectedWeapon = WM_GetSelectedWeapon();
+  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+
+  // Cycle variable is used as a workaround for
+  // https://forum.zdoom.org/viewtopic.php?t=61104
+  int playerN = PlayerNumber();
+  int cycleValue = GetUserCVar(playerN, "M8fWMCycle");
+  int keyPressedMore = !((cycleValue <= 1) && (cycleValue != 0));
+  if (keyPressedMore) { terminate; }
+
+  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  str favoriteClass = WM_GetWeaponClass(favorite);
+  if (!CheckInventory(favoriteClass)) { terminate; }
+
+  WM_MaybeToggleSlomoOnQuick(playerN);
+  favoriteFiring = true;
+
+  wasZoomed = WM_IsZoomed();
+  returnToLast = (favorite != selectedWeapon);
+  returnTo = selectedWeapon;
+  WM_SetSelectedWatchEnabled(false);
+
+  int fireMode = GetUserCVar(playerN, "m8f_wm_FavoriteFireMode");
+  bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
+  if (instant) { WM_InstantSwitch(true); }
+  WM_SelectWeapon(favorite, false, playerN);
+  if (instant) { Delay(1); WM_InstantSwitch(false); }
+
+  if (fireMode == 2) { Delay(10); } // No fire mode
+
+  bool isReady = WM_IsWeaponReady(favoriteClass, playerN);
+  int i = 0;
+  int iMax = 35 * 2; // 2 seconds
+  bool alreadyFired = false;
+  while (!(WM_IsSelected(favorite) && isReady))
+  {
+    // this is to interrupt script in case something has gone wrong.
+    if (i > 0 && isReady && !WM_IsSelected(favorite))
+    {
+      WM_SetSelectedWatchEnabled(true);
+      terminate;
+    }
+    ++i;
+
+    Delay(1);
+    isReady = (WM_IsWeaponReady(favoriteClass, playerN) || i > iMax);
+
+    if (alreadyFired == false)
+    {
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      alreadyFired = (buttons & (BT_ATTACK|BT_ALTATTACK));
+    }
+  }
+
+  if (alreadyFired) { Delay(1); }
+  else
+  {
+    switch (fireMode)
+    {
+    case 0: ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); break;
+    case 1: ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); break;
+    case 2: break;
+    }
+  }
+
+  favoriteFiring = false;
+}
+
+script "WM_FireFavoriteSwitchBack" (void)
+{
+  if (IsUninitialized()) { terminate; }
+
+  while (favoriteFiring) { Delay(1); }
+
+  int  playerN       = PlayerNumber();
+  int  favorite      = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  str  favoriteClass = WM_GetWeaponClass(favorite);
+  bool isReady       = WM_IsWeaponDeselectable(favoriteClass, playerN);
+
+  while (!isReady)
+  {
+    Delay(1);
+    isReady = WM_IsWeaponDeselectable(favoriteClass, playerN);
+  }
+
+  if (returnToLast && CheckInventory(WM_GetWeaponClass(returnTo)))
+  {
+    bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
+    if (instant) { WM_InstantSwitch(true); }
+    WM_SelectWeapon(returnTo, false, playerN);
+    if (instant) { Delay(1); WM_InstantSwitch(false); }
+
+    int selectedWeapon = WM_GetSelectedWeapon();
+    if (wasZoomed) { WM_ToggleZoom(playerN, selectedWeapon); }
+  }
+
+  WM_SetSelectedWatchEnabled(true);
+}
+
+function void WM_InstantSwitch(bool enable)
+{
+  SetPlayerProperty(0, enable, PROP_INSTANTWEAPONSWITCH);
+}
