@@ -1,5 +1,11 @@
 // Game Detection Section //////////////////////////////////////////////////////
 
+function bool WM_IsTitlemap(void)
+{
+  str mapLumpName = StrParam(n:PRINTNAME_LEVEL);
+  return (StrICmp(mapLumpName, "TITLEMAP") == 0);
+}
+
 function bool WM_IsDoom1(void)
 {
   str  filtered = StrParam(l:"WM_GAME");

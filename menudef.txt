@@ -312,16 +312,18 @@ OptionMenu "m8f_wm_InventoryControls"
   StaticText  ""
 }
 
-OptionMenu "m8f_wm_Commands"
+OptionMenu   "m8f_wm_Commands"
 {
-  Title "Commands"
+  Title      "Commands"
 
   StaticText "Debug", "Blue"
-  Command "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
+  Command    "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
   StaticText "Weapon Menu", "Blue"
-  Command "Reset weapon order", "m8f_wm_PreviousWeaponSet -1"
+  Command    "Reset", "m8f_wm_PreviousWeaponSet -1"
+  StaticText "This will reset weapon order, custom weapon names,", "Black"
+  StaticText "and may help if there is a problem with this mod.", "Black"
 
   StaticText ""
 }

@@ -1,7 +1,5 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define MAX_WEAPONS_NUMBER 250
-
 #define SETS_NUMBER  55
 
 #define SET_VANILLA            0

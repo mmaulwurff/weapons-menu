@@ -1,0 +1,18 @@
+// The main purpose of this function is that slot 0 is considered higher than
+// other slots
+function bool WM_SlotIsHigher(int slot1, int slot2)
+{
+  if (slot1 == 0) { slot1 = 99; }
+  if (slot2 == 0) { slot2 = 99; }
+  return slot1 > slot2;
+}
+
+function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
+{
+  if (condition)
+  {
+    return trueValue;
+  }
+
+  return falseValue;
+}

@@ -1,3 +1,5 @@
+#define MAX_WEAPONS_NUMBER 250
+
 #define messageIdStart   191919
 #define msgIdWeapon      messageIdStart
 #define msgIdSlot        messageIdStart + MAX_WEAPONS_NUMBER
