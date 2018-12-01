@@ -136,7 +136,7 @@ class WMZscriptHelper play
       if (!inv.bINVBAR || inv.bAUTOACTIVATE) { continue; }
 
       string className = inv.GetClassName();
-      string tag       = m8f_wm_String.SeparateCamelCase(inv.GetTag());
+      string tag       = m8f_wm_String.Beautify(inv.GetTag());
       inventoryContents.AppendFormat("%s>%s>", className, tag);
     }
 
@@ -203,40 +203,33 @@ class WMZscriptHelper play
     if (!player) { return; }
 
     string weaponData = "";
-    int nClasses = AllActorClasses.Size();
+    int    nClasses   = AllActorClasses.Size();
 
     for (int i = 0; i < nClasses; ++i)
     {
       let type = (class<Weapon>)(AllActorClasses[i]);
-      if (type != null && type != "Weapon")
-      {
-        let rep = Actor.GetReplacement(type);
-        // Don't give replaced weapons unless the replacement was done by Dehacked.
-        if (rep == type || rep is "DehackedPickup")
-        {
-          // List the weapon only if it is set in a weapon slot.
-          int slot;
-          int located;
-          int priority;
-          [located, slot, priority] = player.weapons.LocateWeapon(type);
-          if (located)
-          {
-            readonly<Weapon> def = GetDefaultByType(type);
-            if (!def.CanPickup(activator)) { continue; }
+      if (type == null || type == "Weapon") { continue; }
 
-            string tag = m8f_wm_String.SeparateCamelCase(def.GetTag());
-            tag.Replace("_", " ");
+      let  replacement    = Actor.GetReplacement(type);
+      bool hasReplacement = (type != replacement);
+      if (hasReplacement) { continue; }
 
-            string className = type.GetClassName();
+      // List the weapon only if it is set in a weapon slot.
+      int slot;
+      int located;
+      int priority;
+      [located, slot, priority] = player.weapons.LocateWeapon(type);
+      if (!located) { continue; }
 
-            // just to be sure that "serializing" will not break
-            tag.Replace(">", " ");
-            className.Replace(">", " ");
+      readonly<Weapon> def = GetDefaultByType(type);
+      if (!def.CanPickup(activator)) { continue; }
 
-            weaponData.AppendFormat("%s>%s>%d>%d>", className, tag, slot, priority);
-          }
-        }
-      }
+      string className = type.GetClassName();
+      string tag       = m8f_wm_String.Beautify(def.GetTag());
+      // just to be sure that "serializing" will not break
+      tag.Replace(">", " ");
+
+      weaponData.AppendFormat("%s>%s>%d>%d>", className, tag, slot, priority);
     }
 
     SendResultString(player, weaponData);

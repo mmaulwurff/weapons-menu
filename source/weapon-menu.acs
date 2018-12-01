@@ -250,27 +250,24 @@ function void WM_EnterClosedVisible(int playerN)
 
 function void WM_MaybeLoadCustomWeaponOrder(int playerN)
 {
-  int previousSet   = GetUserCVar(playerN, "m8f_wm_PreviousWeaponSet");
-  int previousCount = GetUserCVar(playerN, "M8fWeaponMenuWeaponCount");
+  int previousSet = GetUserCVar(playerN, "m8f_wm_PreviousWeaponSet");
+  if (previousSet != currentSet) { return; }
 
-  if (previousSet == currentSet && previousCount == weaponCounts[currentSet])
+  int previousCount = GetUserCVar(playerN, "M8fWeaponMenuWeaponCount");
+  if (previousCount != weaponCounts[currentSet]) { return; }
+
+  if (currentSet == SET_FALLBACK)
   {
-    if (currentSet != SET_FALLBACK)
-    {
-      WM_LoadDataFromCVars(playerN);
-    }
-    else
-    {
-      str currentPlayerClass  = GetActorClass(0);
-      str previousPlayerClass = GetUserCVarString(playerN, "m8f_wm_PreviousPlayerClass");
-      bool sameClass = (StrCmp(previousPlayerClass, currentPlayerClass) == 0);
-      bool allWeaponsExist = WM_CheckCVarWeaponsExisting(playerN);
-      if (sameClass && allWeaponsExist)
-      {
-        WM_LoadDataFromCVars(playerN);
-      }
-    }
+    str  currentPlayerClass  = GetActorClass(0);
+    str  previousPlayerClass = GetUserCVarString(playerN, "m8f_wm_PreviousPlayerClass");
+    bool sameClass           = (StrCmp(previousPlayerClass, currentPlayerClass) == 0);
+    if (!sameClass) { return; }
+
+    bool allWeaponsExist = WM_CheckCVarWeaponsExisting(playerN);
+    if (!allWeaponsExist) { return; }
   }
+
+  WM_LoadDataFromCVars(playerN);
 }
 
 function str WM_Unwrap(str wrappedString)
