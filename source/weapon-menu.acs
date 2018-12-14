@@ -686,7 +686,7 @@ function void WM_PrintMenu(int playerN)
   {
     str weaponClass = WM_GetWeaponClass(highlightedWeapon);
     if (currentSet == SET_REKKR) { weaponClass = StrParam(s:weaponClass, s:"_rekkr"); }
-    ScriptCall("WMZscriptHelper", "GetWeaponIcon", weaponClass);
+    ScriptCall("WMZScriptHelper", "GetWeaponIcon", weaponClass);
     str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
     if (StrLen(icon) > 0)
     {
@@ -1099,14 +1099,6 @@ script "ShowWeaponMenu" ENTER
   }
 }
 
-script "ApplyWeaponMenuSettings" (void)
-{
-  if (IsUninitialized()) { terminate; }
-
-  int playerN = PlayerNumber();
-  WM_UpdateMenu(playerN);
-}
-
 script "OpenWeaponMenu" (void)
 {
   if (IsOpened()) { terminate; }
@@ -1214,7 +1206,7 @@ function void WM_SetSelectedInventory(int selectedIndex, int availableIndex, int
 
   WM_PlaySwitchSound(playerN);
   str inventoryClass = inventoryClasses[availableIndex];
-  ScriptCall("WMZscriptHelper", "SetSelectedInventory", inventoryClass);
+  ScriptCall("WMZScriptHelper", "SetSelectedInventory", inventoryClass);
 }
 
 function void WM_SelectNextInventory(int playerN)
