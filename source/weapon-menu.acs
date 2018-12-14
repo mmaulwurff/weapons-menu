@@ -5,17 +5,17 @@
 
 #include "data.acs"
 #include "data_special.acs"
-#include "zoom.acs"
-#include "slomo.acs"
+#include "favorite.acs"
 #include "game_detection.acs"
+#include "holster.acs"
 #include "infinite_slot1_ammo.acs"
-#include "string.acs"
-#include "zscript-access.acs"
 #include "inventory_control.acs"
 #include "most_powerful.acs"
-#include "favorite.acs"
-#include "holster.acs"
+#include "slomo.acs"
+#include "string.acs"
 #include "utils.acs"
+#include "zoom.acs"
+#include "zscript-access.acs"
 
 int globalState = 0;
 
@@ -892,7 +892,7 @@ function void WM_InitApiCvars(int playerN)
 function void WM_PlaySwitchSound(int playerN)
 {
   str switchSound = GetUserCVarString(playerN, "m8f_wm_SwitchSound");
-  PlaySound(0, switchSound);
+  PlaySound(0, switchSound, CHAN_AUTO);
 }
 
 function void WM_SetupAddons(int playerN)
