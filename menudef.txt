@@ -93,7 +93,7 @@ OptionMenu "m8f_wm_VisualOptions"
   StaticText  "you open Weapon Menu."               , "Black"
 
   StaticText  ""
-  StaticText  "Colors", "Blue"
+  StaticText  "Colors", 1
   Option      "Available Weapon"     , "M8FAvailableWeaponColor"    , "TextColors"
   Option      "Not Available Weapon" , "M8FNotAvailableWeaponColor" , "TextColors"
   Option      "Highlighted Weapon"   , "M8FHighlightedWeaponColor"  , "TextColors"
@@ -101,7 +101,7 @@ OptionMenu "m8f_wm_VisualOptions"
   Option      "Weapon with no ammo"  , "m8f_wm_NoAmmoColor"         , "TextColors"
 
   StaticText  ""
-  StaticText  "Display Options", "Blue"
+  StaticText  "Display Options", 1
   Option      "Always show menu", "M8fWeaponMenuAlwaysShow", "m8f_wm_YesNo"
   Option      "Show ammo counts", "M8fWeaponMenuShowAmmoCounts", "M8FWeaponMenuShowAmmoOptions"
   Option      "Slot order", "M8FWeaponMenuHighToLow", "M8FWeaponsMenuSlotOrder"
@@ -131,12 +131,12 @@ OptionMenu "m8f_wm_BehaviorOptions"
   Title      "Weapon Menu + Behavior Options"
 
   StaticText ""
-  StaticText "Sound", "Blue"
+  StaticText "Sound", 1
   Option     "Sound on weapon switch", "m8f_wm_SwitchSound", "m8f_wm_SwitchSoundOptions"
   Option     "Play sound on weapon change", "m8f_wm_PlaySoundOnWeaponChange", "OnOff"
 
   StaticText ""
-  StaticText "Behavior", "Blue"
+  StaticText "Behavior", 1
   Option     "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "m8f_wm_YesNo"
   Option     "Skip weapons with no ammo", "m8f_wm_SkipNoAmmo", "OnOff"
   Option     "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "m8f_wm_YesNo"
@@ -156,7 +156,7 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
 {
   Title "Inventory Menu Options"
 
-  StaticText "Position Options", "Blue"
+  StaticText "Position Options", 1
   Option "Horizontal Position", "m8f_wm_InventoryMenuX", "m8f_wm_InventoryMenuXOptions"
   StaticText "also affects alignment", "Black"
 
@@ -169,7 +169,7 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
   Slider "Step size multiplier", "m8f_wm_StepMultiplier", -3.0, 3.0, 0.1
 
   StaticText ""
-  StaticText "Behavior", "Blue"
+  StaticText "Behavior", 1
   Option "Close Inventory menu after use", "m8f_wm_CloseInvMenuAfterUse", "OnOff"
 
   StaticText ""
@@ -234,7 +234,7 @@ OptionMenu "m8f_wm_BasicControls"
   Control    "Same, but hold/release"     , "+press_inv"
 
   StaticText ""
-  StaticText "Weapon Slot Keys", "Blue"
+  StaticText "Weapon Slot Keys", 1
   Control    "Slot 1"  , "+smart_select_1"
   Control    "Slot 2"  , "+smart_select_2"
   Control    "Slot 3"  , "+smart_select_3"
@@ -317,11 +317,11 @@ OptionMenu   "m8f_wm_Commands"
 {
   Title      "Commands"
 
-  StaticText "Debug", "Blue"
+  StaticText "Debug", 1
   Command    "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
-  StaticText "Weapon Menu", "Blue"
+  StaticText "Weapon Menu", 1
   Command    "Reset", "m8f_wm_PreviousWeaponSet -1"
   StaticText "This will reset weapon order, custom weapon names,", "Black"
   StaticText "and may help if there is a problem with this mod.", "Black"
@@ -336,7 +336,7 @@ OptionMenu "m8f_wm_CrossmodOptions"
   StaticText "loaded together with Weapon Menu."       , "Black"
 
   StaticText ""
-  StaticText "Slomo Bullettime by Spaceman333"         , "Blue"
+  StaticText "Slomo Bullettime by Spaceman333"         , 1
   Option     "Toggle Slomo on Weapon Menu Zoom In"     , "m8f_wm_SlomoOnZoomIn"         , "OnOff"
   Option     "Toggle Slomo on Weapon Menu Zoom Out"    , "m8f_wm_SlomoOnZoomOut"        , "OnOff"
   Option     "Toggle Slomo on Weapon Menu open"        , "m8f_wm_SlomoOnMenuOpen"       , "OnOff"
@@ -349,12 +349,12 @@ OptionMenu "m8f_wm_CrossmodOptions"
   StaticText "best used with infinite Slomo."          , "Black"
 
   StaticText ""
-  StaticText "Target Spy"                              , "Blue"
+  StaticText "Target Spy"                              , 1
   Option     "Toggle Target Spy at Zoom In/Out"        , "m8f_wm_TargetSpyOnZoom"    , "OnOff"
   Option     "Change laser sight color on target"      , "m8f_wm_TSChangeLaserColor" , "OnOff"
 
   StaticText ""
-  StaticText "Laser Sight"                             , "Blue"
+  StaticText "Laser Sight"                             , 1
   Option     "Switch Laser Sight on Zoom"              , "m8f_wm_LaserOnZoom", "m8f_wm_YesNo"
   StaticText ""
 }
@@ -391,13 +391,13 @@ OptionMenu "m8f_wm_Options"
   Title      "Weapon Menu +"
 
   StaticText ""
-  StaticText "Controls"         , "Blue"
+  StaticText "Controls"         , 1
   SubMenu    "Basic"            , "m8f_wm_BasicControls"
   SubMenu    "Inventory"        , "m8f_wm_InventoryControls"
   SubMenu    "Extras"           , "m8f_wm_AdvancedControls"
 
   StaticText ""
-  StaticText "Options"          , "Blue"
+  StaticText "Options"          , 1
   Submenu    "Behavior"         , "m8f_wm_BehaviorOptions"
   Submenu    "Visuals"          , "m8f_wm_VisualOptions"
   Submenu    "Inventory Menu"   , "m8f_wm_InventoryMenuOptions"
@@ -405,7 +405,7 @@ OptionMenu "m8f_wm_Options"
   Submenu    "Cross-mod"        , "m8f_wm_CrossmodOptions"
 
   StaticText ""
-  StaticText "Other"            , "Blue"
+  StaticText "Other"            , 1
   Submenu    "Edit Weapon List" , "m8f_wm_EditWeaponList"
   Submenu    "Commands"         , "m8f_wm_Commands"
 
