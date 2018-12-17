@@ -27,7 +27,8 @@ class WMZscriptHelper play
     Ammo amm2 = w.Ammo2;
     if (showSecond && amm2 && amm1 != amm2)
     {
-      message = String.Format("%s - %d/%d", message, amm2.amount, amm2.maxAmount);
+      if (message.length() > 0) { message.AppendFormat(" - "); }
+      message.AppendFormat("%d/%d", amm2.amount, amm2.maxAmount);
     }
 
     SendResultString(player, message);
