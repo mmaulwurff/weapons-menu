@@ -98,7 +98,6 @@ user string m8f_wm_SelectedWeaponTag;
 
 // Keyconf interface ///////////////////////////////////////////////////////////
 
-user bool M8fWeaponMenuIsEnabled = false;
 // Also used to load state after map change.
 user bool M8fWeaponMenuIsOpened  = false;
 

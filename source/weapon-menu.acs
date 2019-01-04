@@ -100,7 +100,6 @@ function void WM_LeaveState(int oldState, int playerN)
 function void WM_EnterState(int newState, int playerN)
 {
   globalState = newState;
-  SetUserCVar(playerN, "M8fWeaponMenuIsEnabled", true);
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened",  IsOpened() || IsInventory());
   SetUserCVar(playerN, "m8f_wm_WasInventory",    IsInventory());
 
@@ -1019,7 +1018,6 @@ script "ShowWeaponMenu" ENTER
   while (true)
   {
     // CVar may have been reset by other games while this game was saved.
-    SetUserCVar(playerN, "M8fWeaponMenuIsEnabled", true);
     SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
 
     // emulating repeated key press

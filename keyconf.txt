@@ -22,8 +22,8 @@ alias -press_inv "pukename WM_CloseInventoryMenu"
 alias WeaponMenuNext "pukename scrollnextweapon"
 alias WeaponMenuPrev "pukename scrollpreviousweapon"
 
-alias next_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuNext weapnext"
-alias prev_weapon_menu "test $M8FWeaponMenuIsEnabled WeaponMenuPrev weapprev"
+alias next_weapon_menu "WeaponMenuNext"
+alias prev_weapon_menu "WeaponMenuPrev"
 
 alias WeaponMenuOptions "openmenu m8f_wm_Options"
 
@@ -40,17 +40,6 @@ alias wm_next_in_slot       "pukename WM_NextWeaponInSlot"
 
 defaultbind m toggle_menu
 
-alias DoomSelect1 "slot 1"
-alias DoomSelect2 "slot 2"
-alias DoomSelect3 "slot 3"
-alias DoomSelect4 "slot 4"
-alias DoomSelect5 "slot 5"
-alias DoomSelect6 "slot 6"
-alias DoomSelect7 "slot 7"
-alias DoomSelect8 "slot 8"
-alias DoomSelect9 "slot 9"
-alias DoomSelect0 "slot 0"
-
 alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
 alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
 alias WeaponMenuSelect3 "pukename SmartWeaponSelection 3"
@@ -64,40 +53,40 @@ alias WeaponMenuSelect0 "pukename SmartWeaponSelection 0"
 alias WeaponMenuSelect10 "pukename SmartWeaponSelection 10"
 alias WeaponMenuSelect11 "pukename SmartWeaponSelection 11"
 
-alias +smart_select_1 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 1; test $M8FWeaponMenuIsEnabled WeaponMenuSelect1 DoomSelect1"
+alias +smart_select_1 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 1; WeaponMenuSelect1"
 alias -smart_select_1 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_2 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 2;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect2 DoomSelect2"
+alias +smart_select_2 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 2;  WeaponMenuSelect2"
 alias -smart_select_2 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_3 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 3;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect3 DoomSelect3"
+alias +smart_select_3 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 3;  WeaponMenuSelect3"
 alias -smart_select_3 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_4 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 4;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect4 DoomSelect4"
+alias +smart_select_4 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 4;  WeaponMenuSelect4"
 alias -smart_select_4 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_5 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 5;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect5 DoomSelect5"
+alias +smart_select_5 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 5;  WeaponMenuSelect5"
 alias -smart_select_5 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_6 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 6;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect6 DoomSelect6"
+alias +smart_select_6 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 6;  WeaponMenuSelect6"
 alias -smart_select_6 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_7 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 7;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect7 DoomSelect7"
+alias +smart_select_7 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 7;  WeaponMenuSelect7"
 alias -smart_select_7 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_8 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 8;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect8 DoomSelect8"
+alias +smart_select_8 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 8;  WeaponMenuSelect8"
 alias -smart_select_8 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_9 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 9;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect9 DoomSelect9"
+alias +smart_select_9 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 9;  WeaponMenuSelect9"
 alias -smart_select_9 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_0 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 0;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect0 DoomSelect0"
+alias +smart_select_0 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 0;  WeaponMenuSelect0"
 alias -smart_select_0 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_10 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 10;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect10"
+alias +smart_select_10 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 10;  WeaponMenuSelect10"
 alias -smart_select_10 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
-alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 11;  test $M8FWeaponMenuIsEnabled WeaponMenuSelect11"
+alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 11;  WeaponMenuSelect11"
 alias -smart_select_11 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
 
 // Edit Weapon List Section ////////////////////////////////////////////////////
