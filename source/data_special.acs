@@ -120,6 +120,15 @@ function bool WM_IsHiddenWeapon(int wNumber, int currentSet, bool isDoom1, bool 
 
   case SET_FLAKES_DOOM: return true; // TODO: make game detection and hide weapons properly
 
+  // Hide Guncaster Addon weapons if Addon is not loaded.
+  case SET_GUNCASTER_HEXEN:
+  case SET_GUNCASTER_DOOM:
+  case SET_GUNCASTER_STRIFE:
+    return (wNumber == 5 || wNumber == 9) && !CheckClass("GoldenEmperor");
+
+  case SET_GUNCASTER_HERETIC:
+    return (wNumber == 4 || wNumber == 8) && !CheckClass("GoldenEmperor");
+
   }
 
   return false;

@@ -154,10 +154,10 @@ int weaponCounts[SETS_NUMBER] =
   11, // Factotum
   19, // Flakes Doom
 
-  8,  // Guncaster - Heretic
-  9,  // Guncaster - Doom
-  9,  // Guncaster - Hexen
-  9,  // Guncaster - Strife
+  10, // Guncaster + Addon : Heretic
+  11, // Guncaster + Addon : Doom
+  11, // Guncaster + Addon : Hexen
+  11, // Guncaster + Addon : Strife
 };
 
 // List of corresponding weapon slots.
@@ -314,10 +314,10 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     7, 7, 7, 7,
   },
 
-  { 1, 2, 3,    4, 5, 5, 6, 7 }, // Guncaster - Heretic
-  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Doom
-  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Hexen
-  { 1, 2, 3, 3, 4, 5, 5, 6, 7 }, // Guncaster - Strife
+  { 1, 2, 3,    4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Heretic
+  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Doom
+  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Hexen
+  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Strife
 
 };
 
@@ -1047,43 +1047,43 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { // Guncaster - Heretic
-    "Dergfist"    ,
-    "Longhorn"    ,
-    "Strucker"    ,
-    "Pulverizer"  ,
-    "Matriarch"   , "DynamiteWeapon",
-    "Augur"       ,
-    "OldDreadful"
+    "Dergfist"       ,
+    "Longhorn"       ,
+    "Strucker"       ,
+    "Pulverizer"     ,
+    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
+    "Augur"          ,
+    "GoldenEmperor"  , "OldDreadful"
   },
 
   { // Guncaster - Doom
-    "Dergfist"    ,
-    "Longhorn"    ,
-    "Ironblast"   , "Strucker",
-    "Pulverizer"  ,
-    "Matriarch"   , "DynamiteWeapon",
-    "Augur"       ,
-    "OldDreadful"
+    "Dergfist"       ,
+    "Longhorn"       ,
+    "Ironblast"      , "Strucker"   ,
+    "Pulverizer"     ,
+    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
+    "Augur"          ,
+    "GoldenEmperor"  , "OldDreadful"
   },
 
   { // Guncaster - Hexen
-    "Dergfist"    ,
-    "Longhorn2"   ,
-    "Ironblast2"  , "Strucker2",
-    "Pulverizer2" ,
-    "Matriarch2"  , "DynamiteWeapon",
-    "Augur2"      ,
-    "OldDreadful2"
+    "Dergfist"       ,
+    "Longhorn2"      ,
+    "Ironblast2"     , "Strucker2"  ,
+    "Pulverizer2"    ,
+    "MourningGlory2" , "Matriarch2" , "DynamiteWeapon",
+    "Augur2"         ,
+    "GoldenEmperor"  , "OldDreadful2"
   },
 
   { // Guncaster - Strife
-    "Dergfist"    ,
-    "Longhorn"    ,
-    "Ironblast"   , "Strucker",
-    "Pulverizer"  ,
-    "Matriarch"   , "DynamiteWeapon",
-    "Augur"       ,
-    "OldDreadful"
+    "Dergfist"       ,
+    "Longhorn"       ,
+    "Ironblast"      , "Strucker"   ,
+    "Pulverizer"     ,
+    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
+    "Augur"          ,
+    "GoldenEmperor"  , "OldDreadful"
   },
 
 }; // end of actor/class names /////////////////////////////////////////////////
@@ -1820,9 +1820,9 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Longhorn"          ,
     "Strucker"          ,
     "Pulverizer"        ,
-    "Matriarch"         , "Dynamite",
+    "Mourning Glory"    , "Matriarch" , "Dynamite",
     "Augur"             ,
-    "Old Dreadful"
+    "Golden Emperor"    , "Old Dreadful"
   },
 
   { // Guncaster - Doom
@@ -1830,9 +1830,9 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Longhorn"          ,
     "Ironblast"         , "Strucker",
     "Pulverizer"        ,
-    "Matriarch"         , "Dynamite",
+    "Mourning Glory"    , "Matriarch" , "Dynamite",
     "Augur"             ,
-    "Old Dreadful"
+    "Golden Emperor"    , "Old Dreadful"
   },
 
   { // Guncaster - Hexen
@@ -1840,9 +1840,9 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Longhorn"          ,
     "Ironblast"         , "Strucker",
     "Pulverizer"        ,
-    "Matriarch"         , "Dynamite",
+    "Mourning Glory"    , "Matriarch" , "Dynamite",
     "Augur"             ,
-    "Old Dreadful"
+    "Golden Emperor"    , "Old Dreadful"
   },
 
   { // Guncaster - Strife
@@ -1850,9 +1850,9 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Longhorn"          ,
     "Ironblast"         , "Strucker",
     "Pulverizer"        ,
-    "Matriarch"         , "Dynamite",
+    "Mourning Glory"    , "Matriarch" , "Dynamite",
     "Augur"             ,
-    "Old Dreadful"
+    "Golden Emperor"    , "Old Dreadful"
   },
 
 }; // end of printable names
