@@ -131,8 +131,9 @@ OptionMenu "m8f_wm_BehaviorOptions"
 
   StaticText ""
   StaticText "Behavior", 1
-  Option     "Open menu on next/prev", "M8fWeaponMenuOpenOnScroll", "YesNo"
-  Option     "Skip weapons with no ammo", "m8f_wm_SkipNoAmmo", "OnOff"
+  Option     "Open menu on next/prev"    , "M8fWeaponMenuOpenOnScroll" , "YesNo"
+  Option     "Skip weapons with no ammo" , "m8f_wm_SkipNoAmmo"         , "OnOff"
+  Option     "Cycle enabled"             , "m8f_wm_cycle_enabled"      , "YesNo"
   Option     "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "YesNo"
   StaticText "Slot keys will open menu only if there", "Black"
   StaticText "are more than one weapon in slot", "Black"

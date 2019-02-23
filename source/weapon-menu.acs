@@ -1176,6 +1176,9 @@ function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
   for (int i = 1; i < nInventoryItems; ++i)
   {
     int availableIndex = (selectedInventoryIndex + i) % nInventoryItems;
+
+    if (!WM_IsCycleEnabled() && availableIndex == 0) { return ERROR_NOT_FOUND; }
+
     if (CheckInventory(inventoryClasses[availableIndex]))
     {
       return availableIndex;
@@ -1189,6 +1192,9 @@ function int WM_FindPrevAvailableInventory(int selectedInventoryIndex)
   for (int i = 1; i < nInventoryItems; ++i)
   {
     int availableIndex = (selectedInventoryIndex + nInventoryItems - i) % nInventoryItems;
+
+    if (!WM_IsCycleEnabled() && availableIndex == nInventoryItems - 1) { return ERROR_NOT_FOUND; }
+
     if (CheckInventory(inventoryClasses[availableIndex]))
     {
       return availableIndex;
@@ -1252,6 +1258,9 @@ script "ScrollNextWeapon" (void)
     for (n = 0; n < weaponCount; ++n)
     {
       i = (start + n) % weaponCount;
+
+      if (!WM_IsCycleEnabled() && i == 0) { terminate; }
+
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i, playerN)) { break; }
     }
 
@@ -1298,6 +1307,13 @@ function void WM_MaybeDisplayNameTag(void)
   }
 }
 
+function bool WM_IsCycleEnabled(void)
+{
+  bool isCycleEnabled = GetCVar("m8f_wm_cycle_enabled");
+
+  return isCycleEnabled;
+}
+
 script "ScrollPreviousWeapon" (void)
 {
   if (IsUninitialized()) { terminate; }
@@ -1326,6 +1342,9 @@ script "ScrollPreviousWeapon" (void)
     for (n = 0; n < weaponCount; ++n)
     {
       i = (start - n + weaponCount) % weaponCount;
+
+      if (!WM_IsCycleEnabled() && i == weaponCount - 1) { terminate; }
+
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i, playerN)) { break; }
     }
 

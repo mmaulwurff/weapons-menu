@@ -114,6 +114,7 @@ user int m8f_wm_NoAmmoColor         = 7;
 
 user bool M8fWeaponMenuHighToLow = true;
 user bool M8fShowNotAvailable    = true;
+user bool m8f_wm_cycle_enabled   = false;
 
 // Persistent state ////////////////////////////////////////////////////////////
 
