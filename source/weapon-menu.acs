@@ -1171,13 +1171,13 @@ function int WM_FindSelectedInventoryIndex(int playerN)
   return ERROR_NOT_FOUND;
 }
 
-function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
+function int WM_FindNextAvailableInventory(int selectedInventoryIndex, int playerN)
 {
   for (int i = 1; i < nInventoryItems; ++i)
   {
     int availableIndex = (selectedInventoryIndex + i) % nInventoryItems;
 
-    if (!WM_IsCycleEnabled() && availableIndex == 0) { return ERROR_NOT_FOUND; }
+    if (!WM_IsCycleEnabled(playerN) && availableIndex == 0) { return ERROR_NOT_FOUND; }
 
     if (CheckInventory(inventoryClasses[availableIndex]))
     {
@@ -1187,13 +1187,13 @@ function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
   return ERROR_NOT_FOUND;
 }
 
-function int WM_FindPrevAvailableInventory(int selectedInventoryIndex)
+function int WM_FindPrevAvailableInventory(int selectedInventoryIndex, int playerN)
 {
   for (int i = 1; i < nInventoryItems; ++i)
   {
     int availableIndex = (selectedInventoryIndex + nInventoryItems - i) % nInventoryItems;
 
-    if (!WM_IsCycleEnabled() && availableIndex == nInventoryItems - 1) { return ERROR_NOT_FOUND; }
+    if (!WM_IsCycleEnabled(playerN) && availableIndex == nInventoryItems - 1) { return ERROR_NOT_FOUND; }
 
     if (CheckInventory(inventoryClasses[availableIndex]))
     {
@@ -1217,7 +1217,7 @@ function void WM_SelectNextInventory(int playerN)
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex(playerN);
   if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
 
-  int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex);
+  int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex, playerN);
   WM_SetSelectedInventory(selectedInventoryIndex, nextAvailableInventoryIndex, playerN);
 }
 
@@ -1226,7 +1226,7 @@ function void WM_SelectPreviousInventory(int playerN)
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex(playerN);
   if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
 
-  int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex);
+  int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex, playerN);
   WM_SetSelectedInventory(selectedInventoryIndex, prevAvailableInventoryIndex, playerN);
 }
 
@@ -1259,7 +1259,7 @@ script "ScrollNextWeapon" (void)
     {
       i = (start + n) % weaponCount;
 
-      if (!WM_IsCycleEnabled() && i == 0) { terminate; }
+      if (!WM_IsCycleEnabled(playerN) && i == 0) { terminate; }
 
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i, playerN)) { break; }
     }
@@ -1286,7 +1286,7 @@ script "ScrollNextWeapon" (void)
       WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
-      WM_MaybeDisplayNameTag();
+      WM_MaybeDisplayNameTag(playerN);
       WM_MaybePlaySoundOnWeaponChange(playerN);
     }
   }
@@ -1294,12 +1294,12 @@ script "ScrollNextWeapon" (void)
   WM_UpdateMenu(playerN);
 }
 
-function void WM_MaybeDisplayNameTag(void)
+function void WM_MaybeDisplayNameTag(int playerN)
 {
-  bool showNameTag = (GetCVar("displaynametags") >= 2);
+  bool showNameTag = (GetUserCVar(playerN, "displaynametags") >= 2);
   if (showNameTag)
   {
-    int nametagcolor = GetCVar("nametagcolor");
+    int nametagcolor = GetUserCVar(playerN, "nametagcolor");
     str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
     HudMessage(s:selectedName;
                HUDMSG_FADEOUT, msgIdTag, nametagcolor, 0.5, 0.9, 2.0, 1.0);
@@ -1307,9 +1307,9 @@ function void WM_MaybeDisplayNameTag(void)
   }
 }
 
-function bool WM_IsCycleEnabled(void)
+function bool WM_IsCycleEnabled(int playerN)
 {
-  bool isCycleEnabled = GetCVar("m8f_wm_cycle_enabled");
+  bool isCycleEnabled = GetUserCVar(playerN, "m8f_wm_cycle_enabled");
 
   return isCycleEnabled;
 }
@@ -1343,7 +1343,7 @@ script "ScrollPreviousWeapon" (void)
     {
       i = (start - n + weaponCount) % weaponCount;
 
-      if (!WM_IsCycleEnabled() && i == weaponCount - 1) { terminate; }
+      if (!WM_IsCycleEnabled(playerN) && i == weaponCount - 1) { terminate; }
 
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i, playerN)) { break; }
     }
@@ -1370,7 +1370,7 @@ script "ScrollPreviousWeapon" (void)
       WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
-      WM_MaybeDisplayNameTag();
+      WM_MaybeDisplayNameTag(playerN);
       WM_MaybePlaySoundOnWeaponChange(playerN);
     }
   }
@@ -1395,7 +1395,7 @@ script "WM_NextWeaponInSlot" (void)
   if (sibling != -1 && sibling != selectedWeapon)
     {
       WM_SelectWeapon(sibling, true, playerN);
-      WM_MaybeDisplayNameTag();
+      WM_MaybeDisplayNameTag(playerN);
     }
 }
 
