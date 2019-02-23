@@ -25,6 +25,7 @@ OptionString "m8f_wm_font_values"
   "MINIPLWK",  "Miniplicity Condensed"
   "MM2SFNTO",  "Mementwo"
   "GARGSMAL",  "Gargoyle Wing"
+  "SW_TINY",   "Shadow Warrior Tiny"
 }
 
 OptionValue "M8FWeaponMenuShowAmmoOptions"

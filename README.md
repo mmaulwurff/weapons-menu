@@ -68,6 +68,7 @@ License: GPLv3 (see copying.txt)
 * [Gargoyle Wing Small font by NeuralStunner](https://www.realm667.com/index.php/en/font-press/medieval)
 * Brass knuckles sprite is based on sprite from [Final Doomer](https://forum.zdoom.org/viewtopic.php?f=43&t=55061#p973066) by Sgt. Shivers. Original looks much better!
 * Heretic staff icon is based on player sprite, so credits to Raven Software.
+* Shadow Warrior Tiny font: based on font from Shadow Warrior, compiled into Doom font by Jimmy, provided by Kinsie.
 
 # Thanks
 * id Software for Doom.
