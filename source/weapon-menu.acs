@@ -8,7 +8,6 @@
 #include "favorite.acs"
 #include "game_detection.acs"
 #include "holster.acs"
-#include "infinite_slot1_ammo.acs"
 #include "inventory_control.acs"
 #include "most_powerful.acs"
 #include "slomo.acs"

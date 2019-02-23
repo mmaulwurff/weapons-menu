@@ -3,7 +3,7 @@
 alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu maybe_inf_ammo_attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 
-alias wm_give_min_slot2_ammo "pukename WM_GiveMinSlot2Ammo"
+alias wm_give_min_slot2_ammo "netevent m8f_wm_give_min_slot2_ammo"
 alias maybe_inf_ammo "test $m8f_wm_InfiniteSlot2Ammo wm_give_min_slot2_ammo"
 alias maybe_inf_ammo_attack "maybe_inf_ammo; +attack"
 

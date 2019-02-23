@@ -216,9 +216,9 @@ class WMZscriptHelper play
       if (hasReplacement) { continue; }
 
       // List the weapon only if it is set in a weapon slot.
-      int slot;
-      int located;
-      int priority;
+      bool located;
+      int  slot;
+      int  priority;
       [located, slot, priority] = player.weapons.LocateWeapon(type);
       if (!located) { continue; }
 
@@ -279,18 +279,6 @@ class WMZscriptHelper play
     if (!player) { return; }
 
     SendResultDouble(player, player.FOV);
-  }
-
-  static void GiveMinAmmo(Actor activator, string weaponClass)
-  {
-    if (!activator) { return; }
-
-    Weapon w = Weapon(activator.FindInventory(weaponClass));
-    if (!w) { return; }
-
-    Ammo amm1 = w.Ammo1;
-    int use = w.AmmoUse1;
-    if (amm1) { activator.GiveInventory(amm1.GetClassName(), use); }
   }
 
   static void GetWeaponIcon(Actor activator, string weaponClass)

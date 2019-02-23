@@ -1,4 +1,5 @@
 gameinfo
 {
   AddEventHandlers = "m8f_wm_JunkEventHandler"
+                   , "m8f_wm_InfiniteSlot2AmmoEventHandler"
 }
