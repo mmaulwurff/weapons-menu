@@ -25,8 +25,6 @@ alias WeaponMenuPrev "pukename scrollpreviousweapon"
 alias next_weapon_menu "WeaponMenuNext"
 alias prev_weapon_menu "WeaponMenuPrev"
 
-alias WeaponMenuOptions "openmenu m8f_wm_Options"
-
 alias wm_laser_off "m8f_wm_ShowLaserSight 0"
 alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
 
@@ -144,7 +142,6 @@ AddMenuKey "Use quick access item #10"    "pukename WM_UseQuickInventoryItem 9"
 
 AddKeySection "Weapon Menu+: Extras Controls" "m8f_wm_ExtrasKeySection"
 
-AddMenuKey "Open Weapon Menu Options"     "WeaponMenuOptions"
 AddMenuKey "Edit Weapon List"             "openmenu m8f_wm_EditWeaponList"
 AddMenuKey "Last Used Weapon"             "pukename SelectLastUsedWeapon"
 AddMenuKey "Select most powerful weapon"  "wm_switch_to_powerful"

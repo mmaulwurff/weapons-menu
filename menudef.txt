@@ -257,9 +257,6 @@ OptionMenu "m8f_wm_AdvancedControls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", "ControlMessage"
 
   StaticText ""
-  Control    "Open Weapon Menu Options"      , "WeaponMenuOptions"
-
-  StaticText ""
   Control    "Edit Weapon List"              , "openmenu m8f_wm_EditWeaponList"
 
   StaticText ""
