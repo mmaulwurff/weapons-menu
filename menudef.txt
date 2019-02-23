@@ -106,6 +106,8 @@ OptionMenu "m8f_wm_VisualOptions"
   StaticText  ""
   Slider      "Step size multiplier", "M8FWeaponMenuStepMultiplier", 0.2, 3.0, 0.1
   Option      "Double space between slots", "m8f_wm_DoubleSpaceBetweenSlots", "OnOff"
+
+  StaticText  ""
   Slider      "Menu Y Position", "M8FWeaponMenuYStart", 0.0, 1.0, 0.02, 2
   Option      "Display Mode and X Position", "m8f_wm_DisplayMode", "m8f_wm_DisplayModeOptions"
 
@@ -133,7 +135,9 @@ OptionMenu "m8f_wm_BehaviorOptions"
   StaticText "Behavior", 1
   Option     "Open menu on next/prev"    , "M8fWeaponMenuOpenOnScroll" , "YesNo"
   Option     "Skip weapons with no ammo" , "m8f_wm_SkipNoAmmo"         , "OnOff"
-  Option     "Cycle enabled"             , "m8f_wm_cycle_enabled"      , "YesNo"
+  Option     "Menu looping enabled"      , "m8f_wm_cycle_enabled"      , "YesNo"
+
+  StaticText ""
   Option     "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "YesNo"
   StaticText "Slot keys will open menu only if there" , "Black"
   StaticText "is more than one weapon in the slot."   , "Black"
@@ -214,10 +218,12 @@ OptionMenu "m8f_wm_BasicControls"
 {
   Title      "Basic Controls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", "ControlMessage"
-  StaticText ""
 
+  StaticText ""
   Control    "Fire/Select+Close/Use"      , "+fire_close_menu"
   Control    "Secondary Fire/Close"       , "+alt_fire_close_menu"
+
+  StaticText ""
   Control    "Next"                       , "next_weapon_menu"
   Control    "Previous"                   , "prev_weapon_menu"
   Control    "Next in slot"               , "wm_next_in_slot"
@@ -225,6 +231,8 @@ OptionMenu "m8f_wm_BasicControls"
   StaticText ""
   Control    "Open Menu/Select+Close/Use" , "toggle_menu"
   Control    "Same, but hold/release"     , "+press_menu"
+
+  StaticText ""
   Control    "Open Inventory Menu/Close"  , "pukename WM_InventoryMenu"
   Control    "Same, but hold/release"     , "+press_inv"
 
@@ -265,6 +273,8 @@ OptionMenu "m8f_wm_AdvancedControls"
 
   StaticText ""
   Control    "Holster weapon"                , "pukename WM_HolsterWeapon"
+
+  StaticText ""
   Control    "Toggle Zoom"                   , "pukename WM_ToggleZoom"
   StaticText "If you are using Zoom, you must switch weapons" , "Black"
   StaticText "only with Weapon Menu keys."                    , "Black"
@@ -288,6 +298,7 @@ OptionMenu "m8f_wm_InventoryControls"
 
   Control     "Toggle quick access for item", "pukename WM_ToggleQuickInventoryItem"
 
+  StaticText  ""
   Control     "Use quick access item #1"  , "pukename WM_UseQuickInventoryItem 0"
   Control     "Use quick access item #2"  , "pukename WM_UseQuickInventoryItem 1"
   Control     "Use quick access item #3"  , "pukename WM_UseQuickInventoryItem 2"
@@ -331,9 +342,15 @@ OptionMenu "m8f_wm_CrossmodOptions"
   StaticText "Slomo Bullettime by Spaceman333"         , 1
   Option     "Toggle Slomo on Weapon Menu Zoom In"     , "m8f_wm_SlomoOnZoomIn"         , "OnOff"
   Option     "Toggle Slomo on Weapon Menu Zoom Out"    , "m8f_wm_SlomoOnZoomOut"        , "OnOff"
+
+  StaticText ""
   Option     "Toggle Slomo on Weapon Menu open"        , "m8f_wm_SlomoOnMenuOpen"       , "OnOff"
   Option     "Toggle Slomo on Weapon Menu close"       , "m8f_wm_SlomoOnMenuClose"      , "OnOff"
+
+  StaticText ""
   Option     "Toggle Slomo on Quick Access Fire"       , "m8f_wm_SlomoOnQuickAccess"    , "OnOff"
+
+  StaticText ""
   Option     "Toggle Slomo on Inventory Menu open"     , "m8f_wm_SlomoOnInventoryOpen"  , "OnOff"
   Option     "Toggle Slomo on Inventory Menu close"    , "m8f_wm_SlomoOnInventoryClose" , "OnOff"
 
