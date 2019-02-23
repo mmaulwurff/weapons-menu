@@ -25,9 +25,6 @@ alias WeaponMenuPrev "pukename scrollpreviousweapon"
 alias next_weapon_menu "WeaponMenuNext"
 alias prev_weapon_menu "WeaponMenuPrev"
 
-alias wm_laser_off "m8f_wm_ShowLaserSight 0"
-alias wm_laser_on  "m8f_wm_ShowLaserSight 1"
-
 // Cycle variable is used as a workaround for
 // https://forum.zdoom.org/viewtopic.php?t=61104
 alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
