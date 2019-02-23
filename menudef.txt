@@ -115,7 +115,7 @@ OptionMenu "m8f_wm_VisualOptions"
   StaticText  ""
   Option      "Show background"   , "m8f_wm_ShowBackground" , "OnOff"
   Option      "Show weapon icons" , "m8f_wm_ShowIcons"      , "OnOff"
-  StaticText  "Experimental: icons may be missing or incorrect", "Black"
+  StaticText  "Experimental: icons may be missing or incorrect.", "Black"
 
   StaticText ""
 }
@@ -135,14 +135,14 @@ OptionMenu "m8f_wm_BehaviorOptions"
   Option     "Skip weapons with no ammo" , "m8f_wm_SkipNoAmmo"         , "OnOff"
   Option     "Cycle enabled"             , "m8f_wm_cycle_enabled"      , "YesNo"
   Option     "Select w/o menu if only in slot", "M8fWeaponMenuImmediatelySelectIfOnlyInSlot", "YesNo"
-  StaticText "Slot keys will open menu only if there", "Black"
-  StaticText "are more than one weapon in slot", "Black"
+  StaticText "Slot keys will open menu only if there" , "Black"
+  StaticText "is more than one weapon in the slot."   , "Black"
 
   StaticText ""
   Option     "Force Universal Mode", "m8f_wm_ForceFallbackMode", "YesNo"
   StaticText "Enable if weapon set isn't recognized correctly.", "Black"
-  StaticText "If this happens, please report a bug.", "Black"
-  StaticText "Applies on next map.", "Black"
+  StaticText "If this happens, please report a bug." , "Black"
+  StaticText "Applies on the next map."              , "Black"
 
   StaticText ""
 }
@@ -153,12 +153,12 @@ OptionMenu "m8f_wm_InventoryMenuOptions"
 
   StaticText "Position Options", 1
   Option "Horizontal Position", "m8f_wm_InventoryMenuX", "m8f_wm_InventoryMenuXOptions"
-  StaticText "also affects alignment", "Black"
+  StaticText "Also affects alignment.", "Black"
 
   StaticText ""
   Slider "Vertical Position", "m8f_wm_InventoryMenuY", 0.0, 1.0, 0.02, 2
-  StaticText "note that bottom of menu can", "Black"
-  StaticText "be out of screen with big values", "Black"
+  StaticText "Note that the bottom of the menu can"  , "Black"
+  StaticText "be out of the screen with big values." , "Black"
 
   StaticText ""
   Slider "Step size multiplier", "m8f_wm_StepMultiplier", -3.0, 3.0, 0.1
@@ -180,8 +180,8 @@ OptionMenu "m8f_wm_ExtrasOptions"
 
   StaticText ""
   Slider "Zoom Factor", "m8f_wm_ZoomFactor", 1.0, 3.0, 0.1
-  StaticText "Set this to 1.0 if weapon has its own zoom.", "Black"
-  StaticText "Don't change this while zoomed.", "Black"
+  StaticText "Set this to 1.0 if the weapon has its own zoom." , "Black"
+  StaticText "Don't change this while zoomed."                 , "Black"
 
   StaticText ""
   Slider "Speed while zoomed"     , "m8f_wm_ZoomSpeedMultiplier" , 0.1, 1.0, 0.1
@@ -192,20 +192,20 @@ OptionMenu "m8f_wm_ExtrasOptions"
 
   StaticText ""
   Option "Instant weapon switching", "M8fWeaponMenuInstantSwitch", "M8fWeaponMenuInstantSwitchOptions"
-  StaticText "Instant switching doesn't work for mods with", "Black"
-  StaticText "custom select or deselect animations", "Black"
+  StaticText "Instant switching doesn't work for mods with" , "Black"
+  StaticText "custom select or deselect animations."        , "Black"
 
   StaticText ""
   Option "Change FOV when holstered"  , "m8f_wm_HolsterFovEnabled" , "OnOff"
   Slider "FOV when holstered"         , "m8f_wm_HolsterFov" , 45.0, 180.0, 5.0
   Slider "Speed with holstered weapon", "M8fWeaponMenuHolsterSpeedMultiplier", 0.0, 3.0, 0.2
-  StaticText "Set this to 0.0 to disable speed change", "Black"
+  StaticText "Set this to 0.0 to disable speed change.", "Black"
 
   StaticText ""
-  Option "Infinite Ammo for Slot 2", "m8f_wm_InfiniteSlot2Ammo", "YesNo"
-  StaticText "Limitations: only for single shots, primary fire", "Black"
-  StaticText "with Weapon Menu Fire key. If you run out of ammo,", "Black"
-  StaticText "you may not be able to select weapon.", "Black"
+  Option "Infinite Ammo for Slot 2", "m8f_wm_InfiniteSlot2Ammo"   , "YesNo"
+  StaticText "Limitations: only for single shots, primary fire"   , "Black"
+  StaticText "with Weapon Menu Fire key. If you run out of ammo," , "Black"
+  StaticText "you may not be able to select a weapon."            , "Black"
 
   StaticText ""
 }
@@ -282,8 +282,8 @@ OptionMenu "m8f_wm_InventoryControls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", "ControlMessage"
   StaticText  ""
 
-  StaticText  "Open inventory menu to see what items are" , "Black"
-  StaticText  "available through quick access keys."      , "Black"
+  StaticText  "Open the inventory menu to see what items are" , "Black"
+  StaticText  "available through quick access keys.    "      , "Black"
   StaticText  ""
 
   Control     "Toggle quick access for item", "pukename WM_ToggleQuickInventoryItem"
@@ -315,8 +315,8 @@ OptionMenu   "m8f_wm_Commands"
   StaticText ""
   StaticText "Weapon Menu", 1
   Command    "Reset", "m8f_wm_PreviousWeaponSet -1"
-  StaticText "This will reset weapon order, custom weapon names,", "Black"
-  StaticText "and may help if there is a problem with this mod.", "Black"
+  StaticText "Resets the weapon order and custom weapon names."   , "Black"
+  StaticText "This may help if there is a problem with this mod." , "Black"
 
   StaticText ""
 }
@@ -324,7 +324,7 @@ OptionMenu   "m8f_wm_Commands"
 OptionMenu "m8f_wm_CrossmodOptions"
 {
   Title      "Cross-mod Options"
-  StaticText "These options work only if mods are"     , "Black"
+  StaticText "These options only work if mods are"     , "Black"
   StaticText "loaded together with Weapon Menu."       , "Black"
 
   StaticText ""
@@ -354,15 +354,15 @@ OptionMenu "m8f_wm_CrossmodOptions"
 OptionMenu "m8f_wm_EditWeaponList"
 {
   Title "Edit Weapon List"
-  StaticText "Customized Weapon List stays until new game"       , "Black"
-  StaticText "is started with other weapon mod or player class." , "Black"
+  StaticText "Customized Weapon List stays until a new game"     , "Black"
+  StaticText "starts with other weapon mod or player class."     , "Black"
   StaticText "Customized Weapon List is preserved in saves."     , "Black"
 
   StaticText ""
-  StaticText "All operations are on selected weapon."            , "Black"
+  StaticText "All operations are for the selected weapon."       , "Black"
 
   StaticText ""
-  StaticText "This menu is effective only in game."              , "Red"
+  StaticText "This menu is effective only in a game."            , "Red"
 
   StaticText ""
   Command "Increase priority in slot" , "m8f_wm_increase_priority"
