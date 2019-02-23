@@ -36,8 +36,6 @@ alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 alias wm_switch_to_powerful "pukename WM_SwitchToPowerful"
 alias wm_next_in_slot       "pukename WM_NextWeaponInSlot"
 
-defaultbind m toggle_menu
-
 alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
 alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
 alias WeaponMenuSelect3 "pukename SmartWeaponSelection 3"
