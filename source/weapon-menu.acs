@@ -1801,15 +1801,12 @@ script "WM_InventoryMenu" (void)
 
 function void WM_FillInventoryItems(int playerN)
 {
-  ScriptCall("WMZScriptHelper", "GetInventoryList");
-
-  str inventoryContents = GetUserCVarString(playerN, "m8f_wm_ResultString");
-
+  str inventoryContents       = WM_GetStringFromZScript(playerN, "GetInventoryList");
   int inventoryContentsLength = StrLen(inventoryContents);
 
-  int current = 0;
+  int current      = 0;
   str currentToken = "";
-  int iArray = 0;
+  int iArray       = 0;
 
   for (int i = 0; i < inventoryContentsLength && current < N_INVENTORY_ITEMS; ++i)
   {
@@ -1933,15 +1930,12 @@ function void WM_PrintInventoryItem( int i
 
 function void WM_GetFallbackWeapons(int playerN)
 {
-  ScriptCall("WMZScriptHelper", "GetWeaponList");
-
-  str weaponData = GetUserCVarString(playerN, "m8f_wm_ResultString");
-
+  str weaponData       = WM_GetStringFromZScript(playerN, "GetWeaponList");
   int weaponDataLength = StrLen(weaponData);
 
-  int current = 0;
+  int current      = 0;
   str currentToken = "";
-  int iArray = 0;
+  int iArray       = 0;
 
   // received data format:
   // Class>Tag>Slot>Class>Tag>Slot ...

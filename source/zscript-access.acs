@@ -20,7 +20,7 @@ function str WM_GetAmmoString(str weaponClass, int ammoMode, int playerN)
 {
   if (ammoMode == 0) { return ""; }
 
-  bool showSecondary = ammoMode == 2;
+  bool showSecondary = (ammoMode == 2);
   ScriptCall("WMZscriptHelper", "TellAmmo", weaponClass, showSecondary);
   return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
@@ -41,12 +41,17 @@ function bool WM_IsWeaponDeselectable(str weaponClass, int playerN)
 
 function str WM_GetSelectedInventory(int playerN)
 {
-  ScriptCall("WMZscriptHelper", "GetSelectedInventory");
-  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+  return WM_GetStringFromZScript(playerN, "GetSelectedInventory");
 }
 
 function str WM_GetInventoryTag(str itemClass, int playerN)
 {
   ScriptCall("WMZscriptHelper", "GetInventoryTag", itemClass);
+  return GetUserCVarString(playerN, "m8f_wm_ResultString");
+}
+
+function str WM_GetStringFromZScript(int playerN, str func)
+{
+  ScriptCall("WMZscriptHelper", func);
   return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
