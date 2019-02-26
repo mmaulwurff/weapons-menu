@@ -18,14 +18,14 @@ OptionValue "M8FWeaponMenuNumbersLeftOptions"
 
 OptionString "m8f_wm_font_values"
 {
-  "SMALLFONT", "Small Font"
-  "CONFONT",   "Console Font"
-  "BIGFONT",   "Big Font"
-  "MINIPL_W",  "Miniplicity"
-  "MINIPLWK",  "Miniplicity Condensed"
-  "MM2SFNTO",  "Mementwo"
-  "GARGSMAL",  "Gargoyle Wing"
-  "SW_TINY",   "Shadow Warrior Tiny"
+  "SMALLFONT"   , "Small Font"
+  "ConsoleFont" , "Console Font"
+  "BIGFONT"     , "Big Font"
+  "MINIPL_W"    , "Miniplicity"
+  "MINIPLWK"    , "Miniplicity Condensed"
+  "MM2SFNTO"    , "Mementwo"
+  "GARGSMAL"    , "Gargoyle Wing"
+  "SW_TINY"     , "Shadow Warrior Tiny"
 }
 
 OptionValue "M8FWeaponMenuShowAmmoOptions"
