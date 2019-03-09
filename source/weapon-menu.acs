@@ -85,7 +85,7 @@ function void WM_LeaveState(int oldState, int playerN)
 {
   // leave previous state
   switch (oldState)
-    {
+  {
     case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
     case STATE_TERMINATED:     WM_LeaveTerminated(playerN);    break;
     case STATE_Enabled:        WM_LeaveEnabled(playerN);       break;
@@ -93,7 +93,7 @@ function void WM_LeaveState(int oldState, int playerN)
     case STATE_OPENED:         WM_LeaveOpened(playerN);        break;
     case STATE_INVENTORY:      WM_LeaveInventory(playerN);     break;
     case STATE_CLOSED_VISIBLE: WM_LeaveClosedVisible(playerN); break;
-    }
+  }
 }
 
 function void WM_EnterState(int newState, int playerN)
@@ -1632,41 +1632,35 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
   names[currentSet][w1] = names[currentSet][w2];
   names[currentSet][w2] = namesTmp;
 
+  int tagTmp = tags[currentSet][w1];
+  tags[currentSet][w1] = tags[currentSet][w2];
+  tags[currentSet][w2] = tagTmp;
+
+  int slotTmp = slots[currentSet][w1];
+  slots[currentSet][w1] = slots[currentSet][w2];
+  slots[currentSet][w2] = slotTmp;
+
+  int priorityTmp = priority[w1];
+  priority[w1] = priority[w2];
+  priority[w2] = priorityTmp;
+
   if (setCVars)
   {
     str weaponClassVarName1 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w1);
     str weaponClassVarName2 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w2);
     SetUserCVarString(playerN, weaponClassVarName1, WM_Wrap(WM_GetWeaponClass(w1)));
     SetUserCVarString(playerN, weaponClassVarName2, WM_Wrap(WM_GetWeaponClass(w2)));
-  }
 
-  int tagTmp = tags[currentSet][w1];
-  tags[currentSet][w1] = tags[currentSet][w2];
-  tags[currentSet][w2] = tagTmp;
-
-  if (setCVars)
-  {
     str weaponNameVarName1 = StrParam(s:"M8fWeaponMenuWeaponName", i:w1);
     str weaponNameVarName2 = StrParam(s:"M8fWeaponMenuWeaponName", i:w2);
     SetUserCVarString(playerN, weaponNameVarName1, WM_Wrap(WM_GetPrintableWeaponName(w1)));
     SetUserCVarString(playerN, weaponNameVarName2, WM_Wrap(WM_GetPrintableWeaponName(w2)));
-  }
 
-  int slotTmp = slots[currentSet][w1];
-  slots[currentSet][w1] = slots[currentSet][w2];
-  slots[currentSet][w2] = slotTmp;
-
-  if (setCVars)
-  {
     str slotVarName1 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w1);
     str slotVarName2 = StrParam(s:"M8fWeaponMenuWeaponSlot", i:w2);
     SetUserCVar(playerN, slotVarName1, WM_GetWeaponSlot(w1));
     SetUserCVar(playerN, slotVarName2, WM_GetWeaponSlot(w2));
   }
-
-  int priorityTmp = priority[w1];
-  priority[w1] = priority[w2];
-  priority[w2] = priorityTmp;
 }
 
 script "WM_IncreaseSlot" (void)
@@ -1930,48 +1924,41 @@ function void WM_PrintInventoryItem( int i
 
 function void WM_GetFallbackWeapons(int playerN)
 {
+  // received data format: Class>Tag>Slot>Priority>Class ...
   str weaponData       = WM_GetStringFromZScript(playerN, "GetWeaponList");
   int weaponDataLength = StrLen(weaponData);
+  int current          = 0;
+  int iArray           = 0;
+  int tokenLength      = 0;
 
-  int current      = 0;
-  str currentToken = "";
-  int iArray       = 0;
-
-  // received data format:
-  // Class>Tag>Slot>Class>Tag>Slot ...
-
-  for (int i = 0; i < weaponDataLength && current < MAX_WEAPONS_NUMBER; ++i)
+  for (int i = 0; i < weaponDataLength && current < MAX_WEAPONS_NUMBER; i += tokenLength + 1)
   {
-    int character = GetChar(weaponData, i);
-    if (character != '>')
+    tokenLength = 0;
+    while(GetChar(weaponData, i + tokenLength) != '>') { ++tokenLength; }
+
+    str currentToken = StrMid(weaponData, i, tokenLength);
+
+    switch (iArray)
     {
-      currentToken = StrParam(s:currentToken, c:character);
-    }
-    else
-    {
-      switch (iArray)
-      {
       case 0: names[SET_FALLBACK][current] = currentToken; break;
+
       case 1: tags [SET_FALLBACK][current] = currentToken; break;
+
       case 2:
         slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
         break;
+
       case 3:
         priority[current] = WM_StrToInt(currentToken);
         ++current;
         break;
-      }
-
-      iArray = (iArray + 1) % 4;
-      currentToken = "";
     }
+
+    iArray = (iArray + 1) % 4;
   }
 
   weaponCounts[SET_FALLBACK] = current;
   weaponCount = current;
-
-  WM_SortFallbackByPriority(playerN);
-  WM_SortFallbackBySlot(playerN);
 
   /*
   for (int j = 0; j < current; ++j)
@@ -2004,8 +1991,8 @@ function void WM_QuicksortByPriority(int lo, int hi, int playerN)
 
 function int WM_QuicksortByPriorityPartition(int lo, int hi, int playerN)
 {
-  int pivot   = priority[hi];
-  int i       = lo - 1;
+  int pivot = priority[hi];
+  int i     = lo - 1;
 
   for (int j = lo; j <= hi - 1; ++j)
   {
@@ -2018,23 +2005,4 @@ function int WM_QuicksortByPriorityPartition(int lo, int hi, int playerN)
   WM_SwapWeapons(i + 1, hi, false, playerN);
 
   return i + 1;
-}
-
-function void WM_SortFallbackBySlot(int playerN)
-{
-  // Insertion sort, because it's stable and simple.
-  WM_InsertionSortBySlot(playerN);
-}
-
-function void WM_InsertionSortBySlot(int playerN)
-{
-  for (int i = 1; i < weaponCount; ++i)
-  {
-    for (int j = i;
-         j > 0 && WM_SlotIsHigher(WM_GetWeaponSlot(j - 1), WM_GetWeaponSlot(j));
-         --j)
-    {
-      WM_SwapWeapons(j, j - 1, false, playerN);
-    }
-  }
 }

@@ -203,8 +203,9 @@ class WMZscriptHelper play
     let player = activator.player;
     if (!player) { return; }
 
-    string weaponData = "";
-    int    nClasses   = AllActorClasses.Size();
+    int nClasses = AllActorClasses.Size();
+
+    m8f_wm_WeaponInfo info;
 
     for (int i = 0; i < nClasses; ++i)
     {
@@ -230,7 +231,26 @@ class WMZscriptHelper play
       // just to be sure that "serializing" will not break
       tag.Replace(">", " ");
 
-      weaponData.AppendFormat("%s>%s>%d>%d>", className, tag, slot, priority);
+      info.classes   .push(className);
+      info.tags      .push(tag);
+      info.slots     .push(slot);
+      info.priorities.push(priority);
+    }
+
+    // sort
+    sortWeapons(info);
+
+    int    nWeapons   = info.classes.size();
+    string weaponData = "";
+
+    for (int i = 0; i < nWeapons; ++i)
+    {
+      weaponData.AppendFormat( "%s>%s>%d>%d>"
+                             , info.classes[i]
+                             , info.tags[i]
+                             , info.slots[i]
+                             , info.priorities[i]
+                             );
     }
 
     SendResultString(player, weaponData);
@@ -333,4 +353,85 @@ class WMZscriptHelper play
     messageCVar.SetFloat(result);
   }
 
+  private static void sortWeapons(m8f_wm_WeaponInfo info)
+  {
+    int nWeapons = info.classes.size();
+
+    quickSortWeapons(info, 0, nWeapons - 1);
+  }
+
+  private static void quickSortWeapons(m8f_wm_WeaponInfo info, int lo, int hi)
+  {
+    if (lo < hi)
+    {
+      int p = quickSortWeaponsPartition(info, lo, hi);
+      quickSortWeapons(info, lo,    p - 1);
+      quickSortWeapons(info, p + 1, hi   );
+    }
+  }
+
+  private static int quickSortWeaponsPartition(m8f_wm_WeaponInfo info, int lo, int hi)
+  {
+    int pivot = measure(info, hi);
+    int i     = lo - 1;
+
+    for (int j = lo; j <= hi - 1; ++j)
+    {
+      if (measure(info, j) > pivot)
+      {
+        ++i;
+        info.swap(i, j);
+      }
+    }
+    info.swap(i + 1, hi);
+
+    return i + 1;
+  }
+
+  private static int measure(m8f_wm_WeaponInfo info, int i)
+  {
+    int slot = info.slots[i];
+    if (slot == 0) { slot = 99; }
+
+    slot = 99 - slot; // reverse order
+
+    int measure = slot * 100 + info.priorities[i];
+
+    return measure;
+  }
+
 } // class WMZscriptHelper
+
+struct m8f_wm_WeaponInfo
+{
+
+  Array<string> classes;
+  Array<string> tags;
+  Array<int>    slots;
+  Array<int>    priorities;
+
+  void swap(int i, int j)
+  {
+    {
+      string tmp = classes[i];
+      classes[i] = classes[j];
+      classes[j] = tmp;
+    }
+    {
+      string tmp = tags[i];
+      tags[i]    = tags[j];
+      tags[j]    = tmp;
+    }
+    {
+      int tmp  = slots[i];
+      slots[i] = slots[j];
+      slots[j] = tmp;
+    }
+    {
+      int tmp = priorities[i];
+      priorities[i] = priorities[j];
+      priorities[j] = tmp;
+    }
+  }
+
+} // struct m8f_wm_WeaponInfo
