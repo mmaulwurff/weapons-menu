@@ -326,7 +326,11 @@ class WMZscriptHelper play
 
     TextureID iconID = w.SpawnState.GetSpriteTexture(0);
     string icon = TexMan.GetName(iconID);
-    if (icon == "TNT1A0") { icon = placeholder; }
+
+    if (icon == "TNT1A0")   { icon = TexMan.GetName(w.icon); }
+    if (icon == "TNT1A0")   { icon = placeholder; }
+    if (icon == "ALTHUDCF") { icon = placeholder; }
+
     SendResultString(player, icon);
   }
 
