@@ -142,6 +142,7 @@ class m8f_wm_Data : Thinker
     icons.push("dergfist"               , "wm_guncaster_knuckles");
     icons.push("bayonette"              , "baygz0"      );
     icons.push("64fist"                 , "wm_doom_64_fist");
+    icons.push("rlfist"                 , "wm_drla_unarmed");
 
     return self;
   }

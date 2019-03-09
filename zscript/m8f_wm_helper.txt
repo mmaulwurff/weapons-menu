@@ -316,7 +316,6 @@ class WMZscriptHelper play
       return;
     }
 
-    string placeholder = "NOWEAPONOFF";
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
@@ -325,7 +324,7 @@ class WMZscriptHelper play
     }
 
     TextureID iconID = w.SpawnState.GetSpriteTexture(0);
-    string icon = TexMan.GetName(iconID);
+    string    icon   = TexMan.GetName(iconID);
 
     if (icon == "TNT1A0")   { icon = TexMan.GetName(w.icon); }
     if (icon == "TNT1A0")   { icon = placeholder; }
@@ -403,6 +402,10 @@ class WMZscriptHelper play
 
     return measure;
   }
+
+  // constants: ////////////////////////////////////////////////////////////////
+
+  const placeholder = "NOWEAPONOFF";
 
 } // class WMZscriptHelper
 

@@ -396,6 +396,15 @@ sprite optional wm_doom_64_fist, 128, 128
   yScale 4.0
 }
 
+sprite optional wm_drla_unarmed, 512, 512
+{
+  sprite TPN1F0, -81, -100
+  sprite TPN1F0,   0, -100 { flipx }
+  offset 200, 80
+  xScale 4.0
+  yScale 4.0
+}
+
 // menu background (gradient) section //////////////////////////////////////////
 
 graphic wmbgrght, 200, 1
