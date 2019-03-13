@@ -285,6 +285,9 @@ OptionMenu "m8f_wm_AdvancedControls"
   StaticText "0 damage hitscan attack. Also alerts enemies."  , "Black"
 
   StaticText ""
+  Control    "Print Weapon Menu Debug Info", "wm_print_debug_info"
+
+  StaticText ""
 }
 
 OptionMenu "m8f_wm_InventoryControls"
@@ -321,8 +324,6 @@ OptionMenu   "m8f_wm_Commands"
 {
   Title      "Commands"
 
-  StaticText "Debug", 1
-  Command    "Print Weapon Menu Debug Info", "pukename WM_PrintInfo"
 
   StaticText ""
   StaticText "Weapon Menu", 1

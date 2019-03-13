@@ -2,6 +2,7 @@
 
 #IWAD=~/Programs/Games/wads/doom/freedoom1.wad
 #IWAD=~/Programs/Games/wads/doom/HERETIC.WAD
+#IWAD=~/Programs/Games/wads/modules/game/harm1.wad
 
 acc source/weapon-menu.acs acs/weapon-menu.o \
 && \

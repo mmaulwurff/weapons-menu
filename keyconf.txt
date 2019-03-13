@@ -33,6 +33,8 @@ alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 alias wm_switch_to_powerful "pukename WM_SwitchToPowerful"
 alias wm_next_in_slot       "pukename WM_NextWeaponInSlot"
 
+alias wm_print_debug_info "pukename WM_PrintInfo"
+
 alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
 alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
 alias WeaponMenuSelect3 "pukename SmartWeaponSelection 3"
@@ -146,3 +148,4 @@ AddMenuKey "Fire quick access weapon"     "+wm_fire_favorite"
 AddMenuKey "Holster weapon"               "pukename WM_HolsterWeapon"
 AddMenuKey "Toggle Zoom"                  "pukename WM_ToggleZoom"
 AddMenuKey "Throw Junk"                   "m8f_wm_throw_junk"
+AdMenuKey  "Print Weapon Menu Debug Info" "wm_print_debug_info"
