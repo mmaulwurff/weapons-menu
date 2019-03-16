@@ -44,8 +44,6 @@ script "WM_FireFavoriteWeapon" (void)
   if (keyPressedMore) { terminate; }
 
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  str favoriteClass = WM_GetWeaponClass(favorite);
-  if (!CheckInventory(favoriteClass)) { terminate; }
 
   WM_MaybeToggleSlomoOnQuick(playerN);
   favoriteFiring = true;
@@ -63,7 +61,7 @@ script "WM_FireFavoriteWeapon" (void)
 
   if (fireMode == 2) { Delay(10); } // No fire mode
 
-  bool isReady = WM_IsWeaponReady(favoriteClass, playerN);
+  bool isReady = WM_IsWeaponReady(playerN);
   int i = 0;
   int iMax = 35 * 2; // 2 seconds
   bool alreadyFired = false;
@@ -78,7 +76,7 @@ script "WM_FireFavoriteWeapon" (void)
     ++i;
 
     Delay(1);
-    isReady = (WM_IsWeaponReady(favoriteClass, playerN) || i > iMax);
+    isReady = (WM_IsWeaponReady(playerN) || i > iMax);
 
     if (alreadyFired == false)
     {
@@ -92,8 +90,8 @@ script "WM_FireFavoriteWeapon" (void)
   {
     switch (fireMode)
     {
-    case 0: ScriptCall("WMZScriptHelper", "FireWeapon",    favoriteClass); break;
-    case 1: ScriptCall("WMZScriptHelper", "FireWeaponAlt", favoriteClass); break;
+    case 0: ScriptCall("WMZScriptHelper", "FireWeapon"   ); break;
+    case 1: ScriptCall("WMZScriptHelper", "FireWeaponAlt"); break;
     case 2: break;
     }
   }
@@ -109,13 +107,12 @@ script "WM_FireFavoriteSwitchBack" (void)
 
   int  playerN       = PlayerNumber();
   int  favorite      = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  str  favoriteClass = WM_GetWeaponClass(favorite);
-  bool isReady       = WM_IsWeaponDeselectable(favoriteClass, playerN);
+  bool isReady       = WM_IsWeaponDeselectable(playerN);
 
   while (!isReady)
   {
     Delay(1);
-    isReady = WM_IsWeaponDeselectable(favoriteClass, playerN);
+    isReady = WM_IsWeaponDeselectable(playerN);
   }
 
   if (returnToLast && CheckInventory(WM_GetWeaponClass(returnTo)))

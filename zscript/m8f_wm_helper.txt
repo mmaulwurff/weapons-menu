@@ -63,7 +63,7 @@ class WMZscriptHelper play
     SendResultInt(player, result);
   }
 
-  static void IsWeaponReady(Actor activator, string weaponClass)
+  static void IsWeaponReady(Actor activator)
   {
     if (!activator) { return; }
     PlayerInfo player = activator.player;
@@ -74,7 +74,7 @@ class WMZscriptHelper play
     SendResultInt(player, isReady);
   }
 
-  static void IsWeaponDeselectable(Actor activator, string weaponClass)
+  static void IsWeaponDeselectable(Actor activator)
   {
     if (!activator) { return; }
     PlayerInfo player = activator.player;
@@ -94,7 +94,7 @@ class WMZscriptHelper play
     SendResultInt(player, isDeselected);
   }
 
-  static void FireWeapon(Actor activator, string weaponClass)
+  static void FireWeapon(Actor activator)
   {
     if (!activator) { return; }
 
@@ -102,7 +102,7 @@ class WMZscriptHelper play
     pawn.FireWeapon(null);
   }
 
-  static void FireWeaponAlt(Actor activator, string weaponClass)
+  static void FireWeaponAlt(Actor activator)
   {
     if (!activator) { return; }
 

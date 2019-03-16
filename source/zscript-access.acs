@@ -25,16 +25,16 @@ function str WM_GetAmmoString(str weaponClass, int ammoMode, int playerN)
   return GetUserCVarString(playerN, "m8f_wm_ResultString");
 }
 
-function bool WM_IsWeaponReady(str weaponClass, int playerN)
+function bool WM_IsWeaponReady(int playerN)
 {
-  ScriptCall("WMZscriptHelper", "IsWeaponReady", weaponClass);
+  ScriptCall("WMZscriptHelper", "IsWeaponReady");
   bool isReady = GetUserCVar(playerN, "m8f_wm_ResultInt");
   return isReady;
 }
 
-function bool WM_IsWeaponDeselectable(str weaponClass, int playerN)
+function bool WM_IsWeaponDeselectable(int playerN)
 {
-  ScriptCall("WMZscriptHelper", "IsWeaponDeselectable", weaponClass);
+  ScriptCall("WMZscriptHelper", "IsWeaponDeselectable");
   bool isDeselectable = GetUserCVar(playerN, "m8f_wm_ResultInt");
   return isDeselectable;
 }
