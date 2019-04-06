@@ -8,7 +8,6 @@
 
 #define SET_CYAN_DOOM         13
 #define SET_KRIEGSLAND        14
-#define SET_WEAPONS_OF_SATURN 16
 #define SET_REKKR             18
 #define SET_CHEX_QUEST        19
 #define SET_DOOM_64           22
@@ -56,7 +55,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayer",          // 13. Cyan-Doom  | reason: no player class
   "FKPlayer",            // 14. Kriegsland | reason: class shared with Flakes Doom
   "ComplexDoomPlayer",   // 15. Complex Doom V27a3
-  "SaturnPlayer",        // 16. Weapons of Saturn May 09, 2018 | reason: forbid weapon holstering
+  "wm_reserved",         // 16. [Reserved]
   "DoomMarine",          // 17. Hard-Doom v8.2f
   "DoomPlayer",          // 18. REKKR      | reason: Dehacked
   "ChexPlayer",          // 19. Chex Quest | reason: SSG is deathmatch-only
@@ -117,7 +116,7 @@ int weaponCounts[SETS_NUMBER] =
   16, // Cyan-Doom
   22 + 5, // Kriegsland
   18, // Complex Doom
-  12, // Weapons of Saturn
+  0,  // [Reserved]
   14, // Hard-Doom
   8,  // REKKR
   9,  // Chex Quest
@@ -212,7 +211,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     8,
   },
 
-  { 1, 1, 2, 2, 2, 3, 3, 4, 4, 5, 6, 7 }, // Weapons of Saturn
+  { }, // Reserved
 
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
 
@@ -477,15 +476,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "MP40",
   },
 
-  { // Weapons of Saturn
-    "Motorsaw", "Knuckles",
-    "MP40", "1911", "Beretta",
-    "Coachgun", "Riotgun",
-    "Minigun", "MachineRifle",
-    "SaturnV",
-    "NovaRifle",
-    "TITAN",
-  },
+  { }, // Reserved
 
   { // Hard-Doom
     "Chainsaw~", "Fist~",
@@ -1025,15 +1016,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "MP40",
   },
 
-  { // Weapons of Saturn
-    "Chain Saw", "Knuckles",
-    "MP40", "1911", "Beretta",
-    "Coach Gun", "Riot Gun",
-    "Rotary Cannon", "Machine Rifle",
-    "Saturn V",
-    "Nova Rifle",
-    "Titan",
-  },
+  { }, // Reserved
 
   { // Hard-Doom
     "Chainsaw", "Fist",
