@@ -7,6 +7,11 @@
 class m8f_wm_Holstered : Weapon
 {
 
+  Default
+  {
+    +WEAPON.NOALERT;
+  }
+
   States
   {
     Ready:
