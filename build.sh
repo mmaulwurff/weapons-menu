@@ -29,6 +29,7 @@ zip weapon-menu.pk3 \
     sprites/*.png \
     sprites/*.lmp \
     zscript/*.txt \
+    zscript/*.zs \
     *.lmp \
     *.fon2 \
     *.md \

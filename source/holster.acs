@@ -11,19 +11,6 @@ script "WM_HolsterWeapon" (void)
 
   if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
 
-  int forbiddenMods[N_MODS_NO_HOLSTER] =
-  {
-    SET_WEAPONS_OF_SATURN, // reason: A_Lower with 0 duration
-  };
-  for (int i = 0; i < N_MODS_NO_HOLSTER; ++i)
-  {
-    if (WM_GetCurrentSet() == forbiddenMods[i])
-    {
-      Log(s:"Weapon holstering is not supported in this mod.");
-      terminate;
-    }
-  }
-
   int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
   if (holsterSpeedMultiplier != 0.0)
   {
@@ -41,5 +28,7 @@ script "WM_HolsterWeapon" (void)
   WM_ChangeState(STATE_CLOSED, playerN);
   WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
   WM_SetSelectedWeapon(WEAPON_HOLSTERED, playerN);
-  ScriptCall("WMZScriptHelper", "HolsterWeapon");
+
+  GiveInventory("m8f_wm_Holstered", 1);
+  SetWeapon("m8f_wm_Holstered");
 }

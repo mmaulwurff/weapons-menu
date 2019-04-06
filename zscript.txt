@@ -62,3 +62,5 @@ version "3.2.0"
 #include "zscript/m8f_wm_junk_event_handler.txt"
 
 #include "zscript/m8f_wm_infinite_slot2_ammo.txt"
+
+#include "zscript/m8f_wm_holstered.zs"

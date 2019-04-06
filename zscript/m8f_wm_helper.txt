@@ -110,15 +110,6 @@ class WMZscriptHelper play
     pawn.FireWeaponAlt(null);
   }
 
-  static void HolsterWeapon(Actor activator)
-  {
-    if (!activator) { return; }
-    let player = activator.player;
-    if (!player) { return; }
-
-    player.PendingWeapon = null;
-  }
-
   static void GetInventoryList(Actor activator)
   {
     if (!activator) { return; }

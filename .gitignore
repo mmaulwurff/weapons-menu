@@ -32,6 +32,7 @@ sprites/*
 !zscript
 zscript/*
 !zscript/*.txt
+!zscript/*.zs
 
 !filter/
 filter/*
