@@ -23,17 +23,17 @@ zip weapon-menu.pk3 \
     filter/doom.doom2/language.enu \
     filter/doom.freedoom/language.enu \
     filter/doom.freedoom.phase1/language.enu \
-    sounds/*.wav \
-    sounds/*.lmp \
-    source/*.acs \
+    sounds/*.wav  \
+    sounds/*.lmp  \
+    source/*.acs  \
     sprites/*.png \
     sprites/*.lmp \
-    zscript/*.txt \
-    zscript/*.zs \
-    *.lmp \
+    zscript/*.zs  \
+    *.lmp  \
     *.fon2 \
-    *.md \
-    *.txt \
+    *.md   \
+    *.txt  \
+    *.zs   \
     language.enu \
 && \
 cp weapon-menu.pk3 weapon-menu-$(git describe --abbrev=0 --tags).pk3 \

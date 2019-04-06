@@ -8,6 +8,8 @@ changelog.txt
 !*.md
 !*.sh
 !*.lmp
+!*.zs
+
 !.gitignore
 !textures*
 *~

@@ -53,14 +53,14 @@ version "3.2.0"
 **
 */
 
-#include "zscript/m8f_wm_data.txt"
-#include "zscript/m8f_wm_helper.txt"
-#include "zscript/m8f_wm_string.txt"
-#include "zscript/m8f_wm_string_map.txt"
+#include "zscript/m8f_wm_data.zs"
+#include "zscript/m8f_wm_helper.zs"
+#include "zscript/m8f_wm_string.zs"
+#include "zscript/m8f_wm_string_map.zs"
 
-#include "zscript/m8f_wm_junk.txt"
-#include "zscript/m8f_wm_junk_event_handler.txt"
+#include "zscript/m8f_wm_junk.zs"
+#include "zscript/m8f_wm_junk_event_handler.zs"
 
-#include "zscript/m8f_wm_infinite_slot2_ammo.txt"
+#include "zscript/m8f_wm_infinite_slot2_ammo.zs"
 
 #include "zscript/m8f_wm_holstered.zs"
