@@ -813,6 +813,8 @@ function int WM_FindInWeaponList(str weaponName)
 
 function void WM_Unholster(int playerN)
 {
+  TakeInventory("m8f_wm_Holstered", 1);
+
   int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
   if (holsterSpeedMultiplier != 0.0)
   {
