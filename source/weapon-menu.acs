@@ -1953,37 +1953,3 @@ function void WM_GetFallbackWeapons(int playerN)
   Log(i:weaponCounts[SET_FALLBACK]);
   ///*///
 }
-
-function void WM_SortFallbackByPriority(int playerN)
-{
-  // Quicksort, because it's simple and faster than insertion sort.
-  WM_QuicksortByPriority(0, weaponCount - 1, playerN);
-}
-
-function void WM_QuicksortByPriority(int lo, int hi, int playerN)
-{
-  if (lo < hi)
-  {
-    int p = WM_QuicksortByPriorityPartition(lo, hi, playerN);
-    WM_QuicksortByPriority(lo,    p - 1, playerN);
-    WM_QuicksortByPriority(p + 1, hi,    playerN);
-  }
-}
-
-function int WM_QuicksortByPriorityPartition(int lo, int hi, int playerN)
-{
-  int pivot = priority[hi];
-  int i     = lo - 1;
-
-  for (int j = lo; j <= hi - 1; ++j)
-  {
-    if (priority[j] > pivot)
-    {
-      ++i;
-      WM_SwapWeapons(i, j, false, playerN);
-    }
-  }
-  WM_SwapWeapons(i + 1, hi, false, playerN);
-
-  return i + 1;
-}
