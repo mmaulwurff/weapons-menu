@@ -811,23 +811,6 @@ function int WM_FindInWeaponList(str weaponName)
   return ERROR_NOT_FOUND;
 }
 
-function void WM_Unholster(int playerN)
-{
-  TakeInventory("m8f_wm_Holstered", 1);
-
-  int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
-  if (holsterSpeedMultiplier != 0.0)
-  {
-    SetActorProperty(0, APROP_SPEED, 1.0);
-  }
-
-  bool fovChangeEnabled = GetUserCvar(playerN, "m8f_wm_HolsterFovEnabled");
-  if (fovChangeEnabled)
-  {
-    WM_SetFov(originalFov);
-  }
-}
-
 function void WM_SelectWeapon(int weaponNumber, bool changeLast, int playerN)
 {
   if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
@@ -838,11 +821,7 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast, int playerN)
 
   if (success)
   {
-    if (selectedWeapon == WEAPON_HOLSTERED)
-    {
-      WM_Unholster(playerN);
-    }
-    else if (changeLast)
+    if (selectedWeapon != WEAPON_HOLSTERED && changeLast)
     {
       WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
     }

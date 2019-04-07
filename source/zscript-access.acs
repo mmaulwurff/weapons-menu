@@ -5,17 +5,6 @@ function bool WM_HasAmmo(str weaponClass, int playerN)
   return hasAmmo;
 }
 
-function int WM_GetFov(int playerN)
-{
-  ScriptCall("WMZScriptHelper", "GetFov");
-  return GetUserCVar(playerN, "m8f_wm_ResultInt") << 16;
-}
-
-function void WM_SetFov(int fov)
-{
-  ScriptCall("WMZScriptHelper", "SetFov", fov);
-}
-
 function str WM_GetAmmoString(str weaponClass, int ammoMode, int playerN)
 {
   if (ammoMode == 0) { return ""; }

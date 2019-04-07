@@ -274,24 +274,6 @@ class WMZscriptHelper play
     }
   }
 
-  static void SetFov(Actor activator, double fov)
-  {
-    if (!activator) { return; }
-    let player = activator.player;
-    if (!player) { return; }
-
-    player.SetFov(fov);
-  }
-
-  static void GetFov(Actor activator)
-  {
-    if (!activator) { return; }
-    let player = activator.player;
-    if (!player) { return; }
-
-    SendResultDouble(player, player.FOV);
-  }
-
   static void GetWeaponIcon(Actor activator, string weaponClass)
   {
     if (!activator) { return; }

@@ -11,20 +11,6 @@ script "WM_HolsterWeapon" (void)
 
   if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
 
-  int holsterSpeedMultiplier = GetUserCvar(playerN, "M8fWeaponMenuHolsterSpeedMultiplier");
-  if (holsterSpeedMultiplier != 0.0)
-  {
-    SetActorProperty(0, APROP_SPEED, holsterSpeedMultiplier);
-  }
-
-  bool fovChangeEnabled = GetUserCvar(playerN, "m8f_wm_HolsterFovEnabled");
-  if (fovChangeEnabled)
-  {
-    WM_SetOriginalFov(WM_GetFov(playerN));
-    int fovHolstered = GetUserCvar(playerN, "m8f_wm_HolsterFov");
-    WM_SetFov(fovHolstered);
-  }
-
   WM_ChangeState(STATE_CLOSED, playerN);
   WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
   WM_SetSelectedWeapon(WEAPON_HOLSTERED, playerN);
