@@ -9,7 +9,8 @@ class m8f_wm_Holstered : Weapon
 
   Default
   {
-    +WEAPON.NOALERT;
+    +Weapon.NOALERT;
+    +Inventory.UNDROPPABLE;
   }
 
   States
