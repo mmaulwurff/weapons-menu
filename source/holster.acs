@@ -1,5 +1,3 @@
-#define N_MODS_NO_HOLSTER 1
-
 script "WM_HolsterWeapon" (void)
 {
   if (IsUninitialized()) { terminate; }
