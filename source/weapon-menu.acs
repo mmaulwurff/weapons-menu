@@ -161,7 +161,11 @@ function void WM_EnterEnabled(int playerN)
 
   lastUsedWeapon = WM_Unwrap(GetUserCVarString(playerN, "m8f_wm_LastUsedWeapon"));
 
-  if (!WM_CheckInventory(lastUsedWeapon))
+  if (StrICmp(lastUsedWeapon, "DoomPlayer") == 0) // why DoomPlayer?
+  {
+    WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
+  }
+  else if (!WM_CheckInventory(lastUsedWeapon))
   {
     WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
   }
