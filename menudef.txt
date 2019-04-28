@@ -234,7 +234,7 @@ OptionMenu m8f_wm_BasicControls
   Control    "Same, but hold/release"     , "+press_menu"
 
   StaticText ""
-  Control    "Open Inventory Menu/Close"  , "pukename WM_InventoryMenu"
+  Control    "Open Inventory Menu/Close"  , "m8f_wm_open"
   Control    "Same, but hold/release"     , "+press_inv"
 
   StaticText ""
@@ -264,19 +264,19 @@ OptionMenu m8f_wm_AdvancedControls
   Control    "Edit Weapon List"              , "openmenu m8f_wm_EditWeaponList"
 
   StaticText ""
-  Control    "Last Used Weapon"              , "pukename SelectLastUsedWeapon"
+  Control    "Last Used Weapon"              , "m8f_wm_select_last_used"
   Control    "Select most powerful weapon"   , "wm_switch_to_powerful"
 
   StaticText ""
-  Control    "Mark weapon for quick access"  , "pukename WM_MarkWeaponAsFavorite"
-  Control    "Select quick access weapon"    , "pukename WM_SelectFavoriteWeapon"
+  Control    "Mark weapon for quick access"  , "m8f_wm_mark_quick"
+  Control    "Select quick access weapon"    , "m8f_wm_select_quick"
   Control    "Fire quick access weapon"      , "+wm_fire_favorite"
 
   StaticText ""
-  Control    "Holster weapon"                , "pukename WM_HolsterWeapon"
+  Control    "Holster weapon"                , "m8f_wm_holster"
 
   StaticText ""
-  Control    "Toggle Zoom"                   , "pukename WM_ToggleZoom"
+  Control    "Toggle Zoom"                   , "m8f_wm_toggle_zoom"
   StaticText "If you are using Zoom, you must switch weapons" , Black
   StaticText "only with Weapon Menu keys."                    , Black
 
@@ -300,22 +300,22 @@ OptionMenu m8f_wm_InventoryControls
   StaticText  "available through quick access keys.    "      , Black
   StaticText  ""
 
-  Control     "Toggle quick access for item", "pukename WM_ToggleQuickInventoryItem"
+  Control     "Toggle quick access for item", "m8f_wm_toggle_quick_inv"
 
   StaticText  ""
-  Control     "Use quick access item #1"  , "pukename WM_UseQuickInventoryItem 0"
-  Control     "Use quick access item #2"  , "pukename WM_UseQuickInventoryItem 1"
-  Control     "Use quick access item #3"  , "pukename WM_UseQuickInventoryItem 2"
-  Control     "Use quick access item #4"  , "pukename WM_UseQuickInventoryItem 3"
-  Control     "Use quick access item #5"  , "pukename WM_UseQuickInventoryItem 4"
-  Control     "Use quick access item #6"  , "pukename WM_UseQuickInventoryItem 5"
-  Control     "Use quick access item #7"  , "pukename WM_UseQuickInventoryItem 6"
-  Control     "Use quick access item #8"  , "pukename WM_UseQuickInventoryItem 7"
-  Control     "Use quick access item #9"  , "pukename WM_UseQuickInventoryItem 8"
-  Control     "Use quick access item #10" , "pukename WM_UseQuickInventoryItem 9"
+  Control     "Use quick access item #1"  , "m8f_wm_use_quick_inv0"
+  Control     "Use quick access item #2"  , "m8f_wm_use_quick_inv1"
+  Control     "Use quick access item #3"  , "m8f_wm_use_quick_inv2"
+  Control     "Use quick access item #4"  , "m8f_wm_use_quick_inv3"
+  Control     "Use quick access item #5"  , "m8f_wm_use_quick_inv4"
+  Control     "Use quick access item #6"  , "m8f_wm_use_quick_inv5"
+  Control     "Use quick access item #7"  , "m8f_wm_use_quick_inv6"
+  Control     "Use quick access item #8"  , "m8f_wm_use_quick_inv7"
+  Control     "Use quick access item #9"  , "m8f_wm_use_quick_inv8"
+  Control     "Use quick access item #10" , "m8f_wm_use_quick_inv9"
 
   StaticText  ""
-  SafeCommand "Clear Quick Inventory List", "pukename WM_ClearQuickInventoryItems"
+  SafeCommand "Clear Quick Inventory List", "m8f_wm_clear_quick_inv"
 
   StaticText  ""
 }
