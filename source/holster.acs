@@ -2,10 +2,15 @@ script "WM_HolsterWeapon" (void)
 {
   if (IsUninitialized()) { terminate; }
 
-  int playerN = PlayerNumber();
-
   int selectedWeapon = WM_GetSelectedWeapon();
-  if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
+
+  if (selectedWeapon == WEAPON_HOLSTERED)
+  {
+    ACS_NamedExecute("SelectLastUsedWeapon", 0);
+    terminate;
+  }
+
+  int playerN = PlayerNumber();
 
   if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
 
