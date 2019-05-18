@@ -50,8 +50,8 @@ class WMZscriptHelper play
     bool result   = false;
     Ammo amm1     = w.Ammo1;
     Ammo amm2     = w.Ammo2;
-    bool hasAmmo1 = (amm1 != null);
-    bool hasAmmo2 = (amm2 != null);
+    bool hasAmmo1 = (amm1 != NULL);
+    bool hasAmmo2 = (amm2 != NULL);
 
     if (!hasAmmo1 && !hasAmmo2) { result = true; }
     else
@@ -99,7 +99,7 @@ class WMZscriptHelper play
     if (!activator) { return; }
 
     PlayerPawn pawn = PlayerPawn(activator);
-    pawn.FireWeapon(null);
+    pawn.FireWeapon(NULL);
   }
 
   static void FireWeaponAlt(Actor activator)
@@ -107,7 +107,7 @@ class WMZscriptHelper play
     if (!activator) { return; }
 
     PlayerPawn pawn = PlayerPawn(activator);
-    pawn.FireWeaponAlt(null);
+    pawn.FireWeaponAlt(NULL);
   }
 
   static void GetInventoryList(Actor activator)
@@ -122,7 +122,7 @@ class WMZscriptHelper play
     for (int i = 0; i < nClasses; ++i)
     {
       let type = (class<Inventory>)(AllActorClasses[i]);
-      if (type == null) { continue; }
+      if (type == NULL) { continue; }
 
       readonly<Inventory> inv = GetDefaultByType(type);
       if (!inv.bINVBAR || inv.bAUTOACTIVATE) { continue; }
@@ -170,7 +170,7 @@ class WMZscriptHelper play
 
     PlayerPawn pawn = PlayerPawn(activator);
 
-    if (pawn && pawn.InvSel != null)
+    if (pawn && pawn.InvSel != NULL)
     {
       SendResultString(player, pawn.InvSel.GetClassName());
     }
@@ -188,7 +188,8 @@ class WMZscriptHelper play
     pawn.InvSel = pawn.FindInventory(itemClass);
   }
 
-  static void GetWeaponList(Actor activator)
+  static
+  void GetWeaponList(Actor activator)
   {
     if (!activator) { return; }
     let player = activator.player;
@@ -201,17 +202,20 @@ class WMZscriptHelper play
     for (int i = 0; i < nClasses; ++i)
     {
       let type = (class<Weapon>)(AllActorClasses[i]);
-      if (type == null || type == "Weapon") { continue; }
 
-      let  replacement    = Actor.GetReplacement(type);
-      bool hasReplacement = (type != replacement);
-      if (hasReplacement) { continue; }
+      if (type == NULL || type == "Weapon") { continue; }
 
-      // List the weapon only if it is set in a weapon slot.
+      // Don't list replaced weapons unless the replacement was done by Dehacked.
+      let rep = Actor.GetReplacement(type);
+
+      if (rep != type && !(rep is "DehackedPickup")) { continue; }
+
       bool located;
       int  slot;
       int  priority;
       [located, slot, priority] = player.weapons.LocateWeapon(type);
+
+      // List the weapon only if it is set in a weapon slot.
       if (!located) { continue; }
 
       readonly<Weapon> def = GetDefaultByType(type);
@@ -222,13 +226,9 @@ class WMZscriptHelper play
       // just to be sure that "serializing" will not break
       tag.Replace(">", " ");
 
-      info.classes   .push(className);
-      info.tags      .push(tag);
-      info.slots     .push(slot);
-      info.priorities.push(priority);
+      info.push(className, tag, slot, priority);
     }
 
-    // sort
     sortWeapons(info);
 
     int    nWeapons   = info.classes.size();
@@ -385,10 +385,15 @@ class WMZscriptHelper play
 struct m8f_wm_WeaponInfo
 {
 
-  Array<string> classes;
-  Array<string> tags;
-  Array<int>    slots;
-  Array<int>    priorities;
+  // public: ///////////////////////////////////////////////////////////////////
+
+  void push(string className, string tag, int slot, int priority)
+  {
+    classes   .push(className);
+    tags      .push(tag);
+    slots     .push(slot);
+    priorities.push(priority);
+  }
 
   void swap(int i, int j)
   {
@@ -413,5 +418,12 @@ struct m8f_wm_WeaponInfo
       priorities[j] = tmp;
     }
   }
+
+  // public: ///////////////////////////////////////////////////////////////////
+
+  Array<string> classes;
+  Array<string> tags;
+  Array<int>    slots;
+  Array<int>    priorities;
 
 } // struct m8f_wm_WeaponInfo
