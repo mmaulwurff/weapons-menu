@@ -26,6 +26,7 @@ OptionString m8f_wm_font_values
   "MM2SFNTO"    , "Mementwo"
   "GARGSMAL"    , "Gargoyle Wing"
   "SW_TINY"     , "Shadow Warrior Tiny"
+  "NewSmallFont", "New small font"
 }
 
 OptionValue M8FWeaponMenuShowAmmoOptions
