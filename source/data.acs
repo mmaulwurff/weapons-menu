@@ -22,7 +22,6 @@
 #define SET_HIGH_NOON_DRIFTER 43
 #define SET_FREEDOOM          44
 #define SET_X_WEAPON          45
-#define SET_HARMONY           46
 #define SET_DOOM_DELTA        47
 #define SET_EVP               48
 #define SET_FACTOTUM          49
@@ -66,7 +65,7 @@ str playerClassNames[SETS_NUMBER] =
   "Xplayer",             // 24. Dead Marine v0.9.3
   "ParkourPlayer",       // 25. Parkour v1.1 | reason: secret weapons
   "PerkDPlayer",         // 26. VSmooth (Vanilla doom smooth weapons) | reason: Dehacked except 1 class
-  "[reserved]",          // 27. [reserved]
+  "wm_reserved",         // 27. [reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode | reason: secret weapons, shared set
   "m8f_wm_Fallback",     // 29. Fallback mode
   "wm_reserved",         // 30. [Reserved]
@@ -80,14 +79,14 @@ str playerClassNames[SETS_NUMBER] =
   "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
   "Eilidh",              // 37. Netronian Chaos v3
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
-  "[reserved]",          // 39. [Reserved]
+  "wm_reserved",         // 39. [Reserved]
   "msx_player",          // 40. Project MSX 0.2a
   "DoomNukem",           // 41. Accessories to Murder        | reason: secret weapons
   "wm_reserved",         // 42. [Reserved]
   "WesternPlayer",       // 43. High Noon Drifter v1.2c      | reason: double SMG, double wips
   "DoomPlayer",          // 44. Freedoom                     | reason: weapon tags, SSG in Doom 1
   "XDoomPlayer",         // 45. X-Weapon                     | reason: weapon upgrades, shared set
-  "DoomPlayer",          // 46. Harmony                      | reason: Dehacked
+  "wm_reserved",         // 46. [Reserved]
   "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)  | reason: secret weapon
   "PerkDPlayer",         // 48. EVP v17                      | reason: class shared with Smooth Doom
 
@@ -146,7 +145,7 @@ int weaponCounts[SETS_NUMBER] =
   11, // High Noon Drifter
   9,  // Freedoom
   29, // X-Weapon
-  6,  // Harmony
+  0,  // [Reserved]
   13, // Doom Delta
   9,  // EVP
   11, // Factotum
@@ -286,7 +285,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     0, 0,
   },
 
-  { 1, 2, 3, 4, 5, 6 }, // Harmony
+  { 0 }, // Reserved
 
   { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
 
@@ -758,14 +757,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "XPistolX",
   },
 
-  { // Harmony
-    "Fist",
-    "Pistol",
-    "Shotgun",
-    "Chaingun",
-    "RocketLauncher",
-    "PlasmaRifle",
-  },
+  { }, // Reserved
 
   { // Doom Delta
     "ChainsawBeta", "Bayonette",
@@ -1301,14 +1293,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Bluetail pistol", // 28
   },
 
-  { // Harmony
-    "Grenade",
-    "Neutron Gun",
-    "Compensator",
-    "Minigun",
-    "Grenade launcher",
-    "Entrophy thrower",
-  },
+  { }, // Reserved
 
   { // Doom Delta
     "Chainsaw", "Bayonet",

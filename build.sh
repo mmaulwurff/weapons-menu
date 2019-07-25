@@ -19,10 +19,7 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
 && \
 zip weapon-menu.pk3 \
     acs/weapon-menu.o \
-    filter/doom.doom1/language.enu \
-    filter/doom.doom2/language.enu \
-    filter/doom.freedoom/language.enu \
-    filter/doom.freedoom.phase1/language.enu \
+    filter/*/language.enu \
     sounds/*.wav  \
     sounds/*.lmp  \
     source/*.acs  \

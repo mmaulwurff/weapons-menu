@@ -43,15 +43,6 @@ function bool WM_IsRekkr(void)
   return isRekkr;
 }
 
-function bool WM_IsHarmony(void)
-{
-  str checkString = StrParam(l:"C1TEXT");
-  str harmString = "HEADING DOWN YOU FINALLY HAVE";
-  int harmLength = StrLen(harmString);
-  bool isHarmony = StrICmp(harmString, StrLeft(checkString, harmLength)) == 0;
-  return isHarmony;
-}
-
 function bool WM_IsEVP(void)
 {
   bool isEVP = CheckClass("EVPBFGBall");

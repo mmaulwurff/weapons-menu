@@ -1,4 +1,4 @@
-#define N_MATCHED_CLASSES 13
+#define N_MATCHED_CLASSES 12
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -10,8 +10,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     { "XDoomPlayer2"        , SET_X_WEAPON       },
     { "XDoomPlayer3"        , SET_X_WEAPON       },
     { "XDoomPlayer4"        , SET_X_WEAPON       },
-
-    { "HarmonyPlayer"       , SET_HARMONY        },
 
     { "LoreleiPlayer"       , SET_DOOM_DELTA     },
     { "JohnPlayer"          , SET_DOOM_DELTA     },
@@ -37,7 +35,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
   if (StrCmp(class, "DoomPlayer") == 0)
   {
     if      (WM_IsRekkr())    { return SET_REKKR;     }
-    else if (WM_IsHarmony())  { return SET_HARMONY;   }
     else if (WM_IsAbortM())   { return SET_ABORT_M;   }
     else if (WM_IsCyanDoom()) { return SET_CYAN_DOOM; }
     else if (WM_IsFreedoom1() || WM_IsFreedoom2()) { return SET_FREEDOOM; }
