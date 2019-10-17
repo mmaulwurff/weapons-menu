@@ -244,7 +244,6 @@ OptionMenu m8f_wm_AdvancedControls
 
   StaticText ""
   Control    "Last Used Weapon"              , "m8f_wm_select_last_used"
-  Control    "Select most powerful weapon"   , "wm_switch_to_powerful"
 
   StaticText ""
   Control    "Mark weapon for quick access"  , "m8f_wm_mark_quick"
