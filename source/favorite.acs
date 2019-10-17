@@ -23,7 +23,7 @@ script "WM_SelectFavoriteWeapon" (void)
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   if (CheckInventory(WM_GetWeaponClass(favorite)))
   {
-    WM_SelectWeapon(favorite, true, playerN);
+    WM_SelectWeapon(favorite, playerN);
   }
 
   WM_UpdateMenu(playerN);
@@ -56,7 +56,7 @@ script "WM_FireFavoriteWeapon" (void)
   int fireMode = GetUserCVar(playerN, "m8f_wm_FavoriteFireMode");
   bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
   if (instant) { WM_InstantSwitch(true); }
-  WM_SelectWeapon(favorite, false, playerN);
+  WM_SelectWeapon(favorite, playerN);
   if (instant) { Delay(1); WM_InstantSwitch(false); }
 
   if (fireMode == 2) { Delay(10); } // No fire mode
@@ -119,7 +119,7 @@ script "WM_FireFavoriteSwitchBack" (void)
   {
     bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
     if (instant) { WM_InstantSwitch(true); }
-    WM_SelectWeapon(returnTo, false, playerN);
+    WM_SelectWeapon(returnTo, playerN);
     if (instant) { Delay(1); WM_InstantSwitch(false); }
 
     int selectedWeapon = WM_GetSelectedWeapon();

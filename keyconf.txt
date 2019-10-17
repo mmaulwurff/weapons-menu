@@ -89,7 +89,6 @@ alias m8f_wm_apply_tag_change  "pukename WM_ApplyTagChange;   closemenu"
 // Aliases Section /////////////////////////////////////////////////////////////
 
 alias m8f_wm_open             "pukename WM_InventoryMenu"
-alias m8f_wm_select_last_used "pukename SelectLastUsedWeapon"
 alias m8f_wm_mark_quick       "pukename WM_MarkWeaponAsFavorite"
 alias m8f_wm_select_quick     "pukename WM_SelectFavoriteWeapon"
 alias m8f_wm_toggle_zoom      "pukename WM_ToggleZoom"
@@ -152,7 +151,6 @@ AddMenuKey "Use quick access item #10"    "m8f_wm_use_quick_inv9"
 AddKeySection "Weapon Menu+: Extras Controls" "m8f_wm_ExtrasKeySection"
 
 AddMenuKey "Edit Weapon List"             "openmenu m8f_wm_EditWeaponList"
-AddMenuKey "Last Used Weapon"             "m8f_wm_select_last_used"
 AddMenuKey "Mark weapon for quick access" "m8f_wm_mark_quick"
 AddMenuKey "Select quick access weapon"   "m8f_wm_select_quick"
 AddMenuKey "Fire quick access weapon"     "+wm_fire_favorite"

@@ -243,9 +243,6 @@ OptionMenu m8f_wm_AdvancedControls
   Control    "Edit Weapon List"              , "openmenu m8f_wm_EditWeaponList"
 
   StaticText ""
-  Control    "Last Used Weapon"              , "m8f_wm_select_last_used"
-
-  StaticText ""
   Control    "Mark weapon for quick access"  , "m8f_wm_mark_quick"
   Control    "Select quick access weapon"    , "m8f_wm_select_quick"
   Control    "Fire quick access weapon"      , "+wm_fire_favorite"

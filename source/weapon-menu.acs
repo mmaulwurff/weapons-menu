@@ -30,7 +30,6 @@ bool isFreedoom2;
 
 int  highlightedWeapon;
 int  selectedWeapon;
-str  lastUsedWeapon;
 
 bool selectedWatchEnabled = true;
 
@@ -157,17 +156,6 @@ function void WM_EnterEnabled(int playerN)
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
   WM_SetHighlightedWeapon(selectedWeapon, playerN);
 
-  lastUsedWeapon = WM_Unwrap(GetUserCVarString(playerN, "m8f_wm_LastUsedWeapon"));
-
-  if (StrICmp(lastUsedWeapon, "DoomPlayer") == 0) // why DoomPlayer?
-  {
-    WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
-  }
-  else if (!WM_CheckInventory(lastUsedWeapon))
-  {
-    WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
-  }
-
   WM_SetupAddons(playerN);
   WM_UpdateIsInInventory();
   WM_InitApiCvars(playerN);
@@ -181,7 +169,7 @@ function void WM_EnterClosed(int playerN)
 {
   if (highlightedWeapon != selectedWeapon)
   {
-    WM_SelectWeapon(highlightedWeapon, true, playerN);
+    WM_SelectWeapon(highlightedWeapon, playerN);
   }
 
   if (IsAlwaysShow(playerN))
@@ -813,7 +801,7 @@ function int WM_FindInWeaponList(str weaponName)
   return ERROR_NOT_FOUND;
 }
 
-function void WM_SelectWeapon(int weaponNumber, bool changeLast, int playerN)
+function void WM_SelectWeapon(int weaponNumber, int playerN)
 {
   if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
   if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
@@ -823,11 +811,6 @@ function void WM_SelectWeapon(int weaponNumber, bool changeLast, int playerN)
 
   if (success)
   {
-    if (selectedWeapon != WEAPON_HOLSTERED && changeLast)
-    {
-      WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
-    }
-
     WM_SetSelectedWeapon(weaponNumber, playerN);
 
     WM_MaybePlaySoundOnWeaponChange(playerN);
@@ -1048,8 +1031,7 @@ script "ShowWeaponMenu" ENTER
     /* debug output
     SetFont("SMALLFONT");
     Log(s:"sel:",   i:selectedWeapon,
-        s:" high:", i:highlightedWeapon,
-        s:" last:", s:lastUsedWeapon);
+        s:" high:", i:highlightedWeapon);
     ///*///
 
     // Check if currently selected weapon corresponds to what player is holding.
@@ -1063,10 +1045,6 @@ script "ShowWeaponMenu" ENTER
       if (currentWeaponI != ERROR_NOT_FOUND)
       {
         str selectedClass = WM_GetWeaponClass(selectedWeapon);
-        if (CheckInventory(selectedClass))
-        {
-          WM_SetLastUsedWeapon(selectedClass, playerN);
-        }
 
         if (WM_IsZoomed()) { WM_ToggleZoomWeapon(selectedClass, playerN); }
         WM_SetHighlightedWeapon(currentWeaponI, playerN);
@@ -1266,7 +1244,6 @@ script "ScrollNextWeapon" (void)
 
     if (n != weaponCount - 1)
     {
-      WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
       WM_MaybeDisplayNameTag(playerN);
@@ -1350,7 +1327,6 @@ script "ScrollPreviousWeapon" (void)
 
     if (n != weaponCount - 1)
     {
-      WM_SetLastUsedWeapon(WM_GetWeaponClass(selectedWeapon), playerN);
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
       WM_MaybeDisplayNameTag(playerN);
@@ -1377,7 +1353,7 @@ script "WM_NextWeaponInSlot" (void)
 
   if (sibling != -1 && sibling != selectedWeapon)
     {
-      WM_SelectWeapon(sibling, true, playerN);
+      WM_SelectWeapon(sibling, playerN);
       WM_MaybeDisplayNameTag(playerN);
     }
 }
@@ -1441,7 +1417,7 @@ script "SmartWeaponSelection" (int slotNumber)
       {
         if (CheckInventory(WM_GetWeaponClass(weaponNumber)))
         {
-          WM_SelectWeapon(weaponNumber, true, playerN);
+          WM_SelectWeapon(weaponNumber, playerN);
           terminate;
         }
       }
@@ -1449,20 +1425,6 @@ script "SmartWeaponSelection" (int slotNumber)
 
     WM_ToggleWeaponMenu(playerN);
     WM_HighlightFirstInInventory(slotNumber, playerN);
-  }
-
-  WM_UpdateMenu(playerN);
-}
-
-script "SelectLastUsedWeapon" (void)
-{
-  if (IsUninitialized()) { terminate; }
-
-  int playerN = PlayerNumber();
-
-  if (WM_CheckInventory(lastUsedWeapon))
-  {
-    WM_SelectWeapon(WM_FindInWeaponList(lastUsedWeapon), true, playerN);
   }
 
   WM_UpdateMenu(playerN);
@@ -1531,13 +1493,6 @@ function void WM_SetSelectedWeapon(int weaponNumber, int playerN)
 
   SetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag",
                     WM_GetWeaponTag(selectedWeapon));
-}
-
-function void WM_SetLastUsedWeapon(str weaponClass, int playerN)
-{
-  lastUsedWeapon = weaponClass;
-
-  SetUserCVarString(playerN, "m8f_wm_LastUsedWeapon", WM_Wrap(lastUsedWeapon));
 }
 
 function void WM_SetSelectedWatchEnabled(bool isEnabled)
@@ -1720,7 +1675,6 @@ script "WM_PrintInfo" (void)
       s:GetWeapon());
   Log(s:"Highlighted: ", i:highlightedWeapon, s:": ",
       s:WM_GetWeaponClass(highlightedWeapon));
-  Log(s:"Last used: ", s:lastUsedWeapon);
   int playerN = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
   Log(s:"Favorite: ", i:favorite, s:": ",

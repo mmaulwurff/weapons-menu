@@ -20,7 +20,6 @@ user int m8f_wm_DisplayMode = 0;
 
 user string m8f_wm_font = "MM2SFNTO";
 
-user string m8f_wm_LastUsedWeapon = "None";
 user int M8fWeaponMenuFavoriteWeapon = 0;
 
 user bool M8fWeaponMenuOpenOnScroll = false;
