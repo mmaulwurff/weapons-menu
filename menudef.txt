@@ -120,8 +120,6 @@ OptionMenu m8f_wm_VisualOptions
   Option      "Show background"   , m8f_wm_ShowBackground , OnOff
   Option      "Show weapon icons" , m8f_wm_ShowIcons      , OnOff
   StaticText  "Experimental: icons may be missing or incorrect.", Black
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_BehaviorOptions
@@ -149,8 +147,6 @@ OptionMenu m8f_wm_BehaviorOptions
   StaticText "Enable if weapon set isn't recognized correctly.", Black
   StaticText "If this happens, please report a bug." , Black
   StaticText "Applies on the next map."              , Black
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_InventoryMenuOptions
@@ -172,8 +168,6 @@ OptionMenu m8f_wm_InventoryMenuOptions
   StaticText ""
   StaticText "Behavior", 1
   Option "Close Inventory menu after use", m8f_wm_CloseInvMenuAfterUse, OnOff
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_ExtrasOptions
@@ -206,14 +200,6 @@ OptionMenu m8f_wm_ExtrasOptions
   Slider "FOV when holstered"         , m8f_wm_HolsterFov , 45.0, 180.0, 5.0
   Slider "Speed with holstered weapon", M8fWeaponMenuHolsterSpeedMultiplier, 0.0, 3.0, 0.2
   StaticText "Set this to 0.0 to disable speed change.", Black
-
-  StaticText ""
-  Option "Infinite Ammo for Slot 2", m8f_wm_InfiniteSlot2Ammo   , YesNo
-  StaticText "Limitations: only for single shots, primary fire"   , Black
-  StaticText "with Weapon Menu Fire key. If you run out of ammo," , Black
-  StaticText "you may not be able to select a weapon."            , Black
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_BasicControls
@@ -252,8 +238,6 @@ OptionMenu m8f_wm_BasicControls
   Control    "Slot 0"  , "+smart_select_0"
   Control    "Slot 10" , "+smart_select_10"
   Control    "Slot 11" , "+smart_select_11"
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_AdvancedControls
@@ -282,13 +266,7 @@ OptionMenu m8f_wm_AdvancedControls
   StaticText "only with Weapon Menu keys."                    , Black
 
   StaticText ""
-  Control    "Throw Junk", "m8f_wm_throw_junk"
-  StaticText "0 damage hitscan attack. Also alerts enemies."  , Black
-
-  StaticText ""
   Control    "Print Weapon Menu Debug Info", "wm_print_debug_info"
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_InventoryControls
@@ -317,8 +295,6 @@ OptionMenu m8f_wm_InventoryControls
 
   StaticText  ""
   SafeCommand "Clear Quick Inventory List", "m8f_wm_clear_quick_inv"
-
-  StaticText  ""
 }
 
 OptionMenu m8f_wm_Commands
@@ -330,8 +306,6 @@ OptionMenu m8f_wm_Commands
   Command    "Reset", "m8f_wm_PreviousWeaponSet -1"
   StaticText "Resets the weapon order and custom weapon names."   , Black
   StaticText "This may help if there is a problem with this mod." , Black
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_CrossmodOptions
@@ -367,7 +341,6 @@ OptionMenu m8f_wm_CrossmodOptions
   StaticText ""
   StaticText "Laser Sight"                             , 1
   Option     "Switch Laser Sight on Zoom"              , "m8f_wm_LaserOnZoom", YesNo
-  StaticText ""
 }
 
 OptionMenu m8f_wm_EditWeaponList
@@ -393,8 +366,6 @@ OptionMenu m8f_wm_EditWeaponList
   StaticText ""
   TextField "Edit Tag:"               , "m8f_wm_SelectedWeaponTag"
   Command   "Apply"                   , "m8f_wm_apply_tag_change"
-
-  StaticText ""
 }
 
 OptionMenu m8f_wm_Options
@@ -419,12 +390,9 @@ OptionMenu m8f_wm_Options
   StaticText "Other"              , 1
   Submenu    "Edit Weapon List"   , m8f_wm_EditWeaponList
   Submenu    "Commands"           , m8f_wm_Commands
-
-  StaticText ""
 }
 
 AddOptionMenu OptionsMenu
 {
-  StaticText ""
   Submenu    "$WM_TITLE" , m8f_wm_Options
 }

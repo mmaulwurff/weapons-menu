@@ -58,9 +58,4 @@ version "3.2.0"
 #include "zscript/m8f_wm_string.zs"
 #include "zscript/m8f_wm_string_map.zs"
 
-#include "zscript/m8f_wm_junk.zs"
-#include "zscript/m8f_wm_junk_event_handler.zs"
-
-#include "zscript/m8f_wm_infinite_slot2_ammo.zs"
-
 #include "zscript/m8f_wm_holstered.zs"

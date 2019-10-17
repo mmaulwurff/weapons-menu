@@ -1,11 +1,7 @@
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu maybe_inf_ammo_attack"
+alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
 alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
-
-alias wm_give_min_slot2_ammo "netevent m8f_wm_give_min_slot2_ammo"
-alias maybe_inf_ammo "test $m8f_wm_InfiniteSlot2Ammo wm_give_min_slot2_ammo"
-alias maybe_inf_ammo_attack "maybe_inf_ammo; +attack"
 
 alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu_no_action +altattack"
 alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
@@ -93,8 +89,6 @@ alias m8f_wm_apply_tag_change  "pukename WM_ApplyTagChange;   closemenu"
 
 // Aliases Section /////////////////////////////////////////////////////////////
 
-alias m8f_wm_throw_junk "netevent m8f_wm_throw_junk"
-
 alias m8f_wm_open             "pukename WM_InventoryMenu"
 alias m8f_wm_select_last_used "pukename SelectLastUsedWeapon"
 alias m8f_wm_mark_quick       "pukename WM_MarkWeaponAsFavorite"
@@ -167,5 +161,4 @@ AddMenuKey "Select quick access weapon"   "m8f_wm_select_quick"
 AddMenuKey "Fire quick access weapon"     "+wm_fire_favorite"
 AddMenuKey "Holster weapon"               "m8f_wm_holster"
 AddMenuKey "Toggle Zoom"                  "m8f_wm_toggle_zoom"
-AddMenuKey "Throw Junk"                   "m8f_wm_throw_junk"
 AddMenuKey "Print Weapon Menu Debug Info" "wm_print_debug_info"
