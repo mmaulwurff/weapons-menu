@@ -194,12 +194,6 @@ OptionMenu m8f_wm_ExtrasOptions
   Option "Instant weapon switching", M8fWeaponMenuInstantSwitch, M8fWeaponMenuInstantSwitchOptions
   StaticText "Instant switching doesn't work for mods with" , Black
   StaticText "custom select or deselect animations."        , Black
-
-  StaticText ""
-  Option "Change FOV when holstered"  , m8f_wm_HolsterFovEnabled , OnOff
-  Slider "FOV when holstered"         , m8f_wm_HolsterFov , 45.0, 180.0, 5.0
-  Slider "Speed with holstered weapon", M8fWeaponMenuHolsterSpeedMultiplier, 0.0, 3.0, 0.2
-  StaticText "Set this to 0.0 to disable speed change.", Black
 }
 
 OptionMenu m8f_wm_BasicControls
@@ -256,9 +250,6 @@ OptionMenu m8f_wm_AdvancedControls
   Control    "Mark weapon for quick access"  , "m8f_wm_mark_quick"
   Control    "Select quick access weapon"    , "m8f_wm_select_quick"
   Control    "Fire quick access weapon"      , "+wm_fire_favorite"
-
-  StaticText ""
-  Control    "Holster weapon"                , "m8f_wm_holster"
 
   StaticText ""
   Control    "Toggle Zoom"                   , "m8f_wm_toggle_zoom"

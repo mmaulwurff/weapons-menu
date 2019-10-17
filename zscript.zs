@@ -55,5 +55,3 @@ version "4.2.0"
 #include "zscript/m8f_wm_helper.zs"
 #include "zscript/m8f_wm_string.zs"
 #include "zscript/m8f_wm_string_map.zs"
-
-#include "zscript/m8f_wm_holstered.zs"

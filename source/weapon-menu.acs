@@ -7,7 +7,6 @@
 #include "data_special.acs"
 #include "favorite.acs"
 #include "game_detection.acs"
-#include "holster.acs"
 #include "inventory_control.acs"
 #include "most_powerful.acs"
 #include "slomo.acs"
