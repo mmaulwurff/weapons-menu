@@ -1346,18 +1346,6 @@ function bool WM_SkipNoAmmo(int weaponIndex, int playerN)
   return !hasAmmo;
 }
 
-script "WM_NextWeaponInSlot" (void)
-{
-  int playerN = PlayerNumber();
-  int sibling = WM_GetNextWeaponInSlot(selectedWeapon, true, playerN);
-
-  if (sibling != -1 && sibling != selectedWeapon)
-    {
-      WM_SelectWeapon(sibling, playerN);
-      WM_MaybeDisplayNameTag(playerN);
-    }
-}
-
 function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle, int playerN)
 {
   int i       = weaponIndex;

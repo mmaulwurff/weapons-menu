@@ -26,8 +26,6 @@ alias prev_weapon_menu "WeaponMenuPrev"
 alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
-alias wm_next_in_slot       "pukename WM_NextWeaponInSlot"
-
 alias wm_print_debug_info "pukename WM_PrintInfo"
 
 alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
@@ -114,7 +112,6 @@ AddMenuKey "Fire/Select+Close/Use"      "+fire_close_menu"
 AddMenuKey "Secondary Fire/Close"       "+alt_fire_close_menu"
 AddMenuKey "Next"                       "next_weapon_menu"
 AddMenuKey "Previous"                   "prev_weapon_menu"
-AddMenuKey "Next in slot"               "wm_next_in_slot"
 
 AddMenuKey "Open Menu/Select+Close/Use" "toggle_menu"
 AddMenuKey "Same, but hold/release"     "+press_menu"

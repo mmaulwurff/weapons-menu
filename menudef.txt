@@ -208,7 +208,6 @@ OptionMenu m8f_wm_BasicControls
   StaticText ""
   Control    "Next"                       , "next_weapon_menu"
   Control    "Previous"                   , "prev_weapon_menu"
-  Control    "Next in slot"               , "wm_next_in_slot"
 
   StaticText ""
   Control    "Open Menu/Select+Close/Use" , "toggle_menu"
