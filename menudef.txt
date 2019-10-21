@@ -129,7 +129,6 @@ OptionMenu m8f_wm_BehaviorOptions
   StaticText ""
   StaticText "Sound", 1
   Option     "Sound on weapon switch", m8f_wm_SwitchSound, m8f_wm_SwitchSoundOptions
-  Option     "Play sound on weapon change", m8f_wm_PlaySoundOnWeaponChange, OnOff
 
   StaticText ""
   StaticText "Behavior", 1

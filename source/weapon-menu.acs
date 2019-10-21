@@ -810,8 +810,6 @@ function void WM_SelectWeapon(int weaponNumber, int playerN)
   if (success)
   {
     WM_SetSelectedWeapon(weaponNumber, playerN);
-
-    WM_MaybePlaySoundOnWeaponChange(playerN);
   }
   else
   {
@@ -820,15 +818,6 @@ function void WM_SelectWeapon(int weaponNumber, int playerN)
                msgFlags, msgIdAmmo, CR_RED, 0.5, 0.5, 1.0);
 
     WM_SetHighlightedWeapon(selectedWeapon, playerN);
-  }
-}
-
-function void WM_MaybePlaySoundOnWeaponChange(int playerN)
-{
-  bool playSoundOnWeaponChange = GetUserCVar(playerN, "m8f_wm_PlaySoundOnWeaponChange");
-  if (playSoundOnWeaponChange)
-  {
-    WM_PlaySwitchSound(playerN);
   }
 }
 
@@ -1232,7 +1221,6 @@ script "ScrollNextWeapon" (void)
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
       WM_MaybeDisplayNameTag(playerN);
-      WM_MaybePlaySoundOnWeaponChange(playerN);
     }
   }
 
@@ -1313,7 +1301,6 @@ script "ScrollPreviousWeapon" (void)
       WM_SetSelectedWeapon(i, playerN);
       WM_SetHighlightedWeapon(i, playerN);
       WM_MaybeDisplayNameTag(playerN);
-      WM_MaybePlaySoundOnWeaponChange(playerN);
     }
   }
 

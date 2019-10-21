@@ -45,8 +45,6 @@ user int M8fWeaponMenuInstantSwitch = 0;
 
 user int  M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
 
-user bool m8f_wm_PlaySoundOnWeaponChange = false;
-
 // 0 - normal fire
 // 1 - alt fire
 // 2 - no fire
