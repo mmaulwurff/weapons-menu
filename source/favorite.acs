@@ -1,6 +1,5 @@
 bool returnToLast;
 int  returnTo;
-bool wasZoomed;
 bool favoriteFiring = false;
 
 script "WM_MarkWeaponAsFavorite" (void)
@@ -48,7 +47,6 @@ script "WM_FireFavoriteWeapon" (void)
   WM_MaybeToggleSlomoOnQuick(playerN);
   favoriteFiring = true;
 
-  wasZoomed = WM_IsZoomed();
   returnToLast = (favorite != selectedWeapon);
   returnTo = selectedWeapon;
   WM_SetSelectedWatchEnabled(false);
@@ -123,7 +121,6 @@ script "WM_FireFavoriteSwitchBack" (void)
     if (instant) { Delay(1); WM_InstantSwitch(false); }
 
     int selectedWeapon = WM_GetSelectedWeapon();
-    if (wasZoomed) { WM_ToggleZoom(playerN, selectedWeapon); }
   }
 
   WM_SetSelectedWatchEnabled(true);

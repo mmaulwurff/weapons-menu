@@ -84,16 +84,6 @@ class WMZscriptHelper play
     SendResultInt(player, isDeselectable);
   }
 
-  static void IsWeaponBeingDeselected(Actor activator)
-  {
-    if (!activator) { return; }
-    let player = activator.player;
-    if (!player) { return; }
-
-    bool isDeselected = player.PendingWeapon.GetClassName() != "Object";
-    SendResultInt(player, isDeselected);
-  }
-
   static void FireWeapon(Actor activator)
   {
     if (!activator) { return; }
@@ -245,33 +235,6 @@ class WMZscriptHelper play
     }
 
     SendResultString(player, weaponData);
-  }
-
-  static void SetZoomFactor( Actor  activator
-                           , double zoom
-                           , string weaponClass
-                           , bool   lowerWeapon
-                           , bool   isZoomed
-                           , bool   changeZoom
-                           )
-  {
-    if (!activator) { return; }
-
-    Weapon w = Weapon(activator.FindInventory(weaponClass));
-    if (!w) { return; }
-
-    if (changeZoom)
-    {
-      zoom = 1 / clamp(zoom, 0.1, 50.0);
-      w.FOVScale = zoom;
-    }
-
-    if (lowerWeapon)
-    {
-      int yShift = 16;
-      if (!isZoomed) { w.YAdjust -= yShift; }
-      else           { w.YAdjust += yShift; }
-    }
   }
 
   static void GetWeaponIcon(Actor activator, string weaponClass)

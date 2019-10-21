@@ -18,24 +18,6 @@ function void WM_MaybeToggleSlomoOnClose(int playerN)
   }
 }
 
-function void WM_MaybeToggleSlomoOnZoomIn(int playerN)
-{
-  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnZoomIn");
-  if (slomoOnMenuOpen)
-  {
-    SetCVar("m8f_sm_externaltoggle", 1);
-  }
-}
-
-function void WM_MaybeToggleSlomoOnZoomOut(int playerN)
-{
-  bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnZoomOut");
-  if (slomoOnMenuOpen)
-  {
-    SetCVar("m8f_sm_externaltoggle", 1);
-  }
-}
-
 function void WM_MaybeToggleSlomoOnQuick(int playerN)
 {
   bool slomoOnMenuOpen = GetUserCVar(playerN, "m8f_wm_SlomoOnQuickAccess");

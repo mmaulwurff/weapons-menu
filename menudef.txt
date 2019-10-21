@@ -179,18 +179,6 @@ OptionMenu m8f_wm_ExtrasOptions
   Option "Quick Access Fire Mode", m8f_wm_FavoriteFireMode, m8f_wm_FavoriteFireOptions
 
   StaticText ""
-  Slider "Zoom Factor", m8f_wm_ZoomFactor, 1.0, 3.0, 0.1
-  StaticText "Set this to 1.0 if the weapon has its own zoom." , Black
-  StaticText "Don't change this while zoomed."                 , Black
-
-  StaticText ""
-  Slider "Speed while zoomed"     , m8f_wm_ZoomSpeedMultiplier , 0.1, 1.0, 0.1
-  Option "Zoom allowed on Slot 1" , m8f_wm_IsNotSlot1Melee     , YesNo
-
-  Option "Lower weapon while zoomed", m8f_wm_LowerWeaponOnZoom, YesNo
-  StaticText "Don't change this while zoomed.", Black
-
-  StaticText ""
   Option "Instant weapon switching", M8fWeaponMenuInstantSwitch, M8fWeaponMenuInstantSwitchOptions
   StaticText "Instant switching doesn't work for mods with" , Black
   StaticText "custom select or deselect animations."        , Black
@@ -247,11 +235,6 @@ OptionMenu m8f_wm_AdvancedControls
   Control    "Fire quick access weapon"      , "+wm_fire_favorite"
 
   StaticText ""
-  Control    "Toggle Zoom"                   , "m8f_wm_toggle_zoom"
-  StaticText "If you are using Zoom, you must switch weapons" , Black
-  StaticText "only with Weapon Menu keys."                    , Black
-
-  StaticText ""
   Control    "Print Weapon Menu Debug Info", "wm_print_debug_info"
 }
 
@@ -302,10 +285,6 @@ OptionMenu m8f_wm_CrossmodOptions
 
   StaticText ""
   StaticText "Slomo Bullettime by Spaceman333"         , 1
-  Option     "Toggle Slomo on Weapon Menu Zoom In"     , "m8f_wm_SlomoOnZoomIn"         , OnOff
-  Option     "Toggle Slomo on Weapon Menu Zoom Out"    , "m8f_wm_SlomoOnZoomOut"        , OnOff
-
-  StaticText ""
   Option     "Toggle Slomo on Weapon Menu open"        , "m8f_wm_SlomoOnMenuOpen"       , OnOff
   Option     "Toggle Slomo on Weapon Menu close"       , "m8f_wm_SlomoOnMenuClose"      , OnOff
 
@@ -315,18 +294,6 @@ OptionMenu m8f_wm_CrossmodOptions
   StaticText ""
   Option     "Toggle Slomo on Inventory Menu open"     , "m8f_wm_SlomoOnInventoryOpen"  , OnOff
   Option     "Toggle Slomo on Inventory Menu close"    , "m8f_wm_SlomoOnInventoryClose" , OnOff
-
-  StaticText "Toggles on Menu close and zoom out are " , Black
-  StaticText "best used with infinite Slomo."          , Black
-
-  StaticText ""
-  StaticText "Target Spy"                              , 1
-  Option     "Toggle Target Spy at Zoom In/Out"        , "m8f_wm_TargetSpyOnZoom"    , OnOff
-  Option     "Change laser sight color on target"      , "m8f_wm_TSChangeLaserColor" , OnOff
-
-  StaticText ""
-  StaticText "Laser Sight"                             , 1
-  Option     "Switch Laser Sight on Zoom"              , "m8f_wm_LaserOnZoom", YesNo
 }
 
 OptionMenu m8f_wm_EditWeaponList

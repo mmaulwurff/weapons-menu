@@ -11,7 +11,6 @@
 #include "slomo.acs"
 #include "string.acs"
 #include "utils.acs"
-#include "zoom.acs"
 #include "zscript-access.acs"
 
 int globalState = 0;
@@ -804,7 +803,6 @@ function int WM_FindInWeaponList(str weaponName)
 function void WM_SelectWeapon(int weaponNumber, int playerN)
 {
   if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
-  if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
 
   str  weaponName = WM_GetWeaponClass(weaponNumber);
   bool success    = SetWeapon(weaponName);
@@ -941,16 +939,6 @@ function bool WM_IsOpenOnScroll(int playerN)
   return GetUserCVar(playerN, "M8fWeaponMenuOpenOnScroll");
 }
 
-function bool WM_IsMelee(int playerN)
-{
-  if (selectedWeapon == WEAPON_HOLSTERED)    { return true;  }
-  if (WM_GetWeaponSlot(selectedWeapon) != 1) { return false; }
-
-  int isSlot1Melee = !GetUserCVar(playerN, "m8f_wm_IsNotSlot1Melee");
-
-  return isSlot1Melee;
-}
-
 // Scripts section /////////////////////////////////////////////////////////////
 
 script "ShowWeaponMenu" ENTER
@@ -1046,7 +1034,6 @@ script "ShowWeaponMenu" ENTER
       {
         str selectedClass = WM_GetWeaponClass(selectedWeapon);
 
-        if (WM_IsZoomed()) { WM_ToggleZoomWeapon(selectedClass, playerN); }
         WM_SetHighlightedWeapon(currentWeaponI, playerN);
         WM_SetSelectedWeapon(highlightedWeapon, playerN);
         WM_UpdateMenu(playerN);
@@ -1231,8 +1218,6 @@ script "ScrollNextWeapon" (void)
 
   else
   {
-    if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
-
     if (selectedWeapon == WEAPON_HOLSTERED) { start = 0;                  }
     else                                    { start = selectedWeapon + 1; }
 
@@ -1314,8 +1299,6 @@ script "ScrollPreviousWeapon" (void)
 
   else
   {
-    if (WM_IsZoomed()) { WM_ToggleZoom(playerN, selectedWeapon); }
-
     if (selectedWeapon == WEAPON_HOLSTERED) { start = weaponCount    - 1; }
     else                                    { start = selectedWeapon - 1; }
 
