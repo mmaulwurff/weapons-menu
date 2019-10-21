@@ -34,8 +34,6 @@ bool selectedWatchEnabled = true;
 
 bool isInInventory[MAX_WEAPONS_NUMBER];
 
-int  originalFov;
-
 // Inventory variables section /////////////////////////////////////////////////
 
 int nInventoryItems;
@@ -258,11 +256,6 @@ function str WM_GetWeaponClass(int weaponNumber)
 }
 
 function str WM_GetPrintableWeaponName(int weaponNumber)
-{
-  return tags[currentSet][weaponNumber];
-}
-
-function str WM_GetWeaponTag(int weaponNumber)
 {
   return tags[currentSet][weaponNumber];
 }
@@ -721,7 +714,7 @@ function str WM_MakeWeaponString( int  weaponNumber
                                 , int  playerN
                                 )
 {
-  str result = WM_GetWeaponTag(weaponNumber);
+  str result = WM_GetPrintableWeaponName(weaponNumber);
 
   if (withSlot)
   {
@@ -1450,17 +1443,12 @@ function void WM_SetSelectedWeapon(int weaponNumber, int playerN)
   selectedWeapon = weaponNumber;
 
   SetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag",
-                    WM_GetWeaponTag(selectedWeapon));
+                    WM_GetPrintableWeaponName(selectedWeapon));
 }
 
 function void WM_SetSelectedWatchEnabled(bool isEnabled)
 {
   selectedWatchEnabled = isEnabled;
-}
-
-function void WM_SetOriginalFov(int fov)
-{
-  originalFov = fov;
 }
 
 // Global variables read access functions //////////////////////////////////////
@@ -1473,11 +1461,6 @@ function int WM_GetSelectedWeapon(void)
 function int WM_GetWeaponCount(void)
 {
   return weaponCounts[currentSet];
-}
-
-function int WM_GetCurrentSet(void)
-{
-  return currentSet;
 }
 
 // Weapon Priority Section /////////////////////////////////////////////////////
@@ -1642,13 +1625,6 @@ script "WM_PrintInfo" (void)
 
   if (currentSet == SET_FALLBACK) { Log(s:"Weapon Menu Plus - Universal Mode"); }
   else { Log(s:"Weapon Menu Plus - Extended Support Mode"); }
-}
-
-function bool WM_CheckInventory(str weaponClass)
-{
-  if (!CheckClass    (weaponClass)) { return false; }
-  if (!CheckInventory(weaponClass)) { return false; }
-  return true;
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
