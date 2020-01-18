@@ -265,7 +265,7 @@ class WMZscriptHelper play
 
     weaponClass.ToLower();
 
-    string specialIcon = m8f_wm_Data.get().icons.get(weaponClass);
+    string specialIcon = m8f_wm_Data.get().icons.At(weaponClass);
     if (specialIcon.Length() != 0)
     {
       SendResultString(player, specialIcon);
