@@ -1,6 +1,6 @@
 version "4.2.0"
 
-/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2019
+/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020
  *
  * This file is a part of Weapon Menu+.
  *
