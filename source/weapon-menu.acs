@@ -1608,25 +1608,6 @@ script "WM_DecreaseSlot" (void)
   WM_UpdateMenu(playerN);
 }
 
-script "WM_PrintInfo" (void)
-{
-  Log(s:"Player: ", s:GetActorClass(0));
-  Log(s:"Selected: ", i:selectedWeapon, s:": ",
-      s:WM_GetWeaponClass(selectedWeapon), s:": ",
-      s:GetWeapon());
-  Log(s:"Highlighted: ", i:highlightedWeapon, s:": ",
-      s:WM_GetWeaponClass(highlightedWeapon));
-  int playerN = PlayerNumber();
-  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  Log(s:"Favorite: ", i:favorite, s:": ",
-      s:WM_GetWeaponClass(favorite));
-  Log(s:"Speed: ", f:GetActorProperty(0, APROP_Speed));
-  Log(s:"State: ", i:globalState);
-
-  if (currentSet == SET_FALLBACK) { Log(s:"Weapon Menu Plus - Universal Mode"); }
-  else { Log(s:"Weapon Menu Plus - Extended Support Mode"); }
-}
-
 // Inventory menu section //////////////////////////////////////////////////////
 
 script "WM_OpenInventoryMenu" (void)

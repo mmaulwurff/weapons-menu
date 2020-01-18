@@ -51,6 +51,8 @@ version "4.2.0"
 **
 */
 
+#include "zscript/wm_event_handler.zs"
+
 #include "zscript/m8f_wm_data.zs"
 #include "zscript/m8f_wm_helper.zs"
 #include "zscript/m8f_wm_string.zs"

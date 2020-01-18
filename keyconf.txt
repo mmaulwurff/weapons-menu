@@ -26,7 +26,7 @@ alias prev_weapon_menu "WeaponMenuPrev"
 alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
 alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
 
-alias wm_print_debug_info "pukename WM_PrintInfo"
+alias wm_print_debug_info "netevent wm_print_info"
 
 alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
 alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
