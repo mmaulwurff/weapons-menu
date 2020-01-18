@@ -43,7 +43,7 @@ str playerClassNames[SETS_NUMBER] =
   "EriPlayer",           //  2. Eriguns 1 - Standard weapons
   "AltPlayer",           //  3. Eriguns 1 - Extended weapons
   "DoomPlayer",          //  4. abort_m | reason: no player class
-  "BD_DoomPlayer",       //  5. Beautiful Doom
+  "wm_reserved",         //  5. [Reserved]
   "FDPlutPlayer",        //  6. Final Doomer - Plutonia
   "FDTNTPlayer",         //  7. Final Doomer - TNT
   "FDDoom2Player",       //  8. Final Doomer - Doom 2
@@ -109,7 +109,7 @@ int weaponCounts[SETS_NUMBER] =
   10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
   9, 13, // Eriguns 1
   11, // abort_m
-  9,  // Beautiful Doom
+  0,  // [Reserved]
   9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
   9,  // Faspons
   16, // Cyan-Doom
@@ -173,7 +173,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 8 }, // abort_m
 
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Beautiful Doom
+  { 0 }, // Reserved
 
   // Final Doomer
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
@@ -366,15 +366,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "AbortButton"
   },
 
-  {
-    "BD_Chainsaw", "BD_Fist",
-    "BD_Pistol",
-    "BD_SuperShotgun", "BD_Shotgun",
-    "BD_Chaingun",
-    "BD_RocketLauncher",
-    "BD_PlasmaRifle",
-    "BD_BFG9000"
-  },
+  { }, // Reserved
 
   {
     "FDPlutChainsaw", "FDPlutFist",
@@ -899,15 +891,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Abort button"
   },
 
-  { // Beautiful Doom
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
+  { }, // Reserved
 
   { // Final Doomer
     "Power Saw", "Melee",

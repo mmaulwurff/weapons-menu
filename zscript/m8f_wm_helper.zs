@@ -195,10 +195,12 @@ class WMZscriptHelper play
 
       if (type == NULL || type == "Weapon") { continue; }
 
-      // Don't list replaced weapons unless the replacement was done by Dehacked.
-      let rep = Actor.GetReplacement(type);
+      let  rep                = Actor.GetReplacement(type);
+      bool isReplaced         = rep != type;
+      bool isDehackedReplaced = rep is "DehackedPickup";
+      bool isInInventory      = activator.CountInv(type);
 
-      if (rep != type && !(rep is "DehackedPickup")) { continue; }
+      if (isReplaced && !isDehackedReplaced && !isInInventory) { continue; }
 
       bool located;
       int  slot;
