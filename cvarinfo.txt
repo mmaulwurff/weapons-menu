@@ -89,13 +89,11 @@ user bool m8f_wm_WasInventory    = false;
 // Options /////////////////////////////////////////////////////////////////////
 
 user int M8fAvailableWeaponColor    = 7;
-user int M8fNotAvailableWeaponColor = 2;
 user int M8fHighlightedWeaponColor  = 21;
 user int M8fSelectedWeaponColor     = 3;
 user int m8f_wm_NoAmmoColor         = 7;
 
 user bool M8fWeaponMenuHighToLow = true;
-user bool M8fShowNotAvailable    = true;
 user bool m8f_wm_cycle_enabled   = false;
 
 // Persistent state ////////////////////////////////////////////////////////////

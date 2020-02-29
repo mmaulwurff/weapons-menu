@@ -1,4 +1,4 @@
-#define N_MATCHED_CLASSES 12
+#define N_MATCHED_CLASSES 7
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -10,12 +10,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     { "XDoomPlayer2"        , SET_X_WEAPON       },
     { "XDoomPlayer3"        , SET_X_WEAPON       },
     { "XDoomPlayer4"        , SET_X_WEAPON       },
-
-    { "LoreleiPlayer"       , SET_DOOM_DELTA     },
-    { "JohnPlayer"          , SET_DOOM_DELTA     },
-    { "DimitriPlayer"       , SET_DOOM_DELTA     },
-    { "ThiPlayer"           , SET_DOOM_DELTA     },
-    { "BetaPlayer"          , SET_DOOM_DELTA     },
 
     { "BDoomer"             , SET_BRUTAL_DOOM    },
     { "Doomer2"             , SET_BRUTAL_DOOM    },
@@ -39,7 +33,7 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     else if (WM_IsCyanDoom())  { return SET_CYAN_DOOM; }
     else if (WM_IsFreedoom1() || WM_IsFreedoom2()) { return SET_FREEDOOM; }
     else if (WM_IsBeautiful()) { return SET_FALLBACK;  }
-    else                       { return SET_VANILLA;   }
+    else                       { return SET_FALLBACK;  }
   }
 
   if (StrCmp(class, "PerkDPlayer") == 0)
@@ -56,71 +50,4 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
   }
 
   return ERROR_NOT_FOUND;
-}
-
-function bool WM_IsHiddenWeapon(int wNumber, int currentSet, bool isDoom1, bool isFreedoom1)
-{
-  if (!CheckClass(WM_GetWeaponClass(wNumber))) { return true; }
-  if (WM_GetWeaponCount() >= 100) { return true; }
-
-  switch (currentSet)
-  {
-
-  case SET_VANILLA:        return (wNumber == 3 && isDoom1);
-  case SET_FREEDOOM:       return (wNumber == 3 && isFreedoom1);
-  case SET_PERK:           return (wNumber == 2); // Smooth Doom Rifle
-  case SET_CHEX_QUEST:     return (wNumber == 3); // Super Large Zorcher is deathmatch-only
-  case SET_PARKOUR:        return (wNumber == 2 || wNumber == 10 || wNumber == 11);
-  case SET_BRUTAL_DOOM:    return (wNumber == 3 || wNumber == 9);
-  case SET_ACCESSORIES:    return (wNumber == 2 || wNumber == 3);
-
-  case SET_HIGH_NOON_DRIFTER:
-    if (wNumber == 10) return true; // Double whips
-    // Single SMG when Second SMG is acquired:
-    if (wNumber ==  6 && WM_IsInInventory(5)) return true;
-    if (wNumber ==  5) return true; // Double SMG
-    return false;
-
-  case SET_X_WEAPON:
-    if (wNumber == 27 || wNumber == 28) return true;
-    if (wNumber ==  4 && WM_IsInInventory( 2)) return true;
-    if (wNumber ==  8 && WM_IsInInventory( 7)) return true;
-    if (wNumber == 11 && WM_IsInInventory(10)) return true;
-    if (wNumber == 14 && WM_IsInInventory(13)) return true;
-    if (wNumber == 17 && WM_IsInInventory(16)) return true;
-    if (wNumber == 20 && WM_IsInInventory(19)) return true;
-    if (wNumber == 24 && WM_IsInInventory(23)) return true;
-    if (wNumber ==  2) return true;
-    if (wNumber ==  3) return true;
-    if (wNumber ==  7) return true;
-    if (wNumber == 10) return true;
-    if (wNumber == 13) return true;
-    if (wNumber == 16) return true;
-    if (wNumber == 19) return true;
-    if (wNumber == 22) return true;
-    return false;
-
-  case SET_DOOM_DELTA: return (wNumber == 8);
-
-  case SET_FACTOTUM:
-    if (wNumber == 1 && WM_IsInInventory(2)) return true;
-    if (wNumber == 5 && WM_IsInInventory(6)) return true;
-    if (wNumber == 2) return true;
-    if (wNumber == 6) return true;
-    return false;
-
-  case SET_FLAKES_DOOM: return true; // TODO: make game detection and hide weapons properly
-
-  // Hide Guncaster Addon weapons if Addon is not loaded.
-  case SET_GUNCASTER_HEXEN:
-  case SET_GUNCASTER_DOOM:
-  case SET_GUNCASTER_STRIFE:
-    return (wNumber == 5 || wNumber == 9) && !CheckClass("GoldenEmperor");
-
-  case SET_GUNCASTER_HERETIC:
-    return (wNumber == 4 || wNumber == 8) && !CheckClass("GoldenEmperor");
-
-  }
-
-  return false;
 }

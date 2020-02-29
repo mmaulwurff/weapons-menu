@@ -6,20 +6,6 @@ function bool WM_IsTitlemap(void)
   return (StrICmp(mapLumpName, "TITLEMAP") == 0);
 }
 
-function bool WM_IsDoom1(void)
-{
-  str  filtered = StrParam(l:"WM_GAME");
-  bool doom1    = (StrCmp(filtered, "1") == 0);
-  return doom1;
-}
-
-function bool WM_IsDoom2(void)
-{
-  str  filtered = StrParam(l:"WM_GAME");
-  bool doom2    = (StrCmp(filtered, "2") == 0);
-  return doom2;
-}
-
 function bool WM_IsFreedoom1(void)
 {
   str  filtered  = StrParam(l:"WM_GAME");

@@ -4,12 +4,6 @@ OptionValue M8FWeaponsMenuSlotOrder
   1, "0-9-8-7-6-5-4-3-2-1"
 }
 
-OptionValue m8f_wm_ShowNotAvailable
-{
-  0, "Hide"
-  1, "Show"
-}
-
 OptionValue M8FWeaponMenuNumbersLeftOptions
 {
   0, "Right"
@@ -91,7 +85,6 @@ OptionMenu m8f_wm_VisualOptions
   StaticText  ""
   StaticText  "Colors", 1
   Option      "Available Weapon"     , M8FAvailableWeaponColor    , TextColors
-  Option      "Not Available Weapon" , M8FNotAvailableWeaponColor , TextColors
   Option      "Highlighted Weapon"   , M8FHighlightedWeaponColor  , TextColors
   Option      "Selected Weapon"      , M8FSelectedWeaponColor     , TextColors
   Option      "Weapon with no ammo"  , m8f_wm_NoAmmoColor         , TextColors
@@ -103,7 +96,6 @@ OptionMenu m8f_wm_VisualOptions
   Option      "Slot order"            , M8FWeaponMenuHighToLow      , M8FWeaponsMenuSlotOrder
   Option      "Font"                  , m8f_wm_font                 , m8f_wm_font_values
   ScaleSlider "GZDoom messages scale" , con_scaletext, 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
-  Option      "Not acquired weapons:" , M8FShowNotAvailable         , m8f_wm_ShowNotAvailable
 
   StaticText  ""
   Slider      "Step size multiplier"       , M8FWeaponMenuStepMultiplier    , 0.2, 3.0, 0.1

@@ -1,8 +1,7 @@
 // Weapons data section ////////////////////////////////////////////////////////
 
-#define SETS_NUMBER  55
+#define SETS_NUMBER  51
 
-#define SET_VANILLA            0
 #define SET_PERK               1
 #define SET_ABORT_M            4
 
@@ -12,24 +11,16 @@
 #define SET_CHEX_QUEST        19
 #define SET_DOOM_64           22
 
-#define SET_PARKOUR           25
 #define SET_VSMOOTH           26
 
 #define SET_BRUTAL_DOOM       28
 #define SET_FALLBACK          29
 
-#define SET_ACCESSORIES       41
-#define SET_HIGH_NOON_DRIFTER 43
 #define SET_FREEDOOM          44
 #define SET_X_WEAPON          45
-#define SET_DOOM_DELTA        47
 #define SET_EVP               48
 #define SET_FACTOTUM          49
 #define SET_FLAKES_DOOM       50
-#define SET_GUNCASTER_HERETIC 51
-#define SET_GUNCASTER_DOOM    52
-#define SET_GUNCASTER_HEXEN   53
-#define SET_GUNCASTER_STRIFE  54
 
 // List of known weapon classes.
 // When adding to this list, don't forget to increase SETS_NUMBER.
@@ -38,7 +29,7 @@
 // WM_SpecialMatchClassToWeaponSet(str class) function.
 str playerClassNames[SETS_NUMBER] =
 {
-  "DoomPlayer",          //  0. Standard (Vanilla) | reason: SSG must be hidden in Doom 1
+  "wm_reserved",         //  0. [Reserved]
   "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13) | hidden rifle.
   "EriPlayer",           //  2. Eriguns 1 - Standard weapons
   "AltPlayer",           //  3. Eriguns 1 - Extended weapons
@@ -63,7 +54,7 @@ str playerClassNames[SETS_NUMBER] =
   "64DoomPlayer",        // 22. Doom 64 'weapons only' (updated 5-29-2016), Doom 64 Retribution 1.4a | reason: tags
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
-  "ParkourPlayer",       // 25. Parkour v1.1 | reason: secret weapons
+  "wm_reserved",         // 25. [Reserved]
   "PerkDPlayer",         // 26. VSmooth (Vanilla doom smooth weapons) | reason: Dehacked except 1 class
   "wm_reserved",         // 27. [reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode | reason: secret weapons, shared set
@@ -81,23 +72,17 @@ str playerClassNames[SETS_NUMBER] =
   "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
   "wm_reserved",         // 39. [Reserved]
   "msx_player",          // 40. Project MSX 0.2a
-  "DoomNukem",           // 41. Accessories to Murder        | reason: secret weapons
+  "wm_reserved",         // 41. [Reserved]
   "wm_reserved",         // 42. [Reserved]
-  "WesternPlayer",       // 43. High Noon Drifter v1.2c      | reason: double SMG, double wips
+  "wm_reserved",         // 43. [Reserved]
   "DoomPlayer",          // 44. Freedoom                     | reason: weapon tags, SSG in Doom 1
   "XDoomPlayer",         // 45. X-Weapon                     | reason: weapon upgrades, shared set
   "wm_reserved",         // 46. [Reserved]
-  "ThiPlayer",           // 47. Doom Delta v2.0 (11-2-2017)  | reason: secret weapon
+  "wm_reserved",         // 47. [Reserved]
   "PerkDPlayer",         // 48. EVP v17                      | reason: class shared with Smooth Doom
 
   "FTPlayer",            // 49. Factotum [010618]            | reason: weapon upgrades
-  "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18) | reason: hidden weapon in games
-
-  "Guncaster",           // 51. Guncaster - Heretic | v3.1
-  "GuncasterDoom",       // 52. Guncaster - Doom    | reason: weapons from all
-  "GuncasterHexen",      // 53. Guncaster - Hexen   | games get into the list.
-  "GuncasterStrife",     // 54. Guncaster - Strife  |
-
+  "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18) | reason: hidden weapon in games, shared class
 };
 
 // List of weapon counts for every known weapon mod.
@@ -105,7 +90,7 @@ str playerClassNames[SETS_NUMBER] =
 // Maximal supported weapon count is MAX_WEAPONS_NUMBER.
 int weaponCounts[SETS_NUMBER] =
 {
-  9,  // Standard
+  0,  // [Reserved]
   10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
   9, 13, // Eriguns 1
   11, // abort_m
@@ -124,7 +109,7 @@ int weaponCounts[SETS_NUMBER] =
   16, // Doom 64 X
   9,  // Responsive Weapons + Faster Weapon Switching
   9,  // Dead Marine
-  12, // Parkour
+  0,  // [Reserved]
   9,  // VSmooth
   0,  // [Reserved]
   22, // Brutal Doom
@@ -140,21 +125,16 @@ int weaponCounts[SETS_NUMBER] =
   10, // Adventures of Square
   0,  // [Reserved]
   8,  // Project MSX
-  10, // Accessories to Murder
   0,  // [Reserved]
-  11, // High Noon Drifter
+  0,  // [Reserved]
+  0,  // [Reserved]
   9,  // Freedoom
   29, // X-Weapon
   0,  // [Reserved]
-  13, // Doom Delta
+  0,  // [Reserved]
   9,  // EVP
   11, // Factotum
   19, // Flakes Doom
-
-  10, // Guncaster + Addon : Heretic
-  11, // Guncaster + Addon : Doom
-  11, // Guncaster + Addon : Hexen
-  11, // Guncaster + Addon : Strife
 };
 
 // List of corresponding weapon slots.
@@ -162,7 +142,7 @@ int weaponCounts[SETS_NUMBER] =
 // array.
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Standard
+  { }, // Reserved
 
   // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
   { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 },
@@ -173,7 +153,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 8 }, // abort_m
 
-  { 0 }, // Reserved
+  { }, // Reserved
 
   // Final Doomer
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
@@ -228,7 +208,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
 
-  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9 }, // Parkour
+  { }, // Reserved
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // VSmooth
 
@@ -264,11 +244,9 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 2, 3, 4, 5, 6, 7, 8 }, // Project MSX
 
-  { 1, 2, 2, 2, 3, 3, 4, 5, 6, 7 }, // Accessories to Murder
-
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 4, 5, 6, 7, 0 }, // High Noon Drifter
+  { }, // Reserved
+  { }, // Reserved
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Freedoom
 
@@ -285,9 +263,8 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     0, 0,
   },
 
-  { 0 }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 8 }, // Doom Delta
+  { }, // Reserved
+  { }, // Reserved
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
 
@@ -302,27 +279,13 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     6, 6,
     7, 7, 7, 7,
   },
-
-  { 1, 2, 3,    4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Heretic
-  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Doom
-  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Hexen
-  { 1, 2, 3, 3, 4, 5, 5, 5, 6, 7, 7 }, // Guncaster - Strife
-
 };
 
 // List of weapon classes.
 // Number of classes here must be equal to weapon count in weaponCounts array.
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { // Standard
-    "Chainsaw", "Fist",
-    "Pistol",
-    "SuperShotgun", "Shotgun",
-    "Chaingun",
-    "RocketLauncher",
-    "PlasmaRifle",
-    "BFG9000"
-  },
+  { }, // Reserved
 
   { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
     "Z86Chainsaw", "PerkFist",
@@ -555,17 +518,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "XtremeBFG"
   },
 
-  { // Parkour
-    "PkChainsaw", "PkFist",
-    "PkPistolAkimbo", "PkPistol",
-    "PkDoubleShotguns", "PkShotgun",
-    "PkChaingun",
-    "PkRocketLauncher",
-    "PkPlasmaRifle",
-    "PkBFG9000",
-    "PkCyberLauncher",
-    "PkSuperChain",
-  },
+  { }, // Reserved
 
   { // VSmooth
     "SmoothChainsaw" , "Fist",
@@ -675,28 +628,9 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "orionSniper"
   },
 
-  { // Accessories to Murder
-    "Sledge",
-    "Revolver", "DNDualPistol", "DNPistol",
-    "TrenchShotgun", "DoubleShotgun",
-    "DNRifle",
-    "DNRocketLauncher",
-    "DNChaingun",
-    "DNBFG"
-  },
-
   { }, // Reserved
-
-  { // High Noon Drifter
-    "Boomerang", "Bow",
-    "Revolver",
-    "Coachgun", "Winchester",
-    "SMGs", "SMG",
-    "Grenades",
-    "DarkStaff",
-    "Artifact",
-    "DoubleWhips",
-  },
+  { }, // Reserved
+  { }, // Reserved
 
   { // Freedoom
     "Chainsaw", "Fist",
@@ -750,17 +684,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { }, // Reserved
-
-  { // Doom Delta
-    "ChainsawBeta", "Bayonette",
-    "Rifle",
-    "SuperShotgunBeta", "ShotgunBeta",
-    "ChaingunBeta", "MachineGun",
-    "RocketLauncherBeta", "GrenadeLauncherBeta",
-    "DarkClaw", "PlasmaRifleBeta",
-    "BFGBeta",
-    "UnmakerDelta",
-  },
+  { }, // Reserved
 
   { // EVP
     "PerkChainsaw", "PerkFist",
@@ -793,62 +717,13 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "FKROTTPL", "FKPlasmaRifle",
     "FKROTTB9", "FKHexenUnmaker", "FKBFG9000", "FKUnmaker",
   },
-
-  { // Guncaster - Heretic
-    "Dergfist"       ,
-    "Longhorn"       ,
-    "Strucker"       ,
-    "Pulverizer"     ,
-    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
-    "Augur"          ,
-    "GoldenEmperor"  , "OldDreadful"
-  },
-
-  { // Guncaster - Doom
-    "Dergfist"       ,
-    "Longhorn"       ,
-    "Ironblast"      , "Strucker"   ,
-    "Pulverizer"     ,
-    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
-    "Augur"          ,
-    "GoldenEmperor"  , "OldDreadful"
-  },
-
-  { // Guncaster - Hexen
-    "Dergfist"       ,
-    "Longhorn2"      ,
-    "Ironblast2"     , "Strucker2"  ,
-    "Pulverizer2"    ,
-    "MourningGlory2" , "Matriarch2" , "DynamiteWeapon",
-    "Augur2"         ,
-    "GoldenEmperor"  , "OldDreadful2"
-  },
-
-  { // Guncaster - Strife
-    "Dergfist"       ,
-    "Longhorn"       ,
-    "Ironblast"      , "Strucker"   ,
-    "Pulverizer"     ,
-    "MourningGlory"  , "Matriarch"  , "DynamiteWeapon",
-    "Augur"          ,
-    "GoldenEmperor"  , "OldDreadful"
-  },
-
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
 // Number of names here must be equal to weapon count in weaponCounts array.
 str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { // Doom
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
+  { }, // Reserved
 
   { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
     "Chainsaw", "Fist",
@@ -1083,17 +958,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
-  { // Parkour
-    "Chainsaw", "Fists",
-    "Akimbo Pistols", "Pistol",
-    "Dual Sawnoffs", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000",
-    "Cyber Launcher",
-    "Super Chaingun",
-  },
+  { }, // Reserved
 
   { // VSmooth
     "Chainsaw"        , "Brass Knuckles",
@@ -1203,28 +1068,9 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Orion Gauss Cannon"
   },
 
-  { // Accessories to Murder
-    "Sledge Hammer",
-    "Revolver", "Pistols (Akimbo)", "Pistol",
-    "Shotgun", "Sawed-Off",
-    "Assault Rifle",
-    "Rocket Launcher",
-    "Chaingun",
-    "Bergmann Field Generator"
-  },
-
   { }, // Reserved
-
-  { // High Noon Drifter
-    "Nimurdal", "Heki",
-    "Thunderhawk",
-    "Montaraz 1899", "Cintia 1901",
-    "M-12 Grasa x2", "M-12 Grasa",
-    "V45 Grenades",
-    "Anthrakia",
-    "Basilissa",
-    "Whips",
-  },
+  { }, // Reserved
+  { }, // Reserved
 
   { // Freedoom
     "Angle Grinder", "Fists",
@@ -1278,17 +1124,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { }, // Reserved
-
-  { // Doom Delta
-    "Chainsaw", "Bayonet",
-    "Rifle",
-    "Super Shotgun", "Shotgun",
-    "Chaingun", "Machine Gun",
-    "Rocket Launcher", "Grenade Launcher",
-    "Dark Claw", "Plasma Rifle",
-    "BFG 2704",
-    "Unmaker",
-  },
+  { }, // Reserved
 
   { // EVP
     "Chainsaw", "Brass Knuckles",
@@ -1321,47 +1157,6 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Plasma Rifle", "Plasma Rifle",
     "BFG-9000", "Unmaker", "BFG-9000", "Unmaker",
   },
-
-  { // Guncaster - Heretic
-    "Knuckle Sandwitch" ,
-    "Longhorn"          ,
-    "Strucker"          ,
-    "Pulverizer"        ,
-    "Mourning Glory"    , "Matriarch" , "Dynamite",
-    "Augur"             ,
-    "Golden Emperor"    , "Old Dreadful"
-  },
-
-  { // Guncaster - Doom
-    "Knuckle Sandwitch" ,
-    "Longhorn"          ,
-    "Ironblast"         , "Strucker",
-    "Pulverizer"        ,
-    "Mourning Glory"    , "Matriarch" , "Dynamite",
-    "Augur"             ,
-    "Golden Emperor"    , "Old Dreadful"
-  },
-
-  { // Guncaster - Hexen
-    "Knuckle Sandwitch" ,
-    "Longhorn"          ,
-    "Ironblast"         , "Strucker",
-    "Pulverizer"        ,
-    "Mourning Glory"    , "Matriarch" , "Dynamite",
-    "Augur"             ,
-    "Golden Emperor"    , "Old Dreadful"
-  },
-
-  { // Guncaster - Strife
-    "Knuckle Sandwitch" ,
-    "Longhorn"          ,
-    "Ironblast"         , "Strucker",
-    "Pulverizer"        ,
-    "Mourning Glory"    , "Matriarch" , "Dynamite",
-    "Augur"             ,
-    "Golden Emperor"    , "Old Dreadful"
-  },
-
 }; // end of printable names
 
 // used in fallback mode

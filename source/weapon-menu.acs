@@ -22,11 +22,6 @@ int  currentSet;
 int  weaponCount;
 int  step;
 
-bool isDoom1;
-bool isDoom2;
-bool isFreedoom1;
-bool isFreedoom2;
-
 int  highlightedWeapon;
 int  selectedWeapon;
 
@@ -145,10 +140,6 @@ function void WM_EnterEnabled(int playerN)
 {
   weaponCount = weaponCounts[currentSet];
   step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
-  isDoom1     = WM_IsDoom1();
-  isDoom2     = WM_IsDoom2();
-  isFreedoom1 = WM_IsFreedoom1();
-  isFreedoom2 = WM_IsFreedoom2();
 
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
   WM_SetHighlightedWeapon(selectedWeapon, playerN);
@@ -400,13 +391,11 @@ function void WM_MaybeShowBackground(int backgroundMode, int playerN)
 
 function void WM_PrintMenu(int playerN)
 {
-  int availableWeaponColor    = GetUserCVar(playerN, "M8FAvailableWeaponColor");
-  int notAvailableWeaponColor = GetUserCVar(playerN, "M8FNotAvailableWeaponColor");
-  int highlightedWeaponColor  = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
-  int selectedWeaponColor     = GetUserCVar(playerN, "M8FSelectedWeaponColor");
-  int noAmmoColor             = GetUserCVar(playerN, "m8f_wm_NoAmmoColor");
+  int availableWeaponColor   = GetUserCVar(playerN, "M8FAvailableWeaponColor");
+  int highlightedWeaponColor = GetUserCVar(playerN, "M8FHighlightedWeaponColor");
+  int selectedWeaponColor    = GetUserCVar(playerN, "M8FSelectedWeaponColor");
+  int noAmmoColor            = GetUserCVar(playerN, "m8f_wm_NoAmmoColor");
 
-  bool showNotAvailable = GetUserCVar(playerN, "M8FShowNotAvailable");
   bool doubleSpaceSlots = GetUserCVar(playerN, "m8f_wm_DoubleSpaceBetweenSlots");
   bool highToLow      = GetUserCVar(playerN, "M8FWeaponMenuHighToLow");
   int  ammoMode       = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
@@ -430,12 +419,7 @@ function void WM_PrintMenu(int playerN)
   {
     for (int i = 0; i < weaponCount; ++i)
     {
-      if (!WM_IsInInventory(i))
-      {
-        if (!showNotAvailable) { continue; }
-        if (WM_IsHiddenWeapon(i, currentSet, isDoom1, isFreedoom1)) { continue; }
-      }
-      ++itemCount;
+      itemCount += WM_IsInInventory(i);
     }
   }
 
@@ -509,7 +493,7 @@ function void WM_PrintMenu(int playerN)
 
   case 6:
     x              = 0.5 -
-                     ((itemCount - 1 + WM_CountDuplicateSlots(showNotAvailable, doubleSpaceSlots))
+                     ((itemCount - 1 + WM_CountDuplicateSlots(doubleSpaceSlots))
                      * stepMultiplied) / 2;
     xStep          = stepMultiplied;
     yStep          = 0.0;
@@ -625,8 +609,7 @@ function void WM_PrintMenu(int playerN)
   {
     if (!WM_IsInInventory(i))
     {
-      if (!showNotAvailable) { continue; }
-      if (WM_IsHiddenWeapon(i, currentSet, isDoom1, isFreedoom1)) { continue; }
+      continue;
     }
 
     if (doubleSpaceSlots)
@@ -648,12 +631,11 @@ function void WM_PrintMenu(int playerN)
       if (!WM_HasAmmo(WM_GetWeaponClass(i), playerN)) { color = noAmmoColor; }
       else { color = selectedWeaponColor; }
     }
-    else if (WM_IsInInventory(i))
+    else
     {
       if (!WM_HasAmmo(WM_GetWeaponClass(i), playerN)) { color = noAmmoColor; }
       else { color = availableWeaponColor; }
     }
-    else { color = notAvailableWeaponColor; }
 
     WM_PrintHudWeapon(i, color, x, y, slotOnLeft, withSlot, showTags, ammoMode, playerN);
 
@@ -680,7 +662,7 @@ function void WM_PrintMenu(int playerN)
   }
 }
 
-function int WM_CountDuplicateSlots(bool showNotAvailable, bool doubleSpaceSlots)
+function int WM_CountDuplicateSlots(bool doubleSpaceSlots)
 {
   if (!doubleSpaceSlots) { return 0; }
 
@@ -691,8 +673,7 @@ function int WM_CountDuplicateSlots(bool showNotAvailable, bool doubleSpaceSlots
   {
     if (!WM_IsInInventory(i))
     {
-      if (!showNotAvailable) { continue; }
-      if (WM_IsHiddenWeapon(i, currentSet, isDoom1, isFreedoom1)) { continue; }
+      continue;
     }
 
     int currentSlot = WM_GetWeaponSlot(i);
