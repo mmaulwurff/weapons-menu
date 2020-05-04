@@ -36,11 +36,5 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     else                       { return SET_FALLBACK;  }
   }
 
-  if (StrCmp(class, "FKPlayer") == 0)
-  {
-    if (WM_IsFlakesDoom()) { return SET_FLAKES_DOOM; }
-    else                   { return SET_KRIEGSLAND;  }
-  }
-
   return ERROR_NOT_FOUND;
 }
