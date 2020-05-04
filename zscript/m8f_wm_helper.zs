@@ -305,13 +305,6 @@ class WMZscriptHelper play
     messageCVar.SetInt(result);
   }
 
-  private static void SendResultDouble(PlayerInfo player, double result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
-    messageCVar.SetFloat(result);
-  }
-
   private static void sortWeapons(m8f_wm_WeaponInfo info)
   {
     int nWeapons = info.classes.size();
