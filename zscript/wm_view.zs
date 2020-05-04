@@ -24,7 +24,7 @@ class wm_View
   static
   wm_View of()
   {
-    if (isTitlemap())
+    if (wm_Game.isTitlemap())
     {
       return NULL;
     }
@@ -34,7 +34,8 @@ class wm_View
     let player = players[consolePlayer].mo;
     if (player == NULL) { return NULL; }
 
-    result.executeACS(player, "InitWeaponMenu");
+    int dehackedGameType = wm_Game.getDehackedGameType();
+    result.executeACS1(player, "InitWeaponMenu", dehackedGameType);
 
     return result;
   }
@@ -81,11 +82,10 @@ class wm_View
     a.ACS_NamedExecute(script);
   }
 
-  static
-  bool isTitlemap()
+  private play
+  void executeACS1(Actor a, String script, int n) const
   {
-    bool isTitlemap = (level.mapname == "TITLEMAP");
-    return isTitlemap;
+    a.ACS_NamedExecute(script, 0, n);
   }
 
 } // class wm_View

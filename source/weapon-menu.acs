@@ -891,8 +891,15 @@ int oldInstant;
 #define keyRepeatPeriod  4
 #define updatePeriod    10
 
-script "InitWeaponMenu" (void)
+script "InitWeaponMenu" (int dehackedGameType)
 {
+  switch (dehackedGameType)
+  {
+  case 0: break;
+  case 1: isFreedoom = true; break;
+  case 2: isRekkr    = true; break;
+  }
+
   int playerN = PlayerNumber();
   currentSet = WM_GetWeaponSet(playerN);
 

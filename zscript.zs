@@ -53,6 +53,7 @@ version "4.2.0"
 
 #include "zscript/wm_event_handler.zs"
 #include "zscript/wm_view.zs"
+#include "zscript/wm_game.zs"
 
 #include "zscript/m8f_wm_data.zs"
 #include "zscript/m8f_wm_helper.zs"

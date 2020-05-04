@@ -1,46 +1,16 @@
 // Game Detection Section //////////////////////////////////////////////////////
 
-function bool WM_IsFreedoom1(void)
-{
-  str  filtered  = StrParam(l:"WM_GAME");
-  bool freedoom1 = (StrCmp(filtered, "4") == 0);
-  return freedoom1;
-}
+bool isRekkr;
+bool isFreedoom;
 
-function bool WM_IsFreedoom2(void)
+function bool WM_IsFreedoom(void)
 {
-  str  filtered  = StrParam(l:"WM_GAME");
-  bool freedoom2 = (StrCmp(filtered, "3") == 0);
-  return freedoom2;
+  return isFreedoom;
 }
 
 function bool WM_IsRekkr(void)
 {
-  str  checkString = StrParam(l:"E1TEXT");
-  str  rekkrString = "You've been through war.";
-  int  rekkrLength = StrLen(rekkrString);
-  bool isRekkr     = StrICmp(rekkrString, StrLeft(checkString, rekkrLength)) == 0;
   return isRekkr;
-}
-
-function bool WM_IsEVP(void)
-{
-  bool isEVP = CheckClass("EVPBFGBall");
-  return isEVP;
-}
-
-function bool WM_IsVSmooth(void)
-{
-  bool hasSmoothChainsaw = CheckClass("SmoothChainsaw");
-  bool hasSmoothFist     = CheckClass("PerkFist");
-
-  return hasSmoothChainsaw && !hasSmoothFist;
-}
-
-function bool WM_IsFlakesDoom(void)
-{
-  bool isFlakesDoom = CheckClass("FKHAR");
-  return isFlakesDoom;
 }
 
 function bool WM_IsAbortM(void)
