@@ -2,10 +2,8 @@
 
 #define messageIdStart   191919
 #define msgIdWeapon      messageIdStart
-#define msgIdSlot        messageIdStart + MAX_WEAPONS_NUMBER
 #define msgIdSelected    messageIdStart + MAX_WEAPONS_NUMBER * 2
 #define msgIdHighlighted messageIdStart + MAX_WEAPONS_NUMBER * 2 + 1
-#define msgIdError       messageIdStart + MAX_WEAPONS_NUMBER * 2 + 2
 #define msgIdAmmo        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 3
 #define msgIdTag         messageIdStart + MAX_WEAPONS_NUMBER * 2 + 4
 #define msgIdIcon        messageIdStart + MAX_WEAPONS_NUMBER * 2 + 5

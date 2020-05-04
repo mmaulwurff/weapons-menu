@@ -7,15 +7,12 @@
 #define SET_CYAN_DOOM         13
 #define SET_KRIEGSLAND        14
 #define SET_REKKR             18
-#define SET_CHEX_QUEST        19
-#define SET_DOOM_64           22
 
 #define SET_BRUTAL_DOOM       28
 #define SET_FALLBACK          29
 
 #define SET_FREEDOOM          44
 #define SET_X_WEAPON          45
-#define SET_FACTOTUM          49
 #define SET_FLAKES_DOOM       50
 
 // List of known weapon classes.

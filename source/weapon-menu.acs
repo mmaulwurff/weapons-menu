@@ -67,7 +67,7 @@ function void WM_LeaveState(int oldState, int playerN)
   switch (oldState)
   {
     case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
-    case STATE_Enabled:        break;
+    case STATE_ENABLED:        break;
     case STATE_CLOSED:         break;
     case STATE_OPENED:         WM_LeaveOpened(playerN);        break;
     case STATE_INVENTORY:      WM_LeaveInventory(playerN);     break;
@@ -84,7 +84,7 @@ function void WM_EnterState(int newState, int playerN)
   switch (newState)
   {
     case STATE_UNINITIALIZED:  break;
-    case STATE_Enabled:        WM_EnterEnabled(playerN);       break;
+    case STATE_ENABLED:        WM_EnterEnabled(playerN);       break;
     case STATE_CLOSED:         WM_EnterClosed(playerN);        break;
     case STATE_OPENED:         WM_EnterOpened(playerN);        break;
     case STATE_INVENTORY:      WM_EnterInventory(playerN);     break;
