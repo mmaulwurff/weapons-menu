@@ -22,38 +22,32 @@ class wm_EventHandler : EventHandler
 // public: // EventHandler /////////////////////////////////////////////////////
 
   override
-  void NetworkProcess(ConsoleEvent event)
+  void playerEntered(PlayerEvent event)
   {
+    mView = wm_View.of();
+  }
+
+  override
+  void networkProcess(ConsoleEvent event)
+  {
+    if (mView == NULL) { return; }
+
     if (event.name == "wm_print_info")
     {
-      printInfo();
+      mView.printInfo();
     }
+  }
+
+  override
+  void renderOverlay(RenderEvent event)
+  {
+    if (mView == NULL) { return; }
+
+    mView.show();
   }
 
 // private: ////////////////////////////////////////////////////////////////////
 
-  private
-  void printInfo()
-  {
-    PlayerInfo player = players[consolePlayer];
-    PlayerPawn pawn   = player.mo;
-
-    if (pawn == NULL)
-    {
-      return;
-    }
-
-    String readyWeaponName = "NULL";
-    if (player.ReadyWeapon)
-    {
-      readyWeaponName = player.ReadyWeapon.GetClassName();
-    }
-
-    console.printf("Player class: %s\n"
-                   "Selected weapon class: %s\n"
-                  , pawn.GetClassName()
-                  , readyWeaponName
-                  );
-  }
+  private wm_View mView;
 
 } // class wm_EventHandler : EventHandler

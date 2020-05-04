@@ -30,14 +30,12 @@
 // To write to global variables, use only special functions.
 
 #define STATE_UNINITIALIZED  0
-#define STATE_TERMINATED     1
 #define STATE_ENABLED        2
 #define STATE_CLOSED         3
 #define STATE_OPENED         4
 #define STATE_INVENTORY      5
 #define STATE_CLOSED_VISIBLE 6
 //
-// (UNINITIALIZED) -titlemap-> [TERMINATED]
 // (UNINITIALIZED) -always-open-> OPENED
 // (UNINITIALIZED) --> CLOSED
 //

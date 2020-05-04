@@ -51,8 +51,6 @@ function bool IsAlwaysShow(int playerN)
 
 function int WM_GetInitialState(int playerN)
 {
-  if (WM_IsTitlemap()) { return STATE_TERMINATED; }
-
   currentSet = WM_GetWeaponSet(playerN);
 
   return STATE_ENABLED;
@@ -76,7 +74,6 @@ function void WM_LeaveState(int oldState, int playerN)
   switch (oldState)
   {
     case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
-    case STATE_TERMINATED:     WM_LeaveTerminated(playerN);    break;
     case STATE_Enabled:        WM_LeaveEnabled(playerN);       break;
     case STATE_CLOSED:         WM_LeaveClosed(playerN);        break;
     case STATE_OPENED:         WM_LeaveOpened(playerN);        break;
@@ -94,7 +91,6 @@ function void WM_EnterState(int newState, int playerN)
   switch (newState)
   {
     case STATE_UNINITIALIZED:  WM_EnterUninitialized(playerN); break;
-    case STATE_TERMINATED:     WM_EnterTerminated(playerN);    break;
     case STATE_Enabled:        WM_EnterEnabled(playerN);       break;
     case STATE_CLOSED:         WM_EnterClosed(playerN);        break;
     case STATE_OPENED:         WM_EnterOpened(playerN);        break;
@@ -113,7 +109,6 @@ function void WM_LeaveUninitialized(int playerN)
   WM_MaybeLoadCustomWeaponOrder(playerN);
 }
 
-function void WM_LeaveTerminated(int playerN) {}
 function void WM_LeaveEnabled(int playerN) {}
 function void WM_LeaveClosed(int playerN) {}
 
@@ -133,8 +128,6 @@ function void WM_LeaveInventory(int playerN)
 function void WM_LeaveClosedVisible(int playerN) {}
 
 function void WM_EnterUninitialized(int playerN) {}
-
-function void WM_EnterTerminated(int playerN) {}
 
 function void WM_EnterEnabled(int playerN)
 {
@@ -904,12 +897,18 @@ function bool WM_IsOpenOnScroll(int playerN)
 
 // Scripts section /////////////////////////////////////////////////////////////
 
-script "ShowWeaponMenu" ENTER
+// Temporaryly global variables;
+int keyRepeat = 0;
+int updateCount = 0;
+int oldInstant;
+
+#define keyRepeatPeriod  4
+#define updatePeriod    10
+
+script "InitWeaponMenu" (void)
 {
   int playerN = PlayerNumber();
   int state   = WM_GetInitialState(playerN);
-
-  if (state == STATE_TERMINATED) { terminate; }
 
   // for some reason without delay only vanilla weapons will be listed.
   if (currentSet == SET_FALLBACK) { Delay(1); }
@@ -922,88 +921,86 @@ script "ShowWeaponMenu" ENTER
   if      (wasInventory) { WM_ChangeState(STATE_INVENTORY, playerN); }
   else if (wasOpened)    { WM_ChangeState(STATE_OPENED,    playerN); }
 
-  int updatePeriod     = 10;
-  int updateCount      =  0;
+  oldInstant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
+}
 
-  int keyRepeatPeriod  = 4;
-  int keyRepeat        = 0;
+script "ShowWeaponMenu" (void)
+{
+  int playerN = PlayerNumber();
+  // CVar may have been reset by other games while this game was saved.
+  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
 
-  int oldInstant       = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
-
-  // options
-  while (true)
+  // emulating repeated key press
+  if (keyRepeat < keyRepeatPeriod)
   {
-    // CVar may have been reset by other games while this game was saved.
-    SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
+    ++keyRepeat;
+  }
+  else
+  {
+    keyRepeat = 0;
 
-    // emulating repeated key press
-    if (keyRepeat < keyRepeatPeriod) { ++keyRepeat; }
-    else
+    bool isSmartPressed = GetUserCVar(playerN, "m8f_wm_SmartPressed");
+    if (isSmartPressed != -1)
     {
-      keyRepeat = 0;
-
-      bool isSmartPressed = GetUserCVar(playerN, "m8f_wm_SmartPressed");
-      if (isSmartPressed != -1)
+      bool cycle = GetUserCVar(playerN, "m8fwmCycle");
+      SetUserCVar(playerN, "m8fWmCycle", cycle + 1);
+      if (cycle > 1)
       {
-        bool cycle = GetUserCVar(playerN, "m8fwmCycle");
-        SetUserCVar(playerN, "m8fWmCycle", cycle + 1);
-        if (cycle > 1)
-        {
-          ACS_NamedExecute("SmartWeaponSelection", 0, isSmartPressed);
-        }
+        ACS_NamedExecute("SmartWeaponSelection", 0, isSmartPressed);
       }
     }
+  }
 
-    if (updateCount < updatePeriod) { ++updateCount; }
-    else
+  if (updateCount < updatePeriod)
+  {
+    ++updateCount;
+  }
+  else
+  {
+    updateCount = 0;
+
+    bool instant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
+    if (oldInstant != instant)
     {
-      updateCount = 0;
-
-      bool instant = GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch");
-      if (oldInstant != instant)
-      {
-        WM_InstantSwitch(instant == 2);
-        oldInstant = instant;
-      }
-
-      if (IsVisible())
-      {
-        bool updated  = WM_UpdateIsInInventory();
-        int  ammoMode = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
-        if (updated || ammoMode) { WM_UpdateMenu(playerN); }
-      }
-
-      if (IsInventory())
-      {
-        WM_PrintInventoryMenu(playerN);
-      }
+      WM_InstantSwitch(instant == 2);
+      oldInstant = instant;
     }
 
-    /* debug output
-    SetFont("SMALLFONT");
-    Log(s:"sel:",   i:selectedWeapon,
-        s:" high:", i:highlightedWeapon);
-    ///*///
-
-    // Check if currently selected weapon corresponds to what player is holding.
-    // Handles situation when player drops a weapon, or switches to new weapon
-    // on pickup.
-    if (selectedWatchEnabled && !WM_IsSelected(selectedWeapon))
+    if (IsVisible())
     {
-      str currentWeaponClass = GetWeapon();
-      int currentWeaponI     = WM_FindInWeaponList(currentWeaponClass);
-
-      if (currentWeaponI != ERROR_NOT_FOUND)
-      {
-        str selectedClass = WM_GetWeaponClass(selectedWeapon);
-
-        WM_SetHighlightedWeapon(currentWeaponI, playerN);
-        WM_SetSelectedWeapon(highlightedWeapon, playerN);
-        WM_UpdateMenu(playerN);
-      }
+      bool updated  = WM_UpdateIsInInventory();
+      int  ammoMode = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
+      if (updated || ammoMode) { WM_UpdateMenu(playerN); }
     }
 
-    Delay(1);
+    if (IsInventory())
+    {
+      WM_PrintInventoryMenu(playerN);
+    }
+  }
+
+  /* debug output
+     SetFont("SMALLFONT");
+     Log(s:"sel:",   i:selectedWeapon,
+     s:" high:", i:highlightedWeapon);
+  ///*///
+
+  // Check if currently selected weapon corresponds to what player is holding.
+  // Handles situation when player drops a weapon, or switches to new weapon
+  // on pickup.
+  if (selectedWatchEnabled && !WM_IsSelected(selectedWeapon))
+  {
+    str currentWeaponClass = GetWeapon();
+    int currentWeaponI     = WM_FindInWeaponList(currentWeaponClass);
+
+    if (currentWeaponI != ERROR_NOT_FOUND)
+    {
+      str selectedClass = WM_GetWeaponClass(selectedWeapon);
+
+      WM_SetHighlightedWeapon(currentWeaponI, playerN);
+      WM_SetSelectedWeapon(highlightedWeapon, playerN);
+      WM_UpdateMenu(playerN);
+    }
   }
 }
 
@@ -1437,11 +1434,6 @@ function void WM_SetSelectedWatchEnabled(bool isEnabled)
 function int WM_GetSelectedWeapon(void)
 {
   return selectedWeapon;
-}
-
-function int WM_GetWeaponCount(void)
-{
-  return weaponCounts[currentSet];
 }
 
 // Weapon Priority Section /////////////////////////////////////////////////////
