@@ -49,13 +49,6 @@ function bool IsAlwaysShow(int playerN)
   return alwaysShow;
 }
 
-function int WM_GetInitialState(int playerN)
-{
-  currentSet = WM_GetWeaponSet(playerN);
-
-  return STATE_ENABLED;
-}
-
 // Global state must be changed only with this function.
 function void WM_ChangeState(int newState, int playerN)
 {
@@ -74,11 +67,11 @@ function void WM_LeaveState(int oldState, int playerN)
   switch (oldState)
   {
     case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
-    case STATE_Enabled:        WM_LeaveEnabled(playerN);       break;
-    case STATE_CLOSED:         WM_LeaveClosed(playerN);        break;
+    case STATE_Enabled:        break;
+    case STATE_CLOSED:         break;
     case STATE_OPENED:         WM_LeaveOpened(playerN);        break;
     case STATE_INVENTORY:      WM_LeaveInventory(playerN);     break;
-    case STATE_CLOSED_VISIBLE: WM_LeaveClosedVisible(playerN); break;
+    case STATE_CLOSED_VISIBLE: break;
   }
 }
 
@@ -90,7 +83,7 @@ function void WM_EnterState(int newState, int playerN)
 
   switch (newState)
   {
-    case STATE_UNINITIALIZED:  WM_EnterUninitialized(playerN); break;
+    case STATE_UNINITIALIZED:  break;
     case STATE_Enabled:        WM_EnterEnabled(playerN);       break;
     case STATE_CLOSED:         WM_EnterClosed(playerN);        break;
     case STATE_OPENED:         WM_EnterOpened(playerN);        break;
@@ -109,9 +102,6 @@ function void WM_LeaveUninitialized(int playerN)
   WM_MaybeLoadCustomWeaponOrder(playerN);
 }
 
-function void WM_LeaveEnabled(int playerN) {}
-function void WM_LeaveClosed(int playerN) {}
-
 function void WM_LeaveOpened(int playerN)
 {
   WM_MaybeToggleSlomoOnClose(playerN);
@@ -124,10 +114,6 @@ function void WM_LeaveInventory(int playerN)
   WM_PlaySwitchSound(playerN);
   WM_ClearScreen();
 }
-
-function void WM_LeaveClosedVisible(int playerN) {}
-
-function void WM_EnterUninitialized(int playerN) {}
 
 function void WM_EnterEnabled(int playerN)
 {
@@ -908,7 +894,7 @@ int oldInstant;
 script "InitWeaponMenu" (void)
 {
   int playerN = PlayerNumber();
-  int state   = WM_GetInitialState(playerN);
+  currentSet = WM_GetWeaponSet(playerN);
 
   // for some reason without delay only vanilla weapons will be listed.
   if (currentSet == SET_FALLBACK) { Delay(1); }
@@ -916,7 +902,7 @@ script "InitWeaponMenu" (void)
   bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
   bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
 
-  WM_ChangeState(state, playerN);
+  WM_ChangeState(STATE_ENABLED, playerN);
 
   if      (wasInventory) { WM_ChangeState(STATE_INVENTORY, playerN); }
   else if (wasOpened)    { WM_ChangeState(STATE_OPENED,    playerN); }
