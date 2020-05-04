@@ -19,7 +19,6 @@ git log --date=short --pretty=format:"-%d %ad %s%n" | \
 
 zip -R "$name" \
     "*.acs"  \
-    "*.enu"  \
     "*.fon2" \
     "*.lmp"  \
     "*.md"   \

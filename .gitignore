@@ -1,43 +1,24 @@
-# Ignore everything
+# Ignore everything, but not directories:
+
 *
+!**/
 
-# Except txt, but not changelog
-!*.txt
-changelog.txt
-
-!*.md
-!*.sh
-!*.lmp
-!*.zs
+# Except the following file types:
 
 !.gitignore
-!textures*
-*~
+!.gitattributes
 
-!source
-source/*
-!source/*.acs
+!**.acs
+!**.fon2
+!**.lmp
+!**.md
+!**.o
+!**.png
+!**.sh
+!**.txt
+!**.wav
+!**.zs
 
-!acs
-acs/*
-!acs/*.o
+# But do ignore this:
 
-!sounds
-sounds/*
-!sounds/*.wav
-
-!sprites
-sprites/*
-!sprites/*.png
-!sprites/*.lmp
-
-!zscript
-zscript/*
-!zscript/*.txt
-!zscript/*.zs
-
-!filter/
-filter/*
-!filter/doom.*
-filter/doom.*/*
-!filter/doom.*/language.enu
+changelog.txt

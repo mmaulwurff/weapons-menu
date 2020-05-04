@@ -1,0 +1,6 @@
+[enu default]
+
+// Menu text
+
+WM_TITLE = "Weapon Menu +";
+WM_CONTROLS_TITLE = "Controls";
