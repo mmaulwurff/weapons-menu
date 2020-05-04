@@ -26,6 +26,9 @@ class m8f_wm_String
     return result;
   }
 
+  /**
+   * Works only with ASCII text.
+   */
   static string SeparateCamelCase(string source)
   {
     int    sourceLength = source.Length();

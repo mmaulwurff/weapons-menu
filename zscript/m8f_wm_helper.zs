@@ -263,7 +263,7 @@ class WMZscriptHelper play
     let player = activator.player;
     if (!player) { return; }
 
-    weaponClass.ToLower();
+    weaponClass = weaponClass.makeLower();
 
     string specialIcon = m8f_wm_Data.get().icons.At(weaponClass);
     if (specialIcon.Length() != 0)
