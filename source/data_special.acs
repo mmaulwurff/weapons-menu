@@ -36,13 +36,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     else                       { return SET_FALLBACK;  }
   }
 
-  if (StrCmp(class, "PerkDPlayer") == 0)
-  {
-    if (WM_IsEVP())     { return SET_EVP;     }
-    if (WM_IsVSmooth()) { return SET_VSMOOTH; }
-    else                { return SET_PERK;    }
-  }
-
   if (StrCmp(class, "FKPlayer") == 0)
   {
     if (WM_IsFlakesDoom()) { return SET_FLAKES_DOOM; }

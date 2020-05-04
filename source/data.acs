@@ -2,7 +2,6 @@
 
 #define SETS_NUMBER  51
 
-#define SET_PERK               1
 #define SET_ABORT_M            4
 
 #define SET_CYAN_DOOM         13
@@ -11,14 +10,11 @@
 #define SET_CHEX_QUEST        19
 #define SET_DOOM_64           22
 
-#define SET_VSMOOTH           26
-
 #define SET_BRUTAL_DOOM       28
 #define SET_FALLBACK          29
 
 #define SET_FREEDOOM          44
 #define SET_X_WEAPON          45
-#define SET_EVP               48
 #define SET_FACTOTUM          49
 #define SET_FLAKES_DOOM       50
 
@@ -30,7 +26,7 @@
 str playerClassNames[SETS_NUMBER] =
 {
   "wm_reserved",         //  0. [Reserved]
-  "PerkDPlayer",         //  1. PerK's Smoother Weapon Animations Enhanced, Smooth Doom (2018-01-13) | hidden rifle.
+  "wm_reserved",         //  1. [Reserved]
   "EriPlayer",           //  2. Eriguns 1 - Standard weapons
   "AltPlayer",           //  3. Eriguns 1 - Extended weapons
   "DoomPlayer",          //  4. abort_m | reason: no player class
@@ -55,7 +51,7 @@ str playerClassNames[SETS_NUMBER] =
   "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
   "Xplayer",             // 24. Dead Marine v0.9.3
   "wm_reserved",         // 25. [Reserved]
-  "PerkDPlayer",         // 26. VSmooth (Vanilla doom smooth weapons) | reason: Dehacked except 1 class
+  "wm_reserved",         // 26. [Reserved]
   "wm_reserved",         // 27. [reserved]
   "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode | reason: secret weapons, shared set
   "m8f_wm_Fallback",     // 29. Fallback mode
@@ -79,7 +75,7 @@ str playerClassNames[SETS_NUMBER] =
   "XDoomPlayer",         // 45. X-Weapon                     | reason: weapon upgrades, shared set
   "wm_reserved",         // 46. [Reserved]
   "wm_reserved",         // 47. [Reserved]
-  "PerkDPlayer",         // 48. EVP v17                      | reason: class shared with Smooth Doom
+  "wm_reserved",         // 48. [Reserved]
 
   "FTPlayer",            // 49. Factotum [010618]            | reason: weapon upgrades
   "FKPlayer",            // 50. Flakes Doom v2.6b (06/03/18) | reason: hidden weapon in games, shared class
@@ -91,7 +87,7 @@ str playerClassNames[SETS_NUMBER] =
 int weaponCounts[SETS_NUMBER] =
 {
   0,  // [Reserved]
-  10, // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
+  0,  // [Reserved]
   9, 13, // Eriguns 1
   11, // abort_m
   0,  // [Reserved]
@@ -110,7 +106,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Responsive Weapons + Faster Weapon Switching
   9,  // Dead Marine
   0,  // [Reserved]
-  9,  // VSmooth
+  0,  // [Reserved]
   0,  // [Reserved]
   22, // Brutal Doom
   0,  // [Reserved]
@@ -132,7 +128,7 @@ int weaponCounts[SETS_NUMBER] =
   29, // X-Weapon
   0,  // [Reserved]
   0,  // [Reserved]
-  9,  // EVP
+  0,  // [Reserved]
   11, // Factotum
   19, // Flakes Doom
 };
@@ -143,9 +139,7 @@ int weaponCounts[SETS_NUMBER] =
 int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { }, // Reserved
-
-  // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-  { 1, 1, 2, 2, 3, 3, 4, 5, 6, 7 },
+  { }, // Reserved
 
   // Eriguns
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 },
@@ -209,9 +203,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Dead Marine
 
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // VSmooth
-
+  { }, // Reserved
   { }, // Reserved
 
   { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Brutal
@@ -264,8 +256,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // EVP
+  { }, // Reserved
 
   { 1, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9 }, // Factotum
 
@@ -285,16 +276,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { }, // Reserved
-
-  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-    "Z86Chainsaw", "PerkFist",
-    "Rifle", "PerkPistol",
-    "PerkSuperShotgun", "PerkShotgun",
-    "Z86Chaingun",
-    "PerkRocketLauncher",
-    "BloxPlasmaRifle",
-    "Z86BFG9000"
-  },
+  { }, // Reserved
 
   { // Eriguns 1
     "EriChainsaw", "EriFist",
@@ -518,17 +500,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { }, // Reserved
-
-  { // VSmooth
-    "SmoothChainsaw" , "Fist",
-    "Pistol"         ,
-    "SuperShotgun"   , "Shotgun",
-    "Chaingun"       ,
-    "RocketLauncher" ,
-    "PlasmaRifle"    ,
-    "BFG9000"
-  },
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Brutal Doom
@@ -659,16 +631,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // EVP
-    "PerkChainsaw", "PerkFist",
-    "PerkPistol",
-    "PerkSuperShotgun", "PerkShotgun",
-    "PerkChaingun",
-    "PerkRocketLauncher",
-    "PerkPlasmaRifle",
-    "PerkBFG9000",
-  },
+  { }, // Reserved
 
   { // Factotum
     "FKMachete",
@@ -698,16 +661,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { }, // Reserved
-
-  { // PerK's Smoother Weapon Animations Enhanced + Smooth Doom
-    "Chainsaw", "Fist",
-    "Rifle", "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
+  { }, // Reserved
 
   { // Eriguns
     "Chainsaw", "Fist",
@@ -933,17 +887,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
   { }, // Reserved
-
-  { // VSmooth
-    "Chainsaw"        , "Brass Knuckles",
-    "Pistol"          ,
-    "Super Shotgun"   , "Shotgun",
-    "Chaingun"        ,
-    "Rocket Launcher" ,
-    "Plasma Rifle"    ,
-    "BFG 9000"
-  },
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Brutal Doom
@@ -1074,16 +1018,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // EVP
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
+  { }, // Reserved
 
   { // Factotum
     "Machete",
