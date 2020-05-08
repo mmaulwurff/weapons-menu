@@ -1,0 +1,6 @@
+[ru]
+
+// Menu text
+
+WM_TITLE = "Оружейное меню +";
+WM_CONTROLS_TITLE = "Управление";
