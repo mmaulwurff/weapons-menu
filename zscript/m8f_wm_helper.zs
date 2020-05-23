@@ -213,13 +213,6 @@ class WMZscriptHelper play
 
       if (type == NULL || type == "Weapon") { continue; }
 
-      let  rep                = Actor.GetReplacement(type);
-      bool isReplaced         = rep != type;
-      bool isDehackedReplaced = rep is "DehackedPickup";
-      bool isInInventory      = activator.CountInv(type);
-
-      if (isReplaced && !isDehackedReplaced && !isInInventory) { continue; }
-
       bool located;
       int  slot;
       int  priority;
