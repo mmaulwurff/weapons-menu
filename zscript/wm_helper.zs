@@ -287,14 +287,14 @@ class WMZscriptHelper play
   private static void SendResultString(PlayerInfo player, string result)
   {
     if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultString", player);
+    CVar messageCVar = CVar.GetCVar("wm_ResultString", player);
     messageCVar.SetString(result);
   }
 
   private static void SendResultInt(PlayerInfo player, int result)
   {
     if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("m8f_wm_ResultInt", player);
+    CVar messageCVar = CVar.GetCVar("wm_ResultInt", player);
     messageCVar.SetInt(result);
   }
 

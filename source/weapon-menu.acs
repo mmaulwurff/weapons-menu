@@ -621,8 +621,8 @@ function void WM_PrintMenu(int playerN)
   {
     str weaponClass = WM_GetWeaponClass(highlightedWeapon);
     if (currentSet == SET_REKKR) { weaponClass = StrParam(s:weaponClass, s:"_rekkr"); }
-    ScriptCall("WMZScriptHelper", "GetWeaponIcon", weaponClass);
-    str icon = GetUserCVarString(playerN, "m8f_wm_ResultString");
+
+    str icon = WM_GetWeaponIcon(weaponClass, playerN);
     if (StrLen(icon) > 0)
     {
       int iconY = -(yStart - stepMultiplied * 2);
