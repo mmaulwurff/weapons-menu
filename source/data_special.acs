@@ -1,24 +1,5 @@
-#define N_MATCHED_CLASSES 3
-
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
-  // First case: one weapon set for several classes.
-
-  str classes[N_MATCHED_CLASSES][2] =
-  {
-    { "BDoomer"             , SET_BRUTAL_DOOM    },
-    { "Doomer2"             , SET_BRUTAL_DOOM    },
-    { "TacticalDoomer"      , SET_BRUTAL_DOOM    },
-  };
-
-  for (int i = 0; i < N_MATCHED_CLASSES; ++i)
-  {
-    if (StrCmp(class, classes[i][0]) == 0)
-    {
-      return classes[i][1];
-    }
-  }
-
   // Second case: one class for several weapon sets.
 
   if (StrCmp(class, "DoomPlayer") == 0)

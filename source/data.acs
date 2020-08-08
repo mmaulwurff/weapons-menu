@@ -3,13 +3,9 @@
 #define SETS_NUMBER 50
 
 #define SET_ABORT_M            4
-
 #define SET_CYAN_DOOM         13
 #define SET_REKKR             18
-
-#define SET_BRUTAL_DOOM       28
 #define SET_FALLBACK          29
-
 #define SET_FREEDOOM          44
 
 // List of known weapon classes.
@@ -46,8 +42,8 @@ str playerClassNames[SETS_NUMBER] =
   "Xplayer",             // 24. Dead Marine v0.9.3
   "wm_reserved",         // 25. [Reserved]
   "wm_reserved",         // 26. [Reserved]
-  "wm_reserved",         // 27. [reserved]
-  "BDoomer",             // 28. Brutal Doom - Rifle/Pistol Start, Tactical Mode | reason: secret weapons, shared set
+  "wm_reserved",         // 27. [Reserved]
+  "wm_Reserved",         // 28. [Reserved]
   "m8f_wm_Fallback",     // 29. Fallback mode
 
   "wm_reserved",         // 30. [Reserved]
@@ -101,7 +97,7 @@ int weaponCounts[SETS_NUMBER] =
   0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
-  22, // Brutal Doom
+  0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
@@ -187,9 +183,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 6, 6, 7, 7, 7, 8, 8 }, // Brutal
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
@@ -453,18 +447,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { // Brutal Doom
-    "Melee_Attacks", "Chain_saw", "BrutalAxe",
-    "MP40", "BrutalSMG", "BrutalPistol",
-    "SSG", "Shot_Gun", "AssaultShotgun",
-    "HitlersBuzzsaw", "Minigun", "Rifle", "Machinegun",
-    "Rocket_Launcher", "GrenadeLauncher",
-    "Plasma_Gun", "Railgun",
-    "BIG_FUCKING_GUN", "Unmaker", "BFG10k",
-    "FlameCannon", "HellishMissileLauncher"
-  },
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
@@ -781,18 +764,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { // Brutal Doom
-    "Melee", "Chainsaw", "Axe",
-    "MP40", "SMG", "Pistol",
-    "SSG", "Shotgun", "AA-12 Assault Shotgun",
-    "Hitler's Buzzsaw", "Minigun", "Assault Rifle", "Machine Gun",
-    "Rocket Launcher", "Grenade Launcher",
-    "Plasma Gun", "Railgun",
-    "BFG-9000", "Unmaker", "BFG10K",
-    "Flame Cannon", "Hellish Missile Launcher"
-  },
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
