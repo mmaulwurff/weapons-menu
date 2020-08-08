@@ -887,12 +887,7 @@ int oldInstant;
 
 script "InitWeaponMenu" (int dehackedGameType)
 {
-  switch (dehackedGameType)
-  {
-  case 0: break;
-  case 1: isFreedoom = true; break;
-  case 2: isRekkr    = true; break;
-  }
+  isRekkr = (dehackedGameType == 2);
 
   int playerN = PlayerNumber();
   currentSet = WM_GetWeaponSet(playerN);

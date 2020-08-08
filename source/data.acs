@@ -6,7 +6,6 @@
 #define SET_CYAN_DOOM         13
 #define SET_REKKR             18
 #define SET_FALLBACK          29
-#define SET_FREEDOOM          44
 
 // List of known weapon classes.
 // When adding to this list, don't forget to increase SETS_NUMBER.
@@ -61,7 +60,7 @@ str playerClassNames[SETS_NUMBER] =
   "wm_reserved",         // 41. [Reserved]
   "wm_reserved",         // 42. [Reserved]
   "wm_reserved",         // 43. [Reserved]
-  "DoomPlayer",          // 44. Freedoom                     | reason: weapon tags, SSG in Doom 1
+  "wm_reserved",         // 44. [Reserved]
   "wm_reserved",         // 45. [Reserved]
   "wm_reserved",         // 46. [Reserved]
   "wm_reserved",         // 47. [Reserved]
@@ -113,7 +112,7 @@ int weaponCounts[SETS_NUMBER] =
   0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
-  9,  // Freedoom
+  0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
@@ -214,9 +213,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Freedoom
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
@@ -511,17 +508,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { // Freedoom
-    "Chainsaw", "Fist",
-    "Pistol",
-    "SuperShotgun", "Shotgun",
-    "Chaingun",
-    "RocketLauncher",
-    "PlasmaRifle",
-    "BFG9000"
-  },
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
@@ -828,17 +815,7 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { // Freedoom
-    "Angle Grinder", "Fists",
-    "Handgun",
-    "Double-barrelled Shotgun", "Pump-action Shotgun",
-    "Minigun",
-    "Missile Launcher",
-    "Polaric Energy Cannon",
-    "SKAG 1337",
-  },
-
+  { }, // Reserved
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved

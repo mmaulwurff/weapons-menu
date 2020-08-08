@@ -1,12 +1,6 @@
 // Game Detection Section //////////////////////////////////////////////////////
 
 bool isRekkr;
-bool isFreedoom;
-
-function bool WM_IsFreedoom(void)
-{
-  return isFreedoom;
-}
 
 function bool WM_IsRekkr(void)
 {

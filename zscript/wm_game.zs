@@ -27,9 +27,6 @@ class wm_Game
 
   static int getDehackedGameType()
   {
-    bool isFreedoom = (Wads.FindLump("FREEDOOM") != -1);
-    if (isFreedoom) { return 1; }
-
     bool isRekkr = (Wads.FindLump("REKCREDS") != -1);
     if (isRekkr) { return 2; }
 

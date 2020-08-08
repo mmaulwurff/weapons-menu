@@ -7,7 +7,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
     if      (WM_IsRekkr())     { return SET_REKKR;     }
     else if (WM_IsAbortM())    { return SET_ABORT_M;   }
     else if (WM_IsCyanDoom())  { return SET_CYAN_DOOM; }
-    else if (WM_IsFreedoom())  { return SET_FREEDOOM;  }
     else if (WM_IsBeautiful()) { return SET_FALLBACK;  }
     else                       { return SET_FALLBACK;  }
   }
