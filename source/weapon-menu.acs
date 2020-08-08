@@ -122,7 +122,6 @@ function void WM_EnterEnabled(int playerN)
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
   WM_SetHighlightedWeapon(selectedWeapon, playerN);
 
-  WM_SetupAddons(playerN);
   WM_UpdateIsInInventory();
   WM_InitApiCvars(playerN);
   WM_FillInventoryItems(playerN);
@@ -793,57 +792,6 @@ function void WM_PlaySwitchSound(int playerN)
 {
   str switchSound = GetUserCVarString(playerN, "m8f_wm_SwitchSound");
   PlaySound(0, switchSound, CHAN_AUTO);
-}
-
-function void WM_SetupAddons(int playerN)
-{
-  if (currentSet == SET_FALLBACK) { return; }
-
-  WM_MaybeTacticalChainsaw(playerN);
-  WM_MaybeUACSurvivalPack();
-}
-
-function void WM_AddWeapon(int slot, str class, str name)
-{
-  slots[currentSet][weaponCount] = slot;
-  names[currentSet][weaponCount] = class;
-  tags [currentSet][weaponCount] = name;
-  ++weaponCounts[currentSet];
-  ++weaponCount;
-}
-
-function void WM_MaybeUACSurvivalPack(void)
-{
-  str satchelChargeClass = "Det_satchelCharge";
-  if (CheckClass(satchelChargeClass))
-  {
-    WM_AddWeapon(0, satchelChargeClass, "Satchel Charge with Detonator");
-  }
-
-  str pipebombClass = "Det_Pipebomb";
-  if (CheckClass(pipebombClass))
-  {
-    WM_AddWeapon(0, pipebombClass, "Pipebombs with Detonator");
-  }
-}
-
-function void WM_MaybeTacticalChainsaw(int playerN)
-{
-  // function specifically for Tactical Chainsaw mod
-  // https://www.doomworld.com/idgames/combos/ph_stuff
-
-  str tacticalClass = "TacticalChainsaw";
-  if (!CheckClass(tacticalClass)) { return; }
-
-  for (int i = weaponCount; i > 0; --i)
-  {
-    WM_SwapWeapons(i, i-1, true, playerN);
-  }
-  slots[currentSet][0] = 1;
-  names[currentSet][0] = tacticalClass;
-  tags [currentSet][0] = "Tactical Chainsaw";
-  ++weaponCounts[currentSet];
-  ++weaponCount;
 }
 
 function int WM_GetWeaponSet(int playerN)
