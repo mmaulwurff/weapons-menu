@@ -1,0 +1,31 @@
+#define Settings "wm_StaticSettings"
+
+function bool IsAlwaysShowing(void)         { return ScriptCall(Settings, "isAlwaysShowing"); }
+function bool IsShowingBackground(void)     { return ScriptCall(Settings, "isShowingBackground"); }
+function int  AvailableColor(void)          { return ScriptCall(Settings, "availableColor"); }
+function int  HighlightedColor(void)        { return ScriptCall(Settings, "highlightedColor"); }
+function int  SelectedWeaponColor(void)     { return ScriptCall(Settings, "selectedWeaponColor"); }
+function int  NoAmmoColor(void)             { return ScriptCall(Settings, "noAmmoColor"); }
+function bool DoubleSpaceBetweenSlots(void) { return ScriptCall(Settings, "doubleSpaceBetweenSlots"); }
+function bool IsHighToLow(void)             { return ScriptCall(Settings, "isHighToLow"); }
+function bool AmmoMode(void)                { return ScriptCall(Settings, "ammoMode"); }
+function bool DisplayMode(void)             { return ScriptCall(Settings, "displayMode"); }
+function int  GetYStart(void)               { return ScriptCall(Settings, "yStart"); }
+function int  StepMultiplier(void)          { return ScriptCall(Settings, "stepMultiplier"); }
+function bool IsShowingIcons(void)          { return ScriptCall(Settings, "isShowingIcons"); }
+function str  GetMenuFont(void)             { return ScriptCall(Settings, "getMenuFont"); }
+function str  SwitchSound(void)             { return ScriptCall(Settings, "switchSound"); }
+
+function bool IsShowingNameTags(void)       { return ScriptCall(Settings, "isShowingNameTags"); }
+function int  NameTagColor(void)            { return ScriptCall(Settings, "nameTagColor"); }
+
+function str  IsForcingUniversalMode(void)  { return ScriptCall(Settings, "isForcingUniversalMode"); }
+function str  IsOpeningOnScroll(void)       { return ScriptCall(Settings, "isOpeningOnScroll"); }
+function str  IsSkippingNoAmmo(void)        { return ScriptCall(Settings, "isSkippingNoAmmo"); }
+function str  IsSelectingIfOnlyInSlot(void) { return ScriptCall(Settings, "isSelectingIfOnlyInSlot"); }
+function str  IsInstantSwitch(void)         { return ScriptCall(Settings, "isInstantSwitch"); }
+function str  IsClosingAfterUse(void)       { return ScriptCall(Settings, "isClosingAfterUse"); }
+function str  IsCycleEnabled(void)          { return ScriptCall(Settings, "isCycleEnabled"); }
+
+function int  InventoryXStart(void)         { return ScriptCall(Settings, "inventoryXStart"); }
+function int  InventoryYStart(void)         { return ScriptCall(Settings, "inventoryYStart"); }

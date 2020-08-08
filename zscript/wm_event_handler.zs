@@ -19,12 +19,13 @@
 class wm_EventHandler : EventHandler
 {
 
-// public: // EventHandler /////////////////////////////////////////////////////
+// public: // EventHandler /////////////////////////////////////////////////////////////////////////
 
   override
   void playerEntered(PlayerEvent event)
   {
     mView = wm_View.of();
+    mSettings = wm_Settings.of();
   }
 
   override
@@ -46,8 +47,13 @@ class wm_EventHandler : EventHandler
     mView.show();
   }
 
-// private: ////////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  private wm_View mView;
+  wm_Settings getSettings() const { return mSettings; }
 
-} // class wm_EventHandler : EventHandler
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private wm_View     mView;
+  private wm_Settings mSettings;
+
+} // class wm_EventHandler
