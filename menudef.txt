@@ -1,16 +1,18 @@
-OptionValue M8FWeaponsMenuSlotOrder
+// Option Values ///////////////////////////////////////////////////////////////////////////////////
+
+OptionValue wm_SlotOrderValues
 {
   0, "1-2-3-4-5-6-7-8-9-0"
   1, "0-9-8-7-6-5-4-3-2-1"
 }
 
-OptionValue M8FWeaponMenuNumbersLeftOptions
+OptionValue wm_NumbersPositionValues
 {
   0, "Right"
   1, "Left"
 }
 
-OptionString m8f_wm_font_values
+OptionString wm_FontValues
 {
   "SMALLFONT"   , "Small Font"
   "ConsoleFont" , "Console Font"
@@ -23,14 +25,14 @@ OptionString m8f_wm_font_values
   "NewSmallFont", "New small font"
 }
 
-OptionValue M8FWeaponMenuShowAmmoOptions
+OptionValue wm_ShowAmmoValues
 {
   0, "No"
   1, "Only primary"
   2, "Primary and secondary"
 }
 
-OptionString m8f_wm_SwitchSoundOptions
+OptionString wm_SwitchSoundValues
 {
   "wmenu/no"      , "None"
   "wmenu/switch1" , "Click"
@@ -40,21 +42,21 @@ OptionString m8f_wm_SwitchSoundOptions
   "menu/change"   , "Menu change"
 }
 
-OptionValue M8fWeaponMenuInstantSwitchOptions
+OptionValue wm_InstantSwitchValues
 {
   0, "Never"
   1, "Only quick access fire"
   2, "Always"
 }
 
-OptionValue m8f_wm_FavoriteFireOptions
+OptionValue wm_FavoriteFireValues
 {
   0, "Primary fire"
   1, "Secondary fire"
   2, "No fire"
 }
 
-OptionValue m8f_wm_DisplayModeOptions
+OptionValue wm_DisplayModeValues
 {
   0, "(VST______)"
   1, "(VS_______)"
@@ -68,14 +70,16 @@ OptionValue m8f_wm_DisplayModeOptions
   9, "(_______HS)"
 }
 
-OptionValue m8f_wm_InventoryMenuXOptions
+OptionValue wm_InventoryMenuXValues
 {
   0.0, "Left"
   0.5, "Center"
   1.0, "Right"
 }
 
-OptionMenu m8f_wm_VisualOptions
+// Option Menus ////////////////////////////////////////////////////////////////////////////////////
+
+OptionMenu wm_VisualOptions
 {
   Title       "Weapon Menu + Visual Options"
 
@@ -92,9 +96,9 @@ OptionMenu m8f_wm_VisualOptions
   StaticText  ""
   StaticText  "Display Options"       , 1
   Option      "Always show menu"      , M8fWeaponMenuAlwaysShow     , YesNo
-  Option      "Show ammo counts"      , M8fWeaponMenuShowAmmoCounts , M8FWeaponMenuShowAmmoOptions
-  Option      "Slot order"            , M8FWeaponMenuHighToLow      , M8FWeaponsMenuSlotOrder
-  Option      "Font"                  , m8f_wm_font                 , m8f_wm_font_values
+  Option      "Show ammo counts"      , M8fWeaponMenuShowAmmoCounts , wm_ShowAmmoValues
+  Option      "Slot order"            , M8FWeaponMenuHighToLow      , wm_SlotOrderValues
+  Option      "Font"                  , m8f_wm_font                 , wm_FontValues
   ScaleSlider "GZDoom messages scale" , con_scaletext, 0.0, 8.0, 1.0, "$SCALEMNU_USEUI"
 
   StaticText  ""
@@ -103,7 +107,7 @@ OptionMenu m8f_wm_VisualOptions
 
   StaticText  ""
   Slider      "Menu Y Position", M8FWeaponMenuYStart, 0.0, 1.0, 0.02, 2
-  Option      "Display Mode and X Position", m8f_wm_DisplayMode, m8f_wm_DisplayModeOptions
+  Option      "Display Mode and X Position", m8f_wm_DisplayMode, wm_DisplayModeValues
 
   StaticText  "Legend: V - vertical, H - horizontal," , Black
   StaticText  "T - tag, S - slot."                    , Black
@@ -114,13 +118,13 @@ OptionMenu m8f_wm_VisualOptions
   StaticText  "Experimental: icons may be missing or incorrect.", Black
 }
 
-OptionMenu m8f_wm_BehaviorOptions
+OptionMenu wm_BehaviorOptions
 {
   Title      "Weapon Menu + Behavior Options"
 
   StaticText ""
   StaticText "Sound", 1
-  Option     "Sound on weapon switch", m8f_wm_SwitchSound, m8f_wm_SwitchSoundOptions
+  Option     "Sound on weapon switch", m8f_wm_SwitchSound, wm_SwitchSoundValues
 
   StaticText ""
   StaticText "Behavior", 1
@@ -140,12 +144,12 @@ OptionMenu m8f_wm_BehaviorOptions
   StaticText "Applies on the next map."              , Black
 }
 
-OptionMenu m8f_wm_InventoryMenuOptions
+OptionMenu wm_InventoryMenuOptions
 {
   Title "Inventory Menu Options"
 
   StaticText "Position Options", 1
-  Option "Horizontal Position", m8f_wm_InventoryMenuX, m8f_wm_InventoryMenuXOptions
+  Option "Horizontal Position", m8f_wm_InventoryMenuX, wm_InventoryMenuXValues
   StaticText "Also affects alignment.", Black
 
   StaticText ""
@@ -161,21 +165,21 @@ OptionMenu m8f_wm_InventoryMenuOptions
   Option "Close Inventory menu after use", m8f_wm_CloseInvMenuAfterUse, OnOff
 }
 
-OptionMenu m8f_wm_ExtrasOptions
+OptionMenu wm_ExtrasOptions
 {
   Title "Options for Extra Functions"
   StaticText "Note that Extras can fail to work on certain mods.", Black
 
   StaticText ""
-  Option "Quick Access Fire Mode", m8f_wm_FavoriteFireMode, m8f_wm_FavoriteFireOptions
+  Option "Quick Access Fire Mode", m8f_wm_FavoriteFireMode, wm_FavoriteFireValues
 
   StaticText ""
-  Option "Instant weapon switching", M8fWeaponMenuInstantSwitch, M8fWeaponMenuInstantSwitchOptions
+  Option "Instant weapon switching", M8fWeaponMenuInstantSwitch, wm_InstantSwitchValues
   StaticText "Instant switching doesn't work for mods with" , Black
   StaticText "custom select or deselect animations."        , Black
 }
 
-OptionMenu m8f_wm_BasicControls
+OptionMenu wm_BasicControls
 {
   Title      "Basic Controls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", "ControlMessage"
@@ -212,13 +216,13 @@ OptionMenu m8f_wm_BasicControls
   Control    "Slot 11" , "+smart_select_11"
 }
 
-OptionMenu m8f_wm_AdvancedControls
+OptionMenu wm_AdvancedControls
 {
   Title      "Advanced Controls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", ControlMessage
 
   StaticText ""
-  Control    "Edit Weapon List"              , "openmenu m8f_wm_EditWeaponList"
+  Control    "Edit Weapon List"              , "openmenu wm_EditWeaponList"
 
   StaticText ""
   Control    "Mark weapon for quick access"  , "m8f_wm_mark_quick"
@@ -229,7 +233,7 @@ OptionMenu m8f_wm_AdvancedControls
   Control    "Print Weapon Menu Debug Info", "wm_print_debug_info"
 }
 
-OptionMenu m8f_wm_InventoryControls
+OptionMenu wm_InventoryControls
 {
   Title       "Inventory Controls"
   StaticTextSwitchable "$CNTRLMNU_SWITCHTEXT1", "$CNTRLMNU_SWITCHTEXT2", "ControlMessage"
@@ -257,7 +261,7 @@ OptionMenu m8f_wm_InventoryControls
   SafeCommand "Clear Quick Inventory List", "m8f_wm_clear_quick_inv"
 }
 
-OptionMenu m8f_wm_Commands
+OptionMenu wm_Commands
 {
   Title      "Commands"
 
@@ -268,7 +272,7 @@ OptionMenu m8f_wm_Commands
   StaticText "This may help if there is a problem with this mod." , Black
 }
 
-OptionMenu m8f_wm_EditWeaponList
+OptionMenu wm_EditWeaponList
 {
   Title "Edit Weapon List"
   StaticText "Customized Weapon List stays until a new game"     , Black
@@ -293,30 +297,32 @@ OptionMenu m8f_wm_EditWeaponList
   Command   "Apply"                   , "m8f_wm_apply_tag_change"
 }
 
-OptionMenu m8f_wm_Options
+OptionMenu wm_Options
 {
   Title      "$WM_TITLE"
 
   StaticText ""
   StaticText "$WM_CONTROLS_TITLE" , 1
-  SubMenu    "Basic"              , m8f_wm_BasicControls
-  SubMenu    "Inventory"          , m8f_wm_InventoryControls
-  SubMenu    "Extras"             , m8f_wm_AdvancedControls
+  SubMenu    "Basic"              , wm_BasicControls
+  SubMenu    "Inventory"          , wm_InventoryControls
+  SubMenu    "Extras"             , wm_AdvancedControls
 
   StaticText ""
   StaticText "Options"            , 1
-  Submenu    "Behavior"           , m8f_wm_BehaviorOptions
-  Submenu    "Visuals"            , m8f_wm_VisualOptions
-  Submenu    "Inventory Menu"     , m8f_wm_InventoryMenuOptions
-  Submenu    "Extras"             , m8f_wm_ExtrasOptions
+  Submenu    "Behavior"           , wm_BehaviorOptions
+  Submenu    "Visuals"            , wm_VisualOptions
+  Submenu    "Inventory Menu"     , wm_InventoryMenuOptions
+  Submenu    "Extras"             , wm_ExtrasOptions
 
   StaticText ""
   StaticText "Other"              , 1
-  Submenu    "Edit Weapon List"   , m8f_wm_EditWeaponList
-  Submenu    "Commands"           , m8f_wm_Commands
+  Submenu    "Edit Weapon List"   , wm_EditWeaponList
+  Submenu    "Commands"           , wm_Commands
 }
+
+// Entry Point /////////////////////////////////////////////////////////////////////////////////////
 
 AddOptionMenu OptionsMenu
 {
-  Submenu    "$WM_TITLE" , m8f_wm_Options
+  Submenu "$WM_TITLE" , wm_Options
 }
