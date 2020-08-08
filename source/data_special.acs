@@ -1,4 +1,4 @@
-#define N_MATCHED_CLASSES 7
+#define N_MATCHED_CLASSES 3
 
 function int WM_SpecialMatchClassToWeaponSet(str class)
 {
@@ -6,11 +6,6 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   str classes[N_MATCHED_CLASSES][2] =
   {
-    { "XDoomPlayer"         , SET_X_WEAPON       },
-    { "XDoomPlayer2"        , SET_X_WEAPON       },
-    { "XDoomPlayer3"        , SET_X_WEAPON       },
-    { "XDoomPlayer4"        , SET_X_WEAPON       },
-
     { "BDoomer"             , SET_BRUTAL_DOOM    },
     { "Doomer2"             , SET_BRUTAL_DOOM    },
     { "TacticalDoomer"      , SET_BRUTAL_DOOM    },
