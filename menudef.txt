@@ -268,25 +268,6 @@ OptionMenu m8f_wm_Commands
   StaticText "This may help if there is a problem with this mod." , Black
 }
 
-OptionMenu m8f_wm_CrossmodOptions
-{
-  Title      "Cross-mod Options"
-  StaticText "These options only work if mods are"     , Black
-  StaticText "loaded together with Weapon Menu."       , Black
-
-  StaticText ""
-  StaticText "Slomo Bullettime by Spaceman333"         , 1
-  Option     "Toggle Slomo on Weapon Menu open"        , "m8f_wm_SlomoOnMenuOpen"       , OnOff
-  Option     "Toggle Slomo on Weapon Menu close"       , "m8f_wm_SlomoOnMenuClose"      , OnOff
-
-  StaticText ""
-  Option     "Toggle Slomo on Quick Access Fire"       , "m8f_wm_SlomoOnQuickAccess"    , OnOff
-
-  StaticText ""
-  Option     "Toggle Slomo on Inventory Menu open"     , "m8f_wm_SlomoOnInventoryOpen"  , OnOff
-  Option     "Toggle Slomo on Inventory Menu close"    , "m8f_wm_SlomoOnInventoryClose" , OnOff
-}
-
 OptionMenu m8f_wm_EditWeaponList
 {
   Title "Edit Weapon List"
@@ -328,7 +309,6 @@ OptionMenu m8f_wm_Options
   Submenu    "Visuals"            , m8f_wm_VisualOptions
   Submenu    "Inventory Menu"     , m8f_wm_InventoryMenuOptions
   Submenu    "Extras"             , m8f_wm_ExtrasOptions
-  Submenu    "Cross-mod"          , m8f_wm_CrossmodOptions
 
   StaticText ""
   StaticText "Other"              , 1

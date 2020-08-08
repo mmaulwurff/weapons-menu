@@ -8,7 +8,6 @@
 #include "favorite.acs"
 #include "game_detection.acs"
 #include "inventory_control.acs"
-#include "slomo.acs"
 #include "string.acs"
 #include "utils.acs"
 #include "zscript-access.acs"
@@ -58,6 +57,9 @@ function void WM_ChangeState(int newState, int playerN)
   }
 
   WM_LeaveState(globalState, playerN);
+
+  globalState = newState;
+
   WM_EnterState(newState, playerN);
 }
 
@@ -77,7 +79,6 @@ function void WM_LeaveState(int oldState, int playerN)
 
 function void WM_EnterState(int newState, int playerN)
 {
-  globalState = newState;
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened",  IsOpened() || IsInventory());
   SetUserCVar(playerN, "m8f_wm_WasInventory",    IsInventory());
 
@@ -104,13 +105,11 @@ function void WM_LeaveUninitialized(int playerN)
 
 function void WM_LeaveOpened(int playerN)
 {
-  WM_MaybeToggleSlomoOnClose(playerN);
   WM_ClearScreen();
 }
 
 function void WM_LeaveInventory(int playerN)
 {
-  WM_MaybeToggleSlomoOnInvClose(playerN);
   WM_PlaySwitchSound(playerN);
   WM_ClearScreen();
 }
@@ -147,14 +146,12 @@ function void WM_EnterClosed(int playerN)
 
 function void WM_EnterOpened(int playerN)
 {
-  WM_MaybeToggleSlomoOnOpen(playerN);
   WM_UpdateIsInInventory();
   WM_UpdateMenu(playerN);
 }
 
 function void WM_EnterInventory(int playerN)
 {
-  WM_MaybeToggleSlomoOnInvOpen(playerN);
   WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon(), playerN);
   WM_PlaySwitchSound(playerN);
   WM_PrintInventoryMenu(playerN);

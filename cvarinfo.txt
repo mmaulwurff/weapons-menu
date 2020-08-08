@@ -52,12 +52,6 @@ user int m8f_wm_FavoriteFireMode = 0;
 
 user bool m8f_wm_ForceFallbackMode = false;
 
-user bool m8f_wm_SlomoOnMenuOpen  = false;
-user bool m8f_wm_SlomoOnMenuClose = false;
-user bool m8f_wm_SlomoOnQuickAccess = false;
-user bool m8f_wm_SlomoOnInventoryOpen  = false;
-user bool m8f_wm_SlomoOnInventoryClose = false;
-
 user string m8f_wm_QuickInventoryItem0 = "";
 user string m8f_wm_QuickInventoryItem1 = "";
 user string m8f_wm_QuickInventoryItem2 = "";

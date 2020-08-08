@@ -44,7 +44,6 @@ script "WM_FireFavoriteWeapon" (void)
 
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
 
-  WM_MaybeToggleSlomoOnQuick(playerN);
   favoriteFiring = true;
 
   returnToLast = (favorite != selectedWeapon);
