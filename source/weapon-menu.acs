@@ -19,7 +19,6 @@ int globalState = 0;
 // cached variables. Their values don't change during the game.
 int  currentSet;
 int  weaponCount;
-int  step;
 
 int  highlightedWeapon;
 int  selectedWeapon;
@@ -117,7 +116,6 @@ function void WM_LeaveInventory(int playerN)
 function void WM_EnterEnabled(int playerN)
 {
   weaponCount = weaponCounts[currentSet];
-  step        = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
 
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
   WM_SetHighlightedWeapon(selectedWeapon, playerN);
@@ -375,8 +373,9 @@ function void WM_PrintMenu(int playerN)
   int  ammoMode       = GetUserCVar(playerN, "M8fWeaponMenuShowAmmoCounts");
   int  displayMode    = GetUserCVar(playerN, "m8f_wm_DisplayMode");
   int  y              = GetUserCVar(playerN, "M8FWeaponMenuYStart");
-  int  yStart = y;
+  int  yStart         = y;
   int  stepMultiplier = GetUserCVar(playerN, "M8FWeaponMenuStepMultiplier");
+  int  step           = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
   int  stepMultiplied = (step * stepMultiplier) >> 16;
 
   bool showTags;
