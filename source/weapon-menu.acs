@@ -227,8 +227,8 @@ function str WM_GetPrintableWeaponName(int weaponNumber)
   return tags[currentSet][weaponNumber];
 }
 
-// Returns weaponNumber of next weapon in this slot, or -1 if there is no more
-// weapons in this slot.
+// Returns weaponNumber of next weapon in this slot, or ERROR_NOT_FOUND if there
+// is no more weapons in this slot.
 function int WM_GetWeaponSibling(int weaponNumber, bool doCycle, int playerN)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
@@ -240,8 +240,7 @@ function int WM_GetWeaponSibling(int weaponNumber, bool doCycle, int playerN)
         && WM_GetWeaponSlot(w) == thisWeaponSlot
         && !WM_SkipNoAmmo(w, playerN))
     {
-      int cycle = GetUserCVar(playerN, "m8fWmCycle");
-      if (!doCycle && w < weaponNumber && cycle != 1) { return -1; }
+      if (!doCycle && w < weaponNumber) { return ERROR_NOT_FOUND; }
       return w;
     }
   }
@@ -881,12 +880,10 @@ function bool WM_IsOpenOnScroll(int playerN)
 // Scripts section /////////////////////////////////////////////////////////////
 
 // Temporaryly global variables;
-int keyRepeat = 0;
 int updateCount = 0;
 int oldInstant;
 
-#define keyRepeatPeriod  4
-#define updatePeriod    10
+#define updatePeriod 10
 
 script "InitWeaponMenu" (int dehackedGameType)
 {
@@ -919,27 +916,6 @@ script "ShowWeaponMenu" (void)
   int playerN = PlayerNumber();
   // CVar may have been reset by other games while this game was saved.
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
-
-  // emulating repeated key press
-  if (keyRepeat < keyRepeatPeriod)
-  {
-    ++keyRepeat;
-  }
-  else
-  {
-    keyRepeat = 0;
-
-    bool isSmartPressed = GetUserCVar(playerN, "m8f_wm_SmartPressed");
-    if (isSmartPressed != -1)
-    {
-      bool cycle = GetUserCVar(playerN, "m8fwmCycle");
-      SetUserCVar(playerN, "m8fWmCycle", cycle + 1);
-      if (cycle > 1)
-      {
-        ACS_NamedExecute("SmartWeaponSelection", 0, isSmartPressed);
-      }
-    }
-  }
 
   if (updateCount < updatePeriod)
   {
@@ -997,13 +973,13 @@ script "ShowWeaponMenu" (void)
 script "OpenWeaponMenu" (void)
 {
   if (IsOpened()) { terminate; }
-  ACS_NamedExecute("ToggleWeaponMenu", 0, 0);
+  ACS_NamedExecute("ToggleWeaponMenu", NO_MAP, 0);
 }
 
 script "CloseWeaponMenu" (void)
 {
   if (!IsOpened()) { terminate; }
-  ACS_NamedExecute("ToggleWeaponMenu", 0, 0);
+  ACS_NamedExecute("ToggleWeaponMenu", NO_MAP, 0);
 }
 
 script "ToggleWeaponMenu" (int closeWithoutAction)
@@ -1310,7 +1286,7 @@ script "SmartWeaponSelection" (int slotNumber)
     bool sameSlot    = (slotNumber == currentSlot);
     if (sameSlot)
     {
-      int sibling = WM_GetNextWeaponInSlot(highlightedWeapon, false, playerN);
+      int sibling = WM_GetNextWeaponInSlot(highlightedWeapon, true, playerN);
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {
@@ -1576,13 +1552,13 @@ script "WM_DecreaseSlot" (void)
 script "WM_OpenInventoryMenu" (void)
 {
   if (IsInventory()) { terminate; }
-  ACS_NamedExecute("WM_InventoryMenu", 0);
+  ACS_NamedExecute("WM_InventoryMenu", NO_MAP);
 }
 
 script "WM_CloseInventoryMenu" (void)
 {
   if (!IsInventory()) { terminate; }
-  ACS_NamedExecute("WM_InventoryMenu", 0);
+  ACS_NamedExecute("WM_InventoryMenu", NO_MAP);
 }
 
 script "WM_InventoryMenu" (void)

@@ -21,61 +21,46 @@ alias WeaponMenuPrev "pukename scrollpreviousweapon"
 alias next_weapon_menu "WeaponMenuNext"
 alias prev_weapon_menu "WeaponMenuPrev"
 
-// Cycle variable is used as a workaround for
-// https://forum.zdoom.org/viewtopic.php?t=61104
-alias +wm_fire_favorite "eval + $M8fWMCycle 1 M8fWMCycle; pukename WM_FireFavoriteWeapon"
-alias -wm_fire_favorite "M8fWMCycle 0; pukename WM_FireFavoriteSwitchBack"
+alias +wm_fire_favorite "pukename WM_FireFavoriteWeapon"
+alias -wm_fire_favorite "pukename WM_FireFavoriteSwitchBack"
 
 alias wm_print_debug_info "netevent wm_print_info"
 
-alias WeaponMenuSelect1 "pukename SmartWeaponSelection 1"
-alias WeaponMenuSelect2 "pukename SmartWeaponSelection 2"
-alias WeaponMenuSelect3 "pukename SmartWeaponSelection 3"
-alias WeaponMenuSelect4 "pukename SmartWeaponSelection 4"
-alias WeaponMenuSelect5 "pukename SmartWeaponSelection 5"
-alias WeaponMenuSelect6 "pukename SmartWeaponSelection 6"
-alias WeaponMenuSelect7 "pukename SmartWeaponSelection 7"
-alias WeaponMenuSelect8 "pukename SmartWeaponSelection 8"
-alias WeaponMenuSelect9 "pukename SmartWeaponSelection 9"
-alias WeaponMenuSelect0 "pukename SmartWeaponSelection 0"
-alias WeaponMenuSelect10 "pukename SmartWeaponSelection 10"
-alias WeaponMenuSelect11 "pukename SmartWeaponSelection 11"
+alias +smart_select_1 "pukename SmartWeaponSelection 1"
+alias -smart_select_1 ""
 
-alias +smart_select_1 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 1; WeaponMenuSelect1"
-alias -smart_select_1 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_2 "pukename SmartWeaponSelection 2"
+alias -smart_select_2 ""
 
-alias +smart_select_2 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 2;  WeaponMenuSelect2"
-alias -smart_select_2 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_3 "pukename SmartWeaponSelection 3"
+alias -smart_select_3 ""
 
-alias +smart_select_3 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 3;  WeaponMenuSelect3"
-alias -smart_select_3 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_4 "pukename SmartWeaponSelection 4"
+alias -smart_select_4 ""
 
-alias +smart_select_4 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 4;  WeaponMenuSelect4"
-alias -smart_select_4 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_5 "pukename SmartWeaponSelection 5"
+alias -smart_select_5 ""
 
-alias +smart_select_5 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 5;  WeaponMenuSelect5"
-alias -smart_select_5 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_6 "pukename SmartWeaponSelection 6"
+alias -smart_select_6 ""
 
-alias +smart_select_6 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 6;  WeaponMenuSelect6"
-alias -smart_select_6 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_7 "pukename SmartWeaponSelection 7"
+alias -smart_select_7 ""
 
-alias +smart_select_7 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 7;  WeaponMenuSelect7"
-alias -smart_select_7 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_8 "pukename SmartWeaponSelection 8"
+alias -smart_select_8 ""
 
-alias +smart_select_8 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 8;  WeaponMenuSelect8"
-alias -smart_select_8 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_9 "pukename SmartWeaponSelection 9"
+alias -smart_select_9 ""
 
-alias +smart_select_9 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 9;  WeaponMenuSelect9"
-alias -smart_select_9 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_0 "pukename SmartWeaponSelection 0"
+alias -smart_select_0 ""
 
-alias +smart_select_0 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 0;  WeaponMenuSelect0"
-alias -smart_select_0 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_10 "pukename SmartWeaponSelection 10"
+alias -smart_select_10 ""
 
-alias +smart_select_10 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 10;  WeaponMenuSelect10"
-alias -smart_select_10 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
-
-alias +smart_select_11 "eval + $M8fWMCycle 1 M8fWMCycle; m8f_wm_SmartPressed 11;  WeaponMenuSelect11"
-alias -smart_select_11 "m8fwmCycle 0; m8f_wm_SmartPressed -1"
+alias +smart_select_11 "pukename SmartWeaponSelection 11"
+alias -smart_select_11 ""
 
 // Edit Weapon List Section ////////////////////////////////////////////////////
 

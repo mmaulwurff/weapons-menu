@@ -35,13 +35,7 @@ script "WM_FireFavoriteWeapon" (void)
   int selectedWeapon = WM_GetSelectedWeapon();
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
-  // Cycle variable is used as a workaround for
-  // https://forum.zdoom.org/viewtopic.php?t=61104
-  int playerN = PlayerNumber();
-  int cycleValue = GetUserCVar(playerN, "M8fWMCycle");
-  int keyPressedMore = !((cycleValue <= 1) && (cycleValue != 0));
-  if (keyPressedMore) { terminate; }
-
+  int playerN  = PlayerNumber();
   int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
 
   favoriteFiring = true;

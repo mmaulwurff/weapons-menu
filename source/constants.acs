@@ -45,3 +45,5 @@
 // OPENED -open-inventory-> INVENTORY
 
 #define N_INVENTORY_ITEMS 250
+
+#define NO_MAP 0
