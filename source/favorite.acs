@@ -52,7 +52,7 @@ script "WM_FireFavoriteWeapon" (void)
 
   if (fireMode == 2) { Delay(10); } // No fire mode
 
-  bool isReady = WM_IsWeaponReady(playerN);
+  bool isReady = WM_IsWeaponReady();
   int i = 0;
   int iMax = 35 * 2; // 2 seconds
   bool alreadyFired = false;
@@ -67,7 +67,7 @@ script "WM_FireFavoriteWeapon" (void)
     ++i;
 
     Delay(1);
-    isReady = (WM_IsWeaponReady(playerN) || i > iMax);
+    isReady = (WM_IsWeaponReady() || i > iMax);
 
     if (alreadyFired == false)
     {
@@ -98,12 +98,12 @@ script "WM_FireFavoriteSwitchBack" (void)
 
   int  playerN       = PlayerNumber();
   int  favorite      = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  bool isReady       = WM_IsWeaponDeselectable(playerN);
+  bool isReady       = WM_IsWeaponDeselectable();
 
   while (!isReady)
   {
     Delay(1);
-    isReady = WM_IsWeaponDeselectable(playerN);
+    isReady = WM_IsWeaponDeselectable();
   }
 
   if (returnToLast && CheckInventory(WM_GetWeaponClass(returnTo)))

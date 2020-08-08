@@ -1,53 +1,49 @@
-function bool WM_HasAmmo(str weaponClass, int playerN)
+#define Helper "WMZScriptHelper"
+
+function bool WM_HasAmmo(str weaponClass)
 {
-  ScriptCall("WMZScriptHelper", "HasAmmo", weaponClass);
-  bool hasAmmo = GetUserCVar(playerN, "wm_ResultInt");
-  return hasAmmo;
+  return ScriptCall(Helper, "HasAmmo", weaponClass);
 }
 
-function str WM_GetAmmoString(str weaponClass, int ammoMode, int playerN)
+function str WM_GetAmmoString(str weaponClass, int ammoMode)
 {
   if (ammoMode == 0) { return ""; }
 
   bool showSecondary = (ammoMode == 2);
-  ScriptCall("WMZscriptHelper", "TellAmmo", weaponClass, showSecondary);
-  return GetUserCVarString(playerN, "wm_ResultString");
+  return ScriptCall(Helper, "TellAmmo", weaponClass, showSecondary);
 }
 
-function bool WM_IsWeaponReady(int playerN)
+function bool WM_IsWeaponReady(void)
 {
-  ScriptCall("WMZscriptHelper", "IsWeaponReady");
-  bool isReady = GetUserCVar(playerN, "wm_ResultInt");
-  return isReady;
+  return ScriptCall(Helper, "IsWeaponReady");
 }
 
-function bool WM_IsWeaponDeselectable(int playerN)
+function bool WM_IsWeaponDeselectable(void)
 {
-  ScriptCall("WMZscriptHelper", "IsWeaponDeselectable");
-  bool isDeselectable = GetUserCVar(playerN, "wm_ResultInt");
-  return isDeselectable;
+  return ScriptCall(Helper, "IsWeaponDeselectable");
 }
 
-function str WM_GetSelectedInventory(int playerN)
+function str WM_GetSelectedInventory(void)
 {
-  return WM_GetStringFromZScript(playerN, "GetSelectedInventory");
+  return ScriptCall(Helper, "GetSelectedInventory");
 }
 
-function str WM_GetInventoryTag(str itemClass, int playerN)
+function str WM_GetInventoryTag(str itemClass)
 {
-  ScriptCall("WMZscriptHelper", "GetInventoryTag", itemClass);
-  return GetUserCVarString(playerN, "wm_ResultString");
+  return ScriptCall(Helper, "GetInventoryTag", itemClass);
 }
 
-function str WM_GetStringFromZScript(int playerN, str func)
+function str WM_GetInventoryList(void)
 {
-  ScriptCall("WMZscriptHelper", func);
-  return GetUserCVarString(playerN, "wm_ResultString");
+  return ScriptCall(Helper, "GetInventoryList");
 }
 
-function str WM_GetWeaponIcon(str weaponClass, int playerN)
+function str WM_GetWeaponList(void)
 {
-  ScriptCall("WMZScriptHelper", "GetWeaponIcon", weaponClass);
-  str icon = GetUserCVarString(playerN, "wm_ResultString");
-  return icon;
+  return ScriptCall(Helper, "GetWeaponList");
+}
+
+function str WM_GetWeaponIcon(str weaponClass)
+{
+  return ScriptCall(Helper, "GetWeaponIcon", weaponClass);
 }

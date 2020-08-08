@@ -30,9 +30,6 @@ user bool m8f_wm_ShowIcons = false;
 user bool m8f_wm_ShowBackground = false;
 user bool m8f_wm_DoubleSpaceBetweenSlots = false;
 
-user string wm_ResultString;
-user int    wm_ResultInt;
-
 // 0 - do not show
 // 1 - show only primary ammo
 // 2 - show primary and secondary

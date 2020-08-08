@@ -26,10 +26,10 @@ script "WM_ToggleQuickInventoryItem" (void)
   if (IsUninitialized()) { terminate; }
 
   int playerN           = PlayerNumber();
-  str selectedInventory = WM_GetSelectedInventory(playerN);
+  str selectedInventory = WM_GetSelectedInventory();
   if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }
 
-  str tag = WM_GetInventoryTag(selectedInventory, playerN);
+  str tag = WM_GetInventoryTag(selectedInventory);
 
   int i;
 
@@ -74,7 +74,7 @@ script "WM_UseQuickInventoryItem" (int n)
   int playerN = PlayerNumber();
 
   str item = WM_GetQuickInventoryItem(n, playerN);
-  str tag  = WM_GetInventoryTag(item, playerN);
+  str tag  = WM_GetInventoryTag(item);
 
   int count = CheckInventory(item);
   if (count == 0)

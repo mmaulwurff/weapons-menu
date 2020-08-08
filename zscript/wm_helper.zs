@@ -19,19 +19,19 @@
 class WMZscriptHelper play
 {
 
-  // public section ////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  static void TellAmmo(Actor activator, string weaponClass, bool showSecond)
+  static
+  String TellAmmo(Actor activator, string weaponClass, bool showSecond)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     PlayerInfo player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
-      SendResultString(player, "");
-      return;
+      return "";
     }
 
     string message = "";
@@ -49,20 +49,19 @@ class WMZscriptHelper play
       message.AppendFormat("%d/%d", amm2.amount, amm2.maxAmount);
     }
 
-    SendResultString(player, message);
+    return message;
   }
 
-  static void HasAmmo(Actor activator, string weaponClass)
+  static bool HasAmmo(Actor activator, string weaponClass)
   {
-    if (!activator) { return; }
+    if (!activator) { return false; }
     PlayerInfo player = activator.player;
-    if (!player) { return; }
+    if (!player) { return false; }
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
-      SendResultInt(player, 0);
-      return;
+      return false;
     }
 
     bool result   = false;
@@ -78,31 +77,32 @@ class WMZscriptHelper play
       if (hasAmmo2) { result |= (amm2.amount >= w.AmmoUse2) && (amm2.amount > 0); }
     }
 
-    SendResultInt(player, result);
+    return result;
   }
 
-  static void IsWeaponReady(Actor activator)
+  static
+  bool IsWeaponReady(Actor activator)
   {
-    if (!activator) { return; }
+    if (!activator) { return false; }
     PlayerInfo player = activator.player;
-    if (!player) { return; }
+    if (!player) { return false; }
 
-    bool isReady = (player.WeaponState & WF_WEAPONREADY)
-      || (player.WeaponState & WF_WEAPONREADYALT);
-    SendResultInt(player, isReady);
+    return (player.WeaponState & WF_WEAPONREADY)
+        || (player.WeaponState & WF_WEAPONREADYALT);
   }
 
-  static void IsWeaponDeselectable(Actor activator)
+  static
+  bool IsWeaponDeselectable(Actor activator)
   {
-    if (!activator) { return; }
+    if (!activator) { return false; }
     PlayerInfo player = activator.player;
-    if (!player) { return; }
+    if (!player) { return false; }
 
-    bool isDeselectable = player.WeaponState & WF_WEAPONSWITCHOK;
-    SendResultInt(player, isDeselectable);
+    return player.WeaponState & WF_WEAPONSWITCHOK;
   }
 
-  static void FireWeapon(Actor activator)
+  static
+  void FireWeapon(Actor activator)
   {
     if (!activator) { return; }
 
@@ -110,7 +110,8 @@ class WMZscriptHelper play
     pawn.FireWeapon(NULL);
   }
 
-  static void FireWeaponAlt(Actor activator)
+  static
+  void FireWeaponAlt(Actor activator)
   {
     if (!activator) { return; }
 
@@ -118,11 +119,12 @@ class WMZscriptHelper play
     pawn.FireWeaponAlt(NULL);
   }
 
-  static void GetInventoryList(Actor activator)
+  static
+  String GetInventoryList(Actor activator)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     let player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     string inventoryContents = "";
     int nClasses = AllActorClasses.Size();
@@ -140,55 +142,54 @@ class WMZscriptHelper play
       inventoryContents.AppendFormat("%s>%s>", className, tag);
     }
 
-    SendResultString(player, inventoryContents);
+    return inventoryContents;
   }
 
-  static void GetInventoryTag(Actor activator, string itemClass)
+  static
+  String GetInventoryTag(Actor activator, string itemClass)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     let player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     class<Inventory> type = itemClass;
     if (!type)
     {
       Console.Printf("Unknown inventory type: %s", itemClass);
-      SendResultString(player, "unknown");
-      return;
+      return "unknown";
     }
 
     readonly<Inventory> defaultItem = GetDefaultByType(type);
     if (!defaultItem)
     {
       Console.Printf("Unknown inventory type: %s", itemClass);
-      SendResultString(player, "unknown");
-      return;
+      return "unknown";
     }
 
-    string tag = defaultItem.GetTag();
-
-    SendResultString(player, tag);
+    return defaultItem.GetTag();
   }
 
-  static void GetSelectedInventory(Actor activator)
+  static
+  String GetSelectedInventory(Actor activator)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     let player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     PlayerPawn pawn = PlayerPawn(activator);
 
     if (pawn && pawn.InvSel != NULL)
     {
-      SendResultString(player, pawn.InvSel.GetClassName());
+      return pawn.InvSel.GetClassName();
     }
     else
     {
-      SendResultString(player, "wm_none");
+      return "wm_none";
     }
   }
 
-  static void SetSelectedInventory(Actor activator, string itemClass)
+  static
+  void SetSelectedInventory(Actor activator, string itemClass)
   {
     if (!activator) { return; }
 
@@ -197,11 +198,11 @@ class WMZscriptHelper play
   }
 
   static
-  void GetWeaponList(Actor activator)
+  String GetWeaponList(Actor activator)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     let player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     int nClasses = AllActorClasses.Size();
 
@@ -247,29 +248,28 @@ class WMZscriptHelper play
                              );
     }
 
-    SendResultString(player, weaponData);
+    return weaponData;
   }
 
-  static void GetWeaponIcon(Actor activator, string weaponClass)
+  static
+  String GetWeaponIcon(Actor activator, string weaponClass)
   {
-    if (!activator) { return; }
+    if (!activator) { return ""; }
     let player = activator.player;
-    if (!player) { return; }
+    if (!player) { return ""; }
 
     weaponClass = weaponClass.makeLower();
 
     string specialIcon = m8f_wm_Data.get().icons.At(weaponClass);
     if (specialIcon.Length() != 0)
     {
-      SendResultString(player, specialIcon);
-      return;
+      return specialIcon;
     }
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
     if (!w)
     {
-      SendResultString(player, placeholder);
-      return;
+      return placeholder;
     }
 
     TextureID iconID = w.SpawnState.GetSpriteTexture(0);
@@ -279,24 +279,10 @@ class WMZscriptHelper play
     if (icon == "TNT1A0")   { icon = placeholder; }
     if (icon == "ALTHUDCF") { icon = placeholder; }
 
-    SendResultString(player, icon);
+    return icon;
   }
 
   // private section ///////////////////////////////////////////////////////////
-
-  private static void SendResultString(PlayerInfo player, string result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("wm_ResultString", player);
-    messageCVar.SetString(result);
-  }
-
-  private static void SendResultInt(PlayerInfo player, int result)
-  {
-    if (!player) { return; }
-    CVar messageCVar = CVar.GetCVar("wm_ResultInt", player);
-    messageCVar.SetInt(result);
-  }
 
   private static void sortWeapons(m8f_wm_WeaponInfo info)
   {
