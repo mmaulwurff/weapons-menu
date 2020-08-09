@@ -7,7 +7,7 @@ function bool WM_HasAmmo(str weaponClass)
 
 function str WM_GetAmmoString(str weaponClass, int ammoMode)
 {
-  if (ammoMode == 0) { return ""; }
+  if (ammoMode == 0) return "";
 
   bool showSecondary = (ammoMode == 2);
   return ScriptCall(Helper, "TellAmmo", weaponClass, showSecondary);

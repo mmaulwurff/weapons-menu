@@ -4,11 +4,11 @@ function int WM_SpecialMatchClassToWeaponSet(str class)
 
   if (StrCmp(class, "DoomPlayer") == 0)
   {
-    if      (WM_IsRekkr())     { return SET_REKKR;     }
-    else if (WM_IsAbortM())    { return SET_ABORT_M;   }
-    else if (WM_IsCyanDoom())  { return SET_CYAN_DOOM; }
-    else if (WM_IsBeautiful()) { return SET_FALLBACK;  }
-    else                       { return SET_FALLBACK;  }
+    if      (WM_IsRekkr())     return SET_REKKR;
+    else if (WM_IsAbortM())    return SET_ABORT_M;
+    else if (WM_IsCyanDoom())  return SET_CYAN_DOOM;
+    else if (WM_IsBeautiful()) return SET_FALLBACK;
+    else                       return SET_FALLBACK;
   }
 
   return ERROR_NOT_FOUND;

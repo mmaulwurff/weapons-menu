@@ -8,7 +8,7 @@ function str WM_GetQuickInventoryCVarName(int n)
 
 function str WM_GetQuickInventoryItem(int n, int playerN)
 {
-  if (n >= N_QUICK_INVENTORY_ITEMS) { return "none"; }
+  if (n >= N_QUICK_INVENTORY_ITEMS) return "none";
   str cvarName = WM_GetQuickInventoryCVarName(n);
   str quickInventory = GetUserCVarString(playerN, cvarName);
   return quickInventory;
@@ -16,7 +16,7 @@ function str WM_GetQuickInventoryItem(int n, int playerN)
 
 function void WM_SetQuickInventoryItem(int n, str quickInventory, int playerN)
 {
-  if (n >= N_QUICK_INVENTORY_ITEMS) { return; }
+  if (n >= N_QUICK_INVENTORY_ITEMS) return;
   str cvarName = WM_GetQuickInventoryCVarName(n);
   SetUserCVarString(playerN, cvarName, quickInventory);
 }

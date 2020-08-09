@@ -44,10 +44,7 @@ function bool IsVisible(void)   { return globalState == STATE_OPENED || globalSt
 // Global state must be changed only with this function.
 function void WM_ChangeState(int newState, int playerN)
 {
-  if (newState == globalState)
-  {
-    return;
-  }
+  if (newState == globalState) return;
 
   WM_LeaveState(globalState);
 
@@ -128,20 +125,20 @@ function void WM_EnterClosedVisible(void)
 function void WM_MaybeLoadCustomWeaponOrder(int playerN)
 {
   int previousSet = GetUserCVar(playerN, "m8f_wm_PreviousWeaponSet");
-  if (previousSet != currentSet) { return; }
+  if (previousSet != currentSet) return;
 
   int previousCount = GetUserCVar(playerN, "M8fWeaponMenuWeaponCount");
-  if (previousCount != weaponCounts[currentSet]) { return; }
+  if (previousCount != weaponCounts[currentSet]) return;
 
   if (currentSet == SET_FALLBACK)
   {
     str  currentPlayerClass  = GetActorClass(0);
     str  previousPlayerClass = GetUserCVarString(playerN, "m8f_wm_PreviousPlayerClass");
     bool sameClass           = (StrCmp(previousPlayerClass, currentPlayerClass) == 0);
-    if (!sameClass) { return; }
+    if (!sameClass) return;
 
     bool allWeaponsExist = WM_CheckCVarWeaponsExisting(playerN);
-    if (!allWeaponsExist) { return; }
+    if (!allWeaponsExist) return;
   }
 
   WM_LoadDataFromCVars(playerN);
@@ -167,7 +164,7 @@ function bool WM_CheckCVarWeaponsExisting(int playerN)
   {
     str weaponClassCVar = StrParam(s:"M8fWeaponMenuWeaponClass", i:i);
     str weaponClass     = WM_Unwrap(GetUserCVarString(playerN, weaponClassCVar));
-    if (!CheckClass(weaponClass)) { return false; }
+    if (!CheckClass(weaponClass)) return false;
   }
   return true;
 }
@@ -203,7 +200,7 @@ function int WM_GetWeaponSibling(int weaponNumber, bool doCycle)
         && WM_GetWeaponSlot(w) == thisWeaponSlot
         && !WM_SkipNoAmmo(w))
     {
-      if (!doCycle && w < weaponNumber) { return ERROR_NOT_FOUND; }
+      if (!doCycle && w < weaponNumber) return ERROR_NOT_FOUND;
       return w;
     }
   }
@@ -297,7 +294,7 @@ function void WM_ClearScreen(void)
 
 function void WM_MaybeShowBackground(int backgroundMode)
 {
-  if (!IsShowingBackground()) { return; }
+  if (!IsShowingBackground()) return;
 
   switch (backgroundMode)
   {
@@ -595,7 +592,7 @@ function void WM_PrintMenu(void)
 
 function int WM_CountDuplicateSlots(bool doubleSpaceSlots)
 {
-  if (!doubleSpaceSlots) { return 0; }
+  if (!doubleSpaceSlots) return 0;
 
   int count = 0;
   int prevSlot = -1;
@@ -667,7 +664,7 @@ function void WM_PrintHudWeapon( int  weaponNumber
                msgFlags, id + MAX_WEAPONS_NUMBER, color, x, y, 0);
   }
 
-  if (!showTags) { return; }
+  if (!showTags) return;
 
   str weaponString = WM_MakeWeaponString(weaponNumber, withSlot, slotOnLeft);
 
@@ -686,17 +683,14 @@ function int WM_FindInWeaponList(str weaponName)
   int weaponCount = WM_WeaponCount();
   for (int i = 0; i < weaponCount; ++i)
   {
-    if (StrICmp(weaponName, WM_GetWeaponClass(i)) == 0)
-    {
-      return i;
-    }
+    if (StrICmp(weaponName, WM_GetWeaponClass(i)) == 0) return i;
   }
   return ERROR_NOT_FOUND;
 }
 
 function void WM_SelectWeapon(int weaponNumber, int playerN)
 {
-  if (weaponNumber == selectedWeapon || weaponNumber == -1) { return; }
+  if (weaponNumber == selectedWeapon || weaponNumber == -1) return;
 
   str  weaponName = WM_GetWeaponClass(weaponNumber);
   bool success    = SetWeapon(weaponName);
@@ -742,24 +736,18 @@ function void WM_PlaySwitchSound(void)
 
 function int WM_GetWeaponSet(void)
 {
-  if (IsForcingUniversalMode()) { return SET_FALLBACK; }
+  if (IsForcingUniversalMode()) return SET_FALLBACK;
 
   str currentClass = GetActorClass(0);
 
   // search for class in special lists (class/set: one-to-many and many-to-one).
   int matchedClass = WM_SpecialMatchClassToWeaponSet(currentClass);
-  if (matchedClass != ERROR_NOT_FOUND)
-  {
-    return matchedClass;
-  }
+  if (matchedClass != ERROR_NOT_FOUND) return matchedClass;
 
   // search for class in regular lists (class/set: one-to-one).
   for (int c = 0; c < SETS_NUMBER; ++c)
   {
-    if (CheckActorClass(0, playerClassNames[c]))
-    {
-      return c;
-    }
+    if (CheckActorClass(0, playerClassNames[c])) return c;
   }
 
   return SET_FALLBACK;
@@ -917,10 +905,7 @@ function int WM_FindSelectedInventoryIndex(void)
   str selectedInventoryClass = WM_GetSelectedInventory();
   for (int i = 0; i < nInventoryItems; ++i)
   {
-    if (StrCmp(selectedInventoryClass, inventoryClasses[i]) == 0)
-    {
-      return i;
-    }
+    if (StrCmp(selectedInventoryClass, inventoryClasses[i]) == 0) return i;
   }
   return ERROR_NOT_FOUND;
 }
@@ -931,12 +916,8 @@ function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
   {
     int availableIndex = (selectedInventoryIndex + i) % nInventoryItems;
 
-    if (!IsCycleEnabled() && availableIndex == 0) { return ERROR_NOT_FOUND; }
-
-    if (CheckInventory(inventoryClasses[availableIndex]))
-    {
-      return availableIndex;
-    }
+    if (!IsCycleEnabled() && availableIndex == 0) return ERROR_NOT_FOUND;
+    if (CheckInventory(inventoryClasses[availableIndex])) return availableIndex;
   }
   return ERROR_NOT_FOUND;
 }
@@ -947,19 +928,15 @@ function int WM_FindPrevAvailableInventory(int selectedInventoryIndex)
   {
     int availableIndex = (selectedInventoryIndex + nInventoryItems - i) % nInventoryItems;
 
-    if (!IsCycleEnabled() && availableIndex == nInventoryItems - 1) { return ERROR_NOT_FOUND; }
-
-    if (CheckInventory(inventoryClasses[availableIndex]))
-    {
-      return availableIndex;
-    }
+    if (!IsCycleEnabled() && availableIndex == nInventoryItems - 1) return ERROR_NOT_FOUND;
+    if (CheckInventory(inventoryClasses[availableIndex])) return availableIndex;
   }
   return ERROR_NOT_FOUND;
 }
 
 function void WM_SetSelectedInventory(int selectedIndex, int availableIndex)
 {
-  if (selectedIndex == availableIndex || availableIndex == ERROR_NOT_FOUND) { return; }
+  if (selectedIndex == availableIndex || availableIndex == ERROR_NOT_FOUND) return;
 
   WM_PlaySwitchSound();
   str inventoryClass = inventoryClasses[availableIndex];
@@ -969,7 +946,7 @@ function void WM_SetSelectedInventory(int selectedIndex, int availableIndex)
 function void WM_SelectNextInventory(void)
 {
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
-  if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
+  if (selectedInventoryIndex == ERROR_NOT_FOUND) return;
 
   int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex);
   WM_SetSelectedInventory(selectedInventoryIndex, nextAvailableInventoryIndex);
@@ -978,7 +955,7 @@ function void WM_SelectNextInventory(void)
 function void WM_SelectPreviousInventory(void)
 {
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
-  if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
+  if (selectedInventoryIndex == ERROR_NOT_FOUND) return;
 
   int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex);
   WM_SetSelectedInventory(selectedInventoryIndex, prevAvailableInventoryIndex);
@@ -1115,7 +1092,7 @@ script "ScrollPreviousWeapon" (void)
 
 function bool WM_SkipNoAmmo(int weaponIndex)
 {
-  if (!IsSkippingNoAmmo()) { return false; }
+  if (!IsSkippingNoAmmo()) return false;
 
   bool hasAmmo = WM_HasAmmo(WM_GetWeaponClass(weaponIndex));
   return !hasAmmo;
@@ -1227,7 +1204,7 @@ function bool WM_IsInInventory(int weaponNumber)
 
 function bool WM_IsSelected(int weaponNumber)
 {
-  if (weaponNumber == WEAPON_HOLSTERED) { return true; }
+  if (weaponNumber == WEAPON_HOLSTERED) return true;
   return CheckWeapon(WM_GetWeaponClass(weaponNumber));
 }
 
@@ -1245,7 +1222,7 @@ function void WM_HighlightFirstInInventory(int slotNumber)
 
 function void WM_SetHighlightedWeapon(int weaponNumber)
 {
-  if (weaponNumber == WEAPON_HOLSTERED) { return; }
+  if (weaponNumber == WEAPON_HOLSTERED) return;
   highlightedWeapon = weaponNumber;
 }
 
@@ -1309,7 +1286,7 @@ script "WM_IncreasePriority" (void)
 
 function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
 {
-  if (w1 == w2) { return; }
+  if (w1 == w2) return;
 
   int namesTmp = names[currentSet][w1];
   names[currentSet][w1] = names[currentSet][w2];
