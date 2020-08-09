@@ -254,23 +254,17 @@ class WMZscriptHelper play
   static
   String GetWeaponIcon(Actor activator, string weaponClass)
   {
-    if (!activator) { return ""; }
+    if (!activator) return "";
     let player = activator.player;
-    if (!player) { return ""; }
+    if (!player) return "";
 
     weaponClass = weaponClass.makeLower();
 
-    string specialIcon = m8f_wm_Data.get().icons.At(weaponClass);
-    if (specialIcon.Length() != 0)
-    {
-      return specialIcon;
-    }
+    string specialIcon = wm_StaticData.getIcon(weaponClass);
+    if (specialIcon.Length() != 0) return specialIcon;
 
     Weapon w = Weapon(activator.FindInventory(weaponClass));
-    if (!w)
-    {
-      return placeholder;
-    }
+    if (!w) return placeholder;
 
     TextureID iconID = w.SpawnState.GetSpriteTexture(0);
     string    icon   = TexMan.GetName(iconID);

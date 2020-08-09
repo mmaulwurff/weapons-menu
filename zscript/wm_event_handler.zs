@@ -28,6 +28,7 @@ class wm_EventHandler : EventHandler
 
     mSettings = wm_Settings.of();
     mAcs      = wm_Acs.of(event.playerNumber);
+    mData     = wm_Data.of();
     mModel    = wm_Model.of(mAcs);
     mInput    = wm_Input.of(mModel);
   }
@@ -57,14 +58,16 @@ class wm_EventHandler : EventHandler
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   wm_Settings getSettings() const { return mSettings; }
+  wm_Data     getData()     const { return mData;     }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private wm_Settings mSettings;
   private wm_Acs      mAcs;
+  private wm_Data     mData;
   private wm_Model    mModel;
   private wm_Input    mInput;
 
-  private ui wm_View     mView;
+  private ui wm_View  mView;
 
 } // class wm_EventHandler

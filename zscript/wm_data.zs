@@ -16,156 +16,172 @@
  * Weapon Menu+.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class m8f_wm_Data : Thinker
+class wm_Data
 {
 
-// public: /////////////////////////////////////////////////////////////////////
-
-  Dictionary icons;
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  m8f_wm_Data get()
+  wm_Data of()
   {
-    let it = ThinkerIterator.Create("m8f_wm_Data", STAT_INFO);
-    let p  = m8f_wm_Data(it.Next());
+    let result = new("wm_Data");
 
-    if (p != null) { return p; }
-    else           { return new("m8f_wm_Data").init(); }
+    result.mIcons = Dictionary.Create();
+    result.fillIcons();
+
+    return result;
   }
 
-  m8f_wm_Data init()
+  String getIcon(String weaponClass) const
   {
-    icons = Dictionary.Create();
-
-    icons.Insert("abortbutton"            , "nutpa0_off"  );
-    icons.Insert("argfist"                , "wmbrassoff"  );
-    icons.Insert("artifact"               , "bskla0"      );
-    icons.Insert("bd_chainsaw"            , "csawa0"      );
-    icons.Insert("bd_fist"                , "wmbrassoff"  );
-    icons.Insert("cfsfists"               , "wmbrassoff"  );
-    icons.Insert("cynetikstrikercannon"   , "csgiconoff"  );
-    icons.Insert("d3ps"                   , "pista0"      );
-    icons.Insert("darkmattergun"          , "dmgiconoff"  );
-    icons.Insert("det_pipebomb"           , "scdsa0"      );
-    icons.Insert("det_satchelcharge"      , "pdeta0"      );
-    icons.Insert("doubleknuckles"         , "wmbrassoff"  );
-    icons.Insert("erifist"                , "wmbrassoff"  );
-    icons.Insert("fdaliensbfg9000"        , "abfgz0"      );
-    icons.Insert("fdalienschaingun"       , "achgz0"      );
-    icons.Insert("fdalienschainsaw"       , "asawz0"      );
-    icons.Insert("fdaliensfist"           , "afisz0"      );
-    icons.Insert("fdalienspistol"         , "apisz0"      );
-    icons.Insert("fdaliensplasmarifle"    , "aplaz0"      );
-    icons.Insert("fdaliensrocketlauncher" , "arokz0"      );
-    icons.Insert("fdaliensshotgun"        , "ashtz0"      );
-    icons.Insert("fdalienssupershotgun"   , "assgz0"      );
-    icons.Insert("fdbtsxbfg9000"          , "xbfgz0"      );
-    icons.Insert("fdbtsxchaingun"         , "xchgz0"      );
-    icons.Insert("fdbtsxchainsaw"         , "xsawz0"      );
-    icons.Insert("fdbtsxfist"             , "xfisz0"      );
-    icons.Insert("fdbtsxpistol"           , "xpisz0"      );
-    icons.Insert("fdbtsxplasmarifle"      , "xplaz0"      );
-    icons.Insert("fdbtsxrocketlauncher"   , "xrokz0"      );
-    icons.Insert("fdbtsxshotgun"          , "xshtz0"      );
-    icons.Insert("fdbtsxsupershotgun"     , "xssgz0"      );
-    icons.Insert("fddoom2bfg9000"         , "dbfgz0"      );
-    icons.Insert("fddoom2chaingun"        , "dchgz0"      );
-    icons.Insert("fddoom2chainsaw"        , "dsawz0"      );
-    icons.Insert("fddoom2fist"            , "dfisz0"      );
-    icons.Insert("fddoom2pistol"          , "dpisz0"      );
-    icons.Insert("fddoom2plasmarifle"     , "dplaz0"      );
-    icons.Insert("fddoom2rocketlauncher"  , "drokz0"      );
-    icons.Insert("fddoom2shotgun"         , "dshtz0"      );
-    icons.Insert("fddoom2supershotgun"    , "dssgz0"      );
-    icons.Insert("fdjpcpbfg9000"          , "jbfgz0"      );
-    icons.Insert("fdjpcpchaingun"         , "jchgz0"      );
-    icons.Insert("fdjpcpfist"             , "jfisz0"      );
-    icons.Insert("fdjpcppistol"           , "jpisz0"      );
-    icons.Insert("fdjpcpplasmarifle"      , "jplaz0"      );
-    icons.Insert("fdjpcprocketlauncher"   , "jrokz0"      );
-    icons.Insert("fdjpcpshotgun"          , "jshtz0"      );
-    icons.Insert("fdjpcpsupershotgun"     , "jssgz0"      );
-    icons.Insert("fdplutbfg9000"          , "pbfgz0"      );
-    icons.Insert("fdplutchaingun"         , "pchgz0"      );
-    icons.Insert("fdplutchainsaw"         , "psawz0"      );
-    icons.Insert("fdplutfist"             , "pfisz0"      );
-    icons.Insert("fdplutpistol"           , "ppisz0"      );
-    icons.Insert("fdplutplasmarifle"      , "pplaz0"      );
-    icons.Insert("fdplutrocketlauncher"   , "prokz0"      );
-    icons.Insert("fdplutshotgun"          , "pshtz0"      );
-    icons.Insert("fdplutsupershotgun"     , "pssgz0"      );
-    icons.Insert("fdtntbfg9000"           , "tbfgz0"      );
-    icons.Insert("fdtntchaingun"          , "tchgz0"      );
-    icons.Insert("fdtntchainsaw"          , "tsawz0"      );
-    icons.Insert("fdtntfist"              , "tfisz0"      );
-    icons.Insert("fdtntpistol"            , "tpisz0"      );
-    icons.Insert("fdtntplasmarifle"       , "tplaz0"      );
-    icons.Insert("fdtntrocketlauncher"    , "trokz0"      );
-    icons.Insert("fdtntshotgun"           , "tshtz0"      );
-    icons.Insert("fdtntsupershotgun"      , "tssgz0"      );
-    icons.Insert("fist"                   , "wmbrassoff"  );
-    icons.Insert("fists"                  , "wmbrassoff"  );
-    icons.Insert("fistfixed"              , "wmbrassoff"  );
-    icons.Insert("fkfist"                 , "wmbrassoff"  );
-    icons.Insert("knuckles"               , "wmbrassoff"  );
-    icons.Insert("lewd"                   , "finga0_off"  );
-    icons.Insert("melee"                  , "wmbrassoff"  );
-    icons.Insert("perkfist"               , "wmbrassoff"  );
-    icons.Insert("pkfist"                 , "wmbrassoff"  );
-    icons.Insert("pumpshotgun"            , "kssga0"      );
-    icons.Insert("q3bfg10k"               , "bfgiconoff"  );
-    icons.Insert("q3chaingun"             , "cgiconoff"   );
-    icons.Insert("q3gauntlet"             , "gticonoff"   );
-    icons.Insert("q3grenadelauncher"      , "gliconoff"   );
-    icons.Insert("q3lightninggun"         , "lgiconoff"   );
-    icons.Insert("q3machinegun"           , "mgiconoff"   );
-    icons.Insert("q3nailgun"              , "ngiconoff"   );
-    icons.Insert("q3plasmagun"            , "pgiconoff"   );
-    icons.Insert("q3railgun"              , "rgiconoff"   );
-    icons.Insert("q3rocketlauncher"       , "rliconoff"   );
-    icons.Insert("q3shotgun"              , "sgiconoff"   );
-    icons.Insert("qlheavymachinegun"      , "hmgiconoff"  );
-    icons.Insert("staff"                  , "wmstaff_off" );
-    icons.Insert("trakioncannon"          , "trkiconoff"  );
-    icons.Insert("weapon_357"             , "hpkup102off" );
-    icons.Insert("weapon_9mmar"           , "hpkup103off" );
-    icons.Insert("weapon_crossbow"        , "hpkup109off" );
-    icons.Insert("weapon_crowbar"         , "hpkup100off" );
-    icons.Insert("weapon_egon"            , "hpkup112off" );
-    icons.Insert("weapon_gauss"           , "hpkup111off" );
-    icons.Insert("weapon_glock"           , "hpkup101off" );
-    icons.Insert("weapon_handgrenade"     , "hpkup105off" );
-    icons.Insert("weapon_hornetgun"       , "hpkup113off" );
-    icons.Insert("weapon_rpg"             , "hpkup110off" );
-    icons.Insert("weapon_satchel"         , "hpkup106off" );
-    icons.Insert("weapon_shotgun"         , "hpkup104off" );
-    icons.Insert("weapon_snark"           , "hpkup108off" );
-    icons.Insert("weapon_tripmine"        , "hpkup107off" );
-    icons.Insert("xtremefist"             , "wmbrassoff"  );
-    icons.Insert("xtremesaw"              , "csawa0"      );
-    icons.Insert("z-gun"                  , "hxzgunoff"   );
-    icons.Insert("chainsaw_rekkr"         , "csawa0"      );
-    icons.Insert("plasmarifle_rekkr"      , "plasa0"      );
-    icons.Insert("bfg9000_rekkr"          , "bfuga0"      );
-    icons.Insert("rocketlauncher_rekkr"   , "launa0"      );
-    icons.Insert("chaingun_rekkr"         , "mguna0"      );
-    icons.Insert("shotgun_rekkr"          , "shota0"      );
-    icons.Insert("pistol_rekkr"           , "wmrbow_off"  );
-    icons.Insert("fist_rekkr"             , "wmrfists_off");
-    icons.Insert("64_fist"                , "wmbrassoff"  );
-    icons.Insert("punchdagger"            , "wmdagger_off");
-    icons.Insert("mantisbunker"           , "mbpua0"      );
-    icons.Insert("bmssg"                  , "bsgpa0"      );
-    icons.Insert("bmshotgun"              , "bspua0"      );
-    icons.Insert("bmmachinegun"           , "dfmga0"      );
-    icons.Insert("bmgrenader"             , "ggpua0"      );
-    icons.Insert("bmplasmagun"            , "bmpla0"      );
-    icons.Insert("dergfist"               , "wm_guncaster_knuckles");
-    icons.Insert("bayonette"              , "baygz0"      );
-    icons.Insert("64fist"                 , "wm_doom_64_fist");
-    icons.Insert("rlfist"                 , "wm_drla_unarmed");
-
-    return self;
+    return mIcons.At(weaponClass);
   }
 
-} // class m8f_wm_Data
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private
+  void fillIcons()
+  {
+    mIcons.Insert("abortbutton"            , "nutpa0_off"  );
+    mIcons.Insert("argfist"                , "wmbrassoff"  );
+    mIcons.Insert("artifact"               , "bskla0"      );
+    mIcons.Insert("bd_chainsaw"            , "csawa0"      );
+    mIcons.Insert("bd_fist"                , "wmbrassoff"  );
+    mIcons.Insert("cfsfists"               , "wmbrassoff"  );
+    mIcons.Insert("cynetikstrikercannon"   , "csgiconoff"  );
+    mIcons.Insert("d3ps"                   , "pista0"      );
+    mIcons.Insert("darkmattergun"          , "dmgiconoff"  );
+    mIcons.Insert("det_pipebomb"           , "scdsa0"      );
+    mIcons.Insert("det_satchelcharge"      , "pdeta0"      );
+    mIcons.Insert("doubleknuckles"         , "wmbrassoff"  );
+    mIcons.Insert("erifist"                , "wmbrassoff"  );
+    mIcons.Insert("fdaliensbfg9000"        , "abfgz0"      );
+    mIcons.Insert("fdalienschaingun"       , "achgz0"      );
+    mIcons.Insert("fdalienschainsaw"       , "asawz0"      );
+    mIcons.Insert("fdaliensfist"           , "afisz0"      );
+    mIcons.Insert("fdalienspistol"         , "apisz0"      );
+    mIcons.Insert("fdaliensplasmarifle"    , "aplaz0"      );
+    mIcons.Insert("fdaliensrocketlauncher" , "arokz0"      );
+    mIcons.Insert("fdaliensshotgun"        , "ashtz0"      );
+    mIcons.Insert("fdalienssupershotgun"   , "assgz0"      );
+    mIcons.Insert("fdbtsxbfg9000"          , "xbfgz0"      );
+    mIcons.Insert("fdbtsxchaingun"         , "xchgz0"      );
+    mIcons.Insert("fdbtsxchainsaw"         , "xsawz0"      );
+    mIcons.Insert("fdbtsxfist"             , "xfisz0"      );
+    mIcons.Insert("fdbtsxpistol"           , "xpisz0"      );
+    mIcons.Insert("fdbtsxplasmarifle"      , "xplaz0"      );
+    mIcons.Insert("fdbtsxrocketlauncher"   , "xrokz0"      );
+    mIcons.Insert("fdbtsxshotgun"          , "xshtz0"      );
+    mIcons.Insert("fdbtsxsupershotgun"     , "xssgz0"      );
+    mIcons.Insert("fddoom2bfg9000"         , "dbfgz0"      );
+    mIcons.Insert("fddoom2chaingun"        , "dchgz0"      );
+    mIcons.Insert("fddoom2chainsaw"        , "dsawz0"      );
+    mIcons.Insert("fddoom2fist"            , "dfisz0"      );
+    mIcons.Insert("fddoom2pistol"          , "dpisz0"      );
+    mIcons.Insert("fddoom2plasmarifle"     , "dplaz0"      );
+    mIcons.Insert("fddoom2rocketlauncher"  , "drokz0"      );
+    mIcons.Insert("fddoom2shotgun"         , "dshtz0"      );
+    mIcons.Insert("fddoom2supershotgun"    , "dssgz0"      );
+    mIcons.Insert("fdjpcpbfg9000"          , "jbfgz0"      );
+    mIcons.Insert("fdjpcpchaingun"         , "jchgz0"      );
+    mIcons.Insert("fdjpcpfist"             , "jfisz0"      );
+    mIcons.Insert("fdjpcppistol"           , "jpisz0"      );
+    mIcons.Insert("fdjpcpplasmarifle"      , "jplaz0"      );
+    mIcons.Insert("fdjpcprocketlauncher"   , "jrokz0"      );
+    mIcons.Insert("fdjpcpshotgun"          , "jshtz0"      );
+    mIcons.Insert("fdjpcpsupershotgun"     , "jssgz0"      );
+    mIcons.Insert("fdplutbfg9000"          , "pbfgz0"      );
+    mIcons.Insert("fdplutchaingun"         , "pchgz0"      );
+    mIcons.Insert("fdplutchainsaw"         , "psawz0"      );
+    mIcons.Insert("fdplutfist"             , "pfisz0"      );
+    mIcons.Insert("fdplutpistol"           , "ppisz0"      );
+    mIcons.Insert("fdplutplasmarifle"      , "pplaz0"      );
+    mIcons.Insert("fdplutrocketlauncher"   , "prokz0"      );
+    mIcons.Insert("fdplutshotgun"          , "pshtz0"      );
+    mIcons.Insert("fdplutsupershotgun"     , "pssgz0"      );
+    mIcons.Insert("fdtntbfg9000"           , "tbfgz0"      );
+    mIcons.Insert("fdtntchaingun"          , "tchgz0"      );
+    mIcons.Insert("fdtntchainsaw"          , "tsawz0"      );
+    mIcons.Insert("fdtntfist"              , "tfisz0"      );
+    mIcons.Insert("fdtntpistol"            , "tpisz0"      );
+    mIcons.Insert("fdtntplasmarifle"       , "tplaz0"      );
+    mIcons.Insert("fdtntrocketlauncher"    , "trokz0"      );
+    mIcons.Insert("fdtntshotgun"           , "tshtz0"      );
+    mIcons.Insert("fdtntsupershotgun"      , "tssgz0"      );
+    mIcons.Insert("fist"                   , "wmbrassoff"  );
+    mIcons.Insert("fists"                  , "wmbrassoff"  );
+    mIcons.Insert("fistfixed"              , "wmbrassoff"  );
+    mIcons.Insert("fkfist"                 , "wmbrassoff"  );
+    mIcons.Insert("knuckles"               , "wmbrassoff"  );
+    mIcons.Insert("lewd"                   , "finga0_off"  );
+    mIcons.Insert("melee"                  , "wmbrassoff"  );
+    mIcons.Insert("perkfist"               , "wmbrassoff"  );
+    mIcons.Insert("pkfist"                 , "wmbrassoff"  );
+    mIcons.Insert("pumpshotgun"            , "kssga0"      );
+    mIcons.Insert("q3bfg10k"               , "bfgiconoff"  );
+    mIcons.Insert("q3chaingun"             , "cgiconoff"   );
+    mIcons.Insert("q3gauntlet"             , "gticonoff"   );
+    mIcons.Insert("q3grenadelauncher"      , "gliconoff"   );
+    mIcons.Insert("q3lightninggun"         , "lgiconoff"   );
+    mIcons.Insert("q3machinegun"           , "mgiconoff"   );
+    mIcons.Insert("q3nailgun"              , "ngiconoff"   );
+    mIcons.Insert("q3plasmagun"            , "pgiconoff"   );
+    mIcons.Insert("q3railgun"              , "rgiconoff"   );
+    mIcons.Insert("q3rocketlauncher"       , "rliconoff"   );
+    mIcons.Insert("q3shotgun"              , "sgiconoff"   );
+    mIcons.Insert("qlheavymachinegun"      , "hmgiconoff"  );
+    mIcons.Insert("staff"                  , "wmstaff_off" );
+    mIcons.Insert("trakioncannon"          , "trkiconoff"  );
+    mIcons.Insert("weapon_357"             , "hpkup102off" );
+    mIcons.Insert("weapon_9mmar"           , "hpkup103off" );
+    mIcons.Insert("weapon_crossbow"        , "hpkup109off" );
+    mIcons.Insert("weapon_crowbar"         , "hpkup100off" );
+    mIcons.Insert("weapon_egon"            , "hpkup112off" );
+    mIcons.Insert("weapon_gauss"           , "hpkup111off" );
+    mIcons.Insert("weapon_glock"           , "hpkup101off" );
+    mIcons.Insert("weapon_handgrenade"     , "hpkup105off" );
+    mIcons.Insert("weapon_hornetgun"       , "hpkup113off" );
+    mIcons.Insert("weapon_rpg"             , "hpkup110off" );
+    mIcons.Insert("weapon_satchel"         , "hpkup106off" );
+    mIcons.Insert("weapon_shotgun"         , "hpkup104off" );
+    mIcons.Insert("weapon_snark"           , "hpkup108off" );
+    mIcons.Insert("weapon_tripmine"        , "hpkup107off" );
+    mIcons.Insert("xtremefist"             , "wmbrassoff"  );
+    mIcons.Insert("xtremesaw"              , "csawa0"      );
+    mIcons.Insert("z-gun"                  , "hxzgunoff"   );
+    mIcons.Insert("chainsaw_rekkr"         , "csawa0"      );
+    mIcons.Insert("plasmarifle_rekkr"      , "plasa0"      );
+    mIcons.Insert("bfg9000_rekkr"          , "bfuga0"      );
+    mIcons.Insert("rocketlauncher_rekkr"   , "launa0"      );
+    mIcons.Insert("chaingun_rekkr"         , "mguna0"      );
+    mIcons.Insert("shotgun_rekkr"          , "shota0"      );
+    mIcons.Insert("pistol_rekkr"           , "wmrbow_off"  );
+    mIcons.Insert("fist_rekkr"             , "wmrfists_off");
+    mIcons.Insert("64_fist"                , "wmbrassoff"  );
+    mIcons.Insert("punchdagger"            , "wmdagger_off");
+    mIcons.Insert("mantisbunker"           , "mbpua0"      );
+    mIcons.Insert("bmssg"                  , "bsgpa0"      );
+    mIcons.Insert("bmshotgun"              , "bspua0"      );
+    mIcons.Insert("bmmachinegun"           , "dfmga0"      );
+    mIcons.Insert("bmgrenader"             , "ggpua0"      );
+    mIcons.Insert("bmplasmagun"            , "bmpla0"      );
+    mIcons.Insert("dergfist"               , "wm_guncaster_knuckles");
+    mIcons.Insert("bayonette"              , "baygz0"      );
+    mIcons.Insert("64fist"                 , "wm_doom_64_fist");
+    mIcons.Insert("rlfist"                 , "wm_drla_unarmed");
+  }
+
+  private Dictionary mIcons;
+
+} // class wm_Data
+
+class wm_StaticData
+{
+
+  static
+  String getIcon(String weaponClass)
+  {
+    return wm_EventHandler(EventHandler.Find("wm_EventHandler")).getData().getIcon(weaponClass);
+  }
+
+} // class wm_StaticData
