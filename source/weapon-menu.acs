@@ -788,10 +788,7 @@ function int WM_GetWeaponSet(void)
 // Scripts section /////////////////////////////////////////////////////////////
 
 // Temporaryly global variables;
-int updateCount = 0;
 int oldInstant;
-
-#define updatePeriod 10
 
 script "InitWeaponMenu" (int dehackedGameType)
 {
@@ -819,31 +816,22 @@ script "ShowWeaponMenu" (void)
   // CVar may have been reset by other games while this game was saved.
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
 
-  if (updateCount < updatePeriod)
+  bool instant = IsInstantSwitch();
+  if (oldInstant != instant)
   {
-    ++updateCount;
+    WM_InstantSwitch(instant == 2);
+    oldInstant = instant;
   }
-  else
+
+  if (IsVisible())
   {
-    updateCount = 0;
+    bool updated  = WM_UpdateIsInInventory();
+    if (updated || AmmoMode()) { WM_UpdateMenu(); }
+  }
 
-    bool instant = IsInstantSwitch();
-    if (oldInstant != instant)
-    {
-      WM_InstantSwitch(instant == 2);
-      oldInstant = instant;
-    }
-
-    if (IsVisible())
-    {
-      bool updated  = WM_UpdateIsInInventory();
-      if (updated || AmmoMode()) { WM_UpdateMenu(); }
-    }
-
-    if (IsInventory())
-    {
-      WM_PrintInventoryMenu(playerN);
-    }
+  if (IsInventory())
+  {
+    WM_PrintInventoryMenu(playerN);
   }
 
   /* debug output
