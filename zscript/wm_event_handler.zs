@@ -29,7 +29,7 @@ class wm_EventHandler : EventHandler
     mSettings = wm_Settings.of();
     mAcs      = wm_Acs.of(event.playerNumber);
     mData     = wm_Data.of();
-    mModel    = wm_Model.of(mAcs);
+    mModel    = wm_Model.of(mAcs, mSettings, mData, event.playerNumber);
     mInput    = wm_Input.of(mModel);
   }
 

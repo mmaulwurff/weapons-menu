@@ -22,13 +22,17 @@ class wm_Model play
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  wm_Model of(wm_Acs acs)
+  wm_Model of(wm_Acs acs, wm_Settings settings, wm_Data data, int playerNumber)
   {
     let result = new("wm_Model");
 
-    result.mAcs = acs;
+    result.mAcs      = acs;
+    result.mSettings = settings;
+    result.mData     = data;
 
-    result.mAcs.execute("InitWeaponMenu");
+    result.mPlayerNumber = playerNumber;
+
+    result.mAcs.execute1("InitWeaponMenu", result.getWeaponSet());
 
     return result;
   }
@@ -163,6 +167,17 @@ class wm_Model play
 
   const N_QUICK_INVENTORY_ITEMS = 10;
 
-  private wm_Acs mAcs;
+  private
+  int getWeaponSet() const
+  {
+    return mSettings.isForcingUniversalMode()
+      ? wm_Data.SET_FALLBACK
+      : mData.getWeaponSet(players[mPlayerNumber].mo.GetClassName());
+  }
+
+  private wm_Acs      mAcs;
+  private wm_Settings mSettings;
+  private wm_Data     mData;
+  private int         mPlayerNumber;
 
 } // class wm_Model

@@ -732,13 +732,6 @@ function void WM_PlaySwitchSound(void)
   PlaySound(0, SwitchSound(), CHAN_AUTO);
 }
 
-function int WM_GetWeaponSet(void)
-{
-  if (IsForcingUniversalMode()) return SET_FALLBACK;
-
-  return ScriptCall("wm_StaticData", "getWeaponSet", GetActorClass(0));
-}
-
 function int WM_WeaponCount(void)
 {
   return weaponCounts[currentSet];
@@ -749,9 +742,9 @@ function int WM_WeaponCount(void)
 // Temporaryly global variables;
 int oldInstant;
 
-script "InitWeaponMenu" (void)
+script "InitWeaponMenu" (int weaponSet)
 {
-  currentSet = WM_GetWeaponSet();
+  currentSet = weaponSet;
 
   if (currentSet == SET_FALLBACK)
   {
