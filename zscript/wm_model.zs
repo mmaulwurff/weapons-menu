@@ -28,7 +28,7 @@ class wm_Model play
 
     result.mAcs = acs;
 
-    result.mAcs.execute1("InitWeaponMenu", wm_Game.getDehackedGameType());
+    result.mAcs.execute("InitWeaponMenu");
 
     return result;
   }

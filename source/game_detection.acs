@@ -1,10 +1,8 @@
 // Game Detection Section //////////////////////////////////////////////////////
 
-bool isRekkr;
-
 function bool WM_IsRekkr(void)
 {
-  return isRekkr;
+  return ScriptCall("wm_Game", "isRekkr");
 }
 
 function bool WM_IsAbortM(void)

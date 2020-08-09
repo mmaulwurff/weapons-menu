@@ -19,18 +19,17 @@
 class wm_Game
 {
 
-  static bool isTitlemap()
+  static
+  bool isTitlemap()
   {
     bool isTitlemap = (level.mapname == "TITLEMAP");
     return isTitlemap;
   }
 
-  static int getDehackedGameType()
+  static
+  bool isRekkr()
   {
-    bool isRekkr = (Wads.FindLump("REKCREDS") != -1);
-    if (isRekkr) { return 2; }
-
-    return 0;
+    return (Wads.FindLump("REKCREDS") != -1);
   }
 
 } // class wm_Game

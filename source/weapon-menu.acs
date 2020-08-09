@@ -790,9 +790,8 @@ function int WM_GetWeaponSet(void)
 // Temporaryly global variables;
 int oldInstant;
 
-script "InitWeaponMenu" (int dehackedGameType)
+script "InitWeaponMenu" (void)
 {
-  isRekkr    = (dehackedGameType == 2);
   currentSet = WM_GetWeaponSet();
 
   // for some reason without delay only vanilla weapons will be listed.
