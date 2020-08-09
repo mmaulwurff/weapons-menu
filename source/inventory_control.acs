@@ -23,8 +23,6 @@ function void WM_SetQuickInventoryItem(int n, str quickInventory, int playerN)
 
 script "WM_ToggleQuickInventoryItem" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN           = PlayerNumber();
   str selectedInventory = WM_GetSelectedInventory();
   if (StrCmp(selectedInventory, "wm_none") == 0) { terminate; }

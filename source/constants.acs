@@ -27,7 +27,6 @@
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
 
-#define STATE_UNINITIALIZED  0
 #define STATE_ENABLED        2
 #define STATE_CLOSED         3
 #define STATE_OPENED         4

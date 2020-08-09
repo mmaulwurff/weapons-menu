@@ -4,8 +4,6 @@ bool favoriteFiring = false;
 
 script "WM_MarkWeaponAsFavorite" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int selectedWeapon = WM_GetSelectedWeapon();
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
@@ -16,8 +14,6 @@ script "WM_MarkWeaponAsFavorite" (void)
 
 script "WM_SelectFavoriteWeapon" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN  = PlayerNumber();
   int favorite = FavoriteWeapon();
   if (CheckInventory(WM_GetWeaponClass(favorite)))
@@ -30,8 +26,6 @@ script "WM_SelectFavoriteWeapon" (void)
 
 script "WM_FireFavoriteWeapon" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int selectedWeapon = WM_GetSelectedWeapon();
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
@@ -92,8 +86,6 @@ script "WM_FireFavoriteWeapon" (void)
 
 script "WM_FireFavoriteSwitchBack" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   while (favoriteFiring) { Delay(1); }
 
   bool isReady = WM_IsWeaponDeselectable();

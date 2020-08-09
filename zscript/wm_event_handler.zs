@@ -26,7 +26,6 @@ class wm_EventHandler : EventHandler
   {
     if (wm_Game.isTitlemap() || players[event.PlayerNumber].mo == NULL) return;
 
-    console.printf("enter");
     mSettings = wm_Settings.of();
     mAcs      = wm_Acs.of(event.playerNumber);
     mModel    = wm_Model.of(mAcs);

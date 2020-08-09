@@ -37,10 +37,9 @@ str inventoryNames  [N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
-function bool IsUninitialized(void) { return globalState == STATE_UNINITIALIZED; }
-function bool IsOpened(void)     { return globalState == STATE_OPENED; }
-function bool IsInventory(void)  { return globalState == STATE_INVENTORY; }
-function bool IsVisible(void)    { return globalState == STATE_OPENED || globalState == STATE_CLOSED_VISIBLE; }
+function bool IsOpened(void)    { return globalState == STATE_OPENED; }
+function bool IsInventory(void) { return globalState == STATE_INVENTORY; }
+function bool IsVisible(void)   { return globalState == STATE_OPENED || globalState == STATE_CLOSED_VISIBLE; }
 
 // Global state must be changed only with this function.
 function void WM_ChangeState(int newState, int playerN)
@@ -50,19 +49,18 @@ function void WM_ChangeState(int newState, int playerN)
     return;
   }
 
-  WM_LeaveState(globalState, playerN);
+  WM_LeaveState(globalState);
 
   globalState = newState;
 
   WM_EnterState(newState, playerN);
 }
 
-function void WM_LeaveState(int oldState, int playerN)
+function void WM_LeaveState(int oldState)
 {
   // leave previous state
   switch (oldState)
   {
-  case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
   case STATE_ENABLED:        break;
   case STATE_CLOSED:         break;
   case STATE_OPENED:         WM_LeaveOpened();    break;
@@ -78,23 +76,12 @@ function void WM_EnterState(int newState, int playerN)
 
   switch (newState)
   {
-  case STATE_UNINITIALIZED:  break;
   case STATE_ENABLED:        WM_EnterEnabled(playerN);   break;
   case STATE_CLOSED:         WM_EnterClosed(playerN);    break;
   case STATE_OPENED:         WM_EnterOpened();           break;
   case STATE_INVENTORY:      WM_EnterInventory(playerN); break;
   case STATE_CLOSED_VISIBLE: WM_EnterClosedVisible();    break;
   }
-}
-
-function void WM_LeaveUninitialized(int playerN)
-{
-  if (currentSet == SET_FALLBACK)
-  {
-    WM_GetFallbackWeapons();
-  }
-
-  WM_MaybeLoadCustomWeaponOrder(playerN);
 }
 
 function void WM_LeaveOpened(void)
@@ -798,6 +785,13 @@ script "InitWeaponMenu" (void)
   bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
   bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
 
+  if (currentSet == SET_FALLBACK)
+  {
+    WM_GetFallbackWeapons();
+  }
+
+  WM_MaybeLoadCustomWeaponOrder(playerN);
+
   WM_ChangeState(STATE_ENABLED, playerN);
 
   if      (wasInventory) { WM_ChangeState(STATE_INVENTORY, playerN); }
@@ -869,8 +863,6 @@ script "CloseWeaponMenu" (void)
 
 script "ToggleWeaponMenu" (int closeWithoutAction)
 {
-  if (IsUninitialized()) { terminate; }
-
   if (IsInventory())
   {
     int playerN = PlayerNumber();
@@ -990,8 +982,6 @@ function void WM_SelectPreviousInventory(void)
 
 script "ScrollNextWeapon" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN = PlayerNumber();
 
   if (IsInventory())
@@ -1061,8 +1051,6 @@ function void WM_MaybeDisplayNameTag(void)
 
 script "ScrollPreviousWeapon" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN = PlayerNumber();
 
   if (IsInventory())
@@ -1145,8 +1133,6 @@ function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle)
 
 script "SmartWeaponSelection" (int slotNumber)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN = PlayerNumber();
 
   if (IsInventory())
@@ -1289,8 +1275,6 @@ script "WM_ApplyTagChange" (void)
 
 script "WM_IncreasePriority" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   str name = WM_GetPrintableWeaponName(highlightedWeapon);
   if (highlightedWeapon == 0)
   {
@@ -1356,8 +1340,6 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
 
 script "WM_IncreaseSlot" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 11) { terminate; }
 
@@ -1389,8 +1371,6 @@ script "WM_IncreaseSlot" (void)
 
 script "WM_DecreaseSlot" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int currentSlot = WM_GetWeaponSlot(highlightedWeapon);
   if (currentSlot == 1) { terminate; }
 
@@ -1436,8 +1416,6 @@ script "WM_CloseInventoryMenu" (void)
 
 script "WM_InventoryMenu" (void)
 {
-  if (IsUninitialized()) { terminate; }
-
   int playerN = PlayerNumber();
 
   if (IsInventory())
