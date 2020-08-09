@@ -71,10 +71,14 @@ class wm_Model play
   void clearQuickInventoryItems()
   {
     mAcs.execute("WM_ClearQuickInventoryItems");
+
+    wm_log.print("Quick Inventory Item List is cleared.");
   }
 
   void useQuickInventoryItem(int itemIndex)
   {
+    if (itemIndex >= N_QUICK_INVENTORY_ITEMS) return;
+
     mAcs.execute1("WM_UseQuickInventoryItem", itemIndex);
   }
 
@@ -156,6 +160,8 @@ class wm_Model play
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  const N_QUICK_INVENTORY_ITEMS = 10;
 
   private wm_Acs mAcs;
 

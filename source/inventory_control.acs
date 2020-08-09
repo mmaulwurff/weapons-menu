@@ -64,13 +64,10 @@ script "WM_ClearQuickInventoryItems" (void)
   {
     WM_SetQuickInventoryItem(i, "", playerN);
   }
-  Log(s:"Quick Inventory Item List is cleared.");
 }
 
 script "WM_UseQuickInventoryItem" (int n)
 {
-  if (n >= N_QUICK_INVENTORY_ITEMS) { terminate; }
-
   int playerN = PlayerNumber();
 
   str item = WM_GetQuickInventoryItem(n, playerN);
