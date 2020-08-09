@@ -37,6 +37,29 @@ class wm_Data
     return mIcons.At(weaponClass);
   }
 
+  enum Sets
+  {
+    SET_NOT_FOUND = -1,
+    SET_ABORT_M   =  4,
+    SET_CYAN_DOOM = 13,
+    SET_REKKR     = 18,
+    SET_FALLBACK  = 29,
+  }
+
+  static
+  int getSpecialSet(String playerClass)
+  {
+    if (playerClass == "DoomPlayer")
+    {
+      if      (wm_Game.isRekkr())    return SET_REKKR;
+      else if (wm_Game.isAbortM())   return SET_ABORT_M;
+      else if (wm_Game.isCyanDoom()) return SET_CYAN_DOOM;
+      else                           return SET_FALLBACK;
+    }
+
+    return SET_NOT_FOUND;
+  }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
@@ -178,10 +201,16 @@ class wm_Data
 class wm_StaticData
 {
 
-  static
-  String getIcon(String weaponClass)
+// public: /////////////////////////////////////////////////////////////////////////////////////////
+
+  static String getIcon(String weaponClass) { return getData().getIcon(weaponClass); }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  wm_Data getData()
   {
-    return wm_EventHandler(EventHandler.Find("wm_EventHandler")).getData().getIcon(weaponClass);
+    return wm_EventHandler(EventHandler.Find("wm_EventHandler")).getData();
   }
 
 } // class wm_StaticData

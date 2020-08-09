@@ -4,9 +4,7 @@
 #include "constants.acs"
 
 #include "data.acs"
-#include "data_special.acs"
 #include "favorite.acs"
-#include "game_detection.acs"
 #include "inventory_control.acs"
 #include "string.acs"
 #include "utils.acs"
@@ -738,10 +736,8 @@ function int WM_GetWeaponSet(void)
 {
   if (IsForcingUniversalMode()) return SET_FALLBACK;
 
-  str currentClass = GetActorClass(0);
-
   // search for class in special lists (class/set: one-to-many and many-to-one).
-  int matchedClass = WM_SpecialMatchClassToWeaponSet(currentClass);
+  int matchedClass = ScriptCall("wm_Data", "getSpecialSet", GetActorClass(0));
   if (matchedClass != ERROR_NOT_FOUND) return matchedClass;
 
   // search for class in regular lists (class/set: one-to-one).
@@ -1451,13 +1447,6 @@ function void WM_FillInventoryItems(void)
       currentToken = "";
     }
   }
-
-  /*
-  for (int j = 0; j < current; ++j)
-  {
-    Log(s:inventoryClasses[j], s:" : ", s:inventoryNames[j]);
-  }
-  ///*///
 
   nInventoryItems = current;
 }
