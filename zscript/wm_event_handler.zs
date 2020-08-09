@@ -24,19 +24,18 @@ class wm_EventHandler : EventHandler
   override
   void playerEntered(PlayerEvent event)
   {
-    mView = wm_View.of();
     mSettings = wm_Settings.of();
+    mView     = wm_View.of();
+    mModel    = wm_Model.of(mView);
+    mInput    = wm_Input.of(mView, mModel);
   }
 
   override
   void networkProcess(ConsoleEvent event)
   {
-    if (mView == NULL) { return; }
+    if (mInput == NULL) { return; }
 
-    if (event.name == "wm_print_info")
-    {
-      mView.printInfo();
-    }
+    mInput.process(event.name);
   }
 
   override
@@ -53,7 +52,9 @@ class wm_EventHandler : EventHandler
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private wm_View     mView;
   private wm_Settings mSettings;
+  private wm_View     mView;
+  private wm_Model    mModel;
+  private wm_Input    mInput;
 
 } // class wm_EventHandler
