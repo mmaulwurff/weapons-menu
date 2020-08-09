@@ -53,6 +53,8 @@ class wm_Settings
     result.mIsSelectingIfOnlyInSlot = wm_cvar.of("m8fWeaponMenuImmediatelySelectIfOnlyInSlot", player);
     result.mIsInstantSwitch         = wm_cvar.of("m8fWeaponMenuInstantSwitch"     , player);
     result.mIsCycleEnabled          = wm_cvar.of("m8f_wm_cycle_enabled"           , player);
+    result.mFavoriteWeapon          = wm_cvar.of("m8fWeaponMenuFavoriteWeapon"    , player);
+    result.mFavoriteWeaponFireMode  = wm_cvar.of("m8f_wm_FavoriteFireMode"        , player);
 
     result.mInventoryXStart         = wm_cvar.of("m8f_wm_InventoryMenuX"          , player);
     result.mInventoryYStart         = wm_cvar.of("m8f_wm_InventoryMenuY"          , player);
@@ -86,6 +88,8 @@ class wm_Settings
   bool   isInstantSwitch()         const { return mIsInstantSwitch.getBool(); }
   bool   isClosingAfterUse()       const { return mIsClosingAfterUse.getBool(); }
   bool   isCycleEnabled()          const { return mIsCycleEnabled.getBool(); }
+  int    favoriteWeapon()          const { return mFavoriteWeapon.getInt(); }
+  int    favoriteWeaponFireMode()  const { return mFavoriteWeaponFireMode.getInt(); }
 
   double inventoryXStart()         const { return mInventoryXStart.getDouble(); }
   double inventoryYStart()         const { return mInventoryYStart.getDouble(); }
@@ -118,6 +122,8 @@ class wm_Settings
   private wm_cvar mIsInstantSwitch;
   private wm_cvar mIsClosingAfterUse;
   private wm_cvar mIsCycleEnabled;
+  private wm_cvar mFavoriteWeapon;
+  private wm_cvar mFavoriteWeaponFireMode;
 
   private wm_cvar mInventoryXStart;
   private wm_cvar mInventoryYStart;
@@ -155,6 +161,8 @@ class wm_StaticSettings
   static bool   isInstantSwitch()         { return getSettings().isInstantSwitch(); }
   static bool   isClosingAfterUse()       { return getSettings().isClosingAfterUse(); }
   static bool   isCycleEnabled()          { return getSettings().isCycleEnabled(); }
+  static int    favoriteWeapon()          { return getSettings().favoriteWeapon(); }
+  static int    favoriteWeaponFireMode()  { return getSettings().favoriteWeaponFireMode(); }
 
   static double inventoryXStart()         { return getSettings().inventoryXStart(); }
   static double inventoryYStart()         { return getSettings().inventoryYStart(); }

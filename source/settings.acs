@@ -26,6 +26,8 @@ function str  IsSelectingIfOnlyInSlot(void) { return ScriptCall(Settings, "isSel
 function str  IsInstantSwitch(void)         { return ScriptCall(Settings, "isInstantSwitch"); }
 function str  IsClosingAfterUse(void)       { return ScriptCall(Settings, "isClosingAfterUse"); }
 function str  IsCycleEnabled(void)          { return ScriptCall(Settings, "isCycleEnabled"); }
+function int  FavoriteWeapon(void)          { return ScriptCall(Settings, "favoriteWeapon"); }
+function int  FavoriteWeaponFireMode(void)  { return ScriptCall(Settings, "favoriteWeaponFireMode"); }
 
 function int  InventoryXStart(void)         { return ScriptCall(Settings, "inventoryXStart"); }
 function int  InventoryYStart(void)         { return ScriptCall(Settings, "inventoryYStart"); }

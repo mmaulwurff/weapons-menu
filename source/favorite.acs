@@ -18,8 +18,8 @@ script "WM_SelectFavoriteWeapon" (void)
 {
   if (IsUninitialized()) { terminate; }
 
-  int playerN = PlayerNumber();
-  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  int playerN  = PlayerNumber();
+  int favorite = FavoriteWeapon();
   if (CheckInventory(WM_GetWeaponClass(favorite)))
   {
     WM_SelectWeapon(favorite, playerN);
@@ -35,8 +35,7 @@ script "WM_FireFavoriteWeapon" (void)
   int selectedWeapon = WM_GetSelectedWeapon();
   if (selectedWeapon == WEAPON_HOLSTERED) { terminate; }
 
-  int playerN  = PlayerNumber();
-  int favorite = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
+  int favorite = FavoriteWeapon();
 
   favoriteFiring = true;
 
@@ -44,13 +43,14 @@ script "WM_FireFavoriteWeapon" (void)
   returnTo = selectedWeapon;
   WM_SetSelectedWatchEnabled(false);
 
-  int fireMode = GetUserCVar(playerN, "m8f_wm_FavoriteFireMode");
-  bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
+  int  playerN = PlayerNumber();
+  bool instant = IsInstantSwitch();
+
   if (instant) { WM_InstantSwitch(true); }
   WM_SelectWeapon(favorite, playerN);
   if (instant) { Delay(1); WM_InstantSwitch(false); }
 
-  if (fireMode == 2) { Delay(10); } // No fire mode
+  if (FavoriteWeaponFireMode() == 2) { Delay(10); } // No fire mode
 
   bool isReady = WM_IsWeaponReady();
   int i = 0;
@@ -79,7 +79,7 @@ script "WM_FireFavoriteWeapon" (void)
   if (alreadyFired) { Delay(1); }
   else
   {
-    switch (fireMode)
+    switch (FavoriteWeaponFireMode())
     {
     case 0: ScriptCall("WMZScriptHelper", "FireWeapon"   ); break;
     case 1: ScriptCall("WMZScriptHelper", "FireWeaponAlt"); break;
@@ -96,9 +96,7 @@ script "WM_FireFavoriteSwitchBack" (void)
 
   while (favoriteFiring) { Delay(1); }
 
-  int  playerN       = PlayerNumber();
-  int  favorite      = GetUserCVar(playerN, "M8fWeaponMenuFavoriteWeapon");
-  bool isReady       = WM_IsWeaponDeselectable();
+  bool isReady = WM_IsWeaponDeselectable();
 
   while (!isReady)
   {
@@ -108,12 +106,12 @@ script "WM_FireFavoriteSwitchBack" (void)
 
   if (returnToLast && CheckInventory(WM_GetWeaponClass(returnTo)))
   {
-    bool instant = (GetUserCVar(playerN, "M8fWeaponMenuInstantSwitch") == 1);
+    int  playerN = PlayerNumber();
+    bool instant = IsInstantSwitch();
+
     if (instant) { WM_InstantSwitch(true); }
     WM_SelectWeapon(returnTo, playerN);
     if (instant) { Delay(1); WM_InstantSwitch(false); }
-
-    int selectedWeapon = WM_GetSelectedWeapon();
   }
 
   WM_SetSelectedWatchEnabled(true);
