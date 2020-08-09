@@ -24,10 +24,13 @@ class wm_EventHandler : EventHandler
   override
   void playerEntered(PlayerEvent event)
   {
+    if (wm_Game.isTitlemap() || players[event.PlayerNumber].mo == NULL) return;
+
+    console.printf("enter");
     mSettings = wm_Settings.of();
-    mView     = wm_View.of();
-    mModel    = wm_Model.of(mView);
-    mInput    = wm_Input.of(mView, mModel);
+    mAcs      = wm_Acs.of(event.playerNumber);
+    mModel    = wm_Model.of(mAcs);
+    mInput    = wm_Input.of(mModel);
   }
 
   override
@@ -41,9 +44,15 @@ class wm_EventHandler : EventHandler
   override
   void renderOverlay(RenderEvent event)
   {
-    if (mView == NULL) { return; }
+    if (mView == NULL && mModel != NULL)
+    {
+      mView = wm_View.of(mAcs, mModel);
+    }
 
-    mView.show();
+    if (mView != NULL)
+    {
+      mView.show();
+    }
   }
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
@@ -53,8 +62,10 @@ class wm_EventHandler : EventHandler
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private wm_Settings mSettings;
-  private wm_View     mView;
+  private wm_Acs      mAcs;
   private wm_Model    mModel;
   private wm_Input    mInput;
+
+  private ui wm_View     mView;
 
 } // class wm_EventHandler

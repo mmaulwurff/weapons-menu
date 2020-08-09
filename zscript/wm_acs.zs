@@ -1,4 +1,4 @@
-/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2018-2020
+/* Copyright Alexander 'm8f' Kromm (mmaulwurff@gmail.com) 2020
  *
  * This file is a part of Weapon Menu+.
  *
@@ -16,30 +16,38 @@
  * Weapon Menu+.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class wm_View ui
+/**
+ * Temporary class for ZScript to ACS transition.
+ *
+ * This uses play ... const hack to circumvent scoping.
+ */
+class wm_Acs play
 {
 
-// public: /////////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  wm_View of(wm_Acs acs, wm_Model model)
+  wm_Acs of(int playerNumber)
   {
-    let result = new("wm_View");
-
-    result.mAcs   = acs;
-    result.mModel = model;
-
+    let result = new("wm_Acs");
+    result.mPlayer = players[playerNumber];
     return result;
   }
 
-  void show() const
+  void execute(String script) const
   {
-    mAcs.execute("ShowWeaponMenu");
+    if (mPlayer.mo) mPlayer.mo.ACS_NamedExecute(script);
+  }
+
+  void execute1(String script, int parameter) const
+  {
+    if (mPlayer.mo) mPlayer.mo.ACS_NamedExecute(script, NO_MAP, parameter);
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private wm_Acs   mAcs;
-  private wm_Model mModel;
+  const NO_MAP = 0;
 
-} // class wm_View
+  private PlayerInfo mPlayer;
+
+} // class wm_Acs

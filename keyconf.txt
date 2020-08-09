@@ -6,87 +6,85 @@ alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
 alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu_no_action +altattack"
 alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
 
-alias toggle_menu_no_action "pukename ToggleWeaponMenu 1"
-alias toggle_menu           "pukename ToggleWeaponMenu 0"
+alias toggle_menu_no_action "netevent wm_toggle:1"
+alias toggle_menu           "netevent wm_toggle:0"
 
-alias +press_menu "pukename OpenWeaponMenu"
-alias -press_menu "pukename CloseWeaponMenu"
+alias +press_menu "netevent wm_open"
+alias -press_menu "netevent wm_close"
 
-alias +press_inv "pukename WM_OpenInventoryMenu"
-alias -press_inv "pukename WM_CloseInventoryMenu"
+alias +press_inv "netevent wm_open_inventory"
+alias -press_inv "netevent wm_close_inventory"
 
-alias WeaponMenuNext "pukename scrollnextweapon"
-alias WeaponMenuPrev "pukename scrollpreviousweapon"
+alias next_weapon_menu "netevent wm_scroll_next"
+alias prev_weapon_menu "netevent wm_scroll_previous"
 
-alias next_weapon_menu "WeaponMenuNext"
-alias prev_weapon_menu "WeaponMenuPrev"
-
-alias +wm_fire_favorite "pukename WM_FireFavoriteWeapon"
-alias -wm_fire_favorite "pukename WM_FireFavoriteSwitchBack"
+alias +wm_fire_favorite "netevent wm_fire_favorite"
+alias -wm_fire_favorite "netevent wm_favorite_back"
 
 alias wm_print_debug_info "netevent wm_print_info"
 
-alias +smart_select_1 "pukename SmartWeaponSelection 1"
+alias +smart_select_1 "netevent wm_smart_select:1"
 alias -smart_select_1 ""
 
-alias +smart_select_2 "pukename SmartWeaponSelection 2"
+alias +smart_select_2 "netevent wm_smart_select:2"
 alias -smart_select_2 ""
 
-alias +smart_select_3 "pukename SmartWeaponSelection 3"
+alias +smart_select_3 "netevent wm_smart_select:3"
 alias -smart_select_3 ""
 
-alias +smart_select_4 "pukename SmartWeaponSelection 4"
+alias +smart_select_4 "netevent wm_smart_select:4"
 alias -smart_select_4 ""
 
-alias +smart_select_5 "pukename SmartWeaponSelection 5"
+alias +smart_select_5 "netevent wm_smart_select:5"
 alias -smart_select_5 ""
 
-alias +smart_select_6 "pukename SmartWeaponSelection 6"
+alias +smart_select_6 "netevent wm_smart_select:6"
 alias -smart_select_6 ""
 
-alias +smart_select_7 "pukename SmartWeaponSelection 7"
+alias +smart_select_7 "netevent wm_smart_select:7"
 alias -smart_select_7 ""
 
-alias +smart_select_8 "pukename SmartWeaponSelection 8"
+alias +smart_select_8 "netevent wm_smart_select:8"
 alias -smart_select_8 ""
 
-alias +smart_select_9 "pukename SmartWeaponSelection 9"
+alias +smart_select_9 "netevent wm_smart_select:9"
 alias -smart_select_9 ""
 
-alias +smart_select_0 "pukename SmartWeaponSelection 0"
+alias +smart_select_0 "netevent wm_smart_select:0"
 alias -smart_select_0 ""
 
-alias +smart_select_10 "pukename SmartWeaponSelection 10"
+alias +smart_select_10 "netevent wm_smart_select:10"
 alias -smart_select_10 ""
 
-alias +smart_select_11 "pukename SmartWeaponSelection 11"
+alias +smart_select_11 "netevent wm_smart_select:11"
 alias -smart_select_11 ""
 
 // Edit Weapon List Section ////////////////////////////////////////////////////
 
-alias m8f_wm_increase_priority "pukename WM_IncreasePriority; closemenu"
-alias m8f_wm_increase_slot     "pukename WM_IncreaseSlot;     closemenu"
-alias m8f_wm_decrease_slot     "pukename WM_DecreaseSlot;     closemenu"
-alias m8f_wm_apply_tag_change  "pukename WM_ApplyTagChange;   closemenu"
+alias m8f_wm_increase_priority "netevent wm_increase_priority; closemenu"
+alias m8f_wm_increase_slot     "netevent wm_decrease_priority; closemenu"
+alias m8f_wm_decrease_slot     "netevent wm_decrease_slot;     closemenu"
+alias m8f_wm_apply_tag_change  "netevent wm_apply_new_tag;     closemenu"
 
 // Aliases Section /////////////////////////////////////////////////////////////
 
-alias m8f_wm_open             "pukename WM_InventoryMenu"
-alias m8f_wm_mark_quick       "pukename WM_MarkWeaponAsFavorite"
-alias m8f_wm_select_quick     "pukename WM_SelectFavoriteWeapon"
-alias m8f_wm_toggle_quick_inv "pukename WM_ToggleQuickInventoryItem"
-alias m8f_wm_clear_quick_inv  "pukename WM_ClearQuickInventoryItems"
+alias m8f_wm_open             "netevent wm_toggle_inventory"
+alias m8f_wm_mark_quick       "netevent wm_mark_favorite"
+alias m8f_wm_select_quick     "netevent wm_select_favorite"
 
-alias m8f_wm_use_quick_inv0 "pukename WM_UseQuickInventoryItem 0"
-alias m8f_wm_use_quick_inv1 "pukename WM_UseQuickInventoryItem 1"
-alias m8f_wm_use_quick_inv2 "pukename WM_UseQuickInventoryItem 2"
-alias m8f_wm_use_quick_inv3 "pukename WM_UseQuickInventoryItem 3"
-alias m8f_wm_use_quick_inv4 "pukename WM_UseQuickInventoryItem 4"
-alias m8f_wm_use_quick_inv5 "pukename WM_UseQuickInventoryItem 5"
-alias m8f_wm_use_quick_inv6 "pukename WM_UseQuickInventoryItem 6"
-alias m8f_wm_use_quick_inv7 "pukename WM_UseQuickInventoryItem 7"
-alias m8f_wm_use_quick_inv8 "pukename WM_UseQuickInventoryItem 8"
-alias m8f_wm_use_quick_inv9 "pukename WM_UseQuickInventoryItem 9"
+alias m8f_wm_toggle_quick_inv "netevent wm_toggle_quick_inv"
+alias m8f_wm_clear_quick_inv  "netevent wm_clear_quick_inv"
+
+alias m8f_wm_use_quick_inv0 "netevent wm_use_quick_inv:0"
+alias m8f_wm_use_quick_inv1 "netevent wm_use_quick_inv:1"
+alias m8f_wm_use_quick_inv2 "netevent wm_use_quick_inv:2"
+alias m8f_wm_use_quick_inv3 "netevent wm_use_quick_inv:3"
+alias m8f_wm_use_quick_inv4 "netevent wm_use_quick_inv:4"
+alias m8f_wm_use_quick_inv5 "netevent wm_use_quick_inv:5"
+alias m8f_wm_use_quick_inv6 "netevent wm_use_quick_inv:6"
+alias m8f_wm_use_quick_inv7 "netevent wm_use_quick_inv:7"
+alias m8f_wm_use_quick_inv8 "netevent wm_use_quick_inv:8"
+alias m8f_wm_use_quick_inv9 "netevent wm_use_quick_inv:9"
 
 // Controls Key Section ////////////////////////////////////////////////////////
 

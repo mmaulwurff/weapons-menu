@@ -16,37 +16,57 @@
  * Weapon Menu+.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-class wm_Input
+class wm_Input play
 {
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   static
-  wm_Input of(wm_View view, wm_Model model)
+  wm_Input of(wm_Model model)
   {
     let result = new("wm_Input");
-
-    result.mView  = view;
     result.mModel = model;
-
     return result;
   }
 
-  void process(String command)
+  void process(String commandLine)
   {
-    if (command.Left(3) != "wm_") return;
+    if (commandLine.Left(3) != "wm_") return;
 
-    command = command.Mid(3);
+    Array<String> commandLineParts;
+    commandLine.split(commandLineParts, ":");
+    String command = commandLineParts[0].Mid(3);
 
-    if (command == "print_info")
-    {
-      mView.printInfo();
-    }
+    if      (command == "toggle"           ) mModel.toggle(commandLineParts[1].toInt());
+    else if (command == "open"             ) mModel.open();
+    else if (command == "close"            ) mModel.close();
+    else if (command == "scroll_next"      ) mModel.scrollNext();
+    else if (command == "scroll_previous"  ) mModel.scrollPrevious();
+    else if (command == "smart_select"     ) mModel.smartSelect(commandLineParts[1].toInt());
+
+    else if (command == "toggle_inventory" ) mModel.toggleInventory();
+    else if (command == "open_inventory"   ) mModel.openInventory();
+    else if (command == "close_inventory"  ) mModel.closeInventory();
+
+    else if (command == "toggle_quick_inv" ) mModel.toggleQuickInventoryItem();
+    else if (command == "clear_quick_inv"  ) mModel.clearQuickInventoryItems();
+    else if (command == "use_quick_inv"    ) mModel.useQuickInventoryItem(commandLineParts[1].toInt());
+
+    else if (command == "fire_favorite"    ) mModel.fireFavorite();
+    else if (command == "favorite_back"    ) mModel.switchBackFromFavorite();
+    else if (command == "mark_favorite"    ) mModel.markAsFavorite();
+    else if (command == "select_favorite"  ) mModel.selectFavorite();
+
+    else if (command == "increase_priority") mModel.increasePriority();
+    else if (command == "decrease_priority") mModel.decreasePriority();
+    else if (command == "decrease_slot"    ) mModel.decreaseSlot();
+    else if (command == "apply_new_tag"    ) mModel.applyNewTag();
+
+    else if (command == "print_info"       ) mModel.printInfo();
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private wm_View  mView;
   private wm_Model mModel;
 
 } // class wm_Input
