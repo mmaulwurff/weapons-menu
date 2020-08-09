@@ -25,7 +25,7 @@ script "WM_SelectFavoriteWeapon" (void)
     WM_SelectWeapon(favorite, playerN);
   }
 
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 script "WM_FireFavoriteWeapon" (void)

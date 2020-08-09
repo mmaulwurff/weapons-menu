@@ -62,12 +62,12 @@ function void WM_LeaveState(int oldState, int playerN)
   // leave previous state
   switch (oldState)
   {
-    case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
-    case STATE_ENABLED:        break;
-    case STATE_CLOSED:         break;
-    case STATE_OPENED:         WM_LeaveOpened(playerN);        break;
-    case STATE_INVENTORY:      WM_LeaveInventory(playerN);     break;
-    case STATE_CLOSED_VISIBLE: break;
+  case STATE_UNINITIALIZED:  WM_LeaveUninitialized(playerN); break;
+  case STATE_ENABLED:        break;
+  case STATE_CLOSED:         break;
+  case STATE_OPENED:         WM_LeaveOpened();    break;
+  case STATE_INVENTORY:      WM_LeaveInventory(); break;
+  case STATE_CLOSED_VISIBLE: break;
   }
 }
 
@@ -78,12 +78,12 @@ function void WM_EnterState(int newState, int playerN)
 
   switch (newState)
   {
-    case STATE_UNINITIALIZED:  break;
-    case STATE_ENABLED:        WM_EnterEnabled(playerN);       break;
-    case STATE_CLOSED:         WM_EnterClosed(playerN);        break;
-    case STATE_OPENED:         WM_EnterOpened(playerN);        break;
-    case STATE_INVENTORY:      WM_EnterInventory(playerN);     break;
-    case STATE_CLOSED_VISIBLE: WM_EnterClosedVisible(playerN); break;
+  case STATE_UNINITIALIZED:  break;
+  case STATE_ENABLED:        WM_EnterEnabled(playerN);   break;
+  case STATE_CLOSED:         WM_EnterClosed(playerN);    break;
+  case STATE_OPENED:         WM_EnterOpened();           break;
+  case STATE_INVENTORY:      WM_EnterInventory(playerN); break;
+  case STATE_CLOSED_VISIBLE: WM_EnterClosedVisible();    break;
   }
 }
 
@@ -97,12 +97,12 @@ function void WM_LeaveUninitialized(int playerN)
   WM_MaybeLoadCustomWeaponOrder(playerN);
 }
 
-function void WM_LeaveOpened(int playerN)
+function void WM_LeaveOpened(void)
 {
   WM_ClearScreen();
 }
 
-function void WM_LeaveInventory(int playerN)
+function void WM_LeaveInventory(void)
 {
   WM_PlaySwitchSound();
   WM_ClearScreen();
@@ -113,7 +113,7 @@ function void WM_EnterEnabled(int playerN)
   weaponCount = weaponCounts[currentSet];
 
   WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
-  WM_SetHighlightedWeapon(selectedWeapon, playerN);
+  WM_SetHighlightedWeapon(selectedWeapon);
 
   WM_UpdateIsInInventory();
   WM_InitApiCvars(playerN);
@@ -136,23 +136,23 @@ function void WM_EnterClosed(int playerN)
   }
 }
 
-function void WM_EnterOpened(int playerN)
+function void WM_EnterOpened(void)
 {
   WM_UpdateIsInInventory();
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 function void WM_EnterInventory(int playerN)
 {
-  WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon(), playerN);
+  WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon());
   WM_PlaySwitchSound();
   WM_PrintInventoryMenu(playerN);
 }
 
-function void WM_EnterClosedVisible(int playerN)
+function void WM_EnterClosedVisible(void)
 {
   WM_UpdateIsInInventory();
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 function void WM_MaybeLoadCustomWeaponOrder(int playerN)
@@ -286,10 +286,10 @@ function bool WM_IsOnlyInSlot(int weaponNumber)
 
 // Printing Weapons Menu functions /////////////////////////////////////////////
 
-function void WM_UpdateMenu(int playerN)
+function void WM_UpdateMenu(void)
 {
   WM_ClearScreen();
-  if (IsVisible()) { WM_PrintMenu(playerN); }
+  if (IsVisible()) { WM_PrintMenu(); }
 }
 
 function void WM_ClearScreen(void)
@@ -364,7 +364,7 @@ function int WM_ItemCount(void)
   return result;
 }
 
-function void WM_PrintMenu(int playerN)
+function void WM_PrintMenu(void)
 {
   bool highToLow      = IsHighToLow();
   int  y              = GetYStart();
@@ -594,7 +594,7 @@ function void WM_PrintMenu(int playerN)
       else { color = AvailableColor(); }
     }
 
-    WM_PrintHudWeapon(i, color, x, y, slotOnLeft, withSlot, showTags, playerN);
+    WM_PrintHudWeapon(i, color, x, y, slotOnLeft, withSlot, showTags);
 
     x += xStep;
     y += yStep;
@@ -642,11 +642,7 @@ function int WM_CountDuplicateSlots(bool doubleSpaceSlots)
   return count;
 }
 
-function str WM_MakeWeaponString( int  weaponNumber
-                                , bool withSlot
-                                , bool slotOnLeft
-                                , int  playerN
-                                )
+function str WM_MakeWeaponString(int weaponNumber, bool withSlot, bool slotOnLeft)
 {
   str result = WM_GetPrintableWeaponName(weaponNumber);
 
@@ -682,7 +678,6 @@ function void WM_PrintHudWeapon( int  weaponNumber
                                , bool slotOnLeft
                                , bool withSlot
                                , bool showTags
-                               , int  playerN
                                )
 {
   int id = msgIdWeapon + weaponNumber;
@@ -696,7 +691,7 @@ function void WM_PrintHudWeapon( int  weaponNumber
 
   if (!showTags) { return; }
 
-  str weaponString = WM_MakeWeaponString(weaponNumber, withSlot, slotOnLeft, playerN);
+  str weaponString = WM_MakeWeaponString(weaponNumber, withSlot, slotOnLeft);
 
   HudMessage(s:" ", s:weaponString, s:" "; msgFlags, id, color, x, y, 0);
 }
@@ -737,7 +732,7 @@ function void WM_SelectWeapon(int weaponNumber, int playerN)
     HudMessage(s:printableWeaponName, s:": no ammo.";
                msgFlags, msgIdAmmo, CR_RED, 0.5, 0.5, 1.0);
 
-    WM_SetHighlightedWeapon(selectedWeapon, playerN);
+    WM_SetHighlightedWeapon(selectedWeapon);
   }
 }
 
@@ -842,7 +837,7 @@ script "ShowWeaponMenu" (void)
     if (IsVisible())
     {
       bool updated  = WM_UpdateIsInInventory();
-      if (updated || AmmoMode()) { WM_UpdateMenu(playerN); }
+      if (updated || AmmoMode()) { WM_UpdateMenu(); }
     }
 
     if (IsInventory())
@@ -869,9 +864,9 @@ script "ShowWeaponMenu" (void)
     {
       str selectedClass = WM_GetWeaponClass(selectedWeapon);
 
-      WM_SetHighlightedWeapon(currentWeaponI, playerN);
+      WM_SetHighlightedWeapon(currentWeaponI);
       WM_SetSelectedWeapon(highlightedWeapon, playerN);
-      WM_UpdateMenu(playerN);
+      WM_UpdateMenu();
     }
   }
 }
@@ -918,7 +913,7 @@ script "ToggleWeaponMenu" (int closeWithoutAction)
 
   if (IsOpened() && closeWithoutAction)
   {
-    WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon(), playerN);
+    WM_SetHighlightedWeapon(WM_FindRealSelectedWeapon());
   }
 
   WM_ToggleWeaponMenu(playerN);
@@ -950,7 +945,7 @@ function int WM_FindSelectedInventoryIndex(void)
   return ERROR_NOT_FOUND;
 }
 
-function int WM_FindNextAvailableInventory(int selectedInventoryIndex, int playerN)
+function int WM_FindNextAvailableInventory(int selectedInventoryIndex)
 {
   for (int i = 1; i < nInventoryItems; ++i)
   {
@@ -966,7 +961,7 @@ function int WM_FindNextAvailableInventory(int selectedInventoryIndex, int playe
   return ERROR_NOT_FOUND;
 }
 
-function int WM_FindPrevAvailableInventory(int selectedInventoryIndex, int playerN)
+function int WM_FindPrevAvailableInventory(int selectedInventoryIndex)
 {
   for (int i = 1; i < nInventoryItems; ++i)
   {
@@ -991,21 +986,21 @@ function void WM_SetSelectedInventory(int selectedIndex, int availableIndex)
   ScriptCall("WMZScriptHelper", "SetSelectedInventory", inventoryClass);
 }
 
-function void WM_SelectNextInventory(int playerN)
+function void WM_SelectNextInventory(void)
 {
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
   if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
 
-  int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex, playerN);
+  int nextAvailableInventoryIndex = WM_FindNextAvailableInventory(selectedInventoryIndex);
   WM_SetSelectedInventory(selectedInventoryIndex, nextAvailableInventoryIndex);
 }
 
-function void WM_SelectPreviousInventory(int playerN)
+function void WM_SelectPreviousInventory(void)
 {
   int selectedInventoryIndex = WM_FindSelectedInventoryIndex();
   if (selectedInventoryIndex == ERROR_NOT_FOUND) { return; }
 
-  int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex, playerN);
+  int prevAvailableInventoryIndex = WM_FindPrevAvailableInventory(selectedInventoryIndex);
   WM_SetSelectedInventory(selectedInventoryIndex, prevAvailableInventoryIndex);
 }
 
@@ -1017,7 +1012,7 @@ script "ScrollNextWeapon" (void)
 
   if (IsInventory())
   {
-    WM_SelectNextInventory(playerN);
+    WM_SelectNextInventory();
     WM_PrintInventoryMenu(playerN);
     terminate;
   }
@@ -1043,7 +1038,7 @@ script "ScrollNextWeapon" (void)
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
     }
 
-    WM_SetHighlightedWeapon(i, playerN);
+    WM_SetHighlightedWeapon(i);
     if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
   }
 
@@ -1061,12 +1056,12 @@ script "ScrollNextWeapon" (void)
     if (n != weaponCount - 1)
     {
       WM_SetSelectedWeapon(i, playerN);
-      WM_SetHighlightedWeapon(i, playerN);
+      WM_SetHighlightedWeapon(i);
       WM_MaybeDisplayNameTag();
     }
   }
 
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 function void WM_MaybeDisplayNameTag(void)
@@ -1088,7 +1083,7 @@ script "ScrollPreviousWeapon" (void)
 
   if (IsInventory())
   {
-    WM_SelectPreviousInventory(playerN);
+    WM_SelectPreviousInventory();
     WM_PrintInventoryMenu(playerN);
     terminate;
   }
@@ -1114,7 +1109,7 @@ script "ScrollPreviousWeapon" (void)
       if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
     }
 
-    WM_SetHighlightedWeapon(i, playerN);
+    WM_SetHighlightedWeapon(i);
     if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
   }
 
@@ -1132,12 +1127,12 @@ script "ScrollPreviousWeapon" (void)
     if (n != weaponCount - 1)
     {
       WM_SetSelectedWeapon(i, playerN);
-      WM_SetHighlightedWeapon(i, playerN);
+      WM_SetHighlightedWeapon(i);
       WM_MaybeDisplayNameTag();
     }
   }
 
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 function bool WM_SkipNoAmmo(int weaponIndex)
@@ -1148,17 +1143,17 @@ function bool WM_SkipNoAmmo(int weaponIndex)
   return !hasAmmo;
 }
 
-function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle, int playerN)
+function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle)
 {
   int i       = weaponIndex;
   int stopper = weaponCount;
 
   do
-    {
-      i = WM_GetWeaponSibling(i, cycle);
-      if (i == -1) { break; }
-      --stopper;
-    }
+  {
+    i = WM_GetWeaponSibling(i, cycle);
+    if (i == -1) { break; }
+    --stopper;
+  }
   while (!WM_IsInInventory(i) && stopper);
 
   return i;
@@ -1181,17 +1176,17 @@ script "SmartWeaponSelection" (int slotNumber)
     bool sameSlot    = (slotNumber == currentSlot);
     if (sameSlot)
     {
-      int sibling = WM_GetNextWeaponInSlot(highlightedWeapon, true, playerN);
+      int sibling = WM_GetNextWeaponInSlot(highlightedWeapon, true);
 
       if (sibling != -1 && sibling != highlightedWeapon)
       {
-        WM_SetHighlightedWeapon(sibling, playerN);
+        WM_SetHighlightedWeapon(sibling);
         WM_PlaySwitchSound();
       }
     }
     else
     {
-      WM_HighlightFirstInInventory(slotNumber, playerN);
+      WM_HighlightFirstInInventory(slotNumber);
     }
   }
 
@@ -1213,10 +1208,10 @@ script "SmartWeaponSelection" (int slotNumber)
     }
 
     WM_ToggleWeaponMenu(playerN);
-    WM_HighlightFirstInInventory(slotNumber, playerN);
+    WM_HighlightFirstInInventory(slotNumber);
   }
 
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 // Utility functions section ///////////////////////////////////////////////////
@@ -1258,19 +1253,19 @@ function bool WM_IsSelected(int weaponNumber)
   return CheckWeapon(WM_GetWeaponClass(weaponNumber));
 }
 
-function void WM_HighlightFirstInInventory(int slotNumber, int playerN)
+function void WM_HighlightFirstInInventory(int slotNumber)
 {
   int weaponNumber = WM_GetWeaponBySlotInInv(slotNumber);
   if (WM_IsInInventory(weaponNumber) && highlightedWeapon != weaponNumber)
   {
-    WM_SetHighlightedWeapon(weaponNumber, playerN);
+    WM_SetHighlightedWeapon(weaponNumber);
     WM_PlaySwitchSound();
   }
 }
 
 // Global variables write access functions /////////////////////////////////////
 
-function void WM_SetHighlightedWeapon(int weaponNumber, int playerN)
+function void WM_SetHighlightedWeapon(int weaponNumber)
 {
   if (weaponNumber == WEAPON_HOLSTERED) { return; }
   highlightedWeapon = weaponNumber;
@@ -1331,9 +1326,9 @@ script "WM_IncreasePriority" (void)
   int playerN = PlayerNumber();
 
   WM_SwapWeapons(highlightedWeapon, oldMajorWeapon, true, playerN);
-  WM_SetHighlightedWeapon(oldMajorWeapon, playerN);
+  WM_SetHighlightedWeapon(oldMajorWeapon);
   Log(s:"Priority of ", s:name, s:" is increased.");
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
@@ -1402,10 +1397,10 @@ script "WM_IncreaseSlot" (void)
   str weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
   SetUserCVar(playerN, weaponSlotVarName, targetSlot);
 
-  WM_SetHighlightedWeapon(i, playerN);
+  WM_SetHighlightedWeapon(i);
   str name = WM_GetPrintableWeaponName(i);
   Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 script "WM_DecreaseSlot" (void)
@@ -1436,9 +1431,9 @@ script "WM_DecreaseSlot" (void)
   SetUserCVar(playerN, weaponSlotVarName, targetSlot);
 
   str name = WM_GetPrintableWeaponName(highlightedWeapon);
-  WM_SetHighlightedWeapon(i, playerN);
+  WM_SetHighlightedWeapon(i);
   Log(s:"Slot of ", s:name, s:" is changed to ", i:targetSlot, s:".");
-  WM_UpdateMenu(playerN);
+  WM_UpdateMenu();
 }
 
 // Inventory menu section //////////////////////////////////////////////////////
@@ -1621,18 +1616,18 @@ function void WM_GetFallbackWeapons(void)
 
     switch (iArray)
     {
-      case 0: names[SET_FALLBACK][current] = currentToken; break;
+    case 0: names[SET_FALLBACK][current] = currentToken; break;
 
-      case 1: tags [SET_FALLBACK][current] = currentToken; break;
+    case 1: tags [SET_FALLBACK][current] = currentToken; break;
 
-      case 2:
-        slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
-        break;
+    case 2:
+      slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
+      break;
 
-      case 3:
-        priority[current] = WM_StrToInt(currentToken);
-        ++current;
-        break;
+    case 3:
+      priority[current] = WM_StrToInt(currentToken);
+      ++current;
+      break;
     }
 
     iArray = (iArray + 1) % 4;
