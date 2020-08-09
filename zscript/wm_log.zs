@@ -32,6 +32,12 @@ class wm_log
   }
 
   static
+  void log(String s)
+  {
+    Console.Printf("[LOG] Weapon Menu+: %s.", s);
+  }
+
+  static
   void debug(String s)
   {
     if (NO_DEBUG) return;

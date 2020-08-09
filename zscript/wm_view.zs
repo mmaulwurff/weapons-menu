@@ -56,11 +56,10 @@ class wm_View
       readyWeaponName = player.ReadyWeapon.GetClassName();
     }
 
-    console.printf( "Player class: %s\n"
-                    "Selected weapon class: %s\n"
-                  , pawn.GetClassName()
-                  , readyWeaponName
-                  );
+    wm_log.log(String.Format( "player class: %s, selected weapon class: %s"
+                            , pawn.GetClassName()
+                            , readyWeaponName
+                            ));
   }
 
   void show() const

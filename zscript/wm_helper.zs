@@ -155,14 +155,14 @@ class WMZscriptHelper play
     class<Inventory> type = itemClass;
     if (!type)
     {
-      Console.Printf("Unknown inventory type: %s", itemClass);
+      wm_log.error(String.Format("unknown inventory type: %s", itemClass));
       return "unknown";
     }
 
     readonly<Inventory> defaultItem = GetDefaultByType(type);
     if (!defaultItem)
     {
-      Console.Printf("Unknown inventory type: %s", itemClass);
+      wm_log.error(String.Format("unknown inventory type: %s", itemClass));
       return "unknown";
     }
 
