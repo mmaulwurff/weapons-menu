@@ -24,10 +24,6 @@
 #define BACKGROUND_TOP      1
 #define BACKGROUND_RIGHT    2
 
-// Global variables ////////////////////////////////////////////////////////////
-// To write to global variables, use only special functions.
-
-#define STATE_ENABLED        2
 #define STATE_CLOSED         3
 #define STATE_OPENED         4
 #define STATE_INVENTORY      5

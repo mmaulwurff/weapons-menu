@@ -15,11 +15,11 @@
 
 int globalState = 0;
 
-// Global variables. Must be used only in enabled states.
+// Global variables ////////////////////////////////////////////////////////////
+// To write to global variables, use only special functions.
 
 // cached variables. Their values don't change during the game.
 int  currentSet;
-int  weaponCount;
 
 int  highlightedWeapon;
 int  selectedWeapon;
@@ -61,7 +61,6 @@ function void WM_LeaveState(int oldState)
   // leave previous state
   switch (oldState)
   {
-  case STATE_ENABLED:        break;
   case STATE_CLOSED:         break;
   case STATE_OPENED:         WM_LeaveOpened();    break;
   case STATE_INVENTORY:      WM_LeaveInventory(); break;
@@ -76,7 +75,6 @@ function void WM_EnterState(int newState, int playerN)
 
   switch (newState)
   {
-  case STATE_ENABLED:        WM_EnterEnabled(playerN);   break;
   case STATE_CLOSED:         WM_EnterClosed(playerN);    break;
   case STATE_OPENED:         WM_EnterOpened();           break;
   case STATE_INVENTORY:      WM_EnterInventory(playerN); break;
@@ -93,21 +91,6 @@ function void WM_LeaveInventory(void)
 {
   WM_PlaySwitchSound();
   WM_ClearScreen();
-}
-
-function void WM_EnterEnabled(int playerN)
-{
-  weaponCount = weaponCounts[currentSet];
-
-  WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
-  WM_SetHighlightedWeapon(selectedWeapon);
-
-  WM_UpdateIsInInventory();
-  WM_InitApiCvars(playerN);
-  WM_FillInventoryItems();
-
-  if (IsAlwaysShowing()) { WM_ChangeState(STATE_CLOSED_VISIBLE, playerN); }
-  else                   { WM_ChangeState(STATE_CLOSED,         playerN); }
 }
 
 function void WM_EnterClosed(int playerN)
@@ -211,6 +194,7 @@ function str WM_GetPrintableWeaponName(int weaponNumber)
 function int WM_GetWeaponSibling(int weaponNumber, bool doCycle)
 {
   int thisWeaponSlot = WM_GetWeaponSlot(weaponNumber);
+  int weaponCount    = WM_WeaponCount();
 
   for (int i = 0; i < weaponCount; ++i)
   {
@@ -229,6 +213,8 @@ function int WM_GetWeaponSibling(int weaponNumber, bool doCycle)
 
 function int WM_GetWeaponBySlotInInv(int slotNumber)
 {
+  int weaponCount = WM_WeaponCount();
+
   for (int i = 0; i < weaponCount; ++i)
   {
     if (slotNumber != WM_GetWeaponSlot(i)) { continue; }
@@ -258,6 +244,7 @@ function bool WM_IsOnlyInSlot(int weaponNumber)
     return false;
   }
 
+  int weaponCount = WM_WeaponCount();
   for (int next = weaponNumber + 1; next < weaponCount; ++next)
   {
     if (WM_GetWeaponSlot(next) != slot) { continue; }
@@ -283,6 +270,7 @@ function void WM_ClearScreen(void)
 {
   int id  = msgIdWeapon;
   int end = msgIdWeapon;
+  int weaponCount = WM_WeaponCount();
   if (nInventoryItems > weaponCount) { end += nInventoryItems; }
   else                               { end += weaponCount;     }
 
@@ -344,6 +332,7 @@ function void WM_MaybeShowBackground(int backgroundMode)
 function int WM_ItemCount(void)
 {
   int result = 0;
+  int weaponCount = WM_WeaponCount();
   for (int i = 0; i < weaponCount; ++i)
   {
     result += WM_IsInInventory(i);
@@ -355,6 +344,7 @@ function void WM_PrintMenu(void)
 {
   bool highToLow      = IsHighToLow();
   int  y              = GetYStart();
+  int  weaponCount    = WM_WeaponCount();
   int  step           = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
   int  stepMultiplied = (step * StepMultiplier()) >> 16;
 
@@ -609,6 +599,7 @@ function int WM_CountDuplicateSlots(bool doubleSpaceSlots)
 
   int count = 0;
   int prevSlot = -1;
+  int weaponCount = WM_WeaponCount();
 
   for (int i = 0; i < weaponCount; ++i)
   {
@@ -692,6 +683,7 @@ function int WM_FindRealSelectedWeapon(void)
 
 function int WM_FindInWeaponList(str weaponName)
 {
+  int weaponCount = WM_WeaponCount();
   for (int i = 0; i < weaponCount; ++i)
   {
     if (StrICmp(weaponName, WM_GetWeaponClass(i)) == 0)
@@ -725,6 +717,7 @@ function void WM_SelectWeapon(int weaponNumber, int playerN)
 
 function void WM_InitApiCvars(int playerN)
 {
+  int weaponCount = WM_WeaponCount();
   SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
   SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
 
@@ -772,6 +765,11 @@ function int WM_GetWeaponSet(void)
   return SET_FALLBACK;
 }
 
+function int WM_WeaponCount(void)
+{
+  return weaponCounts[currentSet];
+}
+
 // Scripts section /////////////////////////////////////////////////////////////
 
 // Temporaryly global variables;
@@ -781,21 +779,27 @@ script "InitWeaponMenu" (void)
 {
   currentSet = WM_GetWeaponSet();
 
-  int  playerN      = PlayerNumber();
-  bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
-  bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
-
   if (currentSet == SET_FALLBACK)
   {
     WM_GetFallbackWeapons();
   }
 
+  int playerN = PlayerNumber();
+
   WM_MaybeLoadCustomWeaponOrder(playerN);
+  WM_SetSelectedWeapon(WM_FindRealSelectedWeapon(), playerN);
+  WM_SetHighlightedWeapon(selectedWeapon);
+  WM_UpdateIsInInventory();
+  WM_InitApiCvars(playerN);
+  WM_FillInventoryItems();
 
-  WM_ChangeState(STATE_ENABLED, playerN);
+  bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
+  bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
 
-  if      (wasInventory) { WM_ChangeState(STATE_INVENTORY, playerN); }
-  else if (wasOpened)    { WM_ChangeState(STATE_OPENED,    playerN); }
+  if      (wasInventory)      { WM_ChangeState(STATE_INVENTORY, playerN); }
+  else if (wasOpened)         { WM_ChangeState(STATE_OPENED,    playerN); }
+  else if (IsAlwaysShowing()) { WM_ChangeState(STATE_CLOSED_VISIBLE, playerN); }
+  else                        { WM_ChangeState(STATE_CLOSED,         playerN); }
 
   oldInstant = IsInstantSwitch();
 }
@@ -999,6 +1003,7 @@ script "ScrollNextWeapon" (void)
   int start;
   int n;
   int i;
+  int weaponCount = WM_WeaponCount();
 
   if (IsOpened())
   {
@@ -1068,6 +1073,7 @@ script "ScrollPreviousWeapon" (void)
   int start;
   int n;
   int i;
+  int weaponCount = WM_WeaponCount();
 
   if (IsOpened())
   {
@@ -1118,7 +1124,7 @@ function bool WM_SkipNoAmmo(int weaponIndex)
 function int WM_GetNextWeaponInSlot(int weaponIndex, bool cycle)
 {
   int i       = weaponIndex;
-  int stopper = weaponCount;
+  int stopper = WM_WeaponCount();
 
   do
   {
@@ -1188,7 +1194,8 @@ script "SmartWeaponSelection" (int slotNumber)
 
 function bool WM_UpdateIsInInventory(void)
 {
-  bool updated = false;
+  bool updated     = false;
+  int  weaponCount = WM_WeaponCount();
 
   for (int i = 0; i < weaponCount; ++i)
   {
@@ -1206,6 +1213,7 @@ function bool WM_UpdateIsInInventory(void)
 
 function void WM_ResetIsInInventory(void)
 {
+  int weaponCount = WM_WeaponCount();
   for (int i = 0; i < weaponCount; ++i)
   {
     isInInventory[i] = CheckInventory(WM_GetWeaponClass(i));
@@ -1347,6 +1355,7 @@ script "WM_IncreaseSlot" (void)
   int targetSlot   = nextSlot[currentSlot];
   int playerN      = PlayerNumber();
   int i            = highlightedWeapon;
+  int weaponCount  = WM_WeaponCount();
 
   if (i != weaponCount - 1)
   {
@@ -1596,17 +1605,4 @@ function void WM_GetFallbackWeapons(void)
   }
 
   weaponCounts[SET_FALLBACK] = current;
-  weaponCount = current;
-
-  /*
-  for (int j = 0; j < current; ++j)
-  {
-    Log(s:names[SET_FALLBACK][j],
-        s:" : ", s:tags [SET_FALLBACK][j],
-        s:" : ", d:slots[SET_FALLBACK][j],
-        s:" : ", d:priority[j]
-        );
-  }
-  Log(i:weaponCounts[SET_FALLBACK]);
-  ///*///
 }
