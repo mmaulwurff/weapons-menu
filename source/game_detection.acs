@@ -18,9 +18,3 @@ function bool WM_IsCyanDoom(void)
     && CheckClass("VitalitySerum");
   return isCyanDoom;
 }
-
-function bool WM_IsBeautiful(void)
-{
-  bool isBeautiful = CheckClass("BDoomMonster");
-  return isBeautiful;
-}
