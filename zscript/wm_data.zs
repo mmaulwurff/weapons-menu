@@ -29,6 +29,9 @@ class wm_Data
     result.mIcons = Dictionary.Create();
     result.fillIcons();
 
+    result.mPlayerClasses = Dictionary.Create();
+    result.fillPlayerClasses();
+
     return result;
   }
 
@@ -46,8 +49,7 @@ class wm_Data
     SET_FALLBACK  = 29,
   }
 
-  static
-  int getSpecialSet(String playerClass)
+  int getWeaponSet(String playerClass) const
   {
     if (playerClass == "DoomPlayer")
     {
@@ -57,7 +59,11 @@ class wm_Data
       else                           return SET_FALLBACK;
     }
 
-    return SET_NOT_FOUND;
+    String setIndexString = mPlayerClasses.At(playerClass);
+
+    return (setIndexString.Length() > 0)
+      ? setIndexString.toInt()
+      : SET_FALLBACK;
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -194,7 +200,36 @@ class wm_Data
     mIcons.Insert("rlfist"                 , "wm_drla_unarmed");
   }
 
+  private
+  void fillPlayerClasses()
+  {
+    mPlayerClasses.Insert("EriPlayer"         ,  "2"); // Eriguns 1 - Standard weapons
+    mPlayerClasses.Insert("AltPlayer"         ,  "3"); // Eriguns 1 - Extended weapons
+    mPlayerClasses.Insert("FDPlutPlayer"      ,  "6"); // Final Doomer - Plutonia
+    mPlayerClasses.Insert("FDTNTPlayer"       ,  "7"); // Final Doomer - TNT
+    mPlayerClasses.Insert("FDDoom2Player"     ,  "8"); // Final Doomer - Doom 2
+    mPlayerClasses.Insert("FDAliensPlayer"    ,  "9"); // Final Doomer - Ancient Aliens
+    mPlayerClasses.Insert("FDJPCPPlayer"      , "10"); // Final Doomer - JPCP
+    mPlayerClasses.Insert("FDBTSXPlayer"      , "11"); // Final Doomer - BTSX
+    mPlayerClasses.Insert("FasPlayer"         , "12"); // Faspons
+    mPlayerClasses.Insert("ComplexDoomPlayer" , "15"); // Complex Doom V27a3
+    mPlayerClasses.Insert("DoomMarine"        , "17"); // Hard-Doom v8.2f
+    mPlayerClasses.Insert("ChexPlayer"        , "19"); // Chex Quest | reason: SSG is deathmatch-only
+    mPlayerClasses.Insert("StrifePlayer"      , "20"); // Strife
+    mPlayerClasses.Insert("ArgPlayer"         , "21"); // Argent (v0.5.3)
+    mPlayerClasses.Insert("64DoomPlayer"      , "22"); // Doom 64 'weapons only' (updated 5-29-2016), Doom 64 Retribution 1.4a | reason: tags
+    mPlayerClasses.Insert("DoomPlayerFixed"   , "23"); // Responsive Weapons + Faster Weapon Switching
+    mPlayerClasses.Insert("Xplayer"           , "24"); // Dead Marine v0.9.3
+    mPlayerClasses.Insert("WWColaPlayer"      , "35"); // WW-Cola3
+    mPlayerClasses.Insert("HexenColaPlayer"   , "36"); // WW-Cola3 - Hexen
+    mPlayerClasses.Insert("Eilidh"            , "37"); // Netronian Chaos v3
+    mPlayerClasses.Insert("SquarePlayer"      , "38"); // Adventures of Square, Ep 1-2
+    mPlayerClasses.Insert("msx_player"        , "40"); // Project MSX 0.2a
+    mPlayerClasses.Insert("FTPlayer"          , "49"); // Factotum [010618] | reason: weapon upgrades
+  }
+
   private Dictionary mIcons;
+  private Dictionary mPlayerClasses;
 
 } // class wm_Data
 
@@ -203,7 +238,8 @@ class wm_StaticData
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  static String getIcon(String weaponClass) { return getData().getIcon(weaponClass); }
+  static String getIcon(String weaponClass)   { return getData().getIcon(weaponClass); }
+  static int getWeaponSet(String playerClass) { return getData().getWeaponSet(playerClass); }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 

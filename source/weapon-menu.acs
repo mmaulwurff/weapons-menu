@@ -736,17 +736,7 @@ function int WM_GetWeaponSet(void)
 {
   if (IsForcingUniversalMode()) return SET_FALLBACK;
 
-  // search for class in special lists (class/set: one-to-many and many-to-one).
-  int matchedClass = ScriptCall("wm_Data", "getSpecialSet", GetActorClass(0));
-  if (matchedClass != ERROR_NOT_FOUND) return matchedClass;
-
-  // search for class in regular lists (class/set: one-to-one).
-  for (int c = 0; c < SETS_NUMBER; ++c)
-  {
-    if (CheckActorClass(0, playerClassNames[c])) return c;
-  }
-
-  return SET_FALLBACK;
+  return ScriptCall("wm_StaticData", "getWeaponSet", GetActorClass(0));
 }
 
 function int WM_WeaponCount(void)

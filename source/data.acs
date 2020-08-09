@@ -2,72 +2,8 @@
 
 #define SETS_NUMBER 50
 
-#define SET_ABORT_M            4
-#define SET_CYAN_DOOM         13
-#define SET_REKKR             18
-#define SET_FALLBACK          29
-
-// List of known weapon classes.
-// When adding to this list, don't forget to increase SETS_NUMBER.
-// If weapon mod has single weapon set shared by several player classes, there is
-// no need to add them all here. Add only one, and the rest will go to
-// WM_SpecialMatchClassToWeaponSet(str class) function.
-str playerClassNames[SETS_NUMBER] =
-{
-  "wm_reserved",         //  0. [Reserved]
-  "wm_reserved",         //  1. [Reserved]
-  "EriPlayer",           //  2. Eriguns 1 - Standard weapons
-  "AltPlayer",           //  3. Eriguns 1 - Extended weapons
-  "DoomPlayer",          //  4. abort_m | reason: no player class
-  "wm_reserved",         //  5. [Reserved]
-  "FDPlutPlayer",        //  6. Final Doomer - Plutonia
-  "FDTNTPlayer",         //  7. Final Doomer - TNT
-  "FDDoom2Player",       //  8. Final Doomer - Doom 2
-  "FDAliensPlayer",      //  9. Final Doomer - Ancient Aliens
-  "FDJPCPPlayer",        // 10. Final Doomer - JPCP
-  "FDBTSXPlayer",        // 11. Final Doomer - BTSX
-  "FasPlayer",           // 12. Faspons
-  "DoomPlayer",          // 13. Cyan-Doom  | reason: no player class
-  "wm_reserved",         // 14. [Reserved]
-  "ComplexDoomPlayer",   // 15. Complex Doom V27a3
-  "wm_reserved",         // 16. [Reserved]
-  "DoomMarine",          // 17. Hard-Doom v8.2f
-  "DoomPlayer",          // 18. REKKR      | reason: Dehacked
-  "ChexPlayer",          // 19. Chex Quest | reason: SSG is deathmatch-only
-  "StrifePlayer",        // 20. Strife
-  "ArgPlayer",           // 21. Argent (v0.5.3)
-  "64DoomPlayer",        // 22. Doom 64 'weapons only' (updated 5-29-2016), Doom 64 Retribution 1.4a | reason: tags
-  "DoomPlayerFixed",     // 23. Responsive Weapons + Faster Weapon Switching
-  "Xplayer",             // 24. Dead Marine v0.9.3
-  "wm_reserved",         // 25. [Reserved]
-  "wm_reserved",         // 26. [Reserved]
-  "wm_reserved",         // 27. [Reserved]
-  "wm_Reserved",         // 28. [Reserved]
-  "m8f_wm_Fallback",     // 29. Fallback mode
-
-  "wm_reserved",         // 30. [Reserved]
-  "wm_reserved",         // 31. [Reserved]
-  "wm_reserved",         // 32. [Reserved]
-  "wm_reserved",         // 33. [Reserved]
-  "wm_reserved",         // 34. [Reserved]
-
-  "WWColaPlayer",        // 35. WW-Cola3
-  "HexenColaPlayer",     // 36. WW-Cola3 - Hexen
-  "Eilidh",              // 37. Netronian Chaos v3
-  "SquarePlayer",        // 38. Adventures of Square, Ep 1-2
-  "wm_reserved",         // 39. [Reserved]
-  "msx_player",          // 40. Project MSX 0.2a
-  "wm_reserved",         // 41. [Reserved]
-  "wm_reserved",         // 42. [Reserved]
-  "wm_reserved",         // 43. [Reserved]
-  "wm_reserved",         // 44. [Reserved]
-  "wm_reserved",         // 45. [Reserved]
-  "wm_reserved",         // 46. [Reserved]
-  "wm_reserved",         // 47. [Reserved]
-  "wm_reserved",         // 48. [Reserved]
-
-  "FTPlayer",            // 49. Factotum [010618]            | reason: weapon upgrades
-};
+#define SET_REKKR    18
+#define SET_FALLBACK 29
 
 // List of weapon counts for every known weapon mod.
 // Must include all weapons.
