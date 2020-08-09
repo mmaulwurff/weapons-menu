@@ -794,9 +794,6 @@ script "InitWeaponMenu" (void)
 {
   currentSet = WM_GetWeaponSet();
 
-  // for some reason without delay only vanilla weapons will be listed.
-  if (currentSet == SET_FALLBACK) { Delay(1); }
-
   int  playerN      = PlayerNumber();
   bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
   bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
