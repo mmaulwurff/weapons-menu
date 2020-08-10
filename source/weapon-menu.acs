@@ -786,7 +786,7 @@ script "ShowWeaponMenu" (void)
 
   if (IsVisible())
   {
-    bool updated  = WM_UpdateIsInInventory();
+    bool updated = WM_UpdateIsInInventory();
     if (updated || AmmoMode()) { WM_UpdateMenu(); }
   }
 
@@ -794,12 +794,6 @@ script "ShowWeaponMenu" (void)
   {
     WM_PrintInventoryMenu(playerN);
   }
-
-  /* debug output
-     SetFont("SMALLFONT");
-     Log(s:"sel:",   i:selectedWeapon,
-     s:" high:", i:highlightedWeapon);
-  ///*///
 
   // Check if currently selected weapon corresponds to what player is holding.
   // Handles situation when player drops a weapon, or switches to new weapon
@@ -1279,10 +1273,6 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
   slots[currentSet][w1] = slots[currentSet][w2];
   slots[currentSet][w2] = slotTmp;
 
-  int priorityTmp = priority[w1];
-  priority[w1] = priority[w2];
-  priority[w2] = priorityTmp;
-
   if (setCVars)
   {
     str weaponClassVarName1 = StrParam(s:"M8fWeaponMenuWeaponClass", i:w1);
@@ -1520,7 +1510,7 @@ function void WM_PrintInventoryItem( int i
 
 function void WM_GetFallbackWeapons(void)
 {
-  // received data format: Class>Tag>Slot>Priority>Class ...
+  // received data format: Class>Tag>Slot> ...
   str weaponData       = WM_GetWeaponList();
   int weaponDataLength = StrLen(weaponData);
   int current          = 0;
@@ -1542,15 +1532,11 @@ function void WM_GetFallbackWeapons(void)
 
     case 2:
       slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
-      break;
-
-    case 3:
-      priority[current] = WM_StrToInt(currentToken);
       ++current;
       break;
     }
 
-    iArray = (iArray + 1) % 4;
+    iArray = (iArray + 1) % 3;
   }
 
   weaponCounts[SET_FALLBACK] = current;

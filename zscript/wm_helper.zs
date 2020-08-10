@@ -206,7 +206,7 @@ class WMZscriptHelper play
 
     int nClasses = AllActorClasses.Size();
 
-    m8f_wm_WeaponInfo info;
+    wm_WeaponInfo info;
 
     for (int i = 0; i < nClasses; ++i)
     {
@@ -240,11 +240,10 @@ class WMZscriptHelper play
 
     for (int i = 0; i < nWeapons; ++i)
     {
-      weaponData.AppendFormat( "%s>%s>%d>%d>"
+      weaponData.AppendFormat( "%s>%s>%d>"
                              , info.classes[i]
                              , info.tags[i]
                              , info.slots[i]
-                             , info.priorities[i]
                              );
     }
 
@@ -276,16 +275,16 @@ class WMZscriptHelper play
     return icon;
   }
 
-  // private section ///////////////////////////////////////////////////////////
+// private: ////////////////////////////////////////////////////////////////////////////////////////
 
-  private static void sortWeapons(m8f_wm_WeaponInfo info)
+  private static void sortWeapons(wm_WeaponInfo info)
   {
     int nWeapons = info.classes.size();
 
     quickSortWeapons(info, 0, nWeapons - 1);
   }
 
-  private static void quickSortWeapons(m8f_wm_WeaponInfo info, int lo, int hi)
+  private static void quickSortWeapons(wm_WeaponInfo info, int lo, int hi)
   {
     if (lo < hi)
     {
@@ -295,7 +294,7 @@ class WMZscriptHelper play
     }
   }
 
-  private static int quickSortWeaponsPartition(m8f_wm_WeaponInfo info, int lo, int hi)
+  private static int quickSortWeaponsPartition(wm_WeaponInfo info, int lo, int hi)
   {
     int pivot = measure(info, hi);
     int i     = lo - 1;
@@ -313,7 +312,7 @@ class WMZscriptHelper play
     return i + 1;
   }
 
-  private static int measure(m8f_wm_WeaponInfo info, int i)
+  private static int measure(wm_WeaponInfo info, int i)
   {
     int slot = info.slots[i];
     if (slot == 0) { slot = 99; }
@@ -325,16 +324,14 @@ class WMZscriptHelper play
     return measure;
   }
 
-  // constants: ////////////////////////////////////////////////////////////////
-
   const placeholder = "NOWEAPONOFF";
 
 } // class WMZscriptHelper
 
-struct m8f_wm_WeaponInfo
+struct wm_WeaponInfo
 {
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   void push(string className, string tag, int slot, int priority)
   {
@@ -368,11 +365,11 @@ struct m8f_wm_WeaponInfo
     }
   }
 
-  // public: ///////////////////////////////////////////////////////////////////
+// public: /////////////////////////////////////////////////////////////////////////////////////////
 
   Array<string> classes;
   Array<string> tags;
   Array<int>    slots;
   Array<int>    priorities;
 
-} // struct m8f_wm_WeaponInfo
+} // struct wm_WeaponInfo

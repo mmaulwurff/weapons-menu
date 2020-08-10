@@ -770,6 +770,3 @@ str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   },
 
 }; // end of printable names
-
-// used in fallback mode
-int priority[MAX_WEAPONS_NUMBER];
