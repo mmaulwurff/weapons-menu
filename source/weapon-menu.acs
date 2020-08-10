@@ -1347,18 +1347,6 @@ script "WM_DecreaseSlot" (void)
 
 // Inventory menu section //////////////////////////////////////////////////////
 
-script "WM_OpenInventoryMenu" (void)
-{
-  if (IsInventory()) { terminate; }
-  ACS_NamedExecute("WM_InventoryMenu", NO_MAP);
-}
-
-script "WM_CloseInventoryMenu" (void)
-{
-  if (!IsInventory()) { terminate; }
-  ACS_NamedExecute("WM_InventoryMenu", NO_MAP);
-}
-
 script "WM_InventoryMenu" (void)
 {
   int playerN = PlayerNumber();

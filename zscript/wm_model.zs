@@ -56,7 +56,8 @@ class wm_Model play
     mState = state;
   }
 
-  bool isOpened() const { return mState == STATE_OPENED; }
+  bool isOpened()    const { return mState == STATE_OPENED; }
+  bool isInventory() const { return mstate == STATE_INVENTORY; }
 
   void toggle(bool isClosingWithoutAction)
   {
@@ -75,12 +76,12 @@ class wm_Model play
 
   void openInventory()
   {
-    mAcs.execute("WM_OpenInventoryMenu");
+    if (!isInventory()) toggleInventory();
   }
 
   void closeInventory()
   {
-    mAcs.execute("WM_CloseInventoryMenu");
+    if (isInventory()) toggleInventory();
   }
 
   void toggleInventory()
