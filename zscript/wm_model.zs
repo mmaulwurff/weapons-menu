@@ -21,6 +21,14 @@ class wm_Model play
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
+  enum State
+  {
+    STATE_CLOSED         = 3,
+    STATE_OPENED         = 4,
+    STATE_INVENTORY      = 5,
+    STATE_CLOSED_VISIBLE = 6
+  }
+
   static
   wm_Model of(wm_Acs acs, wm_Settings settings, wm_Data data, int playerNumber)
   {
@@ -29,6 +37,7 @@ class wm_Model play
     result.mAcs      = acs;
     result.mSettings = settings;
     result.mData     = data;
+    result.mState    = 0;
 
     result.mPlayerNumber = playerNumber;
 
@@ -37,6 +46,18 @@ class wm_Model play
     return result;
   }
 
+  int  getState() const
+  {
+    return mState;
+  }
+
+  void setState(int state)
+  {
+    mState = state;
+  }
+
+  bool isOpened() const { return mState == STATE_OPENED; }
+
   void toggle(bool isClosingWithoutAction)
   {
     mAcs.execute1("ToggleWeaponMenu", isClosingWithoutAction);
@@ -44,12 +65,12 @@ class wm_Model play
 
   void open()
   {
-    mAcs.execute("OpenWeaponMenu");
+    if (!isOpened()) toggle(false);
   }
 
   void close()
   {
-    mAcs.execute("CloseWeaponMenu");
+    if (isOpened()) toggle(false);
   }
 
   void openInventory()
@@ -180,4 +201,24 @@ class wm_Model play
   private wm_Data     mData;
   private int         mPlayerNumber;
 
+  private int mState;
+
 } // class wm_Model
+
+class wm_StaticModel play
+{
+
+// public: /////////////////////////////////////////////////////////////////////////////////////////
+
+  static int getState() { return getModel().getState(); }
+  static void setState(int state) { getModel().setState(state); }
+
+// private: ////////////////////////////////////////////////////////////////////////////////////////
+
+  private static
+  wm_Model getModel()
+  {
+    return wm_EventHandler(EventHandler.Find("wm_EventHandler")).getModel();
+  }
+
+} // class wm_StaticModel

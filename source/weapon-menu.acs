@@ -11,7 +11,8 @@
 #include "zscript-access.acs"
 #include "settings.acs"
 
-int globalState = 0;
+function int  getGlobalState(void) { return ScriptCall("wm_StaticModel", "getState"); }
+function void setGlobalState(int state) { ScriptCall("wm_StaticModel", "setState", state); }
 
 // Global variables ////////////////////////////////////////////////////////////
 // To write to global variables, use only special functions.
@@ -35,18 +36,18 @@ str inventoryNames  [N_INVENTORY_ITEMS];
 
 // Get status section //////////////////////////////////////////////////////////
 
-function bool IsOpened(void)    { return globalState == STATE_OPENED; }
-function bool IsInventory(void) { return globalState == STATE_INVENTORY; }
-function bool IsVisible(void)   { return globalState == STATE_OPENED || globalState == STATE_CLOSED_VISIBLE; }
+function bool IsOpened(void)    { return getGlobalState() == STATE_OPENED; }
+function bool IsInventory(void) { return getGlobalState() == STATE_INVENTORY; }
+function bool IsVisible(void)   { return getGlobalState() == STATE_OPENED || getGlobalState() == STATE_CLOSED_VISIBLE; }
 
 // Global state must be changed only with this function.
 function void WM_ChangeState(int newState, int playerN)
 {
-  if (newState == globalState) return;
+  if (newState == getGlobalState()) return;
 
-  WM_LeaveState(globalState);
+  WM_LeaveState(getGlobalState());
 
-  globalState = newState;
+  setGlobalState(newState);
 
   WM_EnterState(newState, playerN);
 }
@@ -716,7 +717,8 @@ function void WM_InitApiCvars(int playerN)
   SetUserCVar      (playerN, "m8f_wm_PreviousWeaponSet",   currentSet);
   SetUserCVarString(playerN, "m8f_wm_PreviousPlayerClass", GetActorClass(0));
 
-  for (int i = 0; i < weaponCount; ++i) {
+  for (int i = 0; i < weaponCount; ++i)
+  {
     str weaponClassVarName = StrParam(s:"M8fWeaponMenuWeaponClass", i:i);
     str weaponNameVarName  = StrParam(s:"M8fWeaponMenuWeaponName",  i:i);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
@@ -812,18 +814,6 @@ script "ShowWeaponMenu" (void)
       WM_UpdateMenu();
     }
   }
-}
-
-script "OpenWeaponMenu" (void)
-{
-  if (IsOpened()) { terminate; }
-  ACS_NamedExecute("ToggleWeaponMenu", NO_MAP, 0);
-}
-
-script "CloseWeaponMenu" (void)
-{
-  if (!IsOpened()) { terminate; }
-  ACS_NamedExecute("ToggleWeaponMenu", NO_MAP, 0);
 }
 
 script "ToggleWeaponMenu" (int closeWithoutAction)

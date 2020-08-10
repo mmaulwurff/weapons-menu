@@ -59,6 +59,7 @@ class wm_EventHandler : EventHandler
 
   wm_Settings getSettings() const { return mSettings; }
   wm_Data     getData()     const { return mData;     }
+  wm_Model    getModel()    const { return mModel;    }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
