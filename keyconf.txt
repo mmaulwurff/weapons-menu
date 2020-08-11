@@ -61,10 +61,10 @@ alias -smart_select_11 ""
 
 // Edit Weapon List Section ////////////////////////////////////////////////////
 
-alias m8f_wm_increase_priority "netevent wm_increase_priority; closemenu"
-alias m8f_wm_increase_slot     "netevent wm_decrease_priority; closemenu"
-alias m8f_wm_decrease_slot     "netevent wm_decrease_slot;     closemenu"
-alias m8f_wm_apply_tag_change  "netevent wm_apply_new_tag;     closemenu"
+alias wm_increase_priority "netevent wm_increase_priority; closemenu"
+alias wm_increase_slot     "netevent wm_decrease_priority; closemenu"
+alias wm_decrease_slot     "netevent wm_decrease_slot;     closemenu"
+alias wm_apply_tag_change  "netevent wm_apply_new_tag;     closemenu"
 
 // Aliases Section /////////////////////////////////////////////////////////////
 

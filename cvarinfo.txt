@@ -63,7 +63,9 @@ user string m8f_wm_QuickInventoryItem9 = "";
 // can contain sounds defined in soundinfo.
 user string m8f_wm_SwitchSound = "wmenu/no";
 
-user string m8f_wm_SelectedWeaponTag;
+// Menudef interface ///////////////////////////////////////////////////////////
+
+user string wm_SelectedWeaponTag;
 
 // Keyconf interface ///////////////////////////////////////////////////////////
 

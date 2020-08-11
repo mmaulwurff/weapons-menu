@@ -1178,7 +1178,7 @@ function void WM_SetSelectedWeapon(int weaponNumber, int playerN)
 {
   selectedWeapon = weaponNumber;
 
-  SetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag",
+  SetUserCVarString(playerN, "wm_SelectedWeaponTag",
                     WM_GetPrintableWeaponName(selectedWeapon));
 }
 

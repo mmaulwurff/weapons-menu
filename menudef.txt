@@ -286,15 +286,15 @@ OptionMenu wm_EditWeaponList
   StaticText "This menu is effective only in a game."            , Red
 
   StaticText ""
-  Command "Increase priority in slot" , "m8f_wm_increase_priority"
+  Command "Increase priority in slot" , wm_increase_priority
 
   StaticText ""
-  Command "Put in next slot"          , "m8f_wm_increase_slot"
-  Command "Put in previous slot"      , "m8f_wm_decrease_slot"
+  Command "Put in next slot"          , wm_increase_slot
+  Command "Put in previous slot"      , wm_decrease_slot
 
   StaticText ""
-  TextField "Edit Tag:"               , "m8f_wm_SelectedWeaponTag"
-  Command   "Apply"                   , "m8f_wm_apply_tag_change"
+  TextField "Edit Tag:"               , wm_SelectedWeaponTag
+  Command   "Apply"                   , wm_apply_tag_change
 }
 
 OptionMenu wm_Options
