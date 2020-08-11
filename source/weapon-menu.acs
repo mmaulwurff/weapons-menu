@@ -1179,7 +1179,7 @@ function int WM_GetSelectedWeapon(void)
 script "WM_ApplyTagChange" (void)
 {
   int playerN           = PlayerNumber();
-  str newName           = GetUserCVarString(playerN, "m8f_wm_SelectedWeaponTag");
+  str newName           = GetUserCVarString(playerN, "wm_SelectedWeaponTag");
   str weaponNameVarName = StrParam(s:"M8fWeaponMenuWeaponName", i:selectedWeapon);
 
   SetUserCVarString(playerN, weaponNameVarName, WM_Wrap(newName));
