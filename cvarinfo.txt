@@ -67,11 +67,7 @@ user string m8f_wm_SelectedWeaponTag;
 
 // Keyconf interface ///////////////////////////////////////////////////////////
 
-// Also used to load state after map change.
-user bool M8fWeaponMenuIsOpened  = false;
-
-// Used to load state after map change.
-user bool m8f_wm_WasInventory    = false;
+nosave bool wm_IsOpened = false;
 
 // Options /////////////////////////////////////////////////////////////////////
 

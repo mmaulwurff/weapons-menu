@@ -1,10 +1,10 @@
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-alias +fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu +attack"
-alias -fire_close_menu "test $M8fWeaponMenuIsOpened -attack -attack"
+alias +fire_close_menu "test $wm_IsOpened toggle_menu +attack"
+alias -fire_close_menu "test $wm_IsOpened -attack -attack"
 
-alias +alt_fire_close_menu "test $M8fWeaponMenuIsOpened toggle_menu_no_action +altattack"
-alias -alt_fire_close_menu "test $M8fWeaponMenuIsOpened -altattack -altattack"
+alias +alt_fire_close_menu "test $wm_IsOpened toggle_menu_no_action +altattack"
+alias -alt_fire_close_menu "test $wm_IsOpened -altattack -altattack"
 
 alias toggle_menu_no_action "netevent wm_toggle:1"
 alias toggle_menu           "netevent wm_toggle:0"

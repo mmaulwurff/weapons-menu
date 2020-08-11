@@ -66,9 +66,6 @@ function void WM_LeaveState(int oldState)
 
 function void WM_EnterState(int newState, int playerN)
 {
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened",  IsOpened() || IsInventory());
-  SetUserCVar(playerN, "m8f_wm_WasInventory",    IsInventory());
-
   switch (newState)
   {
   case STATE_CLOSED:         WM_EnterClosed(playerN);    break;
@@ -712,7 +709,6 @@ function void WM_InitApiCvars(int playerN)
 {
   int weaponCount = WM_WeaponCount();
   SetUserCVar(playerN, "M8fWeaponMenuWeaponCount", weaponCount);
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", false);
 
   SetUserCVar      (playerN, "m8f_wm_PreviousWeaponSet",   currentSet);
   SetUserCVarString(playerN, "m8f_wm_PreviousPlayerClass", GetActorClass(0));
@@ -762,23 +758,14 @@ script "InitWeaponMenu" (int weaponSet)
   WM_InitApiCvars(playerN);
   WM_FillInventoryItems();
 
-  bool wasInventory = GetUserCVar(playerN, "m8f_wm_WasInventory");
-  bool wasOpened    = GetUserCVar(playerN, "M8fWeaponMenuIsOpened");
-
-  if      (wasInventory)      { WM_ChangeState(STATE_INVENTORY, playerN); }
-  else if (wasOpened)         { WM_ChangeState(STATE_OPENED,    playerN); }
-  else if (IsAlwaysShowing()) { WM_ChangeState(STATE_CLOSED_VISIBLE, playerN); }
-  else                        { WM_ChangeState(STATE_CLOSED,         playerN); }
+  if (IsAlwaysShowing()) { WM_ChangeState(STATE_CLOSED_VISIBLE, playerN); }
+  else                   { WM_ChangeState(STATE_CLOSED,         playerN); }
 
   oldInstant = IsInstantSwitch();
 }
 
 script "ShowWeaponMenu" (void)
 {
-  int playerN = PlayerNumber();
-  // CVar may have been reset by other games while this game was saved.
-  SetUserCVar(playerN, "M8fWeaponMenuIsOpened", IsOpened() || IsInventory());
-
   bool instant = IsInstantSwitch();
   if (oldInstant != instant)
   {
@@ -794,7 +781,7 @@ script "ShowWeaponMenu" (void)
 
   if (IsInventory())
   {
-    WM_PrintInventoryMenu(playerN);
+    WM_PrintInventoryMenu(PlayerNumber());
   }
 
   // Check if currently selected weapon corresponds to what player is holding.
@@ -807,10 +794,8 @@ script "ShowWeaponMenu" (void)
 
     if (currentWeaponI != ERROR_NOT_FOUND)
     {
-      str selectedClass = WM_GetWeaponClass(selectedWeapon);
-
       WM_SetHighlightedWeapon(currentWeaponI);
-      WM_SetSelectedWeapon(highlightedWeapon, playerN);
+      WM_SetSelectedWeapon(highlightedWeapon, PlayerNumber());
       WM_UpdateMenu();
     }
   }

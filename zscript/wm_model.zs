@@ -38,12 +38,19 @@ class wm_Model play
     result.mSettings = settings;
     result.mData     = data;
     result.mState    = 0;
+    result.mIsOpenedCvar = wm_Cvar.of("wm_IsOpened", players[playerNumber]);
 
     result.mPlayerNumber = playerNumber;
 
+    result.synchroniseExternalState();
     result.mAcs.execute1("InitWeaponMenu", result.getWeaponSet());
 
     return result;
+  }
+
+  void tick()
+  {
+    synchroniseExternalState();
   }
 
   int  getState() const
@@ -197,12 +204,25 @@ class wm_Model play
       : mData.getWeaponSet(players[mPlayerNumber].mo.GetClassName());
   }
 
+  private
+  void synchroniseExternalState()
+  {
+    // The only way to fire a weapon is via a key. Programmatic ways don't often
+    // work (Guncaster, for example, checks if a real key is pressed).
+    //
+    // The only way for a key to behave differently is a CVar check. So, we need
+    // to keep a CVar (external state) in synch with internal state.
+
+    mIsOpenedCvar.setBool(isOpened() || isInventory());
+  }
+
   private wm_Acs      mAcs;
   private wm_Settings mSettings;
   private wm_Data     mData;
   private int         mPlayerNumber;
 
-  private int mState;
+  private int     mState;
+  private wm_Cvar mIsOpenedCvar;
 
 } // class wm_Model
 

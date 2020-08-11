@@ -47,6 +47,8 @@ class wm_cvar
   int    getInt()    { load(); return _cvar.GetInt();    }
   double getDouble() { load(); return _cvar.GetFloat();  }
 
+  void setBool(bool value) { load(); _cvar.SetInt(value); }
+
 // private: ////////////////////////////////////////////////////////////////////////////////////////
 
   private
