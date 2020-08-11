@@ -775,8 +775,7 @@ script "ShowWeaponMenu" (void)
 
   if (IsVisible())
   {
-    bool updated = WM_UpdateIsInInventory();
-    if (updated || AmmoMode()) { WM_UpdateMenu(); }
+    WM_UpdateMenu();
   }
 
   if (IsInventory())
@@ -1117,26 +1116,7 @@ script "SmartWeaponSelection" (int slotNumber)
 
 // Utility functions section ///////////////////////////////////////////////////
 
-function bool WM_UpdateIsInInventory(void)
-{
-  bool updated     = false;
-  int  weaponCount = WM_WeaponCount();
-
-  for (int i = 0; i < weaponCount; ++i)
-  {
-    bool old         = isInInventory[i];
-    str  weaponClass = WM_GetWeaponClass(i);
-
-    if (CheckClass(weaponClass)) { isInInventory[i] = CheckInventory(weaponClass); }
-    else                         { isInInventory[i] = false;                       }
-
-    if (old != isInInventory[i]) { updated = true; }
-  }
-
-  return updated;
-}
-
-function void WM_ResetIsInInventory(void)
+function void WM_UpdateIsInInventory(void)
 {
   int weaponCount = WM_WeaponCount();
   for (int i = 0; i < weaponCount; ++i)
@@ -1287,7 +1267,7 @@ script "WM_IncreaseSlot" (void)
       ++i;
     }
   }
-  WM_ResetIsInInventory();
+  WM_UpdateIsInInventory();
 
   slots[currentSet][i] = targetSlot;
   str weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
@@ -1318,7 +1298,7 @@ script "WM_DecreaseSlot" (void)
       --i;
     }
   }
-  WM_ResetIsInInventory();
+  WM_UpdateIsInInventory();
 
   slots[currentSet][i] = targetSlot;
   str weaponSlotVarName = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
