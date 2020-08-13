@@ -341,7 +341,7 @@ function void WM_MaybeShowBackground(int backgroundMode, int playerN)
   switch (backgroundMode)
   {
   case BACKGROUND_LEFT:
-    SetFont("wmbgleft");
+    SetFont("wm_bgleft");
     SetHudSize(600, 1, true);
     HudMessage(s:"A"; msgFlags, msgIdBackground,  0, 0.0, -1.0, 0);
     HudMessage(s:"A"; msgFlags, msgIdBackgroundA, 0, 0.0,  0.0, 0);

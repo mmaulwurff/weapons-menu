@@ -409,7 +409,7 @@ sprite optional wm_drla_unarmed, 512, 512
 
 graphic wmbgrght, 200, 1
 {
-  graphic wmbgleft, 0, 0
+  graphic wm_bgleft, 0, 0
   {
     FlipX
   }
@@ -417,7 +417,7 @@ graphic wmbgrght, 200, 1
 
 graphic wmbgtop, 1, 200
 {
-  graphic wmbgleft, 0, 0
+  graphic wm_bgleft, 0, 0
   {
     Rotate 90
   }
