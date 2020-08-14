@@ -42,12 +42,6 @@ class wm_EventHandler : EventHandler
   }
 
   override
-  void WorldTick()
-  {
-    mModel.tick();
-  }
-
-  override
   void renderOverlay(RenderEvent event)
   {
     if (mView == NULL && mModel != NULL)

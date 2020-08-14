@@ -37,11 +37,11 @@ class wm_Input play
     commandLine.split(commandLineParts, ":");
     String command = commandLineParts[0].Mid(3);
 
-    if      (command == "toggle"           ) mModel.toggle(commandLineParts[1].toInt());
-    else if (command == "open"             ) mModel.open();
+    if      (command == "open"             ) mModel.open();
     else if (command == "close"            ) mModel.close();
+    else if (command == "close_and_select" ) mModel.closeAndSelect();
     else if (command == "scroll_next"      ) mModel.scrollNext();
-    else if (command == "scroll_previous"  ) mModel.scrollPrevious();
+    else if (command == "scroll_prev"      ) mModel.scrollPrevious();
     else if (command == "smart_select"     ) mModel.smartSelect(commandLineParts[1].toInt());
 
     else if (command == "toggle_inventory" ) mModel.toggleInventory();

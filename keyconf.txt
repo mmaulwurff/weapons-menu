@@ -1,22 +1,37 @@
 // For some reason, if I don't add test to -fire_close_menu, -attack doesn't work.
 // So useless test in -fire_close_menu.
-alias +fire_close_menu "test $wm_IsOpened toggle_menu +attack"
+alias +fire_close_menu "test $wm_IsOpened wm_close_menu_and_select +attack"
 alias -fire_close_menu "test $wm_IsOpened -attack -attack"
 
-alias +alt_fire_close_menu "test $wm_IsOpened toggle_menu_no_action +altattack"
+alias +alt_fire_close_menu "test $wm_IsOpened wm_close_menu +altattack"
 alias -alt_fire_close_menu "test $wm_IsOpened -altattack -altattack"
 
-alias toggle_menu_no_action "netevent wm_toggle:1"
-alias toggle_menu           "netevent wm_toggle:0"
+alias wm_open_menu  "wm_IsOpened 1; netevent wm_open"
+alias wm_close_menu "wm_IsOpened 0; netevent wm_close"
+alias wm_close_menu_and_select "wm_IsOpened 0; netevent wm_close_and_select"
+alias toggle_menu   "test $wm_IsOpened wm_close_menu wm_open_menu"
 
-alias +press_menu "netevent wm_open"
-alias -press_menu "netevent wm_close"
+alias +press_menu "wm_open_menu"
+alias -press_menu "wm_close_menu"
 
 alias +press_inv "netevent wm_open_inventory"
 alias -press_inv "netevent wm_close_inventory"
 
-alias next_weapon_menu "netevent wm_scroll_next"
-alias prev_weapon_menu "netevent wm_scroll_previous"
+// scroll buttons section //////////////////////////////////////////////////////////////////////////
+
+alias wm_scroll_next "netevent wm_scroll_next"
+alias wm_scroll_prev "netevent wm_scroll_prev"
+
+alias wm_open_scroll_next "wm_open_menu; wm_scroll_next"
+alias wm_open_scroll_prev "wm_open_menu; wm_scroll_prev"
+
+alias wm_test_open_scroll_next "test $M8fWeaponMenuOpenOnScroll wm_open_scroll_next weapnext"
+alias wm_test_open_scroll_prev "test $M8fWeaponMenuOpenOnScroll wm_open_scroll_prev weapprev"
+
+alias next_weapon_menu "test $wm_IsOpened wm_scroll_next wm_test_open_scroll_next"
+alias prev_weapon_menu "test $wm_IsOpened wm_scroll_prev wm_test_open_scroll_prev"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 alias +wm_fire_favorite "netevent wm_fire_favorite"
 alias -wm_fire_favorite "netevent wm_favorite_back"

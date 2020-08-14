@@ -910,129 +910,63 @@ function void WM_SelectPreviousInventory(void)
 
 script "ScrollNextWeapon" (void)
 {
-  int playerN = PlayerNumber();
 
   if (IsInventory())
   {
+    int playerN = PlayerNumber();
     WM_SelectNextInventory();
     WM_PrintInventoryMenu(playerN);
     terminate;
   }
 
-  if (IsOpeningOnScroll() && !IsOpened())
-  {
-    WM_ChangeState(STATE_OPENED, playerN);
-  }
-
   int start;
   int n;
   int i;
   int weaponCount = WM_WeaponCount();
 
-  if (IsOpened())
+  start = highlightedWeapon + 1;
+  for (n = 0; n < weaponCount; ++n)
   {
-    start = highlightedWeapon + 1;
-    for (n = 0; n < weaponCount; ++n)
-    {
-      i = (start + n) % weaponCount;
+    i = (start + n) % weaponCount;
 
-      if (!IsCycleEnabled() && i == 0) { terminate; }
+    if (!IsCycleEnabled() && i == 0) { terminate; }
 
-      if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
-    }
-
-    WM_SetHighlightedWeapon(i);
-    if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
+    if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
   }
 
-  else
-  {
-    if (selectedWeapon == WEAPON_HOLSTERED) { start = 0;                  }
-    else                                    { start = selectedWeapon + 1; }
-
-    for (n = 0; n < weaponCount; ++n)
-    {
-      i = (start + n) % weaponCount;
-      if (SetWeapon(WM_GetWeaponClass(i)) && !WM_SkipNoAmmo(i)) { break; }
-    }
-
-    if (n != weaponCount - 1)
-    {
-      WM_SetSelectedWeapon(i, playerN);
-      WM_SetHighlightedWeapon(i);
-      WM_MaybeDisplayNameTag();
-    }
-  }
+  WM_SetHighlightedWeapon(i);
+  if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
 
   WM_UpdateMenu();
 }
 
-function void WM_MaybeDisplayNameTag(void)
-{
-  if (IsShowingNameTags())
-  {
-    str selectedName = WM_GetPrintableWeaponName(selectedWeapon);
-    HudMessage(s:selectedName;
-               HUDMSG_FADEOUT, msgIdTag, NameTagColor(), 0.5, 0.9, 2.0, 1.0);
-
-  }
-}
-
 script "ScrollPreviousWeapon" (void)
 {
-  int playerN = PlayerNumber();
-
   if (IsInventory())
   {
+    int playerN = PlayerNumber();
     WM_SelectPreviousInventory();
     WM_PrintInventoryMenu(playerN);
     terminate;
   }
 
-  if (IsOpeningOnScroll() && !IsOpened())
-  {
-    WM_ToggleWeaponMenu(playerN);
-  }
-
   int start;
   int n;
   int i;
   int weaponCount = WM_WeaponCount();
 
-  if (IsOpened())
+  start = highlightedWeapon - 1;
+  for (n = 0; n < weaponCount; ++n)
   {
-    start = highlightedWeapon - 1;
-    for (n = 0; n < weaponCount; ++n)
-    {
-      i = (start - n + weaponCount) % weaponCount;
+    i = (start - n + weaponCount) % weaponCount;
 
-      if (!IsCycleEnabled() && i == weaponCount - 1) { terminate; }
+    if (!IsCycleEnabled() && i == weaponCount - 1) { terminate; }
 
-      if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
-    }
-
-    WM_SetHighlightedWeapon(i);
-    if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
+    if (WM_IsInInventory(i) && !WM_SkipNoAmmo(i)) { break; }
   }
 
-  else
-  {
-    if (selectedWeapon == WEAPON_HOLSTERED) { start = weaponCount    - 1; }
-    else                                    { start = selectedWeapon - 1; }
-
-    for (n = 0; n < weaponCount; ++n)
-    {
-      i = (start - n + weaponCount) % weaponCount;
-      if (SetWeapon(WM_GetWeaponClass(i)) && !WM_SkipNoAmmo(i)) { break; }
-    }
-
-    if (n != weaponCount - 1)
-    {
-      WM_SetSelectedWeapon(i, playerN);
-      WM_SetHighlightedWeapon(i);
-      WM_MaybeDisplayNameTag();
-    }
-  }
+  WM_SetHighlightedWeapon(i);
+  if (n != weaponCount - 1) { WM_PlaySwitchSound(); }
 
   WM_UpdateMenu();
 }
