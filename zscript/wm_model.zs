@@ -24,7 +24,6 @@ class wm_Model play
   enum State
   {
     STATE_CLOSED         = 3,
-    STATE_OPENED         = 4,
     STATE_INVENTORY      = 5,
     STATE_CLOSED_VISIBLE = 6
   }
@@ -38,6 +37,7 @@ class wm_Model play
     result.mSettings = settings;
     result.mData     = data;
     result.mState    = 0;
+    result.mIsOpened = wm_Cvar.of("wm_IsOpened", players[playerNumber]);
 
     result.mPlayerNumber = playerNumber;
 
@@ -56,7 +56,7 @@ class wm_Model play
     mState = state;
   }
 
-  bool isOpened()    const { return mState == STATE_OPENED; }
+  bool isOpened()    const { return mIsOpened.getBool(); }
   bool isInventory() const { return mstate == STATE_INVENTORY; }
 
   void open()
@@ -200,6 +200,7 @@ class wm_Model play
   private wm_Acs      mAcs;
   private wm_Settings mSettings;
   private wm_Data     mData;
+  private wm_Cvar     mIsOpened;
   private int         mPlayerNumber;
 
   private int     mState;
