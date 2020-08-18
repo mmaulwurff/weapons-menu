@@ -79,7 +79,6 @@ alias -smart_select_11 ""
 alias wm_increase_priority "netevent wm_increase_priority; closemenu"
 alias wm_increase_slot     "netevent wm_decrease_priority; closemenu"
 alias wm_decrease_slot     "netevent wm_decrease_slot;     closemenu"
-alias wm_apply_tag_change  "netevent wm_apply_new_tag;     closemenu"
 
 // Aliases Section /////////////////////////////////////////////////////////////
 

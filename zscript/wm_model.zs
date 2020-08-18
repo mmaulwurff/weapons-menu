@@ -158,11 +158,6 @@ class wm_Model play
     mAcs.execute("WM_DecreaseSlot");
   }
 
-  void applyNewTag()
-  {
-    mAcs.execute("WM_ApplyTagChange");
-  }
-
   void printInfo() const
   {
     PlayerInfo player = players[consolePlayer];

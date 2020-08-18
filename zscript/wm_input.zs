@@ -60,7 +60,6 @@ class wm_Input play
     else if (command == "increase_priority") mModel.increasePriority();
     else if (command == "decrease_priority") mModel.decreasePriority();
     else if (command == "decrease_slot"    ) mModel.decreaseSlot();
-    else if (command == "apply_new_tag"    ) mModel.applyNewTag();
 
     else if (command == "print_info"       ) mModel.printInfo();
   }

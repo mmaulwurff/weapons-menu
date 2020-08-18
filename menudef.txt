@@ -291,10 +291,6 @@ OptionMenu wm_EditWeaponList
   StaticText ""
   Command "Put in next slot"          , wm_increase_slot
   Command "Put in previous slot"      , wm_decrease_slot
-
-  StaticText ""
-  TextField "Edit Tag:"               , wm_SelectedWeaponTag
-  Command   "Apply"                   , wm_apply_tag_change
 }
 
 OptionMenu wm_Options

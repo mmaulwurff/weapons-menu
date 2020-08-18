@@ -455,7 +455,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
 // List of weapon names (tags).
 // Number of names here must be equal to weapon count in weaponCounts array.
-str tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
+str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
   { }, // Reserved
   { }, // Reserved

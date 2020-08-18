@@ -226,11 +226,8 @@ class WMZscriptHelper play
       if (!def.CanPickup(activator)) { continue; }
 
       string className = type.GetClassName();
-      string tag       = m8f_wm_String.Beautify(def.GetTag());
-      // just to be sure that "serializing" will not break
-      tag.Replace(">", " ");
 
-      info.push(className, tag, slot, priority);
+      info.push(className, slot, priority);
     }
 
     sortWeapons(info);
@@ -240,11 +237,7 @@ class WMZscriptHelper play
 
     for (int i = 0; i < nWeapons; ++i)
     {
-      weaponData.AppendFormat( "%s>%s>%d>"
-                             , info.classes[i]
-                             , info.tags[i]
-                             , info.slots[i]
-                             );
+      weaponData.AppendFormat("%s>%d>", info.classes[i], info.slots[i]);
     }
 
     return weaponData;
@@ -273,6 +266,14 @@ class WMZscriptHelper play
     if (icon == "ALTHUDCF") { icon = placeholder; }
 
     return icon;
+  }
+
+  static
+  String GetTag(Actor activator, string classString)
+  {
+    Class<Actor> c = classString;
+    readonly<Actor> a = GetDefaultByType(c);
+    return m8f_wm_String.Beautify(a.GetTag());
   }
 
 // private: ////////////////////////////////////////////////////////////////////////////////////////
@@ -333,10 +334,9 @@ struct wm_WeaponInfo
 
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
-  void push(string className, string tag, int slot, int priority)
+  void push(string className, int slot, int priority)
   {
     classes   .push(className);
-    tags      .push(tag);
     slots     .push(slot);
     priorities.push(priority);
   }
@@ -347,11 +347,6 @@ struct wm_WeaponInfo
       string tmp = classes[i];
       classes[i] = classes[j];
       classes[j] = tmp;
-    }
-    {
-      string tmp = tags[i];
-      tags[i]    = tags[j];
-      tags[j]    = tmp;
     }
     {
       int tmp  = slots[i];
@@ -368,7 +363,6 @@ struct wm_WeaponInfo
 // public: /////////////////////////////////////////////////////////////////////////////////////////
 
   Array<string> classes;
-  Array<string> tags;
   Array<int>    slots;
   Array<int>    priorities;
 

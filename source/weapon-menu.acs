@@ -145,11 +145,9 @@ function void WM_LoadDataFromCVars(int playerN)
   for (int i = 0; i < weaponCounts[currentSet]; ++i)
   {
     str weaponClassVarName = StrParam(s:"M8fWeaponMenuWeaponClass", i:i);
-    str weaponNameVarName  = StrParam(s:"M8fWeaponMenuWeaponName",  i:i);
     str weaponSlotVarName  = StrParam(s:"M8fWeaponMenuWeaponSlot",  i:i);
 
     names[currentSet][i] = WM_Unwrap(GetUserCVarString(playerN, weaponClassVarName));
-    tags [currentSet][i] = WM_Unwrap(GetUserCVarString(playerN, weaponNameVarName));
     slots[currentSet][i] = GetUserCVar(playerN, weaponSlotVarName);
   }
 }
@@ -179,7 +177,7 @@ function str WM_GetWeaponClass(int weaponNumber)
 
 function str WM_GetPrintableWeaponName(int weaponNumber)
 {
-  return tags[currentSet][weaponNumber];
+  return ScriptCall("WMZScriptHelper", "GetTag", names[currentSet][weaponNumber]);
 }
 
 // Returns weaponNumber of next weapon in this slot, or ERROR_NOT_FOUND if there
@@ -1091,9 +1089,6 @@ function void WM_SetHighlightedWeapon(int weaponNumber)
 function void WM_SetSelectedWeapon(int weaponNumber, int playerN)
 {
   selectedWeapon = weaponNumber;
-
-  SetUserCVarString(playerN, "wm_SelectedWeaponTag",
-                    WM_GetPrintableWeaponName(selectedWeapon));
 }
 
 function void WM_SetSelectedWatchEnabled(bool isEnabled)
@@ -1109,16 +1104,6 @@ function int WM_GetSelectedWeapon(void)
 }
 
 // Weapon Priority Section /////////////////////////////////////////////////////
-
-script "WM_ApplyTagChange" (void)
-{
-  int playerN           = PlayerNumber();
-  str newName           = GetUserCVarString(playerN, "wm_SelectedWeaponTag");
-  str weaponNameVarName = StrParam(s:"M8fWeaponMenuWeaponName", i:selectedWeapon);
-
-  SetUserCVarString(playerN, weaponNameVarName, WM_Wrap(newName));
-  tags[currentSet][selectedWeapon] = newName;
-}
 
 script "WM_IncreasePriority" (void)
 {
@@ -1153,10 +1138,6 @@ function void WM_SwapWeapons(int w1, int w2, bool setCVars, int playerN)
   int namesTmp = names[currentSet][w1];
   names[currentSet][w1] = names[currentSet][w2];
   names[currentSet][w2] = namesTmp;
-
-  int tagTmp = tags[currentSet][w1];
-  tags[currentSet][w1] = tags[currentSet][w2];
-  tags[currentSet][w2] = tagTmp;
 
   int slotTmp = slots[currentSet][w1];
   slots[currentSet][w1] = slots[currentSet][w2];
@@ -1405,15 +1386,13 @@ function void WM_GetFallbackWeapons(void)
     {
     case 0: names[SET_FALLBACK][current] = currentToken; break;
 
-    case 1: tags [SET_FALLBACK][current] = currentToken; break;
-
-    case 2:
+    case 1:
       slots[SET_FALLBACK][current] = WM_StrToInt(currentToken);
       ++current;
       break;
     }
 
-    iArray = (iArray + 1) % 3;
+    iArray = (iArray + 1) % 2;
   }
 
   weaponCounts[SET_FALLBACK] = current;
