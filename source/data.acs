@@ -457,97 +457,6 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 // Number of names here must be equal to weapon count in weaponCounts array.
 str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { }, // Reserved
-  { }, // Reserved
-
-  { // Eriguns
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000"
-  },
-  {
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Auto Shotgun", "Super Shotgun", "Shotgun",
-    "Gatling Gun", "Machinegun",
-    "Missile Launcher", "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG9000",
-    "Grenade Launcher"
-  },
-
-  { }, // Reserved
-  { }, // Reserved
-
-  { // Final Doomer
-    "Power Saw", "Melee",
-    "Ol' Faithful",
-    "Super Shotgun", "Scoped Shotgun",
-    "Machine Gun",
-    "Grenade Launcher",
-    "Heavy Machine Gun",
-    "Quantum Accelerator"
-  },
-  {
-    "Halderman Device", "Melee",
-    "Prototype Pistol",
-    "Burst Shotgun", "Tactical Shotgun",
-    "Dual Uzis",
-    "Missile Launcher",
-    "Maser",
-    "Incursion Annihilator"
-  },
-  {
-    "Chainsaw", "Melee",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-  {
-    "Stasis Bow", "Trench Knife",
-    "Ancient Pistol",
-    "Hybrid SSG", "Ancient Shotgun",
-    "Ancient AK",
-    "Photon Scepter",
-    "Alien Elite Weapon",
-    "Illuminator"
-  },
-  {
-    "Katana",
-    "Silenced Pistol",
-    "Neutron Cascader", "Neutron Pulser",
-    "Burst Needler",
-    "Prism Cannon",
-    "Ofuda Caster",
-    "Onmyou Devastator"
-  },
-  {
-    "NanoCore", "Power Fist",
-    "Charge Pistol",
-    "Machreaper", "Arc Blaster",
-    "Pulse Rifle",
-    "Pulse Cannon",
-    "Plasma Vulcan",
-    "X-Spark Cannon"
-  },
-
-  { // Faspons
-    "Chainsaw", "Knuckles",
-    "Combat Rifle",
-    "Double Barrel Shotgun", "Riotgun",
-    "Minigun",
-    "RPG",
-    "Pulse Rifle",
-    "BFG9000"
-  },
-
   { // Cyan-Doom
     "Super Chainsaw", "Chainsaw", "Brass Knuckles",
     "Rifle", "Pistol",
@@ -558,8 +467,6 @@ str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG10K", "BFG 9000",
     "Skull Staff",
   },
-
-  { }, // Reserved
 
   { // Complex Doom
     "Chainsaw", "Melee",
@@ -582,16 +489,6 @@ str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Grenade Launcher", "Rocket Launcher",
     "Plasma Rifle", "Sonic Railgun",
     "BFG10K", "BFG9000",
-  },
-
-  { // REKKR
-    "Axe", "Fists",
-    "Soul Bow",
-    "Steelshot Launcher",
-    "Soul Launcher",
-    "Runic Staff",
-    "Holy Relic",
-    "Blessing of the Gods"
   },
 
   { // Chex Quest
@@ -663,17 +560,6 @@ str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG 9000"
   },
 
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-
   { // WW-Cola3
     "Marston R-1 Techvolver",
     "KS-23 Shotgun", "Dual KS-23 Shotguns",
@@ -714,8 +600,6 @@ str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Defibrillator"
   },
 
-  { }, // Reserved
-
   { // Project MSX
     "Fists",
     "Golam Pistol",
@@ -726,15 +610,6 @@ str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "Chimaera Pulse Rifle",
     "Orion Gauss Cannon"
   },
-
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
-  { }, // Reserved
 
   { // Factotum
     "Machete",
