@@ -19,7 +19,7 @@ int weaponCounts[SETS_NUMBER] =
   9,  // Faspons
   0,  // [Reserved]
   0,  // [Reserved]
-  18, // Complex Doom
+  0,  // [Reserved]
   0,  // [Reserved]
   14, // Hard-Doom
   8,  // REKKR
@@ -83,18 +83,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // Complex Doom
-    1, 1,
-    2,
-    3, 3, 3, 3,
-    4, 4,
-    5, 5,
-    6, 6, 6,
-    7, 7, 7,
-    8,
-  },
-
+  { }, // Reserved
   { }, // Reserved
 
   { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
@@ -255,18 +244,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { }, // Reserved
   { }, // Reserved
-
-  { // Complex Doom
-    "Chainsaw ", "Melee",
-    "Handgun",
-    "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
-    "Minigun ", "Assault Rifle",
-    "Grenade Launcher", "Rocket Launcher",
-    "Railgun ", "Demon Tech Rifle", "Plasma Rifle",
-    "Demon Tech BFG10K", "BFG10K ", "BFG9500",
-    "MP40",
-  },
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Hard-Doom
@@ -445,19 +423,6 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 // List of weapon names (tags).
 str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { // Complex Doom
-    "Chainsaw", "Melee",
-    "Handgun",
-    "Quad Barrel Shotgun", "Double Barrel Shotgun", "Assault Shotgun", "Combat Shotgun",
-    "Minigun", "Assault Rifle",
-    "Grenade Launcher", "Rocket Launcher",
-    "Railgun", "Demon Tech Rifle", "Plasma Rifle",
-    "Demon Tech BFG10K", "BFG10K", "BFG9500",
-    "MP40",
-  },
-
-  { }, // Reserved
-
   { // Hard-Doom
     "Chainsaw", "Fist",
     "Pistol",
