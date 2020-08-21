@@ -17,7 +17,7 @@ int weaponCounts[SETS_NUMBER] =
   0,  // [Reserved]
   9, 9, 9, 9, 8, 9, // Final Doomer: Plutonia, TNT, Doom2, AA, JPCP, BTSX
   9,  // Faspons
-  16, // Cyan-Doom
+  0,  // [Reserved]
   0,  // [Reserved]
   18, // Complex Doom
   0,  // [Reserved]
@@ -81,8 +81,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 
   { 1, 1, 2, 3, 3, 4, 5, 6, 7 }, // Faspons
 
-  { 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8 }, // Cyan-Doom
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Complex Doom
@@ -254,17 +253,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
     "BFG"
   },
 
-  { // Cyan-Doom
-    "Magnetsaw", "Chainsaw", "Fist",
-    "Rifle", "Pistol",
-    "SuperShotgun", "Shotgun",
-    "STMinigun", "Chaingun",
-    "STGrenadeLauncher", "RocketLauncher",
-    "STRailgun", "PlasmaRifle",
-    "STBFG10K", "BFG9000",
-    "SkullStaff"
-  },
-
+  { }, // Reserved
   { }, // Reserved
 
   { // Complex Doom
@@ -454,20 +443,8 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
-// Number of names here must be equal to weapon count in weaponCounts array.
 str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 {
-  { // Cyan-Doom
-    "Super Chainsaw", "Chainsaw", "Brass Knuckles",
-    "Rifle", "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Minigun", "Chaingun",
-    "Grenade Launcher", "Rocket Launcher",
-    "Railgun", "Plasma Rifle",
-    "BFG10K", "BFG 9000",
-    "Skull Staff",
-  },
-
   { // Complex Doom
     "Chainsaw", "Melee",
     "Handgun",

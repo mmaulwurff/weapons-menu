@@ -22,14 +22,16 @@ class wm_EventHandler : EventHandler
 // public: // EventHandler /////////////////////////////////////////////////////////////////////////
 
   override
-  void playerEntered(PlayerEvent event)
+  void worldTick()
   {
-    if (wm_Game.isTitlemap() || players[event.PlayerNumber].mo == NULL) return;
+    // Why not playerEntered? Because of https://forum.zdoom.org/viewtopic.php?f=2&t=69635
+    if (level.time != 1) return;
+    if (wm_Game.isTitlemap() || players[consolePlayer].mo == NULL) return;
 
     mSettings = wm_Settings.of();
-    mAcs      = wm_Acs.of(event.playerNumber);
+    mAcs      = wm_Acs.of(consolePlayer);
     mData     = wm_Data.of();
-    mModel    = wm_Model.of(mAcs, mSettings, mData, event.playerNumber);
+    mModel    = wm_Model.of(mAcs, mSettings, mData, consolePlayer);
     mInput    = wm_Input.of(mModel);
   }
 

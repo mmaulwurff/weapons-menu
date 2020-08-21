@@ -42,21 +42,16 @@ class wm_Data
 
   enum Sets
   {
-    SET_NOT_FOUND = -1,
-    SET_ABORT_M   =  4,
-    SET_CYAN_DOOM = 13,
-    SET_REKKR     = 18,
-    SET_FALLBACK  = 29,
+    SET_REKKR    = 18,
+    SET_FALLBACK = 29,
   }
 
   int getWeaponSet(String playerClass) const
   {
     if (playerClass == "DoomPlayer")
     {
-      if      (wm_Game.isRekkr())    return SET_REKKR;
-      else if (wm_Game.isAbortM())   return SET_ABORT_M;
-      else if (wm_Game.isCyanDoom()) return SET_CYAN_DOOM;
-      else                           return SET_FALLBACK;
+      if      (wm_Game.isRekkr()) return SET_REKKR;
+      else                        return SET_FALLBACK;
     }
 
     String setIndexString = mPlayerClasses.At(playerClass);

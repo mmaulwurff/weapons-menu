@@ -32,27 +32,4 @@ class wm_Game
     return (Wads.FindLump("REKCREDS") != -1);
   }
 
-  static
-  bool isAbortM()
-  {
-    return isExistingClass("AbortButton");
-  }
-
-  static
-  bool isCyanDoom()
-  {
-    return isExistingClass("STMinigun")
-        && isExistingClass("Daedabus")
-        && isExistingClass("VitalitySerum");
-  }
-
-// private: ////////////////////////////////////////////////////////////////////////////////////////
-
-  static
-  bool isExistingClass(String className)
-  {
-    Class c = className;
-    return (c != NULL);
-  }
-
 } // class wm_Game
