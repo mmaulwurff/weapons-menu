@@ -221,34 +221,6 @@ function int WM_GetWeaponBySlotInInv(int slotNumber)
   return ERROR_NOT_FOUND;
 }
 
-function bool WM_IsOnlyInSlot(int weaponNumber)
-{
-  int slot = WM_GetWeaponSlot(weaponNumber);
-
-  for (int prev = weaponNumber - 1; prev >= 0; --prev)
-  {
-    if (WM_GetWeaponSlot(prev) != slot) { continue; }
-    str prevWeaponClass = WM_GetWeaponClass(prev);
-    if (!CheckClass(prevWeaponClass))     { continue; }
-    if (!CheckInventory(prevWeaponClass)) { continue; }
-
-    return false;
-  }
-
-  int weaponCount = WM_WeaponCount();
-  for (int next = weaponNumber + 1; next < weaponCount; ++next)
-  {
-    if (WM_GetWeaponSlot(next) != slot) { continue; }
-    str nextWeaponClass = WM_GetWeaponClass(next);
-    if (!CheckClass(nextWeaponClass))     { continue; }
-    if (!CheckInventory(nextWeaponClass)) { continue; }
-
-    return false;
-  }
-
-  return true;
-}
-
 // Printing Weapons Menu functions /////////////////////////////////////////////
 
 function void WM_UpdateMenu(void)
@@ -1024,21 +996,6 @@ script "SmartWeaponSelection" (int slotNumber)
 
   else
   {
-    if (IsSelectingIfOnlyInSlot())
-    {
-      int weaponNumber = WM_GetWeaponBySlotInInv(slotNumber);
-      if (weaponNumber == -1) { terminate; }
-
-      if (WM_IsOnlyInSlot(weaponNumber))
-      {
-        if (CheckInventory(WM_GetWeaponClass(weaponNumber)))
-        {
-          WM_SelectWeapon(weaponNumber, playerN);
-          terminate;
-        }
-      }
-    }
-
     WM_ToggleWeaponMenu(playerN);
     WM_HighlightFirstInInventory(slotNumber);
   }

@@ -50,7 +50,6 @@ class wm_Settings
     result.mIsForcingUniversalMode  = wm_cvar.of("m8f_wm_ForceFallbackMode"       , player);
     result.mIsOpeningOnScroll       = wm_cvar.of("m8fWeaponMenuOpenOnScroll"      , player);
     result.mIsSkippingNoAmmo        = wm_cvar.of("m8f_wm_SkipNoAmmo"              , player);
-    result.mIsSelectingIfOnlyInSlot = wm_cvar.of("m8fWeaponMenuImmediatelySelectIfOnlyInSlot", player);
     result.mIsInstantSwitch         = wm_cvar.of("m8fWeaponMenuInstantSwitch"     , player);
     result.mIsCycleEnabled          = wm_cvar.of("m8f_wm_cycle_enabled"           , player);
     result.mFavoriteWeapon          = wm_cvar.of("m8fWeaponMenuFavoriteWeapon"    , player);
@@ -84,7 +83,6 @@ class wm_Settings
   bool   isForcingUniversalMode()  const { return mIsForcingUniversalMode.getBool(); }
   bool   isOpeningOnScroll()       const { return mIsOpeningOnScroll.getBool(); }
   bool   isSkippingNoAmmo()        const { return mIsSkippingNoAmmo.getBool(); }
-  bool   isSelectingIfOnlyInSlot() const { return mIsSelectingIfOnlyInSlot.getBool(); }
   bool   isInstantSwitch()         const { return mIsInstantSwitch.getBool(); }
   bool   isClosingAfterUse()       const { return mIsClosingAfterUse.getBool(); }
   bool   isCycleEnabled()          const { return mIsCycleEnabled.getBool(); }
@@ -118,7 +116,6 @@ class wm_Settings
   private wm_cvar mIsForcingUniversalMode;
   private wm_cvar mIsOpeningOnScroll;
   private wm_cvar mIsSkippingNoAmmo;
-  private wm_cvar mIsSelectingIfOnlyInSlot;
   private wm_cvar mIsInstantSwitch;
   private wm_cvar mIsClosingAfterUse;
   private wm_cvar mIsCycleEnabled;
@@ -157,7 +154,6 @@ class wm_StaticSettings
   static bool   isForcingUniversalMode()  { return getSettings().isForcingUniversalMode(); }
   static bool   isOpeningOnScroll()       { return getSettings().isOpeningOnScroll(); }
   static bool   isSkippingNoAmmo()        { return getSettings().isSkippingNoAmmo(); }
-  static bool   isSelectingIfOnlyInSlot() { return getSettings().isSelectingIfOnlyInSlot(); }
   static bool   isInstantSwitch()         { return getSettings().isInstantSwitch(); }
   static bool   isClosingAfterUse()       { return getSettings().isClosingAfterUse(); }
   static bool   isCycleEnabled()          { return getSettings().isCycleEnabled(); }

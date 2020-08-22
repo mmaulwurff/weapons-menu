@@ -22,7 +22,6 @@ function int  NameTagColor(void)            { return ScriptCall(Settings, "nameT
 function str  IsForcingUniversalMode(void)  { return ScriptCall(Settings, "isForcingUniversalMode"); }
 function str  IsOpeningOnScroll(void)       { return ScriptCall(Settings, "isOpeningOnScroll"); }
 function str  IsSkippingNoAmmo(void)        { return ScriptCall(Settings, "isSkippingNoAmmo"); }
-function str  IsSelectingIfOnlyInSlot(void) { return ScriptCall(Settings, "isSelectingIfOnlyInSlot"); }
 function str  IsInstantSwitch(void)         { return ScriptCall(Settings, "isInstantSwitch"); }
 function str  IsClosingAfterUse(void)       { return ScriptCall(Settings, "isClosingAfterUse"); }
 function str  IsCycleEnabled(void)          { return ScriptCall(Settings, "isCycleEnabled"); }

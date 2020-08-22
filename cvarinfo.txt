@@ -40,8 +40,6 @@ user int M8fWeaponMenuShowAmmoCounts = 2;
 // 2 - Always
 user int M8fWeaponMenuInstantSwitch = 0;
 
-user int  M8fWeaponMenuImmediatelySelectIfOnlyInSlot = 0;
-
 // 0 - normal fire
 // 1 - alt fire
 // 2 - no fire

@@ -133,11 +133,6 @@ OptionMenu wm_BehaviorOptions
   Option     "Menu looping enabled"      , m8f_wm_cycle_enabled      , YesNo
 
   StaticText ""
-  Option     "Select w/o menu if only in slot", M8fWeaponMenuImmediatelySelectIfOnlyInSlot, YesNo
-  StaticText "Slot keys will open menu only if there" , Black
-  StaticText "is more than one weapon in the slot."   , Black
-
-  StaticText ""
   Option     "Force Universal Mode", m8f_wm_ForceFallbackMode, YesNo
   StaticText "Enable if weapon set isn't recognized correctly.", Black
   StaticText "If this happens, please report a bug." , Black
