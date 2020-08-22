@@ -16,11 +16,6 @@ function bool IsShowingIcons(void)          { return ScriptCall(Settings, "isSho
 function str  GetMenuFont(void)             { return ScriptCall(Settings, "getMenuFont"); }
 function str  SwitchSound(void)             { return ScriptCall(Settings, "switchSound"); }
 
-function bool IsShowingNameTags(void)       { return ScriptCall(Settings, "isShowingNameTags"); }
-function int  NameTagColor(void)            { return ScriptCall(Settings, "nameTagColor"); }
-
-function str  IsForcingUniversalMode(void)  { return ScriptCall(Settings, "isForcingUniversalMode"); }
-function str  IsOpeningOnScroll(void)       { return ScriptCall(Settings, "isOpeningOnScroll"); }
 function str  IsSkippingNoAmmo(void)        { return ScriptCall(Settings, "isSkippingNoAmmo"); }
 function str  IsInstantSwitch(void)         { return ScriptCall(Settings, "isInstantSwitch"); }
 function str  IsClosingAfterUse(void)       { return ScriptCall(Settings, "isClosingAfterUse"); }

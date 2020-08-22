@@ -421,148 +421,144 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
-str _tags[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
-{
-  { // Hard-Doom
-    "Chainsaw", "Fist",
-    "Pistol",
-    "Quad-Shotgun", "Super Shotgun", "Shotgun",
-    "Minigun", "Chaingun",
-    "Grenade Launcher", "Rocket Launcher",
-    "Plasma Rifle", "Sonic Railgun",
-    "BFG10K", "BFG9000",
-  },
-
-  { // Chex Quest
-    "Super Bootspork", "Spoon",
-    "Mini Zorcher",
-    "Super-Large Zorcher", "Large Zorcher",
-    "Rapid Zorcher",
-    "Zorch Propulsor",
-    "Phasing Zorcher",
-    "LAZ Device",
-  },
-
-  { // Strife
-    "Dagger",
-    "Crossbow: Electric Bolts",
-    "Crossbow: Poison Bolts",
-    "Assault Gun",
-    "Mini Missile Launcher",
-    "Grenade Launcher: HE",
-    "Grenade Launcher: Phosphorus",
-    "Flame Thrower",
-    "Mauler: Scatter",
-    "Mauler: Torpedo",
-    "SIGIL"
-  },
-
-  { // Argent
-    "Chainsaw",
-    "Fists",
-    "Pistol",
-    "Super Shotgun",
-    "Combat Shotgun",
-    "Chaingun",
-    "Heavy Assault Rifle",
-    "Rocket Launcher",
-    "Gauss Cannon",
-    "Plasma Rifle",
-    "BFG 9000",
-  },
-
-  { // Doom 64
-    "Chainsaw", "Fist",
-    "Uzi", "Pistol",
-    "Devastator", "Super Shotgun", "Shotgun",
-    "Nailgun", "Chaingun",
-    "Flamethrower", "Rocket Launcher",
-    "Railgun", "Plasma Rifle",
-    "Unmaker", "BFG 9000",
-    "Unmaker",
-  },
-
-  { // Responsive Weapons + Faster Weapon Switching
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // Dead Marine
-    "Chainsaw", "Brass Knuckles",
-    "Pistol",
-    "Super Shotgun", "Shotgun",
-    "Chaingun",
-    "Rocket Launcher",
-    "Plasma Rifle",
-    "BFG 9000"
-  },
-
-  { // WW-Cola3
-    "Marston R-1 Techvolver",
-    "KS-23 Shotgun", "Dual KS-23 Shotguns",
-    "Kare Brand Cards",
-    "Plasma Autorifle",
-    "Sidewinder Missile Launcher",
-    "Piledriver",
-    "Toothpaste Laser",
-  },
-  { // WW-Cola3
-    "Marston R-1 Techvolver",
-    "KS-23 Shotgun", "Dual KS-23 Shotguns",
-    "Kare Brand Cards",
-    "Plasma Autorifle",
-    "Sidewinder Missile Launcher",
-    "Piledriver",
-    "Toothpaste Laser",
-  },
-
-  { // Netronian Chaos
-    "Pile Banger Glove", "Anaika Hunting Daggers", "Digitalblade",
-    "Heavy Caliber Pistol", "Burst Pistol", "Service Pistol",
-    "Assault Supporter", "Hand Sweeper", "Riotgun",
-    "Personal Defence Arm", "Burst SMG", "Machine Carbine",
-    "Semi Auto Rifle", "Squad Support Gun", "Combat Rifle",
-    "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
-    "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
-    "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
-  },
-
-  { // Adventures of Square
-    "Dual Paint Guns", "Paint Gun",
-    "Dual Oozis", "Oozi",
-    "Quad Cannon", "Shotbow",
-    "Paintgun Cannon",
-    "Hellshell Launcher",
-    "Cresceptre",
-    "Defibrillator"
-  },
-
-  { // Project MSX
-    "Fists",
-    "Golam Pistol",
-    "Hydra Shotgun",
-    "Barracuda Rifle",
-    "Raptor NailShotgun",
-    "Taurus AutoCannon",
-    "Chimaera Pulse Rifle",
-    "Orion Gauss Cannon"
-  },
-
-  { // Factotum
-    "Machete",
-    "Beretta 92FS", "Upgraded Beretta 92",
-    "Franchi SPAS-12",
-    "Calico M950",
-    "Springfield M79", "Upgraded M79",
-    "Plasma Cannon",
-    "Colt M4A1",
-    "FNH M249",
-    "Grenades",
-  },
-
-}; // end of printable names
+//  { // Hard-Doom
+//    "Chainsaw", "Fist",
+//    "Pistol",
+//    "Quad-Shotgun", "Super Shotgun", "Shotgun",
+//    "Minigun", "Chaingun",
+//    "Grenade Launcher", "Rocket Launcher",
+//    "Plasma Rifle", "Sonic Railgun",
+//    "BFG10K", "BFG9000",
+//  },
+//
+//  { // Chex Quest
+//    "Super Bootspork", "Spoon",
+//    "Mini Zorcher",
+//    "Super-Large Zorcher", "Large Zorcher",
+//    "Rapid Zorcher",
+//    "Zorch Propulsor",
+//    "Phasing Zorcher",
+//    "LAZ Device",
+//  },
+//
+//  { // Strife
+//    "Dagger",
+//    "Crossbow: Electric Bolts",
+//    "Crossbow: Poison Bolts",
+//    "Assault Gun",
+//    "Mini Missile Launcher",
+//    "Grenade Launcher: HE",
+//    "Grenade Launcher: Phosphorus",
+//    "Flame Thrower",
+//    "Mauler: Scatter",
+//    "Mauler: Torpedo",
+//    "SIGIL"
+//  },
+//
+//  { // Argent
+//    "Chainsaw",
+//    "Fists",
+//    "Pistol",
+//    "Super Shotgun",
+//    "Combat Shotgun",
+//    "Chaingun",
+//    "Heavy Assault Rifle",
+//    "Rocket Launcher",
+//    "Gauss Cannon",
+//    "Plasma Rifle",
+//    "BFG 9000",
+//  },
+//
+//  { // Doom 64
+//    "Chainsaw", "Fist",
+//    "Uzi", "Pistol",
+//    "Devastator", "Super Shotgun", "Shotgun",
+//    "Nailgun", "Chaingun",
+//    "Flamethrower", "Rocket Launcher",
+//    "Railgun", "Plasma Rifle",
+//    "Unmaker", "BFG 9000",
+//    "Unmaker",
+//  },
+//
+//  { // Responsive Weapons + Faster Weapon Switching
+//    "Chainsaw", "Brass Knuckles",
+//    "Pistol",
+//    "Super Shotgun", "Shotgun",
+//    "Chaingun",
+//    "Rocket Launcher",
+//    "Plasma Rifle",
+//    "BFG 9000"
+//  },
+//
+//  { // Dead Marine
+//    "Chainsaw", "Brass Knuckles",
+//    "Pistol",
+//    "Super Shotgun", "Shotgun",
+//    "Chaingun",
+//    "Rocket Launcher",
+//    "Plasma Rifle",
+//    "BFG 9000"
+//  },
+//
+//  { // WW-Cola3
+//    "Marston R-1 Techvolver",
+//    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+//    "Kare Brand Cards",
+//    "Plasma Autorifle",
+//    "Sidewinder Missile Launcher",
+//    "Piledriver",
+//    "Toothpaste Laser",
+//  },
+//  { // WW-Cola3
+//    "Marston R-1 Techvolver",
+//    "KS-23 Shotgun", "Dual KS-23 Shotguns",
+//    "Kare Brand Cards",
+//    "Plasma Autorifle",
+//    "Sidewinder Missile Launcher",
+//    "Piledriver",
+//    "Toothpaste Laser",
+//  },
+//
+//  { // Netronian Chaos
+//    "Pile Banger Glove", "Anaika Hunting Daggers", "Digitalblade",
+//    "Heavy Caliber Pistol", "Burst Pistol", "Service Pistol",
+//    "Assault Supporter", "Hand Sweeper", "Riotgun",
+//    "Personal Defence Arm", "Burst SMG", "Machine Carbine",
+//    "Semi Auto Rifle", "Squad Support Gun", "Combat Rifle",
+//    "Cyro Grenade Bouncer", "Anti Armor Rifle", "Missile Launcher",
+//    "Full Auto LAWF", "Personal Annihilator", "Semi Coil Carbine",
+//    "Fierce Caliber", "Tri Desolator", "Heavy Vulcan"
+//  },
+//
+//  { // Adventures of Square
+//    "Dual Paint Guns", "Paint Gun",
+//    "Dual Oozis", "Oozi",
+//    "Quad Cannon", "Shotbow",
+//    "Paintgun Cannon",
+//    "Hellshell Launcher",
+//    "Cresceptre",
+//    "Defibrillator"
+//  },
+//
+//  { // Project MSX
+//    "Fists",
+//    "Golam Pistol",
+//    "Hydra Shotgun",
+//    "Barracuda Rifle",
+//    "Raptor NailShotgun",
+//    "Taurus AutoCannon",
+//    "Chimaera Pulse Rifle",
+//    "Orion Gauss Cannon"
+//  },
+//
+//  { // Factotum
+//    "Machete",
+//    "Beretta 92FS", "Upgraded Beretta 92",
+//    "Franchi SPAS-12",
+//    "Calico M950",
+//    "Springfield M79", "Upgraded M79",
+//    "Plasma Cannon",
+//    "Colt M4A1",
+//    "FNH M249",
+//    "Grenades",
+//  },
