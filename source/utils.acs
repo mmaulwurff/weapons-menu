@@ -1,5 +1,0 @@
-function int WM_IfThenElse(bool condition, int trueValue, int falseValue)
-{
-  if (condition) return trueValue;
-  return falseValue;
-}

@@ -7,7 +7,6 @@
 #include "favorite.acs"
 #include "inventory_control.acs"
 #include "string.acs"
-#include "utils.acs"
 #include "zscript-access.acs"
 #include "settings.acs"
 
@@ -308,8 +307,7 @@ function void WM_PrintMenu(void)
   bool highToLow      = IsHighToLow();
   int  y              = GetYStart();
   int  weaponCount    = WM_WeaponCount();
-  int  step           = WM_IfThenElse((weaponCount < 20), 0.05, 0.02);
-  int  stepMultiplied = (step * StepMultiplier()) >> 16;
+  int  stepMultiplied = (0.05 * StepMultiplier()) >> 16;
 
   bool showTags;
   bool slotOnLeft;
