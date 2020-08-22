@@ -207,7 +207,6 @@ class wm_Data
     mPlayerClasses.Insert("FDJPCPPlayer"      , "10"); // Final Doomer - JPCP
     mPlayerClasses.Insert("FDBTSXPlayer"      , "11"); // Final Doomer - BTSX
     mPlayerClasses.Insert("FasPlayer"         , "12"); // Faspons
-    mPlayerClasses.Insert("DoomMarine"        , "17"); // Hard-Doom v8.2f
     mPlayerClasses.Insert("ChexPlayer"        , "19"); // Chex Quest | reason: SSG is deathmatch-only
     mPlayerClasses.Insert("StrifePlayer"      , "20"); // Strife
     mPlayerClasses.Insert("ArgPlayer"         , "21"); // Argent (v0.5.3)

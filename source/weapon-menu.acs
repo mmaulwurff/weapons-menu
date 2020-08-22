@@ -1323,7 +1323,7 @@ function void WM_PrintInventoryItem( int i
 
 function void WM_GetFallbackWeapons(void)
 {
-  // received data format: Class>Tag>Slot> ...
+  // received data format: Class>Slot> ...
   str weaponData       = WM_GetWeaponList();
   int weaponDataLength = StrLen(weaponData);
   int current          = 0;

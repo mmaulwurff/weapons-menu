@@ -21,7 +21,7 @@ int weaponCounts[SETS_NUMBER] =
   0,  // [Reserved]
   0,  // [Reserved]
   0,  // [Reserved]
-  14, // Hard-Doom
+  0,  // [Reserved]
   8,  // REKKR
   9,  // Chex Quest
   11, // Strife
@@ -85,8 +85,7 @@ int slots[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { 1, 1, 2, 3, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7 }, // Hard-Doom
+  { }, // Reserved
 
   { 1, 1, 2, 3, 4, 5, 6, 7 }, // REKKR
 
@@ -246,16 +245,7 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
   { }, // Reserved
   { }, // Reserved
   { }, // Reserved
-
-  { // Hard-Doom
-    "Chainsaw~", "Fist~",
-    "Pistol~",
-    "Quad-Shotgun", "SuperShotgun~", "Shotgun~",
-    "Minigun~", "Chaingun~",
-    "GrenadeLauncher~", "RocketLauncher~",
-    "PlasmaRifle~", "Sonic Railgun",
-    "BFG10K~", "BFG9000~",
-  },
+  { }, // Reserved
 
   { // REKKR
     "Chainsaw", "Fist",
@@ -421,16 +411,6 @@ str names[SETS_NUMBER][MAX_WEAPONS_NUMBER] =
 }; // end of actor/class names /////////////////////////////////////////////////
 
 // List of weapon names (tags).
-//  { // Hard-Doom
-//    "Chainsaw", "Fist",
-//    "Pistol",
-//    "Quad-Shotgun", "Super Shotgun", "Shotgun",
-//    "Minigun", "Chaingun",
-//    "Grenade Launcher", "Rocket Launcher",
-//    "Plasma Rifle", "Sonic Railgun",
-//    "BFG10K", "BFG9000",
-//  },
-//
 //  { // Chex Quest
 //    "Super Bootspork", "Spoon",
 //    "Mini Zorcher",
